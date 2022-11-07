@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">UberMobileApp</string>
+    <string name="app_name">Uber</string>
+    <string name="navigation_map">Map</string>
+    <string name="navigation_inbox">Inbox</string>
+    <string name="navigation_account">Account</string>
 </resources>

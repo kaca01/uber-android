@@ -38,4 +38,10 @@ public class PassengerInboxActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(PassengerInboxActivity.this, PassengerMainActivity.class));
+        overridePendingTransition(0,0);
+    }
 }

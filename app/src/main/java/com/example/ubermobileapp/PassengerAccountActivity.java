@@ -18,7 +18,7 @@ public class PassengerAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_passenger_account);
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
-        navigation.setSelectedItemId(R.id.page_map);
+        navigation.setSelectedItemId(R.id.page_account);
         navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

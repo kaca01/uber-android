@@ -15,7 +15,7 @@ public class SplashActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-        int SPLASH_TIME_OUT = 3000;
+        int SPLASH_TIME_OUT = 5000;
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {

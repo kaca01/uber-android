@@ -17,11 +17,11 @@
             android:id="@+id/head"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/kanit_thin"
+            android:fontFamily="@font/righteous"
             android:gravity="center"
             android:text="@string/splashTitle"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="40sp" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie"

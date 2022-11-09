@@ -1,4 +1,4 @@
-package com.example.ubermobileapp;
+package com.example.ubermobileapp.PassengerActivities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.ubermobileapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -25,6 +26,10 @@ public class PassengerInboxActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.page_map:
                         startActivity(new Intent(PassengerInboxActivity.this, PassengerMainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.page_history:
+                        startActivity(new Intent(PassengerInboxActivity.this, PassengerRideHistoryActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.page_inbox:

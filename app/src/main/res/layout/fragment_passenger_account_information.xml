@@ -16,11 +16,10 @@
         app:cardCornerRadius="20dp">
 
         <ImageView
-            android:id="@+id/profilePicture"
+            android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@string/profile_picture"
-            android:src="@drawable/profile_picture" />
+            android:src="@mipmap/ordering_cab_foreground" />
     </androidx.cardview.widget.CardView>
 
     <TextView

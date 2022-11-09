@@ -9,8 +9,9 @@
 
     <View
         android:id="@+id/line"
-        android:layout_width="match_parent"
+        android:layout_width="300sp"
         android:layout_height="1sp"
+        android:layout_centerHorizontal="true"
         android:background="@android:color/darker_gray"
         android:layout_marginTop="15sp"/>
 
@@ -33,7 +34,7 @@
         android:layout_height="60sp"
         android:layout_below="@+id/favoriteRoutes"
         android:layout_marginStart="15sp"
-        android:layout_marginTop="10sp"
+        android:layout_marginTop="7sp"
         android:text="@string/payment_methods"
         android:textSize="17sp"
         android:layout_centerHorizontal="true"
@@ -44,7 +45,7 @@
         android:id="@+id/reports"
         android:layout_height="60sp"
         android:layout_width="250sp"
-        android:layout_marginTop="10sp"
+        android:layout_marginTop="7sp"
         android:text="@string/reports"
         android:textSize="17sp"
         app:chipIcon="@drawable/report"
@@ -52,6 +53,19 @@
         android:layout_marginStart="15sp"
         android:layout_centerHorizontal="true"
         app:chipIconSize="28sp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/reports">
+
+        <ImageView
+            android:id="@+id/onlineTaxi"
+            android:layout_width="match_parent"
+            android:layout_height="330sp"
+            android:layout_marginTop="-75sp"
+            android:src="@mipmap/online_taxi_foreground" />
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

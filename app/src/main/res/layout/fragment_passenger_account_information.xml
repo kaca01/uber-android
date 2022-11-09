@@ -5,7 +5,7 @@
     android:id="@+id/accountInfos"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".PassengerAccountFragment">
+    tools:context=".PassengerAccountInformationFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"

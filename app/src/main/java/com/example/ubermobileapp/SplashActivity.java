@@ -1,7 +1,6 @@
 package com.example.ubermobileapp;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.ubermobileapp.DriverActivities.DriverMainActivity;
+import com.example.ubermobileapp.PassengerActivities.PassengerMainActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;

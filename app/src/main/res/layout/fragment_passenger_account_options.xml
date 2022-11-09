@@ -5,7 +5,8 @@
     android:id="@+id/accountOptions"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PassengerAccountOptionsFragment">
+    tools:context=".fragments.PassengerAccountOptionsFragment"
+    android:layout_marginTop="20sp">
 
     <View
         android:id="@+id/line"
@@ -62,8 +63,8 @@
         <ImageView
             android:id="@+id/onlineTaxi"
             android:layout_width="match_parent"
-            android:layout_height="330sp"
-            android:layout_marginTop="-75sp"
+            android:layout_height="350sp"
+            android:layout_marginTop="0sp"
             android:src="@mipmap/online_taxi_foreground" />
     </androidx.cardview.widget.CardView>
 

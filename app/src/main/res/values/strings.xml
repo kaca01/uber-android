@@ -11,4 +11,5 @@
     <string name="payment_methods">Payment Methods</string>
     <string name="reports">Reports</string>
     <string name="profile_picture">Profile picture</string>
+    <string name="history_of_routes">History of routes</string>
 </resources>

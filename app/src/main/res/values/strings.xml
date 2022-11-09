@@ -7,4 +7,8 @@
     <string name="phoneNumber">+38766824994</string>
     <string name="email">kvucic6@gmail.com</string>
     <string name="address">Neka adresa 55 Novi Sad</string>
+    <string name="favorite_routes">Favorite Routes</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="reports">Reports</string>
+    <string name="profile_picture">Profile picture</string>
 </resources>

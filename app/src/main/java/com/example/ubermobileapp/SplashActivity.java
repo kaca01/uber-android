@@ -31,13 +31,8 @@ public class SplashActivity extends Activity {
         lottieAnimationView = findViewById(R.id.lottie);
         textView = findViewById(R.id.head);
 
-        // displaying
-//        topAnim = AnimationUtils.loadAnimation(this, R.anim.from_top);
-//        textView.setAnimation(topAnim);
-
         // disappearing
         lottieAnimationView.animate().translationX(2500).setDuration(3000).setStartDelay(3500);
-//        textView.animate().alpha((float) 0.0).setStartDelay(3500);
 
         int SPLASH_TIME_OUT = 5000;
         new Timer().schedule(new TimerTask() {

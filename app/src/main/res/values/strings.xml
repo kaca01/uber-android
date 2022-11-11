@@ -4,4 +4,19 @@
     <string name="navigation_inbox">Inbox</string>
     <string name="navigation_account">Account</string>
     <string name="navigation_history">History</string>
+    <string name="name">Imenko Prezimic</string>
+    <string name="phoneNumber">+38766824994</string>
+    <string name="email">kvucic6@gmail.com</string>
+    <string name="address">Neka adresa 55 Novi Sad</string>
+    <string name="favorite_routes">Favorite Routes</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="reports">Reports</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="history_of_routes">History of routes</string>
+    <string name="visa_card">Visa Card</string>
+    <string name="card_number">566-788-965789</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="confirm">Confirm</string>
+    <string name="currentAmount">Current amount</string>
+    <string name="amount">456786</string>
 </resources>

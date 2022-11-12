@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/accountOptions"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.PassengerAccountOptionsFragment"
+    android:layout_marginTop="20sp">
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="300sp"
+        android:layout_height="1sp"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="15sp"/>
+
+    <Button
+        android:id="@+id/favoriteRoutesBtn"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="@string/favorite_routes"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80sp"/>
+
+    <Button
+        android:id="@+id/creditCardBtn"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="@string/credit_card"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150sp"/>
+
+    <Button
+        android:id="@+id/reportsBtn"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="@string/reports"
+        android:layout_marginTop="220sp"
+        android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>

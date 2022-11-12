@@ -1,66 +1,71 @@
 package com.example.ubermobileapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.ListFragment;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.adapters.DriveAdapter;
+import com.example.ubermobileapp.model.Drive;
+import com.example.ubermobileapp.tools.Mockup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link InboxFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class InboxFragment extends Fragment {
+public class InboxFragment extends ListFragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public InboxFragment() {}
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public InboxFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment InboxFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static InboxFragment newInstance(String param1, String param2) {
-        InboxFragment fragment = new InboxFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static InboxFragment newInstance() {
+        return new InboxFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        DriveAdapter adapter = new DriveAdapter(getActivity());
+        setListAdapter(adapter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_inbox, container, false);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        Drive drive = Mockup.getDrives().get(position);
+
+        /*Intent intent = new Intent(getActivity(), ChatActivity.class);
+        intent.putExtra("name", drive.getName());
+        intent.putExtra("descr", drive.getDescription());
+        startActivity(intent);*/
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if(id == R.id.search){
+            Toast.makeText(getActivity(), "Serach", Toast.LENGTH_SHORT).show();
+        }
+        if(id == R.id.filter){
+            Toast.makeText(getActivity(), "Filter", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

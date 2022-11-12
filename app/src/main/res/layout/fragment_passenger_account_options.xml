@@ -28,7 +28,7 @@
         android:id="@+id/creditCardBtn"
         android:layout_width="200sp"
         android:layout_height="wrap_content"
-        android:text="@string/payment_methods"
+        android:text="@string/credit_card"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150sp"/>
 

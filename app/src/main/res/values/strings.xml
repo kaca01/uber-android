@@ -8,14 +8,14 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="login">LOGIN</string>
     <string name="login_image">Login image</string>
-    <string name="email">Email</string>
+    <string name="input_email">Email</string>
     <string name="password">Password</string>
     <string name="back_arrow">Back arrow</string>
     <string name="registration_image">Registration image</string>
     <string name="sign_up">Sign up</string>
-    <string name="name">Name</string>
+    <string name="input_name">Name</string>
     <string name="surname">Surname</string>
-    <string name="address">Address</string>
+    <string name="input_address">Address</string>
     <string name="phone">Phone</string>
     <string name="joined_us_before">Joined us before?</string>
     <string name="repeat_password">Repeat password</string>

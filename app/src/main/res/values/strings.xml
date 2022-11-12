@@ -36,4 +36,8 @@
     <string name="confirm">Confirm</string>
     <string name="currentAmount">Current amount</string>
     <string name="amount">456786</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="support">SUPPORT</string>
+    <string name="panic">PANIC</string>
 </resources>

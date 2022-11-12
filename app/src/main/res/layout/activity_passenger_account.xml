@@ -7,28 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".PassengerActivities.PassengerAccountActivity">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentAccountInfos"
-        android:name="com.example.ubermobileapp.fragments.PassengerAccountInformationFragment"
+    <LinearLayout
+        android:layout_marginTop="40sp"
+        android:layout_marginBottom="40sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        tools:layout="@layout/fragment_passenger_account_information" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentAccountOptions"
-        android:name="com.example.ubermobileapp.fragments.PassengerAccountOptionsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="20sp"
+        android:orientation="vertical"
         android:layout_weight="1"
-        tools:layout="@layout/fragment_passenger_account_options" />
+        android:background="@drawable/shape_passenger_account"
+        android:layout_gravity="center_horizontal">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentAccountInfos"
+            android:name="com.example.ubermobileapp.fragments.PassengerAccountInformationFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            tools:layout="@layout/fragment_passenger_account_information" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentAccountOptions"
+            android:name="com.example.ubermobileapp.fragments.PassengerAccountOptionsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20sp"
+            android:layout_weight="1"
+            tools:layout="@layout/fragment_passenger_account_options" />
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:menu="@menu/bottom_navigation_menu"/>
+        app:menu="@menu/bottom_navigation_menu" />
 
 </LinearLayout>

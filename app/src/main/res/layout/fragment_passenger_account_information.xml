@@ -41,8 +41,9 @@
                 android:id="@+id/buttonEdit"
                 android:layout_width="20sp"
                 android:layout_height="20sp"
-                android:layout_marginStart="150sp"
-                android:background="@mipmap/edit_foreground" />
+                android:layout_marginStart="120sp"
+                android:background="@mipmap/edit_foreground"
+                android:layout_marginEnd="20sp"/>
 
             <TextView
                 android:id="@+id/name"

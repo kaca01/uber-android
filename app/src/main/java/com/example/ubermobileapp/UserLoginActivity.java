@@ -41,7 +41,7 @@ public class UserLoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    public void onBackPressed() {
+        finishAffinity();
     }
 }

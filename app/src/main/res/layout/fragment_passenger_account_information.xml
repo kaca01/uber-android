@@ -42,7 +42,7 @@
                 android:layout_width="20sp"
                 android:layout_height="20sp"
                 android:layout_marginStart="150sp"
-                android:background="@android:drawable/ic_menu_edit" />
+                android:background="@mipmap/edit_foreground" />
 
             <TextView
                 android:id="@+id/name"

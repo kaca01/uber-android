@@ -35,6 +35,13 @@
     <string name="confirm">Confirm</string>
     <string name="currentAmount">Current amount</string>
     <string name="amount">456786</string>
+    <string name="ride_history_title">Ride History</string>
+    <string name="title_activity_about_ride">AboutRideActivity</string>
+    <string name="excellent">Excellent</string>
+    <string name="very_good">Very good</string>
+    <string name="good">Good</string>
+    <string name="disappointing">Disappointing</string>
+    <string name="very_disappointing">Very disappointing</string>
     <string name="search">Search</string>
     <string name="filter">Filter</string>
     <string name="support">SUPPORT</string>

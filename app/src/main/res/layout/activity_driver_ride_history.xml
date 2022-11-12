@@ -6,15 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".DriverActivities.DriverRideHistoryActivity">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DRIVER RIDE HISTORY ACTIVITY!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10sp"
+            tools:ignore="MissingConstraints">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentRideHistoryTitle"
+                android:name="com.example.ubermobileapp.fragments.rideHistory.RideHistoryTitleFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:layout="@layout/fragment_ride_history_title" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/AllRides1"
+                android:name="com.example.ubermobileapp.fragments.rideHistory.AllRidesFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:layout="@layout/fragment_all_rides" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/AllRides2"
+                android:name="com.example.ubermobileapp.fragments.rideHistory.AllRidesFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:layout="@layout/fragment_all_rides" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/AllRides3"
+                android:name="com.example.ubermobileapp.fragments.rideHistory.AllRidesFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:layout="@layout/fragment_all_rides" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -23,7 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/scroll"
         app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

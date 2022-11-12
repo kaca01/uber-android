@@ -97,4 +97,10 @@ public class PassengerAccountInformationFragment extends Fragment {
         alertDialog = dialog.create();
         alertDialog.show();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        alertDialog.dismiss();
+    }
 }

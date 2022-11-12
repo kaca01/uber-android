@@ -62,6 +62,6 @@
         android:text="@string/confirm"
         android:layout_marginTop="150sp"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/green" />
+        android:backgroundTint="@color/greenDefault" />
 
 </FrameLayout>

@@ -1,5 +1,6 @@
 package com.example.ubermobileapp.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -44,8 +45,41 @@ public class PassengerAccountOptionsFragment extends Fragment {
             }
         });
 
+        Button reports = view.findViewById(R.id.reportsBtn);
+        reports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createReportsDialog();
+            }
+        });
+
         return view;
     }
+
+
+    protected void createReportsDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_start_date, null);
+
+        dialog.setView(newView)
+                .setTitle("Reports")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog = dialog.create();
+        alertDialog.show();
+    }
+
 
     protected void createCreditCardDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());

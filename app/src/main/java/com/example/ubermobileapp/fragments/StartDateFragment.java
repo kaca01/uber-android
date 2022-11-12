@@ -1,4 +1,4 @@
-package com.example.ubermobileapp;
+package com.example.ubermobileapp.fragments;
 
 import android.os.Bundle;
 
@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ubermobileapp.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AccountInfromationTitleFragment#newInstance} factory method to
+ * Use the {@link StartDateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccountInfromationTitleFragment extends Fragment {
+public class StartDateFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +26,7 @@ public class AccountInfromationTitleFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AccountInfromationTitleFragment() {
+    public StartDateFragment() {
         // Required empty public constructor
     }
 
@@ -34,11 +36,11 @@ public class AccountInfromationTitleFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AccountInfromationTitleFragment.
+     * @return A new instance of fragment ReportsDialogFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AccountInfromationTitleFragment newInstance(String param1, String param2) {
-        AccountInfromationTitleFragment fragment = new AccountInfromationTitleFragment();
+    public static StartDateFragment newInstance(String param1, String param2) {
+        StartDateFragment fragment = new StartDateFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +61,6 @@ public class AccountInfromationTitleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account_infromation_title, container, false);
+        return inflater.inflate(R.layout.fragment_start_date, container, false);
     }
 }

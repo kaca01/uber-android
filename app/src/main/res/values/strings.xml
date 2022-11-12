@@ -44,5 +44,7 @@
     <string name="prezimic">Prezimic</string>
     <string name="lozinka">lozinka</string>
     <string name="change_profile_picture">Change profile picture</string>
-    <string name="account_information">Account Info</string>>
+    <string name="account_information">Account Info</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>>
 </resources>

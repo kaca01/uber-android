@@ -50,7 +50,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
 
                 dialog.setView(newView)
                         .setTitle("Credit Card")
-                        .setCancelable(false)
+                        .setCancelable(true)
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();

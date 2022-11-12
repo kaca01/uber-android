@@ -16,61 +16,29 @@
         android:background="@android:color/darker_gray"
         android:layout_marginTop="15sp"/>
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/favoriteRoutes"
-        android:layout_width="250sp"
-        android:layout_height="60sp"
-        android:layout_below="@+id/line"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="15sp"
-        android:layout_marginTop="20sp"
+    <Button
+        android:id="@+id/favoriteRoutesBtn"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
         android:text="@string/favorite_routes"
-        android:textSize="17sp"
-        app:chipBackgroundColor="@color/white"
-        app:chipIcon="@mipmap/star_foreground"
-        app:chipIconSize="33sp" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/paymentMethods"
-        android:layout_width="250sp"
-        android:layout_height="60sp"
-        android:layout_below="@+id/favoriteRoutes"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="15sp"
-        android:layout_marginTop="7sp"
-        android:text="@string/payment_methods"
-        android:textSize="17sp"
-        app:chipBackgroundColor="@color/white"
-        app:chipIcon="@mipmap/credit_card_foreground"
-        app:chipIconSize="33sp" />
+        android:layout_marginTop="80sp"/>
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/reports"
-        android:layout_width="250sp"
-        android:layout_height="60sp"
-        android:layout_below="@id/paymentMethods"
+    <Button
+        android:id="@+id/creditCardBtn"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="@string/credit_card"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="15sp"
-        android:layout_marginTop="7sp"
+        android:layout_marginTop="150sp"/>
+
+    <Button
+        android:id="@+id/reportsBtn"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
         android:text="@string/reports"
-        android:textSize="17sp"
-        app:chipBackgroundColor="@color/white"
-        app:chipIcon="@mipmap/report_foreground"
-        app:chipIconSize="33sp" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/history"
-        android:layout_width="250sp"
-        android:layout_height="60sp"
-        android:layout_below="@id/reports"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="15sp"
-        android:layout_marginTop="7sp"
-        android:text="@string/history_of_routes"
-        android:textSize="17sp"
-        app:chipBackgroundColor="@color/white"
-        app:chipIcon="@mipmap/history_foreground"
-        app:chipIconSize="33sp" />
+        android:layout_marginTop="220sp"
+        android:layout_centerHorizontal="true"/>
 
 
 </RelativeLayout>

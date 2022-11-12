@@ -26,7 +26,6 @@
     <string name="email">kvucic6@gmail.com</string>
     <string name="address">Neka adresa 55 Novi Sad</string>
     <string name="favorite_routes">Favorite Routes</string>
-    <string name="payment_methods">Payment Methods</string>
     <string name="reports">Reports</string>
     <string name="profile_picture">Profile picture</string>
     <string name="history_of_routes">History of routes</string>
@@ -36,7 +35,6 @@
     <string name="confirm">Confirm</string>
     <string name="currentAmount">Current amount</string>
     <string name="amount">456786</string>
-
     <string name="ride_history_title">Ride History</string>
     <string name="title_activity_about_ride">AboutRideActivity</string>
     <string name="excellent">Excellent</string>
@@ -44,4 +42,9 @@
     <string name="good">Good</string>
     <string name="disappointing">Disappointing</string>
     <string name="very_disappointing">Very disappointing</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="support">SUPPORT</string>
+    <string name="panic">PANIC</string>
+    <string name="credit_card">Credit Card</string>
 </resources>

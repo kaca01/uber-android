@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/cardType"
         android:layout_marginTop="20sp"
-        android:layout_marginStart="40sp"
+        android:layout_marginStart="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/visa_card" />
@@ -20,13 +20,14 @@
         android:layout_height="wrap_content"
         android:text="@string/card_number"
         android:layout_marginTop="20sp"
-        android:layout_marginStart="180sp"/>
+        android:layout_marginStart="180sp"
+        android:layout_marginEnd="20sp"/>
 
     <TextView
         android:id="@+id/currentAmountText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40sp"
+        android:layout_marginStart="20sp"
         android:layout_marginTop="60sp"
         android:text="@string/currentAmount" />
 
@@ -36,13 +37,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="180sp"
         android:layout_marginTop="60sp"
-        android:text="@string/amount" />
+        android:text="@string/amount"
+        android:layout_marginEnd="20sp"/>
 
     <TextView
         android:id="@+id/enterAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40sp"
+        android:layout_marginStart="20sp"
         android:layout_marginTop="100sp"
         android:text="@string/enter_amount" />
 
@@ -50,18 +52,12 @@
         android:id="@+id/amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
         android:layout_marginStart="180sp"
-        android:layout_marginTop="80sp"/>
-
-    <Button
-        android:id="@+id/buttonConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/confirm"
-        android:layout_marginTop="150sp"
-        android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/green" />
+        android:layout_marginTop="80sp"
+        android:ems="10"
+        android:hint="@string/enter_amount"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:layout_marginEnd="20sp"/>
 
 </FrameLayout>

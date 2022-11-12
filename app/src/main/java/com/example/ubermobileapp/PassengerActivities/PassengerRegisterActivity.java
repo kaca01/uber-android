@@ -20,15 +20,6 @@ public class PassengerRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_register);
 
-        ImageView backArrow = findViewById(R.id.arrow);
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(PassengerRegisterActivity.this, UserLoginActivity.class);
-                startActivity(i);
-            }
-        });
-
         TextView login = findViewById(R.id.returnLogin);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +28,6 @@ public class PassengerRegisterActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
 
         Button registerButton = findViewById(R.id.registerBtn);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -50,12 +40,8 @@ public class PassengerRegisterActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        startActivity(new Intent(PassengerRegisterActivity.this, UserLoginActivity.class));
+        overridePendingTransition(0,0);
     }
 }

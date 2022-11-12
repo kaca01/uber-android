@@ -2,6 +2,7 @@ package com.example.ubermobileapp.fragments;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -16,6 +17,9 @@ import com.example.ubermobileapp.R;
 
 public class PassengerAccountOptionsFragment extends Fragment {
     AlertDialog alertDialog;
+    AlertDialog startDateDialog;
+    AlertDialog endDateDialog;
+    AlertDialog reportDialog;
 
     public PassengerAccountOptionsFragment() {
         // Required empty public constructor
@@ -68,7 +72,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
                 .setCancelable(false)
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
+                        createEndDateDialog();
                     }
                 })
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -76,8 +80,8 @@ public class PassengerAccountOptionsFragment extends Fragment {
                         dialog.cancel();
                     }
                 });
-        alertDialog = dialog.create();
-        alertDialog.show();
+        startDateDialog = dialog.create();
+        startDateDialog.show();
     }
 
 
@@ -92,6 +96,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
                 .setCancelable(true)
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        createEndDateDialog();
                         dialog.cancel();
                     }
                 })
@@ -102,5 +107,29 @@ public class PassengerAccountOptionsFragment extends Fragment {
                 });
         alertDialog = dialog.create();
         alertDialog.show();
+    }
+
+    protected void createEndDateDialog() {
+        startDateDialog.cancel();
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_end_date, null);
+
+        dialog.setView(newView)
+                .setTitle("Reports")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        endDateDialog = dialog.create();
+        endDateDialog.show();
     }
 }

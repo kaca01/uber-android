@@ -4,35 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="25sp"
+    android:padding="16sp"
     tools:context=".PassengerActivities.PassengerRegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_margin="5sp"
         tools:ignore="MissingConstraints" >
 
-        <LinearLayout
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/white">
-
-            <ImageView
-                android:id="@+id/arrow"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:layout_gravity="start"
-                android:contentDescription="@string/back_arrow"
-                app:srcCompat="@drawable/ic_arrow" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="180sp"
-                app:srcCompat="@drawable/register"
-                android:contentDescription="@string/registration_image" />
-        </LinearLayout>
+            android:layout_height="180sp"
+            app:srcCompat="@drawable/register"
+            android:contentDescription="@string/registration_image" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -119,7 +105,8 @@
             android:layout_width="220dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="15sp"
+            android:layout_marginTop="40sp"
+            android:layout_marginBottom="10sp"
             android:backgroundTint="?attr/colorPrimary"
             android:text="@string/sign_up"
             android:textStyle="bold" />
@@ -127,7 +114,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30sp"
             android:orientation="horizontal"
             android:gravity="center">
 

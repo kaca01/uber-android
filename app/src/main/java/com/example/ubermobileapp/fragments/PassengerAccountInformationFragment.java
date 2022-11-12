@@ -1,13 +1,17 @@
 package com.example.ubermobileapp.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.ubermobileapp.R;
 
@@ -17,6 +21,7 @@ import com.example.ubermobileapp.R;
  * create an instance of this fragment.
  */
 public class PassengerAccountInformationFragment extends Fragment {
+    AlertDialog alertDialog;
 
     public PassengerAccountInformationFragment() {
         // Required empty public constructor
@@ -42,8 +47,18 @@ public class PassengerAccountInformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_passenger_account_information, container,
+        View view =  inflater.inflate(R.layout.fragment_passenger_account_information, container,
                 false);
+
+        ImageButton edit = (ImageButton) view.findViewById(R.id.buttonEdit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createEditDialog();
+            }
+        });
+
+        return view;
     }
 
     @Override
@@ -58,5 +73,28 @@ public class PassengerAccountInformationFragment extends Fragment {
                 startActivity(intent);
             }
         });*/
+    }
+
+    protected void createEditDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_edit_account_information, null);
+
+        dialog.setView(newView)
+                .setTitle("Edit account information")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog = dialog.create();
+        alertDialog.show();
     }
 }

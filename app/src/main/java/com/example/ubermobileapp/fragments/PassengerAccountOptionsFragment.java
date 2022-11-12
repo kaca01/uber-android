@@ -40,29 +40,33 @@ public class PassengerAccountOptionsFragment extends Fragment {
         creditCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
-
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                View newView = inflater.inflate(R.layout.fragment_credit_card, null);
-
-                dialog.setView(newView)
-                        .setTitle("Credit Card")
-                        .setCancelable(true)
-                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        })
-                        .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                alertDialog = dialog.create();
-                alertDialog.show();
+               createCreditCardDialog();
             }
         });
 
         return view;
+    }
+
+    protected void createCreditCardDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_credit_card, null);
+
+        dialog.setView(newView)
+                .setTitle("Credit Card")
+                .setCancelable(true)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog = dialog.create();
+        alertDialog.show();
     }
 }

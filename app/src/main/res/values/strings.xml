@@ -23,4 +23,6 @@
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="search">Search</string>
     <string name="filter">Filter</string>
+    <string name="support">SUPPORT</string>
+    <string name="panic">PANIC</string>
 </resources>

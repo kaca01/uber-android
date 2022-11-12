@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/creditCard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.CreditCardFragment">
+
+    <TextView
+        android:id="@+id/cardType"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="40sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/visa_card" />
+
+    <TextView
+        android:id="@+id/cardNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/card_number"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="180sp"/>
+
+    <TextView
+        android:id="@+id/currentAmountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40sp"
+        android:layout_marginTop="60sp"
+        android:text="@string/currentAmount" />
+
+    <TextView
+        android:id="@+id/currentAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180sp"
+        android:layout_marginTop="60sp"
+        android:text="@string/amount" />
+
+    <TextView
+        android:id="@+id/enterAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40sp"
+        android:layout_marginTop="100sp"
+        android:text="@string/enter_amount" />
+
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_marginStart="180sp"
+        android:layout_marginTop="80sp"/>
+
+    <Button
+        android:id="@+id/buttonConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm"
+        android:layout_marginTop="150sp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/green" />
+
+</FrameLayout>

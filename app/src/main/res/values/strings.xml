@@ -47,4 +47,5 @@
     <string name="account_information">Account Info</string>
     <string name="choose_start_date">Choose start date</string>
     <string name="choose_end_date">Choose end date</string>
+    <string name="choose_report_type">Choose type of report</string>
 </resources>

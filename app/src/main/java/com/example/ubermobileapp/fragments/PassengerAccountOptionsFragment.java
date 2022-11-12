@@ -19,6 +19,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
     AlertDialog alertDialog;
     AlertDialog startDateDialog;
     AlertDialog endDateDialog;
+    AlertDialog reportTypeDialog;
     AlertDialog reportDialog;
 
     public PassengerAccountOptionsFragment() {
@@ -61,6 +62,29 @@ public class PassengerAccountOptionsFragment extends Fragment {
     }
 
 
+    protected void createCreditCardDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_credit_card, null);
+
+        dialog.setView(newView)
+                .setTitle("Credit Card")
+                .setCancelable(true)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        createEndDateDialog();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog = dialog.create();
+        alertDialog.show();
+    }
+
     protected void createReportsDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
 
@@ -85,19 +109,19 @@ public class PassengerAccountOptionsFragment extends Fragment {
     }
 
 
-    protected void createCreditCardDialog() {
+    protected void createEndDateDialog() {
+        startDateDialog.cancel();
         AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_credit_card, null);
+        View newView = inflater.inflate(R.layout.fragment_end_date, null);
 
         dialog.setView(newView)
-                .setTitle("Credit Card")
-                .setCancelable(true)
+                .setTitle("Reports")
+                .setCancelable(false)
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        createEndDateDialog();
-                        dialog.cancel();
+                        createReportTypeDialog();
                     }
                 })
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -105,16 +129,16 @@ public class PassengerAccountOptionsFragment extends Fragment {
                         dialog.cancel();
                     }
                 });
-        alertDialog = dialog.create();
-        alertDialog.show();
+        endDateDialog = dialog.create();
+        endDateDialog.show();
     }
 
-    protected void createEndDateDialog() {
-        startDateDialog.cancel();
+    protected void createReportTypeDialog() {
+        endDateDialog.cancel();
         AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_end_date, null);
+        View newView = inflater.inflate(R.layout.fragment_report_type, null);
 
         dialog.setView(newView)
                 .setTitle("Reports")
@@ -129,7 +153,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
                         dialog.cancel();
                     }
                 });
-        endDateDialog = dialog.create();
-        endDateDialog.show();
+        reportTypeDialog = dialog.create();
+        reportTypeDialog.show();
     }
 }

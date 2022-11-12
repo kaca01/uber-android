@@ -13,17 +13,14 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="?attr/colorPrimary"
-            android:text="Moja Baba"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:padding="5dp"/>
         <TextView
-            android:id="@+id/messageDate"
+            android:id="@+id/message_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAlignment="viewEnd"
-            android:text="10:31"
             android:textSize="15sp"
             android:paddingTop="10sp"
             android:paddingStart="0sp"
@@ -38,23 +35,23 @@
     <TextView android:id="@+id/destination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nikole Pasica 25"
         android:textStyle="bold"
         android:textSize="18sp"
+        android:textColor="?attr/colorPrimary"
         android:paddingStart="5sp"
-        android:paddingEnd="10sp"/>
-    <TextView android:id="@+id/routeDate"
+        android:paddingEnd="5sp"/>
+    <TextView android:id="@+id/route_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" 12/12/22"
         android:textSize="12sp"/>
     </LinearLayout>
 
     <TextView android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ziva bila vidimo se kad kukuruz rodi."
         android:layout_below="@+id/secondContainer"
-        android:padding="5dp"/>
+        android:paddingStart="7sp"
+        android:paddingEnd="5sp"
+        android:padding="5sp"/>
 
 </RelativeLayout>

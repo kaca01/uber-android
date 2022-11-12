@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:textColor="?attr/colorPrimary"
             android:text="@string/panic"
             android:textStyle="bold"
             android:padding="5dp"/>

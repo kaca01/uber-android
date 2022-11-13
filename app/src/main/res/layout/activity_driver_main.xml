@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".DriverActivities.DriverMainActivity">
 
-    <TextView
-        android:id="@+id/textView3"
+    <ToggleButton
+        android:id="@+id/toggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DRIVER MAIN ACTIVITY!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="ActiveButton"
+        android:textOff="@string/inactive"
+        android:textOn="@string/active"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="50dp"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

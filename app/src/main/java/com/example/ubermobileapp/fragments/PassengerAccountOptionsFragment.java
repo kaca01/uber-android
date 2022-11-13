@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.ubermobileapp.R;
 
@@ -42,7 +44,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_passenger_account_options, container,
                 false);
 
-        Button creditCard = view.findViewById(R.id.creditCardBtn);
+        CardView creditCard = view.findViewById(R.id.secondCard);
         creditCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +52,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
             }
         });
 
-        Button reports = view.findViewById(R.id.reportsBtn);
+        CardView reports = view.findViewById(R.id.thirdCard);
         reports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

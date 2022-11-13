@@ -43,7 +43,8 @@
                 android:layout_height="20sp"
                 android:layout_marginStart="120sp"
                 android:layout_marginEnd="20sp"
-                android:background="@mipmap/edit_foreground" />
+                android:background="@mipmap/edit_foreground"
+                android:foreground="?attr/selectableItemBackground"/>
 
             <TextView
                 android:id="@+id/name"

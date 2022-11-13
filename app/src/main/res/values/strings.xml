@@ -71,4 +71,6 @@
     <string name="two_fav_rout">2 favorite routes</string>
     <string name="three_types_of_reports">Choose date range</string>
     <string name="open_log_in_page">Open log in page</string>
+    <string name="order_ride">Order a ride</string>
+    <string name="remove_from_favorites">Remove from favorites</string>
 </resources>

@@ -13,6 +13,13 @@
         android:theme="@style/Theme.UberMobileApp"
         tools:targetApi="31">
         <activity
+            android:name=".PassengerActivities.PassengerFavoriteRoutesActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ResetPasswordActivity"
             android:exported="false">
             <meta-data

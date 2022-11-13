@@ -1,6 +1,5 @@
 package com.example.ubermobileapp.fragments;
 
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
-import com.example.ubermobileapp.PassengerActivities.PassengerAccountActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.UserLoginActivity;
 
@@ -58,7 +54,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
         reports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createReportsDialog();
+                createStartDateDialog();
             }
         });
 
@@ -97,7 +93,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
         alertDialog.show();
     }
 
-    protected void createReportsDialog() {
+    protected void createStartDateDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -151,6 +147,31 @@ public class PassengerAccountOptionsFragment extends Fragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View newView = inflater.inflate(R.layout.fragment_report_type, null);
+
+        dialog.setView(newView)
+                .setTitle("Reports")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        createReportDialog();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        reportTypeDialog = dialog.create();
+        reportTypeDialog.show();
+    }
+
+    protected void createReportDialog() {
+        
+        endDateDialog.cancel();
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_passenger_report, null);
 
         dialog.setView(newView)
                 .setTitle("Reports")

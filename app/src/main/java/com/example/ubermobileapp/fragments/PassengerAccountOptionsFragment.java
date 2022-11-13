@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.ubermobileapp.PassengerActivities.PassengerAccountActivity;
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.UserLoginActivity;
 
 public class PassengerAccountOptionsFragment extends Fragment {
     AlertDialog alertDialog;
@@ -57,6 +59,14 @@ public class PassengerAccountOptionsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 createReportsDialog();
+            }
+        });
+
+        CardView logOut = view.findViewById(R.id.fourthCard);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), UserLoginActivity.class));
             }
         });
 

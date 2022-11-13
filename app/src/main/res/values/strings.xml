@@ -55,4 +55,13 @@
     <string name="choose_start_date">Choose start date</string>
     <string name="choose_end_date">Choose end date</string>
     <string name="choose_report_type">Choose type of report</string>
+    <string name="text_reset_password">Don\'t worry! It happens. Please enter the address associated with your account.</string>
+    <string name="submit">SUBMIT</string>
+    <string name="remember_password">Remember password?</string>
+    <string name="save">SAVE</string>
+    <string name="reset_password">Reset password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="inactive">Inactive</string>
+    <string name="active">Active</string>
 </resources>

@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/accountOptions"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".fragments.PassengerAccountOptionsFragment"
     android:layout_marginTop="20sp"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true">
+
 
     <View
         android:id="@+id/line"
@@ -18,185 +19,198 @@
         android:background="@android:color/darker_gray"
         android:layout_marginTop="15sp"/>
 
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/firstCardView"
-        android:layout_marginTop="50sp">
+        android:layout_centerHorizontal="true">
 
-        <LinearLayout
-            android:id="@+id/firstBtn"
-            android:layout_width="120sp"
-            android:layout_height="120sp"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/secondCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30sp"
+            android:layout_marginTop="50sp"
+            android:layout_toRightOf="@+id/firstCardView">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-20sp"
-                android:layout_weight="1"
-                android:src="@mipmap/star_foreground" />
+            <LinearLayout
+                android:id="@+id/secondBtn"
+                android:layout_width="120sp"
+                android:layout_height="120sp"
+                android:foreground="?attr/selectableItemBackground"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/favoriteRoutesBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-30sp"
-                android:text="@string/favorite_routes"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/creditCardPic"
+                    android:layout_width="40sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-20sp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/credit_card_foreground" />
 
-            <TextView
-                android:id="@+id/numFavRoutes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="0sp"
-                android:text="@string/two_fav_rout"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/creditCardBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-30sp"
+                    android:text="@string/credit_card"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/firstCardView"
-        android:layout_marginStart="30sp"
-        android:layout_marginTop="50sp"
-        android:id="@+id/secondCard">
+                <TextView
+                    android:id="@+id/currentAmountTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="0sp"
+                    android:text="@string/visa_card"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:id="@+id/secondBtn"
-            android:layout_width="120sp"
-            android:layout_height="120sp"
-            android:foreground="?attr/selectableItemBackground"
-            android:orientation="vertical"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/firstCardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50sp"
             >
 
-            <ImageView
-                android:id="@+id/creditCardPic"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-20sp"
-                android:layout_weight="1"
-                android:src="@mipmap/credit_card_foreground" />
+            <LinearLayout
+                android:id="@+id/firstBtn"
+                android:layout_width="120sp"
+                android:layout_height="120sp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/creditCardBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-30sp"
-                android:text="@string/credit_card"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="40sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-20sp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/star_foreground" />
 
-            <TextView
-                android:id="@+id/currentAmountTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="0sp"
-                android:text="@string/visa_card"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/favoriteRoutesBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-30sp"
+                    android:text="@string/favorite_routes"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-    <androidx.cardview.widget.CardView
+                <TextView
+                    android:id="@+id/numFavRoutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="0sp"
+                    android:text="@string/two_fav_rout"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200sp"
-        android:id="@+id/thirdCard">
+        android:layout_centerHorizontal="true">
 
-        <LinearLayout
-            android:id="@+id/thirdBtn"
-            android:layout_width="120sp"
-            android:layout_height="120sp"
-            android:foreground="?attr/selectableItemBackground"
-            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/thirdCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200sp">
 
-            <ImageView
-                android:id="@+id/reportsPic"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-20sp"
-                android:layout_weight="1"
-                android:src="@mipmap/report_foreground" />
-
-            <TextView
-                android:id="@+id/reportsBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-30sp"
-                android:text="@string/reports"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/chooseReport"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="0sp"
+            <LinearLayout
+                android:id="@+id/thirdBtn"
+                android:layout_width="120sp"
+                android:layout_height="120sp"
                 android:foreground="?attr/selectableItemBackground"
-                android:text="@string/three_types_of_reports"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200sp"
-        android:layout_toRightOf="@+id/thirdCard"
-        android:layout_marginStart="30sp"
-        android:id="@+id/fourthCard">
+                <ImageView
+                    android:id="@+id/reportsPic"
+                    android:layout_width="40sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-20sp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/report_foreground" />
 
-        <LinearLayout
-            android:id="@+id/fourthBtn"
-            android:layout_width="120sp"
-            android:layout_height="120sp"
-            android:foreground="?attr/selectableItemBackground"
-            android:orientation="vertical">
+                <TextView
+                    android:id="@+id/reportsBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-30sp"
+                    android:text="@string/reports"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/exitPic"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-20sp"
-                android:layout_weight="1"
-                android:src="@mipmap/exit_foreground" />
+                <TextView
+                    android:id="@+id/chooseReport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="0sp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:text="@string/three_types_of_reports"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/exitBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-30sp"
-                android:text="@string/log_out"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fourthCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30sp"
+            android:layout_marginTop="200sp"
+            android:layout_toRightOf="@+id/thirdCard">
 
-            <TextView
-                android:id="@+id/openLoginPage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="0sp"
+            <LinearLayout
+                android:id="@+id/fourthBtn"
+                android:layout_width="120sp"
+                android:layout_height="120sp"
                 android:foreground="?attr/selectableItemBackground"
-                android:text="@string/open_log_in_page"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/exitPic"
+                    android:layout_width="40sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-20sp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/exit_foreground" />
+
+                <TextView
+                    android:id="@+id/exitBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-30sp"
+                    android:text="@string/log_out"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/openLoginPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="0sp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:text="@string/open_log_in_page"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
 
 </RelativeLayout>

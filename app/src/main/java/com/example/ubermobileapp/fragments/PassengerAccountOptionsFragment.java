@@ -1,6 +1,8 @@
 package com.example.ubermobileapp.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,6 +17,10 @@ import com.example.ubermobileapp.R;
 
 public class PassengerAccountOptionsFragment extends Fragment {
     AlertDialog alertDialog;
+    AlertDialog startDateDialog;
+    AlertDialog endDateDialog;
+    AlertDialog reportTypeDialog;
+    AlertDialog reportDialog;
 
     public PassengerAccountOptionsFragment() {
         // Required empty public constructor
@@ -40,29 +46,114 @@ public class PassengerAccountOptionsFragment extends Fragment {
         creditCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+               createCreditCardDialog();
+            }
+        });
 
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                View newView = inflater.inflate(R.layout.fragment_credit_card, null);
-
-                dialog.setView(newView)
-                        .setTitle("Credit Card")
-                        .setCancelable(true)
-                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        })
-                        .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                alertDialog = dialog.create();
-                alertDialog.show();
+        Button reports = view.findViewById(R.id.reportsBtn);
+        reports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createReportsDialog();
             }
         });
 
         return view;
+    }
+
+
+    protected void createCreditCardDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_credit_card, null);
+
+        dialog.setView(newView)
+                .setTitle("Credit Card")
+                .setCancelable(true)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        createEndDateDialog();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog = dialog.create();
+        alertDialog.show();
+    }
+
+    protected void createReportsDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_start_date, null);
+
+        dialog.setView(newView)
+                .setTitle("Reports")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        createEndDateDialog();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        startDateDialog = dialog.create();
+        startDateDialog.show();
+    }
+
+
+    protected void createEndDateDialog() {
+        startDateDialog.cancel();
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_end_date, null);
+
+        dialog.setView(newView)
+                .setTitle("Reports")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        createReportTypeDialog();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        endDateDialog = dialog.create();
+        endDateDialog.show();
+    }
+
+    protected void createReportTypeDialog() {
+        endDateDialog.cancel();
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_report_type, null);
+
+        dialog.setView(newView)
+                .setTitle("Reports")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        reportTypeDialog = dialog.create();
+        reportTypeDialog.show();
     }
 }

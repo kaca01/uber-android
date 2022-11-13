@@ -47,4 +47,12 @@
     <string name="support">SUPPORT</string>
     <string name="panic">PANIC</string>
     <string name="credit_card">Credit Card</string>
+    <string name="imenko">Imenko</string>
+    <string name="prezimic">Prezimic</string>
+    <string name="lozinka">lozinka</string>
+    <string name="change_profile_picture">Change profile picture</string>
+    <string name="account_information">Account Info</string>
+    <string name="choose_start_date">Choose start date</string>
+    <string name="choose_end_date">Choose end date</string>
+    <string name="choose_report_type">Choose type of report</string>
 </resources>

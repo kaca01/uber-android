@@ -1,56 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="5sp"
-    android:background="@color/transparentGreenDefault">
-
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10sp"
+    android:layout_marginEnd="13sp"
+    android:orientation="vertical"
+    android:background="@drawable/support_item_background">
     <LinearLayout
         android:id="@+id/firstContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="?attr/colorPrimary"
-            android:text="Moja Baba"
+            android:text="@string/support"
             android:textStyle="bold"
             android:padding="5dp"/>
+        <ImageView
+            android:id="@+id/pin"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
+            android:layout_marginTop="5sp"
+            android:padding="5dp"
+            app:srcCompat="@drawable/ic_pin"/>
         <TextView
-            android:id="@+id/messageDate"
+            android:id="@+id/support_message_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAlignment="viewEnd"
-            android:text="10:31"
             android:textSize="15sp"
+            android:text=""
             android:paddingTop="10sp"
             android:paddingStart="0sp"
             android:paddingEnd="10sp"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/secondContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/firstContainer">
-        <TextView android:id="@+id/destination"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/support"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:paddingStart="5sp"
-            android:paddingEnd="10sp"/>
-    </LinearLayout>
-
-    <TextView android:id="@+id/message"
+    <TextView android:id="@+id/support_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ziva bila vidimo se kad kukuruz rodi."
-        android:layout_below="@+id/secondContainer"
-        android:padding="5dp"/>
-
-</RelativeLayout>
+        android:text=""
+        android:paddingStart="7sp"
+        android:paddingEnd="5sp"
+        android:paddingBottom="8sp"/>
+</LinearLayout>

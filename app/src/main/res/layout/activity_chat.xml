@@ -28,6 +28,15 @@
                 android:layout_width="30sp"
                 android:layout_height="30sp"
                 android:src="@drawable/ic_arrow_back" />
+            <TextView
+                android:id="@+id/action_bar_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:layout_marginTop="15sp"
+                android:layout_marginEnd="22sp"
+                android:textStyle="bold"
+                android:textSize="23sp"/>
 
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -53,8 +62,10 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="#e0e0e0"
+        android:layout_marginStart="5sp"
+        android:layout_marginEnd="5sp"
         app:layout_constraintBottom_toTopOf="@+id/layout_chat_chatbox" />
 
     <RelativeLayout
@@ -66,14 +77,14 @@
 
 
         <EditText
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="30sp"
             android:id="@+id/edit_chat_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/button_chat_send"
             android:background="@android:color/transparent"
-            android:hint="Enter Message"
+            android:hint="@string/enter_message"
             android:inputType="text"
             android:maxLines="6"
             tools:ignore="Autofill" />
@@ -84,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:background="?attr/selectableItemBackground"
-            android:text="Send"
+            android:text="@string/send"
             android:textColor="?attr/colorPrimary" />
 
     </RelativeLayout>

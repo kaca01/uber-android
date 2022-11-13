@@ -19,6 +19,7 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.adapters.DriveAdapter;
 import com.example.ubermobileapp.model.Drive;
 import com.example.ubermobileapp.model.Message;
+import com.example.ubermobileapp.model.MessageType;
 import com.example.ubermobileapp.tools.Mockup;
 
 import java.util.ArrayList;
@@ -77,9 +78,13 @@ public class InboxFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
+        //TODO item position in listview is not the same as in Mockup because of the header?
         Drive drive = Mockup.getDrives().get(position);
-
+        String name;
+        if (position==0) name = MessageType.SUPPORT.toString();
+        else name = drive.getDriverName();
         Intent intent = new Intent(getActivity(), ChatActivity.class);
+        intent.putExtra("name", name);
         intent.putExtra("drive", drive);
         startActivity(intent);
     }

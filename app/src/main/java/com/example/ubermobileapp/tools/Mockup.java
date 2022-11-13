@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mockup {
-
     // all messages for one user
     public static List<Message> getMessages(){
         ArrayList<Message> messages = new ArrayList<Message>();

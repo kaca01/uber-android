@@ -2,8 +2,12 @@ package com.example.ubermobileapp.model;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.ubermobileapp.tools.Mockup;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Message implements Serializable {
     private String text;
@@ -21,7 +25,6 @@ public class Message implements Serializable {
         this.time = time;
         this.type = type;
     }
-
 
     public String getText() {
         return text;
@@ -73,5 +76,25 @@ public class Message implements Serializable {
                 ", time=" + time +
                 ", type=" + type +
                 '}';
+    }
+
+    public static Message generateSupportMessage(String text){
+        Message message = new Message();
+        message.setText(text);
+        message.setSender("korisnik1");
+        message.setReceiver("Administrator Prezime");
+        message.setTime(new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date()));
+        message.setType(MessageType.SUPPORT);
+        return message;
+    }
+
+    public static Message generateDriveMessage(String text, Drive drive) {
+        Message message = new Message();
+        message.setText(text);
+        message.setSender("korisnik1");
+        message.setReceiver(drive.getDriverName());
+        message.setTime(new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date()));
+        message.setType(MessageType.DRIVE);
+        return message;
     }
 }

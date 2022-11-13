@@ -21,7 +21,7 @@ public class Mockup {
         Message m6 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Dragoslav Simic", "korisnik1", "11:50", MessageType.DRIVE);
 
         Message m7 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "korisnik1", "Administrator Prezime", "11:45", MessageType.SUPPORT);
-        Message m8 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Administrator Prezime", "korisnik1", "11:50", MessageType.SUPPORT);
+        Message m8 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Administrator Prezime", "korisnik1", "11:50", MessageType.SUPPORT);
 
         messages.add(m1);
         messages.add(m2);
@@ -38,15 +38,15 @@ public class Mockup {
     public static List<Drive> getDrives(){
         ArrayList<Drive> drives = new ArrayList<Drive>();
 
-        Drive d1 = new Drive("10/11/22", "Nikole Pašića 25", getDriveMessages(), "Boban Bobo");
+        Drive d1 = new Drive("20/11/22", "Nikole Pašića 25", getDriveMessages(), "Boban Bobo");
         Drive d2 = new Drive("15/11/22", "Bulevar Despota Stefana 5A", getDriveMessages(), "Jelena Karleuša");
-        Drive d3 = new Drive("20/11/22", "Bulevar Oslobodjenja", getDriveMessages(), "Dragoslav Simic");
-        Drive d4 = new Drive("10/11/22", "Nikole Pašića 25", getDriveMessages(), "Boban Bobo");
-        Drive d5 = new Drive("15/11/22", "Bulevar Despota Stefana 5A", getDriveMessages(), "Jelena Karleuša");
-        Drive d6 = new Drive("20/11/22", "Bulevar Oslobodjenja", getDriveMessages(), "Dragoslav Simic");
-        Drive d7 = new Drive("10/11/22", "Nikole Pašića 25", getDriveMessages(), "Boban Bobo");
-        Drive d8 = new Drive("15/11/22", "Bulevar Despota Stefana 5A", getDriveMessages(), "Jelena Karleuša");
-        Drive d9 = new Drive("20/11/22", "Bulevar Oslobodjenja", getDriveMessages(), "Dragoslav Simic");
+        Drive d3 = new Drive("10/11/22", "Bulevar Oslobodjenja", getDriveMessages(), "Dragoslav Simic");
+        Drive d4 = new Drive("20/10/22", "Nikole Pašića 25", getDriveMessages(), "Boban Bobo");
+        Drive d5 = new Drive("15/10/22", "Bulevar Despota Stefana 5A", getDriveMessages(), "Jelena Karleuša");
+        Drive d6 = new Drive("10/10/22", "Bulevar Oslobodjenja", getDriveMessages(), "Dragoslav Simic");
+        Drive d7 = new Drive("20/09/22", "Nikole Pašića 25", getDriveMessages(), "Boban Bobo");
+        Drive d8 = new Drive("15/09/22", "Bulevar Despota Stefana 5A", getDriveMessages(), "Jelena Karleuša");
+        Drive d9 = new Drive("10/09/22", "Bulevar Oslobodjenja", getDriveMessages(), "Dragoslav Simic");
 
         drives.add(d1);
         drives.add(d2);
@@ -58,7 +58,6 @@ public class Mockup {
         drives.add(d8);
         drives.add(d9);
 
-
         return drives;
     }
 
@@ -67,6 +66,16 @@ public class Mockup {
 
         for (Message msg : getMessages()) {
             if (msg.getType().equals(MessageType.DRIVE))
+                msgs.add(msg);
+        }
+        return msgs;
+    }
+
+    public static ArrayList<Message> getSupportMessages(){
+        ArrayList<Message> msgs = new ArrayList<>();
+
+        for (Message msg : getMessages()) {
+            if (msg.getType().equals(MessageType.SUPPORT))
                 msgs.add(msg);
         }
         return msgs;

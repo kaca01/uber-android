@@ -52,6 +52,7 @@
         android:layout_below="@+id/secondContainer"
         android:paddingStart="7sp"
         android:paddingEnd="5sp"
-        android:padding="5sp"/>
+        android:paddingBottom="8sp"
+        android:paddingTop="5sp"/>
 
 </RelativeLayout>

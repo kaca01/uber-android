@@ -11,12 +11,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.adapters.DriveAdapter;
 import com.example.ubermobileapp.model.Drive;
+import com.example.ubermobileapp.model.Message;
 import com.example.ubermobileapp.tools.Mockup;
+
+import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 public class InboxFragment extends ListFragment {
 
@@ -40,6 +45,32 @@ public class InboxFragment extends ListFragment {
         setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_inbox, container, false);
     }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        View header = getLayoutInflater().inflate(R.layout.inbox_support_list, null);
+        ArrayList<Message> msgs = Mockup.getSupportMessages();
+        TextView time = header.findViewById(R.id.support_message_date);
+        TextView msg = header.findViewById(R.id.support_message);
+        if (msgs.isEmpty()){
+            time.setText("");
+            String message = "Need help? Contact us!";
+            msg.setText(message);
+            }
+        else {
+            time.setText(msgs.get(msgs.size()-1).getTime());
+            String message = msgs.get(msgs.size()-1).getText();
+            if(message.length() > 100) {
+                message = message.substring(0, 100);
+                message = message + "...";
+            };
+            msg.setText(message);
+        }
+        ListView listView = getListView();
+        listView.addHeaderView(header);
+    }
+
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {

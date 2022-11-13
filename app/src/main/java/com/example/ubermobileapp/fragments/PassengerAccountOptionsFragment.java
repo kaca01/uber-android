@@ -130,7 +130,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
                 .setCancelable(false)
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        createReportTypeDialog();
+                        startActivity(new Intent(getActivity(), PassengerReportsActivity.class));
                     }
                 })
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -142,52 +142,4 @@ public class PassengerAccountOptionsFragment extends Fragment {
         endDateDialog.show();
     }
 
-    protected void createReportTypeDialog() {
-        endDateDialog.cancel();
-        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_report_type, null);
-
-        dialog.setView(newView)
-                .setTitle("Reports")
-                .setCancelable(false)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        startActivity(new Intent(getActivity(), PassengerReportsActivity.class));
-                    }
-                })
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        reportTypeDialog = dialog.create();
-        reportTypeDialog.show();
-    }
-
-    protected void createReportDialog() {
-        
-        endDateDialog.cancel();
-        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View newView = inflater.inflate(R.layout.activity_passenger_reports, null);
-
-        dialog.setView(newView)
-                .setTitle("Reports")
-                .setCancelable(false)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                })
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        reportTypeDialog = dialog.create();
-        reportTypeDialog.show();
-    }
 }

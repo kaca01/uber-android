@@ -1,9 +1,13 @@
 package com.example.ubermobileapp.PassengerActivities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.ubermobileapp.R;
 import com.github.mikephil.charting.charts.LineChart;
@@ -11,19 +15,34 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
 public class PassengerReportsActivity extends AppCompatActivity {
     LineChart lineChart;
+    LineChart lineChart2;
+    LineChart lineChart3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.ubermobileapp.R.layout.activity_passenger_reports);
+        setNavigation();
+        setChart(findViewById(R.id.lineChart), "Number of Rides Report");
+        setChart(findViewById(R.id.lineChart2), "Crossed km Report");
+        setChart(findViewById(R.id.lineChart3), "Money Spent Report");
+    }
 
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(PassengerReportsActivity.this,
+                PassengerAccountActivity.class));
+        overridePendingTransition(0,0);
+    }
 
-        lineChart = (LineChart) findViewById(R.id.lineChart);
+    private void setChart(LineChart lc, String description) {
         ArrayList<String> xAXES = new ArrayList<>();
         ArrayList<Entry> yAXESsin = new ArrayList<Entry>();
         ArrayList<Entry> yAXEScos = new ArrayList<Entry>();
@@ -55,7 +74,40 @@ public class PassengerReportsActivity extends AppCompatActivity {
         lineDataSets.add(lineDataSet1);
         lineDataSets.add(lineDataSet2);
 
-        lineChart.setData(new LineData(xaxes, lineDataSets));
-        lineChart.setVisibleXRangeMaximum(65f);
+        lc.setData(new LineData(xaxes, lineDataSets));
+        lc.setVisibleXRangeMaximum(65f);
+        lc.setDescription(description);
+        lc.setDescriptionTypeface(Typeface.DEFAULT_BOLD);
+        lc.setDescriptionTextSize(15);
+    }
+
+    private void setNavigation() {
+        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
+        navigation.setSelectedItemId(R.id.page_account);
+        navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.page_map:
+                        startActivity(new Intent(PassengerReportsActivity.this,
+                                PassengerMainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.page_history:
+                        startActivity(new Intent(PassengerReportsActivity.this,
+                                PassengerRideHistoryActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.page_inbox:
+                        startActivity(new Intent(PassengerReportsActivity.this,
+                                PassengerInboxActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.page_account:
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 }

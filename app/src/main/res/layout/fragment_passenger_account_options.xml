@@ -32,7 +32,8 @@
             android:layout_marginTop="50sp"
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
-            android:layout_toRightOf="@+id/firstCardView">
+            android:layout_toRightOf="@+id/firstCardView"
+            app:cardCornerRadius="10sp">
 
             <LinearLayout
                 android:id="@+id/secondBtn"
@@ -77,6 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50sp"
             android:layout_marginStart="20sp"
+            app:cardCornerRadius="10sp"
             >
 
             <LinearLayout
@@ -130,6 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="180sp"
             android:layout_marginStart="20sp"
+            app:cardCornerRadius="10sp"
             >
 
             <LinearLayout
@@ -178,7 +181,8 @@
             android:layout_marginTop="180sp"
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
-            android:layout_toRightOf="@+id/thirdCard">
+            android:layout_toRightOf="@+id/thirdCard"
+            app:cardCornerRadius="10sp">
 
             <LinearLayout
                 android:id="@+id/fourthBtn"

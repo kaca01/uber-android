@@ -9,11 +9,12 @@
     android:layout_height="wrap_content"
     tools:context=".fragments.PassengerAccountInformationFragment">
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="120sp"
-        android:layout_height="120sp"
-        android:layout_marginStart="20sp"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:layout_marginStart="0sp"
         android:layout_marginTop="30sp"
         app:cardCornerRadius="25dp">
 
@@ -25,24 +26,26 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="35sp"
+            android:layout_marginTop="30sp"
             android:layout_marginStart="15sp">
 
             <ImageButton
                 android:id="@+id/buttonEdit"
                 android:layout_width="20sp"
                 android:layout_height="20sp"
-                android:layout_marginStart="150sp"
-                android:background="@mipmap/edit_foreground" />
+                android:layout_marginStart="120sp"
+                android:layout_marginEnd="20sp"
+                android:background="@mipmap/edit_foreground"
+                android:foreground="?attr/selectableItemBackground" />
 
             <TextView
                 android:id="@+id/name"

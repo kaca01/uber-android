@@ -1,19 +1,20 @@
 package com.example.ubermobileapp.fragments;
 
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+import com.example.ubermobileapp.PassengerActivities.PassengerReportsActivity;
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.UserLoginActivity;
 
 public class PassengerAccountOptionsFragment extends Fragment {
     AlertDialog alertDialog;
@@ -42,7 +43,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_passenger_account_options, container,
                 false);
 
-        Button creditCard = view.findViewById(R.id.creditCardBtn);
+        CardView creditCard = view.findViewById(R.id.secondCard);
         creditCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,11 +51,19 @@ public class PassengerAccountOptionsFragment extends Fragment {
             }
         });
 
-        Button reports = view.findViewById(R.id.reportsBtn);
+        CardView reports = view.findViewById(R.id.thirdCard);
         reports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createReportsDialog();
+                createStartDateDialog();
+            }
+        });
+
+        CardView logOut = view.findViewById(R.id.fourthCard);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), UserLoginActivity.class));
             }
         });
 
@@ -85,7 +94,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
         alertDialog.show();
     }
 
-    protected void createReportsDialog() {
+    protected void createStartDateDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -121,7 +130,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
                 .setCancelable(false)
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        createReportTypeDialog();
+                        startActivity(new Intent(getActivity(), PassengerReportsActivity.class));
                     }
                 })
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -133,27 +142,4 @@ public class PassengerAccountOptionsFragment extends Fragment {
         endDateDialog.show();
     }
 
-    protected void createReportTypeDialog() {
-        endDateDialog.cancel();
-        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_report_type, null);
-
-        dialog.setView(newView)
-                .setTitle("Reports")
-                .setCancelable(false)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                })
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        reportTypeDialog = dialog.create();
-        reportTypeDialog.show();
-    }
 }

@@ -66,7 +66,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="175sp"
+        android:layout_marginStart="173sp"
         android:layout_marginTop="50sp"
         android:id="@+id/secondCard">
 
@@ -157,7 +157,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200sp"
-        android:layout_marginStart="175sp"
+        android:layout_marginStart="173sp"
         android:id="@+id/fourthCard">
 
         <LinearLayout

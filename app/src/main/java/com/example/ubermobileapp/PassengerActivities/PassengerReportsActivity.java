@@ -63,11 +63,11 @@ public class PassengerReportsActivity extends AppCompatActivity {
 
         ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
 
-        LineDataSet lineDataSet1 = new LineDataSet(yAXEScos, "cos");
+        LineDataSet lineDataSet1 = new LineDataSet(yAXEScos, "");
         lineDataSet1.setDrawCircles(false);
         lineDataSet1.setColor(Color.BLUE);
 
-        LineDataSet lineDataSet2 = new LineDataSet(yAXESsin, "sin");
+        LineDataSet lineDataSet2 = new LineDataSet(yAXESsin, "");
         lineDataSet2.setDrawCircles(false);
         lineDataSet2.setColor(Color.RED);
 

@@ -5,5 +5,5 @@
     <color name="greenDefault">#96D49C</color>
     <color name="background">#121212</color>
     <color name="transparentGreenDefault">#4D96D49C</color>
-    <color name="transparentGray">#4D000000</color>
+    <color name="transparentRed">#4Dff6961</color>
 </resources>

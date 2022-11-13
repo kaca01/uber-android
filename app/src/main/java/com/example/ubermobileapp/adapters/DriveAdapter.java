@@ -7,6 +7,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.model.Drive;
 import com.example.ubermobileapp.model.Message;
@@ -41,11 +43,6 @@ public class DriveAdapter extends BaseAdapter {
         View view = convertView;
         Drive drive = Mockup.getDrives().get(position);
 
-        /*Message panic = drive.getPanicMessage();
-        if (panic != null && getPanic) {
-            view = activity.getLayoutInflater().inflate(R.layout.inbox_panic_list, null);
-        }*/
-
         if(convertView==null)
             view = activity.getLayoutInflater().inflate(R.layout.inbox_drive_list, null);
 
@@ -67,6 +64,12 @@ public class DriveAdapter extends BaseAdapter {
             message = message + "...";
         };
         msg.setText(message);
+
+        Message panic = drive.getPanicMessage();
+        if (panic != null) {
+            view.setBackgroundResource(R.drawable.panic_item_background);
+        }
+        else view.setBackgroundResource(R.drawable.drive_item_background);
 
         return  view;
     }

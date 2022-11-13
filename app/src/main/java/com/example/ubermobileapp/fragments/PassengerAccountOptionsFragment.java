@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ubermobileapp.PassengerActivities.PassengerReportsActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.UserLoginActivity;
 
@@ -153,7 +154,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
                 .setCancelable(false)
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        createReportDialog();
+                        startActivity(new Intent(getActivity(), PassengerReportsActivity.class));
                     }
                 })
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -171,7 +172,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
         AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_passenger_report, null);
+        View newView = inflater.inflate(R.layout.activity_passenger_reports, null);
 
         dialog.setView(newView)
                 .setTitle("Reports")

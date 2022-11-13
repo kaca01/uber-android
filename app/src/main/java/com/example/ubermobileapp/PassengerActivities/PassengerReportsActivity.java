@@ -79,6 +79,7 @@ public class PassengerReportsActivity extends AppCompatActivity {
         lc.setDescription(description);
         lc.setDescriptionTypeface(Typeface.DEFAULT_BOLD);
         lc.setDescriptionTextSize(15);
+        lc.setDescriptionColor(Color.parseColor("#96D49C"));
     }
 
     private void setNavigation() {

@@ -56,7 +56,7 @@
     <string name="choose_end_date">Choose end date</string>
     <string name="choose_report_type">Choose type of report</string>
     <string name="log_out">Log out</string>
-    <string name="two_fav_rout">2 favourite routes</string>
-    <string name="three_types_of_reports">3 types of reports</string>
+    <string name="two_fav_rout">2 favorite routes</string>
+    <string name="three_types_of_reports">choose date range</string>
     <string name="open_log_in_page">Open log in page</string>
 </resources>

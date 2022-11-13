@@ -7,13 +7,9 @@
             android:shape="rectangle"   >
 
             <solid
-                android:color="@color/white" >
+                 >
             </solid>
 
-            <stroke
-                android:width="2sp"
-                android:color="@color/white" >
-            </stroke>
 
             <padding
                 android:left="5dp"

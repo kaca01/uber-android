@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/accountOptions"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context=".fragments.PassengerAccountOptionsFragment"
     android:layout_marginTop="20sp"
-    android:layout_centerHorizontal="true">
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true">
 
     <View
         android:id="@+id/line"
-        android:layout_width="300sp"
+        android:layout_width="250sp"
         android:layout_height="1sp"
         android:layout_centerHorizontal="true"
         android:background="@android:color/darker_gray"
@@ -20,9 +21,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:id="@+id/firstCardView"
-        android:layout_marginStart="20sp"
         android:layout_marginTop="50sp">
 
         <LinearLayout
@@ -66,7 +65,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="173sp"
+        android:layout_toRightOf="@+id/firstCardView"
+        android:layout_marginStart="30sp"
         android:layout_marginTop="50sp"
         android:id="@+id/secondCard">
 
@@ -112,7 +112,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200sp"
-        android:layout_marginStart="20sp"
         android:id="@+id/thirdCard">
 
         <LinearLayout
@@ -157,7 +156,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200sp"
-        android:layout_marginStart="173sp"
+        android:layout_toRightOf="@+id/thirdCard"
+        android:layout_marginStart="30sp"
         android:id="@+id/fourthCard">
 
         <LinearLayout

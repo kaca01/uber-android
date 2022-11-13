@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="10sp"
     android:layout_marginEnd="13sp"
     android:orientation="vertical"
-    android:background="@drawable/custom_shape">
+    android:background="@drawable/support_item_background">
     <LinearLayout
         android:id="@+id/firstContainer"
         android:layout_width="match_parent"
@@ -19,6 +20,13 @@
             android:text="@string/support"
             android:textStyle="bold"
             android:padding="5dp"/>
+        <ImageView
+            android:id="@+id/pin"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
+            android:layout_marginTop="5sp"
+            android:padding="5dp"
+            app:srcCompat="@drawable/ic_pin"/>
         <TextView
             android:id="@+id/support_message_date"
             android:layout_width="match_parent"

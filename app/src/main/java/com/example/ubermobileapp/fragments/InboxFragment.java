@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ubermobileapp.PassengerActivities.ChatActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.adapters.DriveAdapter;
 import com.example.ubermobileapp.model.Drive;
@@ -78,10 +79,9 @@ public class InboxFragment extends ListFragment {
 
         Drive drive = Mockup.getDrives().get(position);
 
-        /*Intent intent = new Intent(getActivity(), ChatActivity.class);
-        intent.putExtra("name", drive.getName());
-        intent.putExtra("descr", drive.getDescription());
-        startActivity(intent);*/
+        Intent intent = new Intent(getActivity(), ChatActivity.class);
+        intent.putExtra("drive", drive);
+        startActivity(intent);
     }
 
     @Override

@@ -6,16 +6,19 @@ public class Passenger {
     private String number;
     private String postalAddress;
     private String email;
+    private String password;
 
     public Passenger() {
     }
 
-    public Passenger(String firstName, String lastName, String number, String postalAddress, String email) {
+    public Passenger(String firstName, String lastName, String number, String postalAddress,
+                     String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.number = number;
         this.postalAddress = postalAddress;
         this.email = email;
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -58,6 +61,14 @@ public class Passenger {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Passenger{" +
@@ -66,6 +77,7 @@ public class Passenger {
                 ", number='" + number + '\'' +
                 ", postalAddress='" + postalAddress + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

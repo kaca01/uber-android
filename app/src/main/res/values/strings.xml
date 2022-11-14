@@ -75,4 +75,13 @@
     <string name="open_log_in_page">Open log in page</string>
     <string name="order_ride">Order a ride</string>
     <string name="remove">Remove</string>
+    <string name="activity">Activity Status</string>
+    <string name="statistics">Statistics</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="declined_drives">Declined drives</string>
+    <string name="accepted_drives">Accepted drives</string>
+    <string name="hours">Working hours</string>
+    <string name="earnings">Earnings</string>
 </resources>

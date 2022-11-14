@@ -29,12 +29,7 @@
                 android:layout_marginTop="10sp"
                 tools:layout="@layout/fragment_ride_info_header" />
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/aboutRide"
-                android:name="com.example.ubermobileapp.fragments.rideHistory.AboutRideFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_about_ride" />
+            <include layout="@layout/fragment_about_ride" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/ratingRide"

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.ubermobileapp.PassengerActivities.PassengerRegisterActivity;
 import com.example.ubermobileapp.R;
@@ -22,6 +23,20 @@ public class RideInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ride_information);
+
+        // set data
+        TextView date = findViewById(R.id.date);
+        date.setText(getIntent().getStringExtra("date"));
+        TextView startTime = findViewById(R.id.start_time);
+        startTime.setText(getIntent().getStringExtra("start_time"));
+        TextView endTime = findViewById(R.id.end_time);
+        endTime.setText(getIntent().getStringExtra("end_time"));
+        TextView distance = findViewById(R.id.distance);
+        distance.setText(getIntent().getStringExtra("distance"));
+        TextView cost = findViewById(R.id.cost);
+        cost.setText(getIntent().getStringExtra("cost"));
+        ImageView map = findViewById(R.id.ride);
+        map.setImageResource(getIntent().getIntExtra("path", R.drawable.map));
 
         BottomNavigationView navigation = findViewById(R.id.bottom_nav);
         navigation.setSelectedItemId(R.id.page_history);

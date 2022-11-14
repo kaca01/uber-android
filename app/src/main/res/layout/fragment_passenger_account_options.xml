@@ -28,7 +28,7 @@
             android:id="@+id/secondCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
+            android:layout_marginStart="20sp"
             android:layout_marginTop="50sp"
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
@@ -37,8 +37,8 @@
 
             <LinearLayout
                 android:id="@+id/secondBtn"
-                android:layout_width="120sp"
-                android:layout_height="120sp"
+                android:layout_width="150sp"
+                android:layout_height="150sp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical">
 
@@ -83,8 +83,8 @@
 
             <LinearLayout
                 android:id="@+id/firstBtn"
-                android:layout_width="120sp"
-                android:layout_height="120sp"
+                android:layout_width="150sp"
+                android:layout_height="150sp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical">
 
@@ -130,15 +130,15 @@
             android:id="@+id/thirdCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="180sp"
+            android:layout_marginTop="220sp"
             android:layout_marginStart="20sp"
             app:cardCornerRadius="10sp"
             >
 
             <LinearLayout
                 android:id="@+id/thirdBtn"
-                android:layout_width="120sp"
-                android:layout_height="120sp"
+                android:layout_width="150sp"
+                android:layout_height="150sp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical">
 
@@ -177,8 +177,8 @@
             android:id="@+id/fourthCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
-            android:layout_marginTop="180sp"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="220sp"
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
             android:layout_toRightOf="@+id/thirdCard"
@@ -186,8 +186,8 @@
 
             <LinearLayout
                 android:id="@+id/fourthBtn"
-                android:layout_width="120sp"
-                android:layout_height="120sp"
+                android:layout_width="150sp"
+                android:layout_height="150sp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical">
 

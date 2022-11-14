@@ -50,7 +50,7 @@
                     android:id="@+id/remove1"
                     android:layout_width="180sp"
                     android:layout_height="60sp"
-                    android:text="@string/remove_from_favorites"
+                    android:text="@string/remove"
                     android:layout_toEndOf="@+id/btnOrder1"
                     android:layout_marginStart="20sp"/>
             </RelativeLayout>
@@ -78,7 +78,7 @@
                     android:id="@+id/remove2"
                     android:layout_width="180sp"
                     android:layout_height="60sp"
-                    android:text="@string/remove_from_favorites"
+                    android:text="@string/remove"
                     android:layout_toEndOf="@+id/btnOrder2"
                     android:layout_marginStart="20sp"
                     android:layout_marginBottom="20sp"/>

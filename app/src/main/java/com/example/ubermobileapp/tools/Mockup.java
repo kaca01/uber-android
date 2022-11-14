@@ -147,13 +147,25 @@ public class Mockup {
     public static List<Ride> getRides() {
         ArrayList<Ride> rides = new ArrayList<Ride>();
 
-        Ride r1 = new Ride("14:00", "14:30", "10/02/2022", 800.00, 2, 10.00, R.drawable.map);
+        Ride r1 = new Ride("14:01", "14:30", "10/02/2022", 800.00, 2, 10.00, R.drawable.map);
         Ride r2 = new Ride("10:00", "10:20", "11/05/2022", 562.36, 2, 5.03, R.drawable.map);
         Ride r3 = new Ride("21:56", "22:24", "15/10/2022", 843.12, 2, 12.11, R.drawable.map);
 
         rides.add(r1);
         rides.add(r2);
         rides.add(r3);
+
+        return rides;
+    }
+
+    public static List<Ride> getFavoriteRides() {
+        ArrayList<Ride> rides = new ArrayList<Ride>();
+
+        Ride r1 = new Ride("14:00", "14:30", "10/02/2022", 800.00, 2, 10.00, R.drawable.map);
+        Ride r2 = new Ride("10:00", "10:20", "11/05/2022", 562.36, 2, 5.03, R.drawable.map);
+
+        rides.add(r1);
+        rides.add(r2);
 
         return rides;
     }

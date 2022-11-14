@@ -6,15 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".DriverActivities.DriverRideHistoryActivity">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DRIVER RIDE HISTORY ACTIVITY!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentRideHistoryTitle"
+            android:name="com.example.ubermobileapp.fragments.rideHistory.RideHistoryTitleFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:layout="@layout/fragment_ride_history_title" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/AllRides1"
+            android:name="com.example.ubermobileapp.fragments.rideHistory.AllRidesFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_all_rides" />
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

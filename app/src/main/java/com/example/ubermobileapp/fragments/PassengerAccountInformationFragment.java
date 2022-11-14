@@ -1,15 +1,24 @@
 package com.example.ubermobileapp.fragments;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.model.passenger.CreditCard;
+import com.example.ubermobileapp.model.passenger.Passenger;
+import com.example.ubermobileapp.tools.Mockup;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +26,8 @@ import com.example.ubermobileapp.R;
  * create an instance of this fragment.
  */
 public class PassengerAccountInformationFragment extends Fragment {
+    AlertDialog alertDialog;
+    private View view;
 
     public PassengerAccountInformationFragment() {
         // Required empty public constructor
@@ -42,8 +53,20 @@ public class PassengerAccountInformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_passenger_account_information, container,
+        view =  inflater.inflate(R.layout.fragment_passenger_account_information, container,
                 false);
+
+        setAccountData(0);
+
+        ImageButton edit = view.findViewById(R.id.buttonEdit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createEditDialog();
+            }
+        });
+
+        return view;
     }
 
     @Override
@@ -59,4 +82,64 @@ public class PassengerAccountInformationFragment extends Fragment {
             }
         });*/
     }
+
+    protected void createEditDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_edit_account_information, null);
+        setEditAccountData(newView, 0);
+
+        dialog.setView(newView)
+                .setTitle("Edit account information")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog = dialog.create();
+        alertDialog.show();
+    }
+
+    private void setAccountData(int index) {
+        Passenger passenger = Mockup.getPassengers().get(index);
+
+        TextView name = view.findViewById(R.id.name);
+        TextView postalAddress = view.findViewById(R.id.address);
+        TextView email = view.findViewById(R.id.email);
+        TextView phone = view.findViewById(R.id.phoneNumber);
+
+        String firstAndLastName = passenger.getFirstName() + " " + passenger.getLastName();
+        name.setText(firstAndLastName);
+        postalAddress.setText(passenger.getPostalAddress());
+        email.setText(passenger.getEmail());
+        phone.setText(passenger.getNumber());
+    }
+
+    private void setEditAccountData(View newView, int index) {
+        Passenger passenger = Mockup.getPassengers().get(index);
+
+        TextView name = newView.findViewById(R.id.inputName);
+        TextView lastName = newView.findViewById(R.id.inputSurname);
+        TextView postalAddress = newView.findViewById(R.id.postalAdressInput);
+        TextView email = newView.findViewById(R.id.inputEmail);
+        TextView phone = newView.findViewById(R.id.inputPhone);
+        TextView password = newView.findViewById(R.id.passwordInput);
+        TextView passwordAgain = newView.findViewById(R.id.passwordInputAgain);
+
+        name.setText(passenger.getFirstName());
+        lastName.setText(passenger.getLastName());
+        postalAddress.setText(passenger.getPostalAddress());
+        email.setText(passenger.getEmail());
+        phone.setText(passenger.getNumber());
+        password.setText(passenger.getPassword());
+        passwordAgain.setText(passenger.getPassword());
+    }
+
 }

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.rideHistory.AboutRideFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ride"
+            android:layout_width="match_parent"
+            android:layout_height="225sp"
+            android:gravity="center"
+            android:src="@drawable/map" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2sp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginBottom="10sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp">
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/some_text"
+                android:textSize="17sp"
+                android:layout_marginEnd="10sp"
+                android:textColor="?attr/colorSecondary"/>
+
+            <TextView
+                android:id="@+id/start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/some_text"
+                android:textSize="17sp"
+                android:layout_marginStart="10sp"
+                android:textColor="?attr/colorSecondary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delimiter"
+                android:textSize="17sp"
+                android:layout_marginEnd="5sp"
+                android:layout_marginStart="5sp"
+                android:textColor="?attr/colorSecondary" />
+
+            <TextView
+                android:id="@+id/end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/some_text"
+                android:textSize="17sp"
+                android:textColor="?attr/colorSecondary" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2sp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10sp"
+                android:text="Distance"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/some_text"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:text="km"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total cost"
+                android:layout_marginEnd="10sp"
+                android:textSize="17sp"
+                android:textColor="?attr/colorSecondary"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/some_text"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:text="RSD"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2sp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20sp"
+                android:layout_marginEnd="20sp"
+                android:text="Passenger"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/passenger1"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:src="@drawable/ic_account" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15sp"
+                android:text="@string/name"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20sp"
+                android:layout_marginEnd="20sp"
+                android:text="Passenger"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/passenger2"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:src="@drawable/ic_account" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15sp"
+                android:text="@string/name"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2sp"
+            android:background="?android:attr/listDivider"
+            tools:ignore="SmallSp"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"/>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.ubermobileapp.PassengerActivities.PassengerAccountActivity;
 import com.example.ubermobileapp.PassengerActivities.PassengerInboxActivity;
 import com.example.ubermobileapp.PassengerActivities.PassengerMainActivity;
 import com.example.ubermobileapp.PassengerActivities.PassengerRideHistoryActivity;
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.databinding.FragmentPassengerAccountOptionsBinding;
+import com.example.ubermobileapp.fragments.PassengerAccountOptionsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -30,15 +33,15 @@ public class DriverAccountActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.page_map:
                         startActivity(new Intent(DriverAccountActivity.this, DriverMainActivity.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.page_history:
                         startActivity(new Intent(DriverAccountActivity.this, DriverRideHistoryActivity.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.page_inbox:
                         startActivity(new Intent(DriverAccountActivity.this, DriverInboxActivity.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.page_account:
                         return true;
@@ -46,6 +49,9 @@ public class DriverAccountActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
     }
 
     @Override

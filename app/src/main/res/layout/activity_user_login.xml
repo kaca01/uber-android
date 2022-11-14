@@ -10,14 +10,14 @@
     <LinearLayout
         android:id="@+id/welcomeLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_margin="5sp"
         tools:ignore="MissingConstraints">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="300sp"
+            android:layout_height="270sp"
             app:srcCompat="@drawable/login"
             android:contentDescription="@string/login_image" />
 
@@ -54,6 +54,7 @@
             android:selectAllOnFocus="true" />
 
         <TextView
+            android:id="@+id/forgot_password"
             android:layout_width="wrap_content"
             android:layout_height="20sp"
             android:layout_gravity="end"

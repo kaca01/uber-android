@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mockup {
-
     // all messages for one user
     public static List<Message> getMessages(){
         ArrayList<Message> messages = new ArrayList<Message>();
@@ -21,7 +20,7 @@ public class Mockup {
         Message m6 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Dragoslav Simic", "korisnik1", "11:50", MessageType.DRIVE);
 
         Message m7 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "korisnik1", "Administrator Prezime", "11:45", MessageType.SUPPORT);
-        Message m8 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Administrator Prezime", "korisnik1", "11:50", MessageType.SUPPORT);
+        Message m8 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Administrator Prezime", "korisnik1", "12:50", MessageType.SUPPORT);
 
         messages.add(m1);
         messages.add(m2);

@@ -29,16 +29,18 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Drive drive = (Drive) getIntent().getSerializableExtra("drive");
+        Drive drive = new Drive(); //initializing only to avoid warnings
         RecyclerView recycler = (RecyclerView) findViewById(R.id.recycler_chat);
         String name = getIntent().getSerializableExtra("name").toString();
         if (name.equals(MessageType.SUPPORT.toString()))
             messages = Mockup.getSupportMessages();
-        else
+        else {
+            drive = (Drive)getIntent().getSerializableExtra("drive");
             messages = drive.getMessages();
+        }
         MessageAdapter adapter = new MessageAdapter(this, messages);
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.scrollToPosition(drive.getMessages().size() - 1);
+        recycler.scrollToPosition(messages.size() - 1);
         recycler.setAdapter(adapter);
 
         ImageView back = (ImageView) findViewById(R.id.back_arrow);
@@ -54,6 +56,7 @@ public class ChatActivity extends AppCompatActivity {
         action_bar_name.setText(name);
 
         Button send = (Button) findViewById(R.id.button_chat_send);
+        Drive finalDrive = drive;
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +68,7 @@ public class ChatActivity extends AppCompatActivity {
                     messages.add(message);
                 }
                 else {
-                    Message message = Message.generateDriveMessage(text, drive);
+                    Message message = Message.generateDriveMessage(text, finalDrive);
                     messages.add(message);
                 }
                 recycler.scrollToPosition(messages.size() - 1);

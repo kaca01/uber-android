@@ -79,12 +79,23 @@ public class InboxFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
 
         //TODO item position in listview is not the same as in Mockup because of the header?
-        Drive drive = Mockup.getDrives().get(position);
+        // and note that there could be more items in the header
         String name;
-        if (position==0) name = MessageType.SUPPORT.toString();
-        else name = drive.getDriverName();
+        Drive drive;
+        if (position==0) {
+            name = MessageType.SUPPORT.toString();
+            //TODO what if there are zero Drives
+            drive = Mockup.getDrives().get(0);
+        }
+        else {
+            drive = Mockup.getDrives().get(position-1);
+            name = drive.getDriverName();
+        }
+
         Intent intent = new Intent(getActivity(), ChatActivity.class);
         intent.putExtra("name", name);
+        //TODO everything in ChatActivity class has been fixed so no need for
+        // putExtra(drive) -> (in case of support message type)
         intent.putExtra("drive", drive);
         startActivity(intent);
     }

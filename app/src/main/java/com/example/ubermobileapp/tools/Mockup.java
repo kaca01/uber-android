@@ -5,9 +5,15 @@ import com.example.ubermobileapp.model.Drive;
 import com.example.ubermobileapp.model.Message;
 import com.example.ubermobileapp.model.MessageType;
 import com.example.ubermobileapp.model.Ride;
+import com.example.ubermobileapp.model.Report;
+import com.example.ubermobileapp.model.ReportsType;
+import com.example.ubermobileapp.model.passenger.CreditCard;
+import com.example.ubermobileapp.model.passenger.CreditCardType;
+import com.example.ubermobileapp.model.passenger.Passenger;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Mockup {
@@ -62,6 +68,52 @@ public class Mockup {
         return drives;
     }
 
+    public static ArrayList<Passenger> getPassengers() {
+        ArrayList<Passenger> passengers = new ArrayList<Passenger>();
+
+        Passenger p1 = new Passenger("Pera", "Peric", "062444555",
+                "Bulevar despota Stefana", "pera@gmail.com", "password",
+                "111-222-333");
+
+        Passenger p2 = new Passenger("Mika", "Mikic", "062444555",
+                "Bulevar despota Stefana", "mika@gmail.com", "password",
+                "333-222-333");
+
+        passengers.add(p1);
+        passengers.add(p2);
+
+        return passengers;
+    }
+
+    public static ArrayList<CreditCard> getCreditCards() {
+        ArrayList<CreditCard> creditCards = new ArrayList<CreditCard>();
+        CreditCard c1 = new CreditCard(CreditCardType.MASTERCARD, "111-222-333",
+                                        20000.00);
+        CreditCard c2 = new CreditCard(CreditCardType.VISA, "333-222-333",
+                                35250.25);
+        creditCards.add(c1);
+        creditCards.add(c2);
+        return creditCards;
+    }
+
+    public static ArrayList<Report> getPassengerReports() {
+        ArrayList<Report> reports = new ArrayList<Report>();
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now();
+        Report r1 = new Report(1, ReportsType.NUMBER_OF_RIDES, 20, 2.8, 1,
+                startDate, endDate);
+        Report r2 = new Report(2, ReportsType.CROSSED_KM, 340.12, 12.77, 1,
+                startDate, endDate);
+        Report r3 = new Report(3, ReportsType.MONEY_SPENT, 12750.96, 1578.21,
+                1, startDate, endDate);
+
+        reports.add(r1);
+        reports.add(r2);
+        reports.add(r3);
+
+        return reports;
+    }
+
     private static ArrayList<Message> getNonSupportMessages(){
         ArrayList<Message> msgs = new ArrayList<>();
 
@@ -104,5 +156,18 @@ public class Mockup {
         rides.add(r3);
 
         return rides;
+
+    public static CreditCard getCreditCard(String cardNumber) {
+        for (CreditCard card : getCreditCards()) {
+            if (card.getCardNumber().equals(cardNumber.trim())) return card;
+        }
+        return null;
+    }
+
+    public static Report getReport(int id) {
+        for (Report report : getPassengerReports()) {
+            if (report.getID() == id) return report;
+        }
+        return null;
     }
 }

@@ -8,8 +8,11 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.model.Report;
+import com.example.ubermobileapp.tools.Mockup;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -30,6 +33,7 @@ public class PassengerReportsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.example.ubermobileapp.R.layout.activity_passenger_reports);
         setNavigation();
+        setReportData(1, 2, 3);
         setChart(findViewById(R.id.lineChart), "Number of Rides Report");
         setChart(findViewById(R.id.lineChart2), "Crossed km Report");
         setChart(findViewById(R.id.lineChart3), "Money Spent Report");
@@ -110,5 +114,37 @@ public class PassengerReportsActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void setReportData(int firstReportID, int secondReportID, int thirdReportID) {
+        Report firstReport = Mockup.getReport(firstReportID);
+        Report secondReport = Mockup.getReport(secondReportID);
+        Report thirdReport = Mockup.getReport(thirdReportID);
+
+        TextView numOfRides = findViewById(R.id.numOfRides);
+        TextView averageRides = findViewById(R.id.averageRides);
+        TextView crossed = findViewById(R.id.crossedkm);
+        TextView crossedAverage = findViewById(R.id.averageCrossed);
+        TextView moneySpent = findViewById(R.id.spentMoney);
+        TextView averageSpent = findViewById(R.id.averageSpent);
+
+        String textTotal = "Total: ";
+        String textAverage = "Average: ";
+        String total, average;
+
+        total = textTotal + Double.toString(firstReport.getTotal());
+        numOfRides.setText(total);
+        average = textAverage + Double.toString(firstReport.getAverage());
+        averageRides.setText(average);
+
+        total = textTotal + Double.toString(secondReport.getTotal());
+        crossed.setText(total);
+        average = textAverage + Double.toString(secondReport.getAverage());
+        crossedAverage.setText(average);
+
+        total = textTotal + Double.toString(thirdReport.getTotal());
+        moneySpent.setText(total);
+        average = textAverage + Double.toString(thirdReport.getAverage());
+        averageSpent.setText(average);
     }
 }

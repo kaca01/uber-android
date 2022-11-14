@@ -7,18 +7,20 @@ public class Passenger {
     private String postalAddress;
     private String email;
     private String password;
+    private String creditCardNumber;
 
     public Passenger() {
     }
 
     public Passenger(String firstName, String lastName, String number, String postalAddress,
-                     String email, String password) {
+                     String email, String password, String creditCardNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.number = number;
         this.postalAddress = postalAddress;
         this.email = email;
         this.password = password;
+        this.creditCardNumber = creditCardNumber;
     }
 
     public String getFirstName() {
@@ -69,6 +71,14 @@ public class Passenger {
         this.password = password;
     }
 
+    public String getCreditCardNumber() {
+        return creditCardNumber;
+    }
+
+    public void setCreditCardNumber(String creditCardNumber) {
+        this.creditCardNumber = creditCardNumber;
+    }
+
     @Override
     public String toString() {
         return "Passenger{" +
@@ -78,6 +88,7 @@ public class Passenger {
                 ", postalAddress='" + postalAddress + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", creditCardNumber='" + creditCardNumber + '\'' +
                 '}';
     }
 }

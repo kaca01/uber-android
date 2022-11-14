@@ -1,6 +1,5 @@
 package com.example.ubermobileapp.tools;
 
-import com.example.ubermobileapp.adapters.PassengerAdapter;
 import com.example.ubermobileapp.model.Drive;
 import com.example.ubermobileapp.model.Message;
 import com.example.ubermobileapp.model.MessageType;
@@ -8,7 +7,6 @@ import com.example.ubermobileapp.model.passenger.CreditCard;
 import com.example.ubermobileapp.model.passenger.CreditCardType;
 import com.example.ubermobileapp.model.passenger.Passenger;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,5 +119,12 @@ public class Mockup {
                 msgs.add(msg);
         }
         return msgs;
+    }
+
+    public static CreditCard getCreditCard(String cardNumber) {
+        for (CreditCard card : getCreditCards()) {
+            if (card.getCardNumber().equals(cardNumber.trim())) return card;
+        }
+        return null;
     }
 }

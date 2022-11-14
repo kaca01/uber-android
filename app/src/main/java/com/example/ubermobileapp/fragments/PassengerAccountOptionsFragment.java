@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -11,11 +12,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.ubermobileapp.PassengerActivities.PassengerFavoriteRoutesActivity;
 import com.example.ubermobileapp.PassengerActivities.PassengerReportsActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.UserLoginActivity;
+import com.example.ubermobileapp.model.passenger.CreditCard;
+import com.example.ubermobileapp.tools.Mockup;
 
 public class PassengerAccountOptionsFragment extends Fragment {
     AlertDialog alertDialog;
@@ -99,6 +103,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
                         dialog.cancel();
                     }
                 });
+        setCreditCardData(newView, "111-222-333");
         alertDialog = dialog.create();
         alertDialog.show();
     }
@@ -149,6 +154,22 @@ public class PassengerAccountOptionsFragment extends Fragment {
                 });
         endDateDialog = dialog.create();
         endDateDialog.show();
+    }
+
+
+    private void setCreditCardData(@NonNull View newView, String cardNumber) {
+        CreditCard creditCard = Mockup.getCreditCard(cardNumber);
+
+        if (creditCard == null) return;
+
+        TextView cardType = newView.findViewById(R.id.cardType);
+        TextView cardNumberView = newView.findViewById(R.id.cardNumber);
+        TextView currentAmount = newView.findViewById(R.id.currentAmount);
+
+        cardType.setText(creditCard.getType().toString());
+        cardNumberView.setText(cardNumber);
+        currentAmount.setText(Double.toString(creditCard.getAmount()));
+
     }
 
 }

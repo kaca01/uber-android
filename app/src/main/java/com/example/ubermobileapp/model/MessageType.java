@@ -1,6 +1,8 @@
 package com.example.ubermobileapp.model;
 
-public enum MessageType {
+import java.io.Serializable;
+
+public enum MessageType implements Serializable {
     DRIVE,
     SUPPORT,
     PANIC

@@ -1,9 +1,10 @@
 package com.example.ubermobileapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Drive {
+public class Drive implements Serializable {
     private String startDate;
     private String destination;
     private ArrayList<Message> messages;

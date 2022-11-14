@@ -14,10 +14,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ubermobileapp.PassengerActivities.ChatActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.adapters.DriveAdapter;
 import com.example.ubermobileapp.model.Drive;
 import com.example.ubermobileapp.model.Message;
+import com.example.ubermobileapp.model.MessageType;
 import com.example.ubermobileapp.tools.Mockup;
 
 import java.util.ArrayList;
@@ -76,12 +78,26 @@ public class InboxFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        Drive drive = Mockup.getDrives().get(position);
+        //TODO item position in listview is not the same as in Mockup because of the header?
+        // and note that there could be more items in the header
+        String name;
+        Drive drive;
+        if (position==0) {
+            name = MessageType.SUPPORT.toString();
+            //TODO what if there are zero Drives
+            drive = Mockup.getDrives().get(0);
+        }
+        else {
+            drive = Mockup.getDrives().get(position-1);
+            name = drive.getDriverName();
+        }
 
-        /*Intent intent = new Intent(getActivity(), ChatActivity.class);
-        intent.putExtra("name", drive.getName());
-        intent.putExtra("descr", drive.getDescription());
-        startActivity(intent);*/
+        Intent intent = new Intent(getActivity(), ChatActivity.class);
+        intent.putExtra("name", name);
+        //TODO everything in ChatActivity class has been fixed so no need for
+        // putExtra(drive) -> (in case of support message type)
+        intent.putExtra("drive", drive);
+        startActivity(intent);
     }
 
     @Override

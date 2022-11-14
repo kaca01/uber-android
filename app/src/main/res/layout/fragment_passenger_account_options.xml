@@ -28,17 +28,17 @@
             android:id="@+id/secondCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
+            android:layout_marginStart="20sp"
             android:layout_marginTop="50sp"
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
-            android:layout_toRightOf="@+id/firstCardView"
+            android:layout_toRightOf="@+id/firstCard"
             app:cardCornerRadius="10sp">
 
             <LinearLayout
                 android:id="@+id/secondBtn"
-                android:layout_width="120sp"
-                android:layout_height="120sp"
+                android:layout_width="150sp"
+                android:layout_height="150sp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical">
 
@@ -73,7 +73,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/firstCardView"
+            android:id="@+id/firstCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50sp"
@@ -83,14 +83,13 @@
 
             <LinearLayout
                 android:id="@+id/firstBtn"
-                android:layout_width="120sp"
-                android:layout_height="120sp"
-                android:clickable="true"
+                android:layout_width="150sp"
+                android:layout_height="150sp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/starPic"
                     android:layout_width="40sp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -99,7 +98,7 @@
                     android:src="@mipmap/star_foreground" />
 
                 <TextView
-                    android:id="@+id/favoriteRoutesBtn"
+                    android:id="@+id/favoriteBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -109,11 +108,12 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/numFavRoutes"
+                    android:id="@+id/numOfFav"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="0sp"
+                    android:foreground="?attr/selectableItemBackground"
                     android:text="@string/two_fav_rout"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -130,15 +130,15 @@
             android:id="@+id/thirdCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="180sp"
+            android:layout_marginTop="220sp"
             android:layout_marginStart="20sp"
             app:cardCornerRadius="10sp"
             >
 
             <LinearLayout
                 android:id="@+id/thirdBtn"
-                android:layout_width="120sp"
-                android:layout_height="120sp"
+                android:layout_width="150sp"
+                android:layout_height="150sp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical">
 
@@ -177,8 +177,8 @@
             android:id="@+id/fourthCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
-            android:layout_marginTop="180sp"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="220sp"
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
             android:layout_toRightOf="@+id/thirdCard"
@@ -186,8 +186,8 @@
 
             <LinearLayout
                 android:id="@+id/fourthBtn"
-                android:layout_width="120sp"
-                android:layout_height="120sp"
+                android:layout_width="150sp"
+                android:layout_height="150sp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical">
 

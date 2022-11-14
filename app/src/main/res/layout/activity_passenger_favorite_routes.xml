@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PassengerActivities.PassengerFavoriteRoutesActivity">
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10sp"
+            tools:ignore="MissingConstraints">
+
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainerView3"
+                android:name="com.example.ubermobileapp.fragments.FavoriteRidesTitleFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_favorite_rides_title" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/AllRides1"
+                android:name="com.example.ubermobileapp.fragments.rideHistory.AllRidesFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:layout="@layout/fragment_all_rides" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btnOrder1"
+                    android:layout_width="180sp"
+                    android:layout_height="60sp"
+                    android:text="@string/order_ride" />
+
+                <Button
+                    android:id="@+id/remove1"
+                    android:layout_width="180sp"
+                    android:layout_height="60sp"
+                    android:text="@string/remove"
+                    android:layout_toEndOf="@+id/btnOrder1"
+                    android:layout_marginStart="20sp"/>
+            </RelativeLayout>
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/AllRides2"
+                android:name="com.example.ubermobileapp.fragments.rideHistory.AllRidesFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:layout="@layout/fragment_all_rides" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btnOrder2"
+                    android:layout_width="180sp"
+                    android:layout_height="60sp"
+                    android:text="@string/order_ride"
+                    android:layout_marginBottom="20sp"/>
+
+                <Button
+                    android:id="@+id/remove2"
+                    android:layout_width="180sp"
+                    android:layout_height="60sp"
+                    android:text="@string/remove"
+                    android:layout_toEndOf="@+id/btnOrder2"
+                    android:layout_marginStart="20sp"
+                    android:layout_marginBottom="20sp"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/scroll"
+        app:menu="@menu/bottom_navigation_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

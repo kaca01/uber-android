@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ubermobileapp.PassengerActivities.PassengerFavoriteRoutesActivity;
 import com.example.ubermobileapp.PassengerActivities.PassengerReportsActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.UserLoginActivity;
@@ -42,6 +43,14 @@ public class PassengerAccountOptionsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_passenger_account_options, container,
                 false);
+
+        CardView favoriteRoutes = view.findViewById(R.id.firstCard);
+        favoriteRoutes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), PassengerFavoriteRoutesActivity.class));
+            }
+        });
 
         CardView creditCard = view.findViewById(R.id.secondCard);
         creditCard.setOnClickListener(new View.OnClickListener() {

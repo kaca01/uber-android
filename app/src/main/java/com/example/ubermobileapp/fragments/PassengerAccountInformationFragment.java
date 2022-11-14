@@ -88,6 +88,7 @@ public class PassengerAccountInformationFragment extends Fragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View newView = inflater.inflate(R.layout.fragment_edit_account_information, null);
+        setEditAccountData(newView, 0);
 
         dialog.setView(newView)
                 .setTitle("Edit account information")
@@ -119,6 +120,26 @@ public class PassengerAccountInformationFragment extends Fragment {
         postalAddress.setText(passenger.getPostalAddress());
         email.setText(passenger.getEmail());
         phone.setText(passenger.getNumber());
+    }
+
+    private void setEditAccountData(View newView, int index) {
+        Passenger passenger = Mockup.getPassengers().get(index);
+
+        TextView name = newView.findViewById(R.id.inputName);
+        TextView lastName = newView.findViewById(R.id.inputSurname);
+        TextView postalAddress = newView.findViewById(R.id.postalAdressInput);
+        TextView email = newView.findViewById(R.id.inputEmail);
+        TextView phone = newView.findViewById(R.id.inputPhone);
+        TextView password = newView.findViewById(R.id.passwordInput);
+        TextView passwordAgain = newView.findViewById(R.id.passwordInputAgain);
+
+        name.setText(passenger.getFirstName());
+        lastName.setText(passenger.getLastName());
+        postalAddress.setText(passenger.getPostalAddress());
+        email.setText(passenger.getEmail());
+        phone.setText(passenger.getNumber());
+        password.setText(passenger.getPassword());
+        passwordAgain.setText(passenger.getPassword());
     }
 
 }

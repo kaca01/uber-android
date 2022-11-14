@@ -1,6 +1,7 @@
 package com.example.ubermobileapp.model.passenger;
 
 public class Passenger {
+    private int ID;
     private String firstName;
     private String lastName;
     private String number;
@@ -14,6 +15,7 @@ public class Passenger {
 
     public Passenger(String firstName, String lastName, String number, String postalAddress,
                      String email, String password, String creditCardNumber) {
+        this.ID = generateID();
         this.firstName = firstName;
         this.lastName = lastName;
         this.number = number;
@@ -22,6 +24,9 @@ public class Passenger {
         this.password = password;
         this.creditCardNumber = creditCardNumber;
     }
+    public int getID() {return ID;}
+
+    public void setID(int id) {this.ID = id;}
 
     public String getFirstName() {
         return firstName;
@@ -90,5 +95,10 @@ public class Passenger {
                 ", password='" + password + '\'' +
                 ", creditCardNumber='" + creditCardNumber + '\'' +
                 '}';
+    }
+
+    private int generateID() {
+        // TODO implement this method
+        return 1;
     }
 }

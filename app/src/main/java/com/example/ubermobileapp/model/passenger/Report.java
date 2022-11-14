@@ -2,18 +2,38 @@ package com.example.ubermobileapp.model.passenger;
 
 import com.example.ubermobileapp.model.ReportsType;
 
-public class PassengerReport {
+public class Report {
+    private int ID;
     private ReportsType type;
     private double total;
     private double average;
+    private int passengerID;
 
-    public PassengerReport() {
+    public Report() {
     }
 
-    public PassengerReport(ReportsType type, double total, double average) {
+    public Report(int ID, ReportsType type, double total, double average, int passengerID) {
+        this.ID = ID;
         this.type = type;
         this.total = total;
         this.average = average;
+        this.passengerID = passengerID;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public int getPassengerID() {
+        return passengerID;
+    }
+
+    public void setPassengerID(int passengerID) {
+        this.passengerID = passengerID;
     }
 
     public ReportsType getType() {

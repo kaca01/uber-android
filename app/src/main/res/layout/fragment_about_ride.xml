@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/first_ride"
+            android:id="@+id/ride"
             android:layout_width="match_parent"
             android:layout_height="225sp"
             android:gravity="center"
@@ -32,19 +32,38 @@
             android:layout_marginBottom="5sp">
 
             <TextView
+                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="10/02/2022"
+                android:text="@string/some_text"
                 android:textSize="17sp"
                 android:layout_marginEnd="10sp"
                 android:textColor="?attr/colorSecondary"/>
 
             <TextView
+                android:id="@+id/start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="14:00 - 14:30"
+                android:text="@string/some_text"
                 android:textSize="17sp"
                 android:layout_marginStart="10sp"
+                android:textColor="?attr/colorSecondary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delimiter"
+                android:textSize="17sp"
+                android:layout_marginEnd="5sp"
+                android:layout_marginStart="5sp"
+                android:textColor="?attr/colorSecondary" />
+
+            <TextView
+                android:id="@+id/end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/some_text"
+                android:textSize="17sp"
                 android:textColor="?attr/colorSecondary" />
 
         </LinearLayout>
@@ -74,19 +93,29 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10 km"
+                android:text="@string/some_text"
                 android:textColor="?attr/colorSecondary"
                 android:textSize="17sp" />
 
-            <View
-                android:layout_width="2sp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15sp"
-                android:layout_marginEnd="15sp"
-                android:background="?android:attr/listDivider" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:text="km"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="17sp" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,12 +126,20 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/cost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="800 RSD"
+                android:text="@string/some_text"
                 android:textColor="?attr/colorSecondary"
                 android:textSize="17sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:text="RSD"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="17sp" />
         </LinearLayout>
 
         <View

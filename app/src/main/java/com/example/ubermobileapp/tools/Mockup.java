@@ -144,7 +144,7 @@ public class Mockup {
         return msgs;
     }
 
-    public static List<Ride> getRides(){
+    public static List<Ride> getRides() {
         ArrayList<Ride> rides = new ArrayList<Ride>();
 
         Ride r1 = new Ride("14:00", "14:30", "10/02/2022", 800.00, 2, 10.00, R.drawable.map);
@@ -156,12 +156,14 @@ public class Mockup {
         rides.add(r3);
 
         return rides;
+    }
 
-    public static CreditCard getCreditCard(String cardNumber) {
-        for (CreditCard card : getCreditCards()) {
-            if (card.getCardNumber().equals(cardNumber.trim())) return card;
-        }
-        return null;
+        public static CreditCard getCreditCard (String cardNumber){
+            for (CreditCard card : getCreditCards()) {
+                if (card.getCardNumber().equals(cardNumber.trim())) return card;
+            }
+            return null;
+
     }
 
     public static Report getReport(int id) {

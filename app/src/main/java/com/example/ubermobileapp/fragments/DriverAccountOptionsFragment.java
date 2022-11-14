@@ -46,7 +46,7 @@ public class DriverAccountOptionsFragment extends Fragment {
         reports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createStartDateDialog();
+                //createStartDateDialog();
             }
         });
 

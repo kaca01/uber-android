@@ -40,32 +40,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:layout_marginBottom="15sp"
+                android:layout_marginBottom="12sp"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/button_day"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100sp"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:textColor="?attr/colorPrimary"
-                    android:layout_margin="5sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
                     android:text="@string/day" />
                 <Button
                     android:id="@+id/button_week"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100sp"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:text="@string/month"
-                    android:layout_margin="5sp"
+                    android:text="@string/week"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
                     android:textColor="?attr/colorPrimary" />
                 <Button
                     android:id="@+id/button_month"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100sp"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:text="@string/year"
-                    android:layout_margin="5sp"
+                    android:text="@string/month"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
                     android:textColor="?attr/colorPrimary"/>
             </LinearLayout>
 
@@ -81,14 +84,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         android:layout_marginEnd="8sp"
                         android:text="@string/declined_drives"/>
                     <TextView
                         android:id="@+id/declined_drives"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="19sp"
+                        android:textSize="17sp"
                         android:textStyle="bold"
                         android:textColor="?attr/colorPrimary"
                         android:text="5"/>
@@ -101,14 +104,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         android:layout_marginEnd="8sp"
                         android:text="@string/accepted_drives"/>
                     <TextView
                         android:id="@+id/accepted_drives"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="19sp"
+                        android:textSize="17sp"
                         android:textStyle="bold"
                         android:textColor="?attr/colorPrimary"
                         android:text="25"/>
@@ -121,14 +124,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         android:layout_marginEnd="8sp"
                         android:text="@string/hours"/>
                     <TextView
                         android:id="@+id/hours"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="19sp"
+                        android:textSize="17sp"
                         android:textStyle="bold"
                         android:textColor="?attr/colorPrimary"
                         android:text="4"/>
@@ -141,14 +144,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         android:layout_marginEnd="8sp"
                         android:text="@string/earnings"/>
                     <TextView
                         android:id="@+id/earnings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="19sp"
+                        android:textSize="17sp"
                         android:textStyle="bold"
                         android:textColor="?attr/colorPrimary"
                         android:text="12500"/>

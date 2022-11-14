@@ -1,8 +1,12 @@
 package com.example.ubermobileapp.tools;
 
+import com.example.ubermobileapp.adapters.PassengerAdapter;
 import com.example.ubermobileapp.model.Drive;
 import com.example.ubermobileapp.model.Message;
 import com.example.ubermobileapp.model.MessageType;
+import com.example.ubermobileapp.model.passenger.CreditCard;
+import com.example.ubermobileapp.model.passenger.CreditCardType;
+import com.example.ubermobileapp.model.passenger.Passenger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,6 +63,34 @@ public class Mockup {
         drives.add(d9);
 
         return drives;
+    }
+
+    public static ArrayList<Passenger> getPassengers() {
+        ArrayList<Passenger> passengers = new ArrayList<Passenger>();
+
+        Passenger p1 = new Passenger("Pera", "Peric", "062444555",
+                "Bulevar despota Stefana", "pera@gmail.com", "password",
+                "111-222-333");
+
+        Passenger p2 = new Passenger("Mika", "Mikic", "062444555",
+                "Bulevar despota Stefana", "mika@gmail.com", "password",
+                "333-222-333");
+
+        passengers.add(p1);
+        passengers.add(p2);
+
+        return passengers;
+    }
+
+    public static ArrayList<CreditCard> getCreditCards() {
+        ArrayList<CreditCard> creditCards = new ArrayList<CreditCard>();
+        CreditCard c1 = new CreditCard(CreditCardType.MASTERCARD, "111-222-333",
+                                        20000.00);
+        CreditCard c2 = new CreditCard(CreditCardType.VISA, "333-222-333",
+                                35250.25);
+        creditCards.add(c1);
+        creditCards.add(c2);
+        return creditCards;
     }
 
     private static ArrayList<Message> getNonSupportMessages(){

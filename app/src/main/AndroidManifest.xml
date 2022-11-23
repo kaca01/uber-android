@@ -13,119 +13,119 @@
         android:theme="@style/Theme.UberMobileApp"
         tools:targetApi="31">
         <activity
-            android:name=".PassengerActivities.PassengerFavoriteRoutesActivity"
+            android:name=".activities.favorite_ride.PassengerFavoriteRoutesActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ResetPasswordActivity"
+            android:name=".activities.startup.ResetPasswordActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".activities.startup.ForgotPasswordActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerActivities.PassengerReportsActivity"
+            android:name=".activities.reports.PassengerReportsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DriverActivities.RideInformationActivity"
+            android:name=".activities.history.RideInformationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".UserLoginActivity"
+            android:name=".activities.startup.UserLoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerActivities.PassengerRegisterActivity"
+            android:name=".activities.startup.PassengerRegisterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DriverActivities.DriverRideHistoryActivity"
+            android:name=".activities.history.DriverRideHistoryActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerActivities.PassengerRideHistoryActivity"
+            android:name=".activities.history.PassengerRideHistoryActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerActivities.ChatActivity"
+            android:name=".activities.inbox.ChatActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DriverActivities.DriverInboxActivity"
+            android:name=".activities.inbox.DriverInboxActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DriverActivities.DriverAccountActivity"
+            android:name=".activities.account.DriverAccountActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DriverActivities.DriverMainActivity"
+            android:name=".activities.home.DriverMainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerActivities.PassengerAccountActivity"
+            android:name=".activities.account.PassengerAccountActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerActivities.PassengerInboxActivity"
+            android:name=".activities.inbox.PassengerInboxActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerActivities.PassengerMainActivity"
+            android:name=".activities.home.PassengerMainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.startup.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

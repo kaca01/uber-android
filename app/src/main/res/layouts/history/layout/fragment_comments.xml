@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.history.CommentsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="5sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:layout_gravity="center_vertical"
+                android:textSize="17sp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/passenger1"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:src="@drawable/ic_account" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:text="@string/excellent"
+            android:textColor="?attr/colorPrimary"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Great ride! The car is clean and the driver is pleasant."/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2sp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="10sp"
+            tools:ignore="SmallSp" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -16,6 +16,23 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/account',
+                            'src/main/res/layouts/home',
+                            'src/main/res/layouts/startup',
+                            'src/main/res/layouts/history',
+                            'src/main/res/layouts/favorite_rides',
+                            'src/main/res/layouts/inbox',
+                            'src/main/res/layouts/reports',
+                            'src/main/res/layouts',
+                            'src/main/res'
+                    ]
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -30,7 +47,6 @@ android {
         viewBinding true
     }
 }
-
 
 dependencies {
 

@@ -4,23 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
-    android:layout_marginTop="12dp">
+    android:layout_marginTop="6dp">
 
-
-    <TextView
-        android:id="@+id/text_chat_date_other"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <!-- THIS BELONGS TO TEXTVIEW
-    android:layout_marginTop="32dp"
-    android:paddingStart="8dp"
-    android:paddingTop="4dp"
-    android:paddingEnd="8dp"
-    android:paddingBottom="4dp"
-    -->
+    <!--
+        <TextView
+            android:id="@+id/text_chat_date_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"/>
+        -->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_chat_message_other"
@@ -33,7 +32,7 @@
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toStartOf="@+id/text_chat_timestamp_other"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_chat_date_other">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/layout_chat_container_other"

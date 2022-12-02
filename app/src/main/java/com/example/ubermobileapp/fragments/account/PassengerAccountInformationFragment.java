@@ -1,19 +1,24 @@
 package com.example.ubermobileapp.fragments.account;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.model.passenger.Passenger;
 import com.example.ubermobileapp.tools.Mockup;
 
@@ -25,6 +30,8 @@ import com.example.ubermobileapp.tools.Mockup;
 public class PassengerAccountInformationFragment extends Fragment {
     AlertDialog alertDialog;
     private View view;
+    int SELECT_IMAGE_CODE = 1;
+    ImageView imgGallery;
 
     public PassengerAccountInformationFragment() {
         // Required empty public constructor
@@ -87,6 +94,19 @@ public class PassengerAccountInformationFragment extends Fragment {
         View newView = inflater.inflate(R.layout.fragment_edit_account_information, null);
         setEditAccountData(newView, 0);
 
+        Button button = newView.findViewById(R.id.btnChangePic);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Title"), SELECT_IMAGE_CODE);
+            }
+        });
+
+        imgGallery = view.findViewById(R.id.profilePicture);
+
         dialog.setView(newView)
                 .setTitle("Edit account information")
                 .setCancelable(false)
@@ -137,6 +157,17 @@ public class PassengerAccountInformationFragment extends Fragment {
         phone.setText(passenger.getNumber());
         password.setText(passenger.getPassword());
         passwordAgain.setText(passenger.getPassword());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode==1) {
+
+            imgGallery.setImageURI(data.getData());
+
+        }
     }
 
 }

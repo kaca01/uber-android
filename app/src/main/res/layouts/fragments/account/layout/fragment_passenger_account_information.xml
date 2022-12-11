@@ -19,7 +19,7 @@
         app:cardCornerRadius="25dp">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/profilePicture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@mipmap/ordering_cab_foreground" />

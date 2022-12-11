@@ -105,12 +105,12 @@
         android:text="@string/lozinka" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnChangePic"
         android:layout_width="250sp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20sp"
-        android:layout_marginBottom="30sp"
+        android:layout_marginBottom="10sp"
         android:text="@string/change_profile_picture" />
 
 

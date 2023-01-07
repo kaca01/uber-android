@@ -15,11 +15,17 @@ import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.model.LoginRequest;
+import com.example.ubermobileapp.model.LoginResponse;
+import com.example.ubermobileapp.model.User.Role;
 import com.example.ubermobileapp.services.ApiUtils;
+import com.example.ubermobileapp.services.AuthService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Optional;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -78,22 +84,40 @@ public class UserLoginActivity extends AppCompatActivity {
         request.setEmail(username.getText().toString());
         request.setPassword(password.getText().toString());
 
-        Call<ResponseBody> loginResponseCall = ApiUtils.getUserService().userLogin(request);
-        loginResponseCall.enqueue(new Callback<ResponseBody>() {
+        Call<LoginResponse> loginResponseCall = ApiUtils.getUserService().userLogin(request);
+        loginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
-                    ResponseBody loginResponse = response.body();
-
+                    AuthService.setAccessToken(response.body().getAccessToken());
+                    new AuthService().getMyInfo(username.getText().toString());  // load current user
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-
-                            Intent intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
-                            startActivity(intent);
-                            //todo putextra (loginResponse sacuvati negdje nekako)
-                            //todo implementirati uloge
+                            /*for (Role r: AuthService.getCurrentUser().getRoles()) {
+                                if (r.getName().equals("ROLE_DRIVER")){
+                                    Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
+                                    startActivity(intent);
+                                }
+                                else if(r.getName().equals("ROLE_PASSENGER")){
+                                    Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
+                                    startActivity(intent);
+                                }
+                            }*/
+                             if(AuthService.getRole().equals("ROLE_DRIVER")){
+                                Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
+                                startActivity(intent);
+                            }
+                            else if(AuthService.getRole().equals("ROLE_PASSENGER")) {
+                                Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
+                                startActivity(intent);
+                            }
+                            AuthService.logout();
+                            Toast.makeText(UserLoginActivity.this, "Admin cannot log in", Toast.LENGTH_LONG).show();
                         }
                     }, 700);
 
@@ -102,7 +126,7 @@ public class UserLoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Toast.makeText(UserLoginActivity.this, "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });

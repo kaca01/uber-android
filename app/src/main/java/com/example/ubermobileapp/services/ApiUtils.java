@@ -8,5 +8,5 @@ public class ApiUtils {
         return RetrofitClient.getClient(BASE_URL).create(UserService.class);
     }
 
-    //instancirati ostale servise ovdje i odavde ih pozivati pri koriscenju
+    // instancirati sve ostale servise ovdje i odavde ih pozivati pri koriscenju (jedna instanca)
 }

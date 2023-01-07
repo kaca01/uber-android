@@ -1,39 +1,56 @@
-package com.example.ubermobileapp.model.User;
+package com.example.ubermobileapp.model.login;
 
-import java.sql.Timestamp;
 import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class User {
-    private Long id;
+
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("surname")
+    @Expose
     private String surname;
+    @SerializedName("profilePicture")
+    @Expose
     private String profilePicture;
+    @SerializedName("telephoneNumber")
+    @Expose
     private String telephoneNumber;
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("address")
+    @Expose
     private String address;
-    private String password;
-    private Timestamp lastPasswordResetDate;
-    private boolean blocked;
-    private boolean active;
-    private List<Role> roles;
+    @SerializedName("lastPasswordResetDate")
+    @Expose
+    private Long lastPasswordResetDate;
+    @SerializedName("blocked")
+    @Expose
+    private Boolean blocked;
+    @SerializedName("active")
+    @Expose
+    private Boolean active;
+    @SerializedName("roles")
+    @Expose
+    private List<Role> roles = null;
+    @SerializedName("username")
+    @Expose
+    private String username;
+    @SerializedName("enabled")
+    @Expose
+    private Boolean enabled;
 
-    public User(Long id, String name, String surname, String profilePicture, String telephoneNumber, String email,
-                String address, String password) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.profilePicture = profilePicture;
-        this.telephoneNumber = telephoneNumber;
-        this.email = email;
-        this.address = address;
-        this.password = password;
-    }
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -85,35 +102,27 @@ public class User {
         this.address = address;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Timestamp getLastPasswordResetDate() {
+    public Long getLastPasswordResetDate() {
         return lastPasswordResetDate;
     }
 
-    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
+    public void setLastPasswordResetDate(Long lastPasswordResetDate) {
         this.lastPasswordResetDate = lastPasswordResetDate;
     }
 
-    public boolean isBlocked() {
+    public Boolean getBlocked() {
         return blocked;
     }
 
-    public void setBlocked(boolean blocked) {
+    public void setBlocked(Boolean blocked) {
         this.blocked = blocked;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
@@ -124,4 +133,21 @@ public class User {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
 }

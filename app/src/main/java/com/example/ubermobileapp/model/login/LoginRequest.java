@@ -1,4 +1,4 @@
-package com.example.ubermobileapp.model;
+package com.example.ubermobileapp.model.login;
 
 public class LoginRequest {
 

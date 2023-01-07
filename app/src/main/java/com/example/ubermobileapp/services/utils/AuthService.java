@@ -1,8 +1,8 @@
-package com.example.ubermobileapp.services;
+package com.example.ubermobileapp.services.utils;
 
 import android.os.StrictMode;
 
-import com.example.ubermobileapp.model.User.User;
+import com.example.ubermobileapp.model.login.User;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -11,18 +11,9 @@ public class AuthService {
 
     private static User currentUser;
     private static String accessToken;
-    private static String role;
-
-    public static String getRole() {
-        return role;
-    }
 
     public static User getCurrentUser() {
         return currentUser;
-    }
-
-    public static boolean tokenIsPresent() {
-        return accessToken != null;
     }
 
     public static String getToken() {
@@ -33,14 +24,14 @@ public class AuthService {
         AuthService.accessToken = accessToken;
     }
 
-    public void getMyInfo(String email){
+    public void getMyInfo(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        Call<String> currUserResponseCall = ApiUtils.getUserService().getCurrentUser(email);
+        Call<User> currUserResponseCall = ApiUtils.getUserService().getCurrentUser();
         try {
-            Response<String> response = currUserResponseCall.execute();
-            role = response.body();
+            Response<User> response = currUserResponseCall.execute();
+            currentUser = response.body();
             }
         catch(Exception ex){
             ex.printStackTrace();

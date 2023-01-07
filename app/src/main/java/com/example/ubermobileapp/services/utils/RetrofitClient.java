@@ -1,4 +1,4 @@
-package com.example.ubermobileapp.services;
+package com.example.ubermobileapp.services.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,6 +9,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -19,6 +20,9 @@ public class RetrofitClient {
             .create();
 
     private static OkHttpClient createClient(){
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.level(HttpLoggingInterceptor.Level.BODY);
+
         return new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
@@ -27,7 +31,8 @@ public class RetrofitClient {
                         .build();
                 return chain.proceed(newRequest);
             }
-        }).build();
+        }).addInterceptor(logging)
+          .build();
     }
 
     public static Retrofit getClient(String url){

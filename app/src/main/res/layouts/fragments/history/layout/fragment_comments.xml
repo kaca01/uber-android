@@ -38,13 +38,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:text="@string/excellent"
-            android:textColor="?attr/colorPrimary"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="Great ride! The car is clean and the driver is pleasant."/>
 
         <View

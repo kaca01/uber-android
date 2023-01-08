@@ -30,28 +30,16 @@
                 tools:layout="@layout/fragment_ride_info_header" />
 
             <include layout="@layout/fragment_about_ride" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/ratingRide"
-                android:name="com.example.ubermobileapp.fragments.history.RatingFragment"
+            
+            <FrameLayout
+                android:id="@+id/review"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_rating" />
+                android:layout_height="match_parent"/>
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/comments1"
-                android:name="com.example.ubermobileapp.fragments.history.CommentsFragment"
+            <FrameLayout
+                android:id="@+id/comments"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_comments" />
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/comments2"
-                android:name="com.example.ubermobileapp.fragments.history.CommentsFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_comments" />
-
+                android:layout_height="match_parent"/>
         </LinearLayout>
 
     </ScrollView>

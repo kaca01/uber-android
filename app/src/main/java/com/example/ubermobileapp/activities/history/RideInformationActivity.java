@@ -2,6 +2,8 @@ package com.example.ubermobileapp.activities.history;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +15,14 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.DriverAccountActivity;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
+import com.example.ubermobileapp.fragments.history.CommentsFragment;
+import com.example.ubermobileapp.fragments.history.RatingFragment;
+import com.example.ubermobileapp.fragments.review.AddReviewFragment;
+import com.example.ubermobileapp.model.communication.Review;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.ArrayList;
 
 public class RideInformationActivity extends AppCompatActivity {
 
@@ -36,6 +44,15 @@ public class RideInformationActivity extends AppCompatActivity {
         cost.setText(getIntent().getStringExtra("cost"));
         ImageView map = findViewById(R.id.ride);
         map.setImageResource(getIntent().getIntExtra("path", R.drawable.map));
+
+        ArrayList<Review> reviews = this.getIntent().getExtras().getParcelableArrayList("review");
+
+        if(reviews == null) {
+            addAddReviewFragment();
+        }
+        else
+            addRatingFragment();
+
 
         BottomNavigationView navigation = findViewById(R.id.bottom_nav);
         navigation.setSelectedItemId(R.id.page_history);
@@ -70,4 +87,24 @@ public class RideInformationActivity extends AppCompatActivity {
         startActivity(new Intent(RideInformationActivity.this, DriverRideHistoryActivity.class));
         overridePendingTransition(0,0);
     }
+
+    private void addAddReviewFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        AddReviewFragment addReview = new AddReviewFragment();
+        fragmentTransaction.add(R.id.review, addReview);
+        fragmentTransaction.commit();
+    }
+
+    private void addRatingFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        RatingFragment rating = new RatingFragment();
+        fragmentTransaction.add(R.id.review, rating);
+
+        CommentsFragment comments = new CommentsFragment();
+        fragmentTransaction.add(R.id.comments, comments);
+        fragmentTransaction.commit();
+    }
+
 }

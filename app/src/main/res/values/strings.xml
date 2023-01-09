@@ -90,4 +90,5 @@
     <string name="sure">Sure</string>
     <string name="location_disabled_message">Location is disabled</string>
     <string name="oops">Enable your location</string>
+    <string name="passengers">Passengers</string>
 </resources>

@@ -41,11 +41,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MapFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class MapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -62,9 +58,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         return mpf;
     }
 
-    /**
-     * Prilikom kreidanja fragmenta preuzimamo sistemski servis za rad sa lokacijama
-     * */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,7 +132,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
     @Override
     public void onLocationChanged(Location location) {
-//        Toast.makeText(getActivity(), "NEW LOCATION", Toast.LENGTH_SHORT).show();
         if (map != null) {
             addMarker(location);
         }
@@ -260,7 +252,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             }
         });
 
-        //ako je potrebno da reagujemo na pomeranje markera koristimo marker drag listener
         map.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {

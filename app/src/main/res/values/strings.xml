@@ -88,6 +88,6 @@
     <string name="earnings">Earnings:</string>
     <string name="no">No</string>
     <string name="sure">Sure</string>
-    <string name="location_disabled_message">Location disabled message</string>
+    <string name="location_disabled_message">Location is disabled</string>
     <string name="oops">Enable your location</string>
 </resources>

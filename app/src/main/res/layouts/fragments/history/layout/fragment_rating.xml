@@ -13,16 +13,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rating and Reviews"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="?attr/colorSecondary"
-            style="bold"
-            android:layout_marginBottom="30sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Driver rating"
             android:layout_marginBottom="10sp"
             android:textSize="17sp"/>
@@ -37,8 +27,10 @@
                 android:id="@+id/driver_rating_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:isIndicator="true"
                 android:numStars="5"
-                android:rating="5"/>
+                android:rating="5"
+                android:progressTint="?attr/colorPrimary"/>
 
             <View
                 android:layout_width="0dp"
@@ -78,8 +70,10 @@
                 android:id="@+id/car_rating_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:isIndicator="true"
                 android:numStars="5"
-                android:rating="4.5"/>
+                android:rating="4.5"
+                android:progressTint="?attr/colorPrimary"/>
 
             <View
                 android:layout_width="0dp"

@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +19,7 @@ import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
 import com.example.ubermobileapp.fragments.history.CommentsFragment;
 import com.example.ubermobileapp.fragments.history.RatingFragment;
-import com.example.ubermobileapp.fragments.review.AddReviewFragment;
+import com.example.ubermobileapp.fragments.review.LeavingReviewFragment;
 import com.example.ubermobileapp.model.communication.Review;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -47,12 +49,10 @@ public class RideInformationActivity extends AppCompatActivity {
 
         ArrayList<Review> reviews = this.getIntent().getExtras().getParcelableArrayList("review");
 
-        if(reviews == null) {
+        if(reviews == null)
             addAddReviewFragment();
-        }
         else
             addRatingFragment();
-
 
         BottomNavigationView navigation = findViewById(R.id.bottom_nav);
         navigation.setSelectedItemId(R.id.page_history);
@@ -89,14 +89,24 @@ public class RideInformationActivity extends AppCompatActivity {
     }
 
     private void addAddReviewFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        AddReviewFragment addReview = new AddReviewFragment();
-        fragmentTransaction.add(R.id.review, addReview);
-        fragmentTransaction.commit();
+        Button clickButton = (Button) findViewById(R.id.add_review);
+        clickButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment();
+                leavingReviewFragment.show(fragmentManager, "leaving_review");
+            }
+        });
     }
 
     private void addRatingFragment() {
+        // remove ADD REVIEW button
+        Button addReview = (Button) findViewById(R.id.add_review);
+        addReview.setVisibility(View.GONE);
+
+        // add rating and reviews fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         RatingFragment rating = new RatingFragment();
@@ -106,5 +116,4 @@ public class RideInformationActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.comments, comments);
         fragmentTransaction.commit();
     }
-
 }

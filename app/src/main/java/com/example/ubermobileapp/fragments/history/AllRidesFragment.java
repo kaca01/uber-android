@@ -45,13 +45,10 @@ public class AllRidesFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
 
         Ride ride = Mockup.getRides().get(position);
-
         ArrayList<Review> reviews = ride.getReviews();
-
 
         Intent intent = new Intent(getActivity(), RideInformationActivity.class);
         Bundle bundle = new Bundle();
-
 
         intent.putExtra("date", ride.getDate());
         intent.putExtra("start_time", ride.getStartTime());
@@ -60,10 +57,8 @@ public class AllRidesFragment extends ListFragment {
         intent.putExtra("cost", Double.toString(ride.getCost()));
         intent.putExtra("path", ride.getPath());
 
-        System.out.println(ride.getReviews());
-        if(ride.getReviews() == null) {
+        if(ride.getReviews() == null)
             intent.putExtra("review", "null");
-        }
         else
         {
             bundle.putParcelableArrayList("review", reviews);

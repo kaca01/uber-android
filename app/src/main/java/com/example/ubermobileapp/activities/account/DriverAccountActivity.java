@@ -24,10 +24,7 @@ public class DriverAccountActivity extends AppCompatActivity implements OnMapRea
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_account);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
-        mapFragment.getMapAsync(this);
-
+        
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_account);
         navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

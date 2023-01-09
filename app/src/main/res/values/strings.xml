@@ -86,4 +86,8 @@
     <string name="accepted_drives">Accepted drives:</string>
     <string name="hours">Working hours:</string>
     <string name="earnings">Earnings:</string>
+    <string name="no">No</string>
+    <string name="sure">Sure</string>
+    <string name="location_disabled_message">Location disabled message</string>
+    <string name="oops">Enable your location</string>
 </resources>

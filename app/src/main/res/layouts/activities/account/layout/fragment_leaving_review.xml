@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="10sp">
+        android:layout_margin="10sp"
+        tools:ignore="UselessParent">
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,82 +19,74 @@
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
         android:textColor="?attr/colorSecondary"
-        android:layout_marginBottom="50sp"/>
+        android:layout_marginBottom="40sp"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10sp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rate_the_driver"
+        android:layout_gravity="center_vertical"
+        android:textSize="17sp"
+        android:layout_marginBottom="10sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rate_the_driver"
-                android:layout_gravity="center_vertical"
-                android:textSize="15sp"/>
+    <RatingBar
+        android:id="@+id/driver_rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressTint="?attr/colorPrimary"/>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tell us how you liked the driver!"
+        android:textSize="15sp"
+        android:layout_marginTop="10sp"/>
 
-            <RatingBar
-                android:id="@+id/driver_rating_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:progressTint="?attr/colorPrimary"/>
 
-        </LinearLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:minLines="1"
+        android:scrollbars="vertical" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10sp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rate_the_car"
+        android:layout_gravity="center_vertical"
+        android:textSize="17sp"
+        android:layout_marginTop="30sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rate_the_car"
-                android:layout_gravity="center_vertical"
-                android:textSize="15sp"/>
+    <RatingBar
+        android:id="@+id/car_rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressTint="?attr/colorPrimary"/>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tell us how you liked the car!"
+        android:textSize="15sp"
+        android:layout_marginTop="10sp"/>
 
-            <RatingBar
-                android:id="@+id/car_rating_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:progressTint="?attr/colorPrimary"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add your comment!"
-            android:textSize="15sp"
-            android:layout_marginTop="10sp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:maxLines="5"
-            android:minLines="1"
-            android:scrollbars="vertical" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:minLines="1"
+        android:scrollbars="vertical" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="50sp"
-            android:layout_marginStart="30sp"
-            android:layout_marginEnd="30sp">
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp">
 
             <Button
                 android:id="@+id/later"
@@ -114,8 +107,5 @@
                 android:text="Done"/>
 
         </LinearLayout>
-
     </LinearLayout>
-
-
 </FrameLayout>

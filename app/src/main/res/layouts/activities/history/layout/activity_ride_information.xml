@@ -30,6 +30,22 @@
                 tools:layout="@layout/fragment_ride_info_header" />
 
             <include layout="@layout/fragment_about_ride" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rating and Reviews"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="?attr/colorSecondary"
+                style="bold"
+                android:layout_marginBottom="30sp"/>
+
+            <Button
+                android:id="@+id/add_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ADD REVIEW"/>
             
             <FrameLayout
                 android:id="@+id/review"

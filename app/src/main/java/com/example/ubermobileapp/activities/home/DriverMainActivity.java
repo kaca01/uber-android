@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ToggleButton;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.DriverAccountActivity;
@@ -34,6 +35,9 @@ public class DriverMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_driver_main);
 
         timer.setTextView(findViewById(R.id.timer));
+
+        ToggleButton toggleButton = findViewById(R.id.toggleButton);
+        toggleButton.setChecked(true);
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
@@ -158,7 +162,10 @@ public class DriverMainActivity extends AppCompatActivity {
         panic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO : implement sending notification
+                play = false;
+                backToCurrentLocation();
+                timer.onClickReset();
             }
         });
     }

@@ -13,9 +13,11 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.DriverAccountActivity;
 import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
 import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
-import com.example.ubermobileapp.activities.startup.UserLoginActivity;
+import com.example.ubermobileapp.fragments.home.DrawRouteFragment;
+import com.example.ubermobileapp.tools.FragmentTransition;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.gms.maps.model.LatLng;
 
 public class DriverMainActivity extends AppCompatActivity {
 
@@ -60,6 +62,7 @@ public class DriverMainActivity extends AppCompatActivity {
         start_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                changeFragment();
             }
         });
 
@@ -79,5 +82,13 @@ public class DriverMainActivity extends AppCompatActivity {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
+    }
+
+    private void changeFragment() {
+        // TODO : here we should get current (upcoming ride) from database
+        // and send departure and destination
+        LatLng departure = new LatLng(45.15106698674585, 17.26420725907422);
+        LatLng destination = new LatLng(45.145497841538536, 17.27150286700908);
+        FragmentTransition.to(DrawRouteFragment.newInstance(departure, destination), this, false);
     }
 }

@@ -2,15 +2,18 @@ package com.example.ubermobileapp.activities.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.DriverAccountActivity;
 import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
 import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
+import com.example.ubermobileapp.activities.startup.UserLoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -45,6 +48,29 @@ public class DriverMainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        CardView passengers = findViewById(R.id.firstCard);
+        passengers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        CardView start_pause = findViewById(R.id.secondCard);
+        start_pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        CardView panic = findViewById(R.id.thirdCard);
+        panic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     @Override

@@ -6,33 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".activities.home.DriverMainActivity">
 
-    <ToggleButton
-        android:id="@+id/toggleButton"
-        android:layout_width="100dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="ActiveButton"
-        android:background="@drawable/toggle_button_background"
-        android:textOff="@string/inactive"
-        android:textOn="@string/active"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:cardCornerRadius="10sp">
 
-    <TextView
-        android:id="@+id/timer"
-        android:layout_width="100dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="56dp"
-        android:gravity="right"
-        android:text="00:46"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/toggle_button_background"
+            android:text="ActiveButton"
+            android:textOff="@string/inactive"
+            android:textOn="@string/active"
+            tools:ignore="MissingConstraints" />
+    </androidx.cardview.widget.CardView>
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView5"
@@ -42,6 +35,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_map" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/timer_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="10sp">
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:gravity="right"
+            android:text="00:46"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="@id/timer_card"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="@id/timer_card"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -77,11 +96,11 @@
 
                 <ImageView
                     android:id="@+id/starPic"
-                    android:layout_width="40sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@mipmap/star_foreground" />
+                    android:src="@mipmap/passengers_foreground" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -105,11 +124,11 @@
 
                 <ImageView
                     android:id="@+id/creditCardPic"
-                    android:layout_width="40sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@mipmap/credit_card_foreground" />
+                    android:src="@mipmap/play_pause_foreground" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -130,11 +149,11 @@
 
                 <ImageView
                     android:id="@+id/panicPic"
-                    android:layout_width="40sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@mipmap/star_foreground" />
+                    android:src="@mipmap/panic_foreground" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

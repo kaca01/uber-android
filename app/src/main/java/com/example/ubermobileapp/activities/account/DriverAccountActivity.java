@@ -11,14 +11,11 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
 import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
 
-public class DriverAccountActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class DriverAccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +47,11 @@ public class DriverAccountActivity extends AppCompatActivity implements OnMapRea
             }
         });
 
-
-
     }
 
     @Override
     public void onBackPressed(){
         startActivity(new Intent(DriverAccountActivity.this, DriverMainActivity.class));
         overridePendingTransition(0,0);
-    }
-
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-
     }
 }

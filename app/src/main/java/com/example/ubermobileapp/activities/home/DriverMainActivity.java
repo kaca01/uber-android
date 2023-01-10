@@ -6,10 +6,8 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.DriverAccountActivity;
@@ -18,26 +16,24 @@ import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
 import com.example.ubermobileapp.fragments.home.DrawRouteFragment;
 import com.example.ubermobileapp.fragments.home.MapFragment;
 import com.example.ubermobileapp.tools.FragmentTransition;
+import com.example.ubermobileapp.tools.Timer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.Locale;
-
 public class DriverMainActivity extends AppCompatActivity {
     private boolean play = false;
 
-    private int seconds = 0;
+    private Timer timer = new Timer();
 
-    // Is the stopwatch running?
-    private boolean running;
 
-    private boolean wasRunning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_main);
+
+        timer.setTextView(findViewById(R.id.timer));
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
@@ -71,17 +67,17 @@ public class DriverMainActivity extends AppCompatActivity {
             // Get the previous state of the stopwatch
             // if the activity has been
             // destroyed and recreated.
-            seconds
-                    = savedInstanceState
-                    .getInt("seconds");
-            running
-                    = savedInstanceState
-                    .getBoolean("running");
-            wasRunning
-                    = savedInstanceState
-                    .getBoolean("wasRunning");
+            timer.setSeconds
+                    (savedInstanceState
+                    .getInt("seconds"));
+            timer.setRunning
+                    (savedInstanceState
+                    .getBoolean("running"));
+            timer.setWasRunning
+                    (savedInstanceState
+                    .getBoolean("wasRunning"));
         }
-        runTimer();
+        timer.run();
 
     }
 
@@ -98,19 +94,19 @@ public class DriverMainActivity extends AppCompatActivity {
             Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState
-                .putInt("seconds", seconds);
+                .putInt("seconds", timer.getSeconds());
         savedInstanceState
-                .putBoolean("running", running);
+                .putBoolean("running", timer.isRunning());
         savedInstanceState
-                .putBoolean("wasRunning", wasRunning);
+                .putBoolean("wasRunning", timer.isWasRunning());
     }
 
     @Override
     protected void onPause()
     {
         super.onPause();
-        wasRunning = running;
-        running = false;
+        timer.setWasRunning(timer.isRunning());
+        timer.setRunning(false);
     }
 
     // If the activity is resumed,
@@ -120,8 +116,8 @@ public class DriverMainActivity extends AppCompatActivity {
     protected void onResume()
     {
         super.onResume();
-        if (wasRunning) {
-            running = true;
+        if (timer.isWasRunning()) {
+            timer.setRunning(true);
         }
     }
 
@@ -140,10 +136,10 @@ public class DriverMainActivity extends AppCompatActivity {
                 if (!play) {
                     play = true;
                     drawRoute();
-                    onClickStart();
+                    timer.onClickStart();
                 } else {
                     play = false;
-                    onClickStop();
+                    timer.onClickStop();
                 }
             }
         });
@@ -153,7 +149,7 @@ public class DriverMainActivity extends AppCompatActivity {
             public boolean onLongClick(View view) {
                 play = false;
                 backToCurrentLocation();
-                onClickReset();
+                timer.onClickReset();
                 return true;
             }
         });
@@ -163,73 +159,6 @@ public class DriverMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-            }
-        });
-    }
-
-    public void onClickStart()
-    {
-        running = true;
-    }
-
-    public void onClickStop()
-    {
-        running = false;
-    }
-
-    public void onClickReset()
-    {
-        running = false;
-        seconds = 0;
-    }
-
-    // Sets the NUmber of seconds on the timer.
-    // The runTimer() method uses a Handler
-    // to increment the seconds and
-    // update the text view.
-    private void runTimer()
-    {
-        final TextView timeView
-                = (TextView)findViewById(
-                R.id.timer);
-
-        final Handler handler
-                = new Handler();
-
-        // Call the post() method,
-        // passing in a new Runnable.
-        // The post() method processes
-        // code without a delay,
-        // so the code in the Runnable
-        // will run almost immediately.
-        handler.post(new Runnable() {
-            @Override
-
-            public void run()
-            {
-                int hours = seconds / 3600;
-                int minutes = (seconds % 3600) / 60;
-                int secs = seconds % 60;
-
-                // Format the seconds into hours, minutes,
-                // and seconds.
-                String time
-                        = String
-                        .format(Locale.getDefault(),
-                                "%d:%02d:%02d", hours,
-                                minutes, secs);
-
-                timeView.setText(time);
-
-                // If running is true, increment the
-                // seconds variable.
-                if (running) {
-                    seconds++;
-                }
-
-                // Post the code again
-                // with a delay of 1 second.
-                handler.postDelayed(this, 1000);
             }
         });
     }

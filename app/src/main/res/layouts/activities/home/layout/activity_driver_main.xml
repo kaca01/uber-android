@@ -54,7 +54,6 @@
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:gravity="right"
-            android:text="00:46"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="@id/timer_card"
             app:layout_constraintHorizontal_bias="0.533"

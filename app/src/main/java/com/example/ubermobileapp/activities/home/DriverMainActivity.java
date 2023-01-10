@@ -1,11 +1,14 @@
 package com.example.ubermobileapp.activities.home;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ToggleButton;
@@ -24,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class DriverMainActivity extends AppCompatActivity {
     private boolean play = false;
+    AlertDialog alertDialog;
 
     private Timer timer = new Timer();
 
@@ -130,6 +134,7 @@ public class DriverMainActivity extends AppCompatActivity {
         passengers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                createPassengersDialog();
             }
         });
 
@@ -180,5 +185,23 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private void backToCurrentLocation() {
         FragmentTransition.to(MapFragment.newInstance(), this, false);
+    }
+
+    private void createPassengersDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(DriverMainActivity.this);
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_passengers_info, null);
+
+        dialog.setView(newView)
+                .setTitle("Passengers Info")
+                .setCancelable(true)
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog = dialog.create();
+        alertDialog.show();
     }
 }

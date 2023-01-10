@@ -95,6 +95,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
                 .setCancelable(true)
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        // TODO : implement this
                         dialog.cancel();
                     }
                 })

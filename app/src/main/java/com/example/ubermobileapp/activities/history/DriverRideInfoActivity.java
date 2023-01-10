@@ -26,7 +26,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
-public class RideInformationActivity extends AppCompatActivity {
+public class DriverRideInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +61,19 @@ public class RideInformationActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.page_map:
-                        startActivity(new Intent(RideInformationActivity.this, DriverMainActivity.class));
+                        startActivity(new Intent(DriverRideInfoActivity.this, DriverMainActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.page_history:
-                        startActivity(new Intent(RideInformationActivity.this, DriverRideHistoryActivity.class));
+                        startActivity(new Intent(DriverRideInfoActivity.this, DriverRideHistoryActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.page_inbox:
-                        startActivity(new Intent(RideInformationActivity.this, DriverInboxActivity.class));
+                        startActivity(new Intent(DriverRideInfoActivity.this, DriverInboxActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.page_account:
-                        startActivity(new Intent(RideInformationActivity.this, DriverAccountActivity.class));
+                        startActivity(new Intent(DriverRideInfoActivity.this, DriverAccountActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -84,7 +84,7 @@ public class RideInformationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(RideInformationActivity.this, DriverRideHistoryActivity.class));
+        startActivity(new Intent(DriverRideInfoActivity.this, DriverRideHistoryActivity.class));
         overridePendingTransition(0,0);
     }
 

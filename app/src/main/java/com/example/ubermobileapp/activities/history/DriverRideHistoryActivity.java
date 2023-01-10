@@ -51,7 +51,7 @@ public class DriverRideHistoryActivity extends AppCompatActivity {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DriverRideHistoryActivity.this, RideInformationActivity.class);
+                Intent intent = new Intent(DriverRideHistoryActivity.this, DriverRideInfoActivity.class);
                 startActivity(intent);
             }
         });

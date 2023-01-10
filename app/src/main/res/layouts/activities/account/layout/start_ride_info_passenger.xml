@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.favorite_ride.PassengerRideFavoriteList" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="UselessParent">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/ride"
@@ -63,13 +60,13 @@
             android:layout_height="2sp"
             android:layout_gravity="center"
             android:layout_margin="15sp"
-            android:background="?android:attr/listDivider"
-            tools:ignore="SmallSp" />
+            android:background="?android:attr/listDivider"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginBottom="25sp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -168,29 +165,36 @@
 
                 </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/order_ride"
+                android:layout_width="120sp"
+                android:layout_height="60sp"
+                android:backgroundTint="?attr/colorPrimary"
+                android:focusable="false"
+                android:text="@string/order_ride"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/add_to_favorite"
+                android:layout_width="120sp"
+                android:layout_height="60sp"
+                android:backgroundTint="@color/light_gray"
+                android:focusable="false"
+                android:text="@string/not_a_favorite"/>
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15sp">
-
-            <Button
-                android:id="@+id/btnOrder1"
-                android:layout_width="180sp"
-                android:layout_height="60sp"
-                android:text="@string/order_ride"/>
-
-            <Button
-                android:id="@+id/remove1"
-                android:layout_width="180sp"
-                android:layout_height="60sp"
-                android:text="@string/remove"
-                android:layout_toEndOf="@+id/btnOrder1"
-                android:layout_marginStart="20sp"/>
-        </RelativeLayout>
-
     </LinearLayout>
+
 </RelativeLayout>

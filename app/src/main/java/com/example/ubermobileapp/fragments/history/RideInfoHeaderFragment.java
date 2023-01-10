@@ -10,15 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
 import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
 import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
+import com.example.ubermobileapp.adapters.DriverRideAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RideInfoHeaderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RideInfoHeaderFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -71,7 +69,11 @@ public class RideInfoHeaderFragment extends Fragment {
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity().getApplication(), DriverRideHistoryActivity.class);
+                Intent i;
+                if(getActivity().toString().contains("Driver"))
+                    i = new Intent(getActivity().getApplication(), DriverRideHistoryActivity.class);
+                else
+                    i = new Intent(getActivity().getApplication(), PassengerRideHistoryActivity.class);
                 startActivity(i);
             }
         });
@@ -80,7 +82,11 @@ public class RideInfoHeaderFragment extends Fragment {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity().getApplication(), DriverInboxActivity.class);
+                Intent i;
+                if(getActivity().toString().contains("Driver"))
+                    i = new Intent(getActivity().getApplication(), DriverInboxActivity.class);
+                else
+                    i = new Intent(getActivity().getApplication(), PassengerInboxActivity.class);
                 startActivity(i);
             }
         });

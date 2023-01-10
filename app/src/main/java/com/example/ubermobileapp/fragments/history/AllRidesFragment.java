@@ -10,11 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.ubermobileapp.activities.history.RideInformationActivity;
+import com.example.ubermobileapp.activities.history.DriverRideInfoActivity;
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.adapters.RideAdapter;
+import com.example.ubermobileapp.activities.history.PassengerRideInfoActivity;
+import com.example.ubermobileapp.adapters.PassengerRideAdapter;
+import com.example.ubermobileapp.adapters.DriverRideAdapter;
 import com.example.ubermobileapp.model.Ride;
+import com.example.ubermobileapp.model.communication.Review;
 import com.example.ubermobileapp.tools.Mockup;
+
+import java.util.ArrayList;
 
 
 public class AllRidesFragment extends ListFragment {
@@ -25,9 +30,16 @@ public class AllRidesFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Add adapter
-        RideAdapter adapter = new RideAdapter(getActivity());
-        setListAdapter(adapter);
+        // Add adapter for driver
+        if(getActivity().toString().contains("DriverRideHistoryActivity")) {
+            DriverRideAdapter adapter = new DriverRideAdapter(getActivity());
+            setListAdapter(adapter);
+        }
+        // Add adapter for passenger
+        else {
+            PassengerRideAdapter passengerRideAdapter = new PassengerRideAdapter(getActivity());
+            setListAdapter(passengerRideAdapter);
+        }
     }
 
     @Override
@@ -42,8 +54,15 @@ public class AllRidesFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
 
         Ride ride = Mockup.getRides().get(position);
+        ArrayList<Review> reviews = ride.getReviews();
+        Intent intent;
 
-        Intent intent = new Intent(getActivity(), RideInformationActivity.class);
+        if(getActivity().toString().contains("DriverRideHistoryActivity"))
+            intent = new Intent(getActivity(), DriverRideInfoActivity.class);
+        else
+            intent = new Intent(getActivity(), PassengerRideInfoActivity.class);
+
+        Bundle bundle = new Bundle();
 
         intent.putExtra("date", ride.getDate());
         intent.putExtra("start_time", ride.getStartTime());
@@ -51,6 +70,14 @@ public class AllRidesFragment extends ListFragment {
         intent.putExtra("distance", Double.toString(ride.getDistance()));
         intent.putExtra("cost", Double.toString(ride.getCost()));
         intent.putExtra("path", ride.getPath());
+
+        if(ride.getReviews() == null)
+            intent.putExtra("review", "null");
+        else
+        {
+            bundle.putParcelableArrayList("review", reviews);
+            intent.putExtras(bundle);
+        }
 
         startActivity(intent);
     }

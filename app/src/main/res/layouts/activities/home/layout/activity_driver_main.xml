@@ -53,31 +53,94 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonPassengers"
-        android:layout_width="150dp"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/view_passengers_background"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/passengers"
-        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_panic"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/panic"
-        android:textColor="@color/white"
-        android:background="@drawable/panic_button_background"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/firstCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30sp"
+            app:cardCornerRadius="10sp">
+
+            <LinearLayout
+                android:id="@+id/firstBtn"
+                android:layout_width="80sp"
+                android:layout_height="80sp"
+                android:foreground="?attr/selectableItemBackground"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/starPic"
+                    android:layout_width="40sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:src="@mipmap/star_foreground" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/secondCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40sp"
+            android:layout_marginEnd="20sp"
+            android:layout_marginBottom="10sp"
+            android:layout_toRightOf="@+id/firstCard"
+            app:cardCornerRadius="10sp">
+
+            <LinearLayout
+                android:id="@+id/secondBtn"
+                android:layout_width="80sp"
+                android:layout_height="80sp"
+                android:foreground="?attr/selectableItemBackground"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/creditCardPic"
+                    android:layout_width="40sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:src="@mipmap/credit_card_foreground" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/thirdCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/secondCard"
+            android:layout_marginStart="20sp"
+            app:cardCornerRadius="10sp">
+
+            <LinearLayout
+                android:id="@+id/thirdBtn"
+                android:layout_width="80sp"
+                android:layout_height="80sp"
+                android:foreground="?attr/selectableItemBackground"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/panicPic"
+                    android:layout_width="40sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:src="@mipmap/star_foreground" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
 
 
 

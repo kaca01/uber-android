@@ -177,6 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="?attr/colorPrimary"
+                android:focusable="false"
                 android:text="NOT A FAVORITE"/>
 
             <View
@@ -189,6 +190,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="?attr/colorPrimary"
+                android:focusable="false"
                 android:text="ORDER A RIDE"/>
 
         </LinearLayout>

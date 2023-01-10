@@ -48,17 +48,7 @@ public class PassengerRideAdapter extends BaseAdapter {
         if(convertView==null)
             view = activity.getLayoutInflater().inflate(R.layout.start_ride_info_passenger, null);
 
-        Button favorite = view.findViewById(R.id.add_to_favorite);
-        favorite.setOnClickListener( new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if(favorite.getText().toString().contains("NOT"))
-                    favorite.setText("FAVORITE");
-                else
-                    favorite.setText("NOT A FAVORITE");
-            }
-        });
+       changeFavButton(view);
 
         TextView startTime = (TextView) view.findViewById(R.id.start_time);
         TextView endTime = (TextView) view.findViewById(R.id.end_time);
@@ -77,5 +67,19 @@ public class PassengerRideAdapter extends BaseAdapter {
         path.setImageResource(ride.getPath());
 
         return view;
+    }
+
+    private void changeFavButton(View view) {
+        Button favorite = view.findViewById(R.id.add_to_favorite);
+        favorite.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(favorite.getText().toString().contains("NOT"))
+                    favorite.setText("FAVORITE");
+                else
+                    favorite.setText("NOT A FAVORITE");
+            }
+        });
     }
 }

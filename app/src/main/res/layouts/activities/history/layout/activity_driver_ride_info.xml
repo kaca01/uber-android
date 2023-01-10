@@ -31,6 +31,17 @@
 
             <include layout="@layout/fragment_about_ride" />
 
+            <include layout="@layout/list_of_passengers"/>
+            <include layout="@layout/list_of_passengers"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2sp"
+                android:background="?android:attr/listDivider"
+                tools:ignore="SmallSp"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10sp"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,11 +52,13 @@
                 style="bold"
                 android:layout_marginBottom="30sp"/>
 
-            <Button
-                android:id="@+id/add_review"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/no_rating"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ADD REVIEW"/>
+                android:layout_gravity="center_horizontal"
+                android:textSize="15sp"
+                android:text="No ratings for this ride"/>
             
             <FrameLayout
                 android:id="@+id/review"

@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.ubermobileapp.activities.history.DriverRideInfoActivity;
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.history.PassengerRideInfoActivity;
 import com.example.ubermobileapp.adapters.PassengerRideAdapter;
 import com.example.ubermobileapp.adapters.DriverRideAdapter;
 import com.example.ubermobileapp.model.Ride;
@@ -54,8 +55,13 @@ public class AllRidesFragment extends ListFragment {
 
         Ride ride = Mockup.getRides().get(position);
         ArrayList<Review> reviews = ride.getReviews();
+        Intent intent;
 
-        Intent intent = new Intent(getActivity(), DriverRideInfoActivity.class);
+        if(getActivity().toString().contains("DriverRideHistoryActivity"))
+            intent = new Intent(getActivity(), DriverRideInfoActivity.class);
+        else
+            intent = new Intent(getActivity(), PassengerRideInfoActivity.class);
+
         Bundle bundle = new Bundle();
 
         intent.putExtra("date", ride.getDate());

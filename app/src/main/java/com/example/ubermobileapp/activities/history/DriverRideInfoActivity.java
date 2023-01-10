@@ -31,7 +31,7 @@ public class DriverRideInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ride_information);
+        setContentView(R.layout.activity_driver_ride_info);
 
         // set data
         TextView date = findViewById(R.id.date);
@@ -89,22 +89,27 @@ public class DriverRideInfoActivity extends AppCompatActivity {
     }
 
     private void addAddReviewFragment() {
-        Button clickButton = (Button) findViewById(R.id.add_review);
-        clickButton.setOnClickListener( new View.OnClickListener() {
+//        // remove ADD REVIEW button
+//        Button addReview = (Button) findViewById(R.id.add_review);
+//        addReview.setVisibility(View.GONE);
 
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment();
-                leavingReviewFragment.show(fragmentManager, "leaving_review");
-            }
-        });
+
+//        Button clickButton = (Button) findViewById(R.id.add_review);
+//        clickButton.setOnClickListener( new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment();
+//                leavingReviewFragment.show(fragmentManager, "leaving_review");
+//            }
+//        });
     }
 
     private void addRatingFragment() {
         // remove ADD REVIEW button
-        Button addReview = (Button) findViewById(R.id.add_review);
-        addReview.setVisibility(View.GONE);
+        TextView noRating = (TextView) findViewById(R.id.no_rating);
+        noRating.setVisibility(View.GONE);
 
         // add rating and reviews fragment
         FragmentManager fragmentManager = getSupportFragmentManager();

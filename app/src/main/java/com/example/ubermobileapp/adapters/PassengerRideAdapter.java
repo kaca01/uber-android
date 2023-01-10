@@ -2,6 +2,7 @@ package com.example.ubermobileapp.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -75,10 +76,14 @@ public class PassengerRideAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-                if(favorite.getText().toString().contains("NOT"))
+                if(favorite.getText().toString().contains("NOT")) {
+                    favorite.setBackgroundColor(Color.rgb(255,179,71));
                     favorite.setText("FAVORITE");
-                else
+                }
+                else {
+                    favorite.setBackgroundColor(Color.rgb(150, 212, 156));
                     favorite.setText("NOT A FAVORITE");
+                }
             }
         });
     }

@@ -5,18 +5,22 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentManager;
+
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.fragments.review.LeavingReviewFragment;
 import com.example.ubermobileapp.model.Ride;
 import com.example.ubermobileapp.tools.Mockup;
 
-public class RideAdapter extends BaseAdapter {
+public class PassengerRideAdapter extends BaseAdapter {
 
     private Activity activity;
 
-    public RideAdapter(Activity activity) {
+    public PassengerRideAdapter(Activity activity) {
         this.activity = activity;
     }
 
@@ -42,7 +46,19 @@ public class RideAdapter extends BaseAdapter {
         Ride ride = Mockup.getRides().get(position);
 
         if(convertView==null)
-            view = activity.getLayoutInflater().inflate(R.layout.driver_ride_history_list, null);
+            view = activity.getLayoutInflater().inflate(R.layout.start_ride_info_passenger, null);
+
+        Button favorite = view.findViewById(R.id.add_to_favorite);
+        favorite.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(favorite.getText().toString().contains("NOT"))
+                    favorite.setText("FAVORITE");
+                else
+                    favorite.setText("NOT A FAVORITE");
+            }
+        });
 
         TextView startTime = (TextView) view.findViewById(R.id.start_time);
         TextView endTime = (TextView) view.findViewById(R.id.end_time);

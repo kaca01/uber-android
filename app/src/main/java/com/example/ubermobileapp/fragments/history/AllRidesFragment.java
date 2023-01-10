@@ -12,7 +12,8 @@ import android.widget.ListView;
 
 import com.example.ubermobileapp.activities.history.DriverRideInfoActivity;
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.adapters.RideAdapter;
+import com.example.ubermobileapp.adapters.PassengerRideAdapter;
+import com.example.ubermobileapp.adapters.DriverRideAdapter;
 import com.example.ubermobileapp.model.Ride;
 import com.example.ubermobileapp.model.communication.Review;
 import com.example.ubermobileapp.tools.Mockup;
@@ -28,9 +29,16 @@ public class AllRidesFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Add adapter
-        RideAdapter adapter = new RideAdapter(getActivity());
-        setListAdapter(adapter);
+        // Add adapter for driver
+        if(getActivity().toString().contains("DriverRideHistoryActivity")) {
+            DriverRideAdapter adapter = new DriverRideAdapter(getActivity());
+            setListAdapter(adapter);
+        }
+        // Add adapter for passenger
+        else {
+            PassengerRideAdapter passengerRideAdapter = new PassengerRideAdapter(getActivity());
+            setListAdapter(passengerRideAdapter);
+        }
     }
 
     @Override

@@ -81,7 +81,7 @@ public class PassengerRideAdapter extends BaseAdapter {
                     favorite.setText("FAVORITE");
                 }
                 else {
-                    favorite.setBackgroundColor(Color.rgb(150, 212, 156));
+                    favorite.setBackgroundColor(Color.rgb(237, 235, 235));
                     favorite.setText("NOT A FAVORITE");
                 }
             }

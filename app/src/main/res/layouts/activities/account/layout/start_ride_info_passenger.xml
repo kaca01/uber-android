@@ -189,7 +189,7 @@
                 android:id="@+id/add_to_favorite"
                 android:layout_width="120sp"
                 android:layout_height="60sp"
-                android:backgroundTint="?attr/colorPrimary"
+                android:backgroundTint="@color/light_gray"
                 android:focusable="false"
                 android:text="@string/not_a_favorite"/>
 

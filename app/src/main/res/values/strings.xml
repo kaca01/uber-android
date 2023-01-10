@@ -89,4 +89,5 @@
     <string name="leave_your_review">Leave your review!</string>
     <string name="rate_the_driver">Rate the driver</string>
     <string name="rate_the_car">Rate the car</string>
+    <string name="not_a_favorite">NOT A FAVORITE</string>
 </resources>

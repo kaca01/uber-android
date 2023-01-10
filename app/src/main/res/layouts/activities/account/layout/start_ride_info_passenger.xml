@@ -173,12 +173,12 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/add_to_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/order_ride"
+                android:layout_width="120sp"
+                android:layout_height="60sp"
                 android:backgroundTint="?attr/colorPrimary"
                 android:focusable="false"
-                android:text="NOT A FAVORITE"/>
+                android:text="@string/order_ride"/>
 
             <View
                 android:layout_width="0dp"
@@ -186,12 +186,12 @@
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/order_ride"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/add_to_favorite"
+                android:layout_width="120sp"
+                android:layout_height="60sp"
                 android:backgroundTint="?attr/colorPrimary"
                 android:focusable="false"
-                android:text="ORDER A RIDE"/>
+                android:text="@string/not_a_favorite"/>
 
         </LinearLayout>
 

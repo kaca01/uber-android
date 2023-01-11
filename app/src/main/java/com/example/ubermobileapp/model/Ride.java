@@ -1,5 +1,9 @@
 package com.example.ubermobileapp.model;
 
+import com.example.ubermobileapp.model.communication.Review;
+
+import java.util.ArrayList;
+
 public class Ride {
     private String startTime;
     private String endTime;
@@ -8,11 +12,12 @@ public class Ride {
     private int passengerNum;
     private double distance;
     private int path;
+    private ArrayList<Review> reviews;
 
     public Ride() { }
 
     public Ride(String startTime, String endTime, String date, double cost, int passengerNum,
-                double distance, int path) {
+                double distance, int path, ArrayList<Review> reviews) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
@@ -20,6 +25,7 @@ public class Ride {
         this.passengerNum = passengerNum;
         this.distance = distance;
         this.path = path;
+        this.reviews = reviews;
     }
 
     public String getStartTime() {
@@ -78,6 +84,14 @@ public class Ride {
         this.path = path;
     }
 
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(ArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     @Override
     public String toString() {
         return "Ride{" +
@@ -87,6 +101,8 @@ public class Ride {
                 ", cost=" + cost +
                 ", passengerNum=" + passengerNum +
                 ", distance=" + distance +
+                ", path=" + path +
+                ", reviews=" + reviews +
                 '}';
     }
 }

@@ -7,6 +7,8 @@ import com.example.ubermobileapp.model.MessageType;
 import com.example.ubermobileapp.model.Ride;
 import com.example.ubermobileapp.model.Report;
 import com.example.ubermobileapp.model.ReportsType;
+import com.example.ubermobileapp.model.communication.Review;
+import com.example.ubermobileapp.model.enumeration.ReviewType;
 import com.example.ubermobileapp.model.passenger.CreditCard;
 import com.example.ubermobileapp.model.passenger.CreditCardType;
 import com.example.ubermobileapp.model.passenger.Passenger;
@@ -145,24 +147,24 @@ public class Mockup {
     }
 
     public static List<Ride> getRides() {
-        ArrayList<Ride> rides = new ArrayList<Ride>();
+        ArrayList<Ride> rides = new ArrayList<>();
 
-        Ride r1 = new Ride("14:01", "14:30", "10/02/2022", 800.00, 2, 10.00, R.drawable.map);
-        Ride r2 = new Ride("10:00", "10:20", "11/05/2022", 562.36, 2, 5.03, R.drawable.map);
-        Ride r3 = new Ride("21:56", "22:24", "15/10/2022", 843.12, 2, 12.11, R.drawable.map);
+        Ride r1 = new Ride("14:01", "14:30", "10/02/2022", 800.00, 2, 10.00, R.drawable.map, getReviews());
+        Ride r2 = new Ride("10:00", "10:20", "11/05/2022", 562.36, 2, 5.03, R.drawable.map, null);
+        Ride r3 = new Ride("21:56", "22:24", "15/10/2022", 843.12, 2, 12.11, R.drawable.map, null);
 
-        rides.add(r1);
         rides.add(r2);
+        rides.add(r1);
         rides.add(r3);
 
         return rides;
     }
 
     public static List<Ride> getFavoriteRides() {
-        ArrayList<Ride> rides = new ArrayList<Ride>();
+        ArrayList<Ride> rides = new ArrayList<>();
 
-        Ride r1 = new Ride("14:00", "14:30", "10/02/2022", 800.00, 2, 10.00, R.drawable.map);
-        Ride r2 = new Ride("10:00", "10:20", "11/05/2022", 562.36, 2, 5.03, R.drawable.map);
+        Ride r1 = new Ride("14:00", "14:30", "10/02/2022", 800.00, 2, 10.00, R.drawable.map, null);
+        Ride r2 = new Ride("10:00", "10:20", "11/05/2022", 562.36, 2, 5.03, R.drawable.map, null);
 
         rides.add(r1);
         rides.add(r2);
@@ -183,5 +185,20 @@ public class Mockup {
             if (report.getID() == id) return report;
         }
         return null;
+    }
+
+    public static ArrayList<Review> getReviews() {
+        ArrayList<Passenger> passengers = getPassengers();
+        ArrayList<Review> reviews = new ArrayList<>();
+
+        Review r1 = new Review(1, 5, "Great driver!", passengers.get(0),
+                ReviewType.DRIVER);
+        Review r2 = new Review(2, 4, "The vehicle could have been cleaner!", passengers.get(0),
+                ReviewType.VEHICLE);
+
+        reviews.add(r1);
+        reviews.add(r2);
+
+        return reviews;
     }
 }

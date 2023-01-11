@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragments.home.CreateRide1Fragment"
+    android:background="?attr/colorSecondaryVariant"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10sp"
+        android:padding="10sp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_ride_title1"
+            android:fontFamily="@font/righteous"
+            android:textStyle="bold"
+            android:textColor="?attr/colorSecondary"
+            android:textSize="35sp"
+            android:layout_marginBottom="25sp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/light_gray"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="30sp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/departure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:autofillHints="departure"
+                android:hint="@string/input_departure"
+                android:textColorHint="?attr/colorSecondaryVariant"
+                android:inputType="text"
+                android:minHeight="50sp"
+                android:selectAllOnFocus="true"
+                android:layout_toStartOf="@+id/img_departure"/>
+            <ImageButton
+                android:id="@+id/img_departure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_drop_pin"
+                android:background="?attr/colorSecondaryVariant"
+                android:contentDescription="@string/set_marker" />
+        </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/light_gray"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="30sp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:autofillHints="destination"
+                android:hint="@string/input_destination"
+                android:textColorHint="?attr/colorSecondaryVariant"
+                android:inputType="text"
+                android:minHeight="50sp"
+                android:selectAllOnFocus="true"
+                android:layout_toStartOf="@+id/img_destination"/>
+            <ImageButton
+                android:id="@+id/img_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_drop_pin"
+                android:background="?attr/colorSecondaryVariant"
+                android:contentDescription="@string/set_marker"/>
+        </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/confirmFirst"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30sp"
+            android:backgroundTint="?attr/colorPrimary"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/confirm"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</FrameLayout>

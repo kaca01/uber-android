@@ -67,7 +67,6 @@
     <string name="inbox">INBOX</string>
     <string name="enter_message">Type a message…</string>
     <string name="send">Send</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="log_out">Log out</string>
     <string name="two_fav_rout">2 favorite routes</string>
@@ -90,4 +89,15 @@
     <string name="sure">Sure</string>
     <string name="location_disabled_message">Location is disabled</string>
     <string name="oops">Enable your location</string>
+    <string name="input_departure">Add a pickup location</string>
+    <string name="input_destination">Enter your destination</string>
+    <string name="new_passenger">Add other passengers by email</string>
+    <string name="add">Add</string>
+    <string name="pet_transport">Pet transport</string>
+    <string name="baby_transport">Baby transport</string>
+    <string name="add_favorites">Add to favorites</string>
+    <string name="set_marker">set marker</string>
+    <string name="create_ride_title1">Order your ride!</string>
+    <string name="create_ride_title2">Few more steps…</string>
+    <string name="create_ride_title3">Ready to order!</string>
 </resources>

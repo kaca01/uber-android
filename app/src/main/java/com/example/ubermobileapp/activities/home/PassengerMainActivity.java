@@ -2,6 +2,7 @@ package com.example.ubermobileapp.activities.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,9 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
+import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
+import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
+import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -45,6 +49,20 @@ public class PassengerMainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    public void changeToSecondFragment()
+    {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, CreateRide2Fragment.class, null);
+        fragmentTransaction.commit();
+    }
+
+    public void changeToThirdFragment()
+    {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, CreateRide3Fragment.class, null);
+        fragmentTransaction.commit();
     }
 
     @Override

@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.model.Message;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -84,6 +86,14 @@ public class CreateRide2Fragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // TODO Auto-generated method stub
+            }
+        });
+
+        Button confirm = view.findViewById(R.id.confirm);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((PassengerMainActivity)getActivity()).changeToThirdFragment();
             }
         });
 

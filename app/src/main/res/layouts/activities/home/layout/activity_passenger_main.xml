@@ -12,26 +12,11 @@
         android:orientation="vertical">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/firstContainer"
+            android:id="@+id/fragment_container"
             android:name="com.example.ubermobileapp.fragments.home.CreateRide1Fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_create_ride1"
-            android:visibility="gone"/>
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/secondContainer"
-            android:name="com.example.ubermobileapp.fragments.home.CreateRide2Fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_create_ride2" />
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/thirdContainer"
-            android:name="com.example.ubermobileapp.fragments.home.CreateRide3Fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_create_ride3" />
+            tools:layout="@layout/fragment_create_ride1"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView5"

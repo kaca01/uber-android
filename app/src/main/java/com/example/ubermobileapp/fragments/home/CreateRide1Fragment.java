@@ -1,5 +1,6 @@
 package com.example.ubermobileapp.fragments.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
+import com.example.ubermobileapp.activities.history.RideInformationActivity;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,9 +31,6 @@ public class CreateRide1Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // ovdje ide dio oko memorije
-        //jel ovdje idu i listeneri?
     }
 
     @Override
@@ -39,6 +41,12 @@ public class CreateRide1Fragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // ovdje se dobavljaju iz xml-a
+        Button confirm = view.findViewById(R.id.confirm);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((PassengerMainActivity)getActivity()).changeToSecondFragment();
+            }
+        });
     }
 }

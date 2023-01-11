@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +34,16 @@ public class CreateRide3Fragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_create_ride3, container, false);
 
+    }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        Button confirm = view.findViewById(R.id.confirm);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //validate or whatever
+            }
+        });
     }
 }

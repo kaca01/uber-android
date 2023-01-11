@@ -21,12 +21,12 @@
             android:textStyle="bold"
             android:textColor="?attr/colorSecondary"
             android:textSize="35sp"
-            android:layout_marginBottom="25sp"/>
+            android:layout_marginBottom="35sp"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/light_gray"
+            android:backgroundTint="?attr/carousel_firstView"
             android:layout_marginBottom="10dp"
             app:cardCornerRadius="30sp">
         <RelativeLayout
@@ -39,10 +39,11 @@
                 android:layout_margin="5sp"
                 android:autofillHints="departure"
                 android:hint="@string/input_departure"
-                android:textColorHint="?attr/colorSecondaryVariant"
                 android:inputType="text"
+                android:paddingStart="10dp"
                 android:minHeight="50sp"
                 android:selectAllOnFocus="true"
+                android:background="@android:color/transparent"
                 android:layout_toStartOf="@+id/img_departure"/>
             <ImageButton
                 android:id="@+id/img_departure"
@@ -52,7 +53,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_drop_pin"
-                android:background="?attr/colorSecondaryVariant"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/set_marker" />
         </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -60,7 +61,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/light_gray"
+            android:backgroundTint="?attr/carousel_firstView"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="30sp">
         <RelativeLayout
@@ -74,9 +75,10 @@
                 android:layout_margin="5sp"
                 android:autofillHints="destination"
                 android:hint="@string/input_destination"
-                android:textColorHint="?attr/colorSecondaryVariant"
                 android:inputType="text"
+                android:background="@android:color/transparent"
                 android:minHeight="50sp"
+                android:paddingStart="10dp"
                 android:selectAllOnFocus="true"
                 android:layout_toStartOf="@+id/img_destination"/>
             <ImageButton
@@ -87,14 +89,14 @@
                 android:layout_marginEnd="15dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_drop_pin"
-                android:background="?attr/colorSecondaryVariant"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/set_marker"/>
         </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <Button
-            android:id="@+id/confirmFirst"
+            android:id="@+id/confirm"
             android:layout_width="180dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_marginTop="30sp"
             android:backgroundTint="?attr/colorPrimary"
             android:layout_gravity="center"

@@ -21,13 +21,26 @@
             android:textStyle="bold"
             android:textColor="?attr/colorSecondary"
             android:textSize="35sp"
-            android:layout_marginBottom="25sp"/>
+            android:layout_marginBottom="35sp"/>
 
-        <Spinner
-            android:id="@+id/vehicle_type_spinner"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="10sp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vehicle_type"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <Spinner
+                android:layout_marginStart="20px"
+                android:id="@+id/vehicle_type_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/new_passenger"
@@ -48,9 +61,9 @@
             android:layout_height="wrap_content"/>
 
         <Button
-            android:id="@+id/confirmSecond"
+            android:id="@+id/confirm"
             android:layout_width="200dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_marginTop="20sp"
             android:backgroundTint="?attr/colorPrimary"
             android:layout_gravity="center"

@@ -100,4 +100,7 @@
     <string name="create_ride_title1">Order your ride!</string>
     <string name="create_ride_title2">Few more steps…</string>
     <string name="create_ride_title3">Ready to order!</string>
+    <string name="vehicle_type">Vehicle type: </string>
+    <string name="order">Order</string>
+    <string name="order_time">Order time: now</string>
 </resources>

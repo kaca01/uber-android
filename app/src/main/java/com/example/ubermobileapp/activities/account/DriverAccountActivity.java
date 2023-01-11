@@ -46,8 +46,6 @@ public class DriverAccountActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     @Override

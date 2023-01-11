@@ -4,17 +4,21 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.model.Message;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.List;
 
@@ -25,7 +29,8 @@ import java.util.List;
  */
 public class CreateRide2Fragment extends Fragment {
     Spinner spin;
-    private String list[] = {};
+    ChipGroup chipGroup;
+    EditText email;
 
     public CreateRide2Fragment() {}
 
@@ -41,17 +46,19 @@ public class CreateRide2Fragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_ride2, container, false);
 
-        /*ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.passenger_item, list);
-        ListView listView = (ListView) view.findViewById(R.id.passengers_list);
-        listView.setAdapter(adapter);*/
-        //umjesto arrayAdapter da bude listAdapter
-        //dobaviti remove ikonu i ukloniti iz array-a...kako znati koja je kliknuta?
-        // IPAK KORISTITI RECYLERVIEW
-        // PROVJERITI POSTOJI LI FUNKCIJA DA SE NA DUZI KLIK OMOGUCE NOVE OPCIJE
-        // MOZDA BOOJE PROVJERITI VJEZBE??
-
-        // OK : TREBA DEFINISATI SVOJ ADAPTER, LAKSE JE NEGO SE ZAJEBAVATI :)))
-
+        chipGroup = (ChipGroup)view.findViewById(R.id.chip_group);
+        email = (EditText)view.findViewById(R.id.new_passenger);
+        email.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    String emailText = email.getText().toString();
+                    setChips(emailText);
+                    email.setText("");
+                }
+                return false;
+            }
+        });
 
         spin = (Spinner)view.findViewById(R.id.vehicle_type_spinner);
         String[] options = { "STANDARD", "LUXURY", "VAN"};
@@ -81,5 +88,18 @@ public class CreateRide2Fragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void setChips(String e) {
+        final Chip chip = (Chip) this.getLayoutInflater().inflate(R.layout.email_chip_layout, null, false);
+        chip.setText(e);
+
+        chip.setOnCloseIconClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chipGroup.removeView(chip);
+            }
+        });
+        chipGroup.addView(chip);
     }
 }

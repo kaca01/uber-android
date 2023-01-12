@@ -94,6 +94,7 @@ public class CreateRide3Fragment extends Fragment {
                 builder.setTitle("Add favorite ride");
                 final EditText input = new EditText(view.getContext());
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setHint("Add name for your favorite ride...");
                 builder.setView(input);
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

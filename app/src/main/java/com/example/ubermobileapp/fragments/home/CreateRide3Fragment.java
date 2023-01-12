@@ -25,6 +25,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
@@ -61,6 +62,11 @@ public class CreateRide3Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //validate or whatever
+                Toast toast = Toast.makeText(view.getContext(), "Ride successfully ordered! \nPlease wait... system is looking for the driver.", Toast.LENGTH_LONG);
+                toast.show();
+                getView().setVisibility(View.GONE);
+                ((PassengerMainActivity)getActivity()).setCancelButtonVisible();
+                ((PassengerMainActivity)getActivity()).setBackButtonInvisible();
             }
         });
 

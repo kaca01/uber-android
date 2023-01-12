@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
@@ -42,9 +44,16 @@ public class CreateRide1Fragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         Button confirm = view.findViewById(R.id.confirm);
+        EditText departure = view.findViewById(R.id.departure);
+        EditText destination = view.findViewById(R.id.destination);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (departure.getText().toString().isEmpty() || destination.getText().toString().isEmpty()) {
+                    Toast toast = Toast.makeText(view.getContext(), "You must fill all the fields!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
                 ((PassengerMainActivity)getActivity()).changeToSecondFragment();
             }
         });

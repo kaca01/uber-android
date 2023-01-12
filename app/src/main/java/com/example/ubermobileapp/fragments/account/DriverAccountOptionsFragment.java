@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.example.ubermobileapp.activities.reports.PassengerReportsActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.startup.UserLoginActivity;
+import com.example.ubermobileapp.services.utils.AuthService;
 
 public class DriverAccountOptionsFragment extends Fragment {
     AlertDialog startDateDialog;
@@ -52,6 +53,7 @@ public class DriverAccountOptionsFragment extends Fragment {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AuthService.logout();
                 startActivity(new Intent(getActivity(), UserLoginActivity.class));
             }
         });

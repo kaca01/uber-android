@@ -85,6 +85,10 @@
     <string name="accepted_drives">Accepted drives:</string>
     <string name="hours">Working hours:</string>
     <string name="earnings">Earnings:</string>
+    <string name="leave_your_review">Leave your review!</string>
+    <string name="rate_the_driver">Rate the driver</string>
+    <string name="rate_the_car">Rate the car</string>
+    <string name="not_a_favorite">NOT A FAVORITE</string>
     <string name="no">No</string>
     <string name="sure">Sure</string>
     <string name="location_disabled_message">Location is disabled</string>
@@ -104,4 +108,5 @@
     <string name="order">Order</string>
     <string name="order_time">Order time: now</string>
     <string name="cancel_order">Cancel order</string>
+    <string name="passengers">Passengers</string>
 </resources>

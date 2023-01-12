@@ -110,13 +110,11 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
                     //Request location updates:
                     locationManager.requestLocationUpdates(provider, 2000, 0, this);
-                    Toast.makeText(getContext(), "ACCESS_FINE_LOCATION", Toast.LENGTH_SHORT).show();
                 }else if(ContextCompat.checkSelfPermission(getContext(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 
                     //Request location updates:
                     locationManager.requestLocationUpdates(provider, 2000, 0, this);
-                    Toast.makeText(getContext(), "ACCESS_COARSE_LOCATION", Toast.LENGTH_SHORT).show();
                 }
             }
         }

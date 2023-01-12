@@ -6,27 +6,66 @@
     android:layout_height="match_parent"
     tools:context=".activities.home.PassengerMainActivity">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/backCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="20sp"
+        app:cardCornerRadius="30sp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/backBttn"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:foreground="?attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:src="@drawable/ic_arrow_back" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView5"
+        android:name="com.example.ubermobileapp.fragments.home.MapFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_map"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/separator"/>
+
+    <RelativeLayout
+        android:id="@+id/separator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment_container"
-            android:name="com.example.ubermobileapp.fragments.home.CreateRide1Fragment"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fragment_container">
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_create_ride1"/>
+            android:layout_height="1dp"
+            android:visibility="visible"
+            android:background="@android:color/darker_gray"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView5"
-            android:name="com.example.ubermobileapp.fragments.home.MapFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_map"
-            android:visibility="gone"/>
-
-    </LinearLayout>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:name="com.example.ubermobileapp.fragments.home.CreateRide1Fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_create_ride1"
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_navigation"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

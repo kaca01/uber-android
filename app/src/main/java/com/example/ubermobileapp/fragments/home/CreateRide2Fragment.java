@@ -101,7 +101,7 @@ public class CreateRide2Fragment extends Fragment {
     }
 
     public void setChips(String e) {
-        final Chip chip = (Chip) this.getLayoutInflater().inflate(R.layout.email_chip_layout, null, false);
+        final Chip chip = (Chip) this.getLayoutInflater().inflate(R.layout.email_chip_layout, chipGroup, false);
         chip.setText(e);
 
         chip.setOnCloseIconClickListener(new View.OnClickListener() {

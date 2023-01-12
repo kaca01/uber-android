@@ -2,11 +2,13 @@ package com.example.ubermobileapp.activities.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
@@ -20,10 +22,15 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class PassengerMainActivity extends AppCompatActivity {
 
+    int currentFragment = 0;
+    CardView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_main);
+
+        back = findViewById(R.id.backCard);
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
@@ -49,10 +56,33 @@ public class PassengerMainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentFragment==1) {
+                    changeToFirstFragment();
+                }
+                else if (currentFragment==2) {
+                    changeToSecondFragment();
+                }
+            }
+        });
+    }
+
+    public void changeToFirstFragment()
+    {
+        currentFragment = 0;
+        back.setVisibility(View.GONE);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, CreateRide1Fragment.class, null);
+        fragmentTransaction.commit();
     }
 
     public void changeToSecondFragment()
     {
+        currentFragment = 1;
+        back.setVisibility(View.VISIBLE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, CreateRide2Fragment.class, null);
         fragmentTransaction.commit();
@@ -60,6 +90,8 @@ public class PassengerMainActivity extends AppCompatActivity {
 
     public void changeToThirdFragment()
     {
+        currentFragment = 2;
+        back.setVisibility(View.VISIBLE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, CreateRide3Fragment.class, null);
         fragmentTransaction.commit();

@@ -99,7 +99,7 @@
     <string name="set_marker">set marker</string>
     <string name="create_ride_title1">Order your ride!</string>
     <string name="create_ride_title2">Few more steps…</string>
-    <string name="create_ride_title3">Ready to order!</string>
+    <string name="create_ride_title3">Ready to go!</string>
     <string name="vehicle_type">Vehicle type: </string>
     <string name="order">Order</string>
     <string name="order_time">Order time: now</string>

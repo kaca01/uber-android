@@ -1,16 +1,33 @@
 package com.example.ubermobileapp.fragments.home;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.activities.home.PassengerMainActivity;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +35,7 @@ import com.example.ubermobileapp.activities.home.PassengerMainActivity;
  * create an instance of this fragment.
  */
 public class CreateRide3Fragment extends Fragment {
+    String favoriteName;
 
     public CreateRide3Fragment() {}
 
@@ -44,6 +62,57 @@ public class CreateRide3Fragment extends Fragment {
             public void onClick(View view) {
                 //validate or whatever
             }
+        });
+
+        TextView textView = view.findViewById(R.id.time_text);
+        ImageButton timepicker = view.findViewById(R.id.timepicker);
+        timepicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int minute = c.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(view.getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+                                textView.setText("Order time: " + hourOfDay + ":" + minute);
+                            }
+                        }, hour, minute, false);
+                timePickerDialog.show();
+            }
+        });
+
+        TextView addFavorite = view.findViewById(R.id.favorites_button);
+        addFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Add favorite ride");
+                final EditText input = new EditText(view.getContext());
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast toast = Toast.makeText(view.getContext(), "Successfully added!", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+
         });
     }
 }

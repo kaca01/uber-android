@@ -87,7 +87,7 @@
             app:cardCornerRadius="10sp">
 
             <ImageView
-                android:id="@+id/starPic"
+                android:id="@+id/passengersPic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -107,7 +107,7 @@
             app:cardCornerRadius="10sp">
 
             <ImageView
-                android:id="@+id/creditCardPic"
+                android:id="@+id/playPausePic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

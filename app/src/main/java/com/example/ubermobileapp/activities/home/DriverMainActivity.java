@@ -29,9 +29,7 @@ public class DriverMainActivity extends AppCompatActivity {
     private boolean play = false;
     AlertDialog alertDialog;
 
-    private Timer timer = new Timer();
-
-
+    private final Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

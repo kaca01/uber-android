@@ -2,24 +2,39 @@ package com.example.ubermobileapp.activities.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
+import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
+import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
+import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class PassengerMainActivity extends AppCompatActivity {
 
+    int currentFragment = 0;
+    CardView back;
+    AppCompatButton cancelButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_main);
+
+        back = findViewById(R.id.backCard);
+        cancelButton = findViewById(R.id.cancel_order);
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
@@ -45,6 +60,63 @@ public class PassengerMainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentFragment==1) {
+                    changeToFirstFragment();
+                }
+                else if (currentFragment==2) {
+                    changeToSecondFragment();
+                }
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast toast = Toast.makeText(view.getContext(), "Ride canceled!", Toast.LENGTH_LONG);
+                toast.show();
+                cancelButton.setVisibility(View.GONE);
+                changeToFirstFragment();
+            }
+        });
+    }
+
+    public void changeToFirstFragment()
+    {
+        currentFragment = 0;
+        back.setVisibility(View.GONE);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, CreateRide1Fragment.class, null);
+        fragmentTransaction.commit();
+    }
+
+    public void changeToSecondFragment()
+    {
+        currentFragment = 1;
+        back.setVisibility(View.VISIBLE);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, CreateRide2Fragment.class, null);
+        fragmentTransaction.commit();
+    }
+
+    public void changeToThirdFragment()
+    {
+        currentFragment = 2;
+        back.setVisibility(View.VISIBLE);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, CreateRide3Fragment.class, null);
+        fragmentTransaction.commit();
+    }
+
+    public void setCancelButtonVisible(){
+        cancelButton.setVisibility(View.VISIBLE);
+    }
+
+    public void setBackButtonInvisible(){
+        back.setVisibility(View.GONE);
     }
 
     @Override

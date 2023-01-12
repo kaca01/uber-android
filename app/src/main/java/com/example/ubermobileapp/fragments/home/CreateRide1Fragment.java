@@ -13,8 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
-import com.example.ubermobileapp.activities.history.RideInformationActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 
 /**

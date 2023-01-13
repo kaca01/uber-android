@@ -9,8 +9,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
@@ -25,14 +27,20 @@ import com.example.ubermobileapp.model.RideOrder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 
 public class PassengerMainActivity extends AppCompatActivity {
 
-    //todo sacuvati u bundle i currentFragment i onda prikazati taj
+    //momenta kad vozac klikne na start ride, prebaciti na passenger current activity
+    //todo ukoliko dodje notifikacija da je voznja na 20 minuta, onda je prikazati
 
     public static int currentFragment;
     CardView back;
     AppCompatButton cancelButton;
+    TextView timer;
+    CardView timerCard;
 
     public static RideOrder order;
 
@@ -48,6 +56,8 @@ public class PassengerMainActivity extends AppCompatActivity {
         order = new RideOrder();
         back = findViewById(R.id.backCard);
         cancelButton = findViewById(R.id.cancel_order);
+        timer = findViewById(R.id.timer);
+        timerCard = findViewById(R.id.timer_card);
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
@@ -91,17 +101,40 @@ public class PassengerMainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast toast = Toast.makeText(view.getContext(), "Ride canceled!", Toast.LENGTH_LONG);
                 toast.show();
-                cancelButton.setVisibility(View.GONE);
-                order = new RideOrder();
-                findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
-                changeToFirstFragment();
+                refreshActivity();
             }
         });
 
         if (currentFragment == -1) {
-            setCancelButtonVisible();
+            setCancelButtonAndTimerVisible();
+            //todo poslati api ponovo i setovati tajmer (najbolje izdvojiti u posebnu funkciju)
             findViewById(R.id.fragment_container).setVisibility(View.GONE);
         }
+    }
+
+    public void createTimer(){
+        new CountDownTimer(100000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                NumberFormat f = new DecimalFormat("00");
+                long hour = (millisUntilFinished / 3600000) % 24;
+                long min = (millisUntilFinished / 60000) % 60;
+                long sec = (millisUntilFinished / 1000) % 60;
+
+                timer.setText(f.format(hour) + ":" + f.format(min) + ":" + f.format(sec));
+
+            }
+            public void onFinish() {
+                timer.setText("00:00:00");
+            }
+        }.start();
+    }
+
+    public static Ride insertRide() {
+        currentFragment = -1;
+
+        // todo call service api with order object as parameter
+
+        return new Ride();
     }
 
     public void changeToFirstFragment()
@@ -131,18 +164,25 @@ public class PassengerMainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void setCancelButtonVisible(){
+    public void refreshActivity()
+    {
+        cancelButton.setVisibility(View.GONE);
+        timerCard.setVisibility(View.GONE);
+        findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+        changeToFirstFragment();
+    }
+
+    public void setCancelButtonAndTimerVisible(){
         cancelButton.setVisibility(View.VISIBLE);
+        timerCard.setVisibility(View.VISIBLE);
     }
 
     public void setBackButtonInvisible(){
         back.setVisibility(View.GONE);
-    }
-
-    public static Ride insertRide() {
-        currentFragment = -1;
-        // todo call service api with order object as parameter
-        return new Ride();
     }
 
     @Override

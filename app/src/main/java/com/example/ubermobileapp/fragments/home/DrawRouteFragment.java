@@ -81,7 +81,6 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-    System.out.println("Dosao ovdje");
         LatLng first_marker = this.departure;
         mMap.addMarker(new MarkerOptions().position(first_marker).title("Departure"));
 

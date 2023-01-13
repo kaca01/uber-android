@@ -11,6 +11,14 @@ public class Timer {
     private int seconds = 0;
     private boolean wasRunning;
     private TextView textView;
+    private static Timer instance = null;
+
+    public static Timer getInstance() {
+        if (instance == null) {
+            instance = new Timer();
+        }
+        return instance;
+    }
 
     public void setTextView(TextView textView) {
         this.textView = textView;

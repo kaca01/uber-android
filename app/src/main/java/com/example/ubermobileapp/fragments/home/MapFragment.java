@@ -1,8 +1,10 @@
 package com.example.ubermobileapp.fragments.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -20,17 +22,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.ubermobileapp.activities.home.DriverMainActivity;
+import com.example.ubermobileapp.tools.Timer;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,6 +39,20 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.DirectionsApi;
+import com.google.maps.DirectionsApiRequest;
+import com.google.maps.GeoApiContext;
+import com.google.maps.model.DirectionsLeg;
+import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.DirectionsRoute;
+import com.google.maps.model.DirectionsStep;
+import com.google.maps.model.EncodedPolyline;
+
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
@@ -52,17 +65,30 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private AlertDialog dialog;
     private Marker home;
     private GoogleMap map;
+    private Marker departure;
+    private Marker destination;
+    private MapFragment instance = null;
+    private List<Polyline> polylines = new ArrayList<>();
+    private DriverMainActivity driverMainActivity = new DriverMainActivity();
+    private Timer timer = Timer.getInstance();
+    private boolean play = false;
+    private AlertDialog alertDialog;
 
-    public static MapFragment newInstance() {
-        MapFragment mpf = new MapFragment();
-        return mpf;
+
+    public MapFragment getInstance() {
+        if (this.instance == null) this.instance = new MapFragment();
+        return instance;
+    }
+
+    public MapFragment newInstance() {
+        this.instance = new MapFragment();
+        return instance;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
     }
 
     private void createMapFragmentAndInflate() {
@@ -221,19 +247,22 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             }
         }
 
+        writeOnClickListeners();
+
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                map.addMarker(new MarkerOptions()
-                        .title("Chosen location")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                        .position(latLng));
-                home.setFlat(true);
-
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(latLng).zoom(14).build();
-
-                map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                // TODO : code for adding new marker on map click
+//                map.addMarker(new MarkerOptions()
+//                        .title("Chosen location")
+//                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+//                        .position(latLng));
+//                home.setFlat(true);
+//
+//                CameraPosition cameraPosition = new CameraPosition.Builder()
+//                        .target(latLng).zoom(14).build();
+//
+//                map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
 
@@ -295,7 +324,124 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     @Override
     public void onPause() {
         super.onPause();
-
         locationManager.removeUpdates(this);
+    }
+
+    public void drawRoute() {
+        LatLng first_marker = new LatLng(45.23712230840664, 19.838562878762076);
+        departure = map.addMarker(new MarkerOptions().position(first_marker).title("Departure"));
+
+        LatLng second_marker = new LatLng(45.238024236996345, 19.83914507943879);
+        destination = map.addMarker(new MarkerOptions().position(second_marker).title("Destination"));
+
+        LatLng zaragoza = first_marker;
+
+        //Define list to get all latlng for the route
+        List<LatLng> path = new ArrayList();
+
+
+        //Execute Directions API request
+        GeoApiContext context = new GeoApiContext.Builder()
+                .apiKey("AIzaSyCfc8_yjmToWtKOMhh5NExf-ht_TgR_Fys")
+                .build();
+        DirectionsApiRequest req = DirectionsApi.getDirections(context, first_marker.latitude
+                                 + "," + first_marker.longitude,
+                second_marker.latitude + "," + second_marker.longitude);
+
+        try {
+            DirectionsResult res = req.await();
+            //Loop through legs and steps to get encoded polylines of each step
+            if (res.routes != null && res.routes.length > 0) {
+                DirectionsRoute route = res.routes[0];
+
+                if (route.legs !=null) {
+                    for(int i=0; i<route.legs.length; i++) {
+                        DirectionsLeg leg = route.legs[i];
+                        if (leg.steps != null) {
+                            for (int j=0; j<leg.steps.length;j++){
+                                DirectionsStep step = leg.steps[j];
+                                if (step.steps != null && step.steps.length >0) {
+                                    for (int k=0; k<step.steps.length;k++){
+                                        DirectionsStep step1 = step.steps[k];
+                                        EncodedPolyline points1 = step1.polyline;
+                                        if (points1 != null) {
+                                            //Decode polyline and add points to list of route coordinates
+                                            List<com.google.maps.model.LatLng> coords1 = points1.decodePath();
+                                            for (com.google.maps.model.LatLng coord1 : coords1) {
+                                                path.add(new LatLng(coord1.lat, coord1.lng));
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    EncodedPolyline points = step.polyline;
+                                    if (points != null) {
+                                        //Decode polyline and add points to list of route coordinates
+                                        List<com.google.maps.model.LatLng> coords = points.decodePath();
+                                        for (com.google.maps.model.LatLng coord : coords) {
+                                            path.add(new LatLng(coord.lat, coord.lng));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch(Exception ex) {
+            Log.e("something", ex.getLocalizedMessage());
+        }
+        //Draw the polyline
+        if (path.size() > 0) {
+            PolylineOptions opts = new PolylineOptions().addAll(path).color(Color.GREEN).width(5);
+            polylines.add(map.addPolyline(opts));
+        }
+
+        map.getUiSettings().setZoomControlsEnabled(true);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(zaragoza, 15));
+    }
+
+    private void writeOnClickListeners() {
+        CardView passengers = getActivity().findViewById(R.id.firstCard);
+        passengers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                driverMainActivity.createPassengersDialog();
+            }
+        });
+
+        CardView start_pause = getActivity().findViewById(R.id.secondCard);
+        start_pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!play) {
+                    drawRoute();
+                    play = true;
+                    timer.onClickStart();
+                } else {
+                    play = false;
+                    removeRoute();
+                    timer.onClickReset();
+                }
+            }
+        });
+
+        CardView panic = getActivity().findViewById(R.id.thirdCard);
+        panic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO : implement sending notification
+                play = false;
+                removeRoute();
+                timer.onClickReset();
+            }
+        });
+    }
+
+    private void removeRoute() {
+        destination.remove();
+        departure.remove();
+        for (Polyline polyline : polylines) {
+            polyline.remove();
+        }
     }
 }

@@ -64,8 +64,11 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private AlertDialog dialog;
     private Marker home;
     private static GoogleMap map;
+    private static Geocoder mGeocoder;
     private static Marker departure;
     private static Marker destination;
+    public static String departureString;
+    public static String destinationString;
 
     public static MapFragment newInstance() {
         MapFragment mpf = new MapFragment();
@@ -132,6 +135,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 }
             }
         }
+
 
     }
 
@@ -284,6 +288,13 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         if (location != null) {
             addMarker(location);
         }
+
+        if (destinationString != null){
+            searchLocation(mGeocoder, destinationString, false);
+        }
+        if (departureString != null){
+            searchLocation(mGeocoder, departureString, true);
+        }
     }
 
     private void addMarker(Location location) {
@@ -316,7 +327,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
     public static boolean searchLocation(Geocoder geocoder, String location, boolean isDeparture) {
         List<Address> addressList = null;
-
+        mGeocoder = geocoder;
         try {
             addressList = geocoder.getFromLocationName(location, 5);
 
@@ -334,12 +345,14 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 departure.remove();
             }
             departure = map.addMarker(new MarkerOptions().position(latLng).title(location));
+            departureString = location;
         }
         else{
             if (destination != null) {
                 destination.remove();
             }
             destination = map.addMarker(new MarkerOptions().position(latLng).title(location));
+            destinationString = location;
         }
         map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         return true;

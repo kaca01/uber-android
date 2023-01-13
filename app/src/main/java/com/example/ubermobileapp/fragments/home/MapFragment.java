@@ -1,7 +1,11 @@
 package com.example.ubermobileapp.fragments.home;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -31,6 +35,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,6 +48,10 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 
 public class MapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
@@ -51,9 +63,11 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private SupportMapFragment mMapFragment;
     private AlertDialog dialog;
     private Marker home;
-    private GoogleMap map;
-    private Marker departure;
-    private Marker destination;
+    private static GoogleMap map;
+    private static Marker departure;
+    private static Marker destination;
+    GoogleApiClient mGoogleApiClient;
+    LocationRequest mLocationRequest;
 
     public static MapFragment newInstance() {
         MapFragment mpf = new MapFragment();
@@ -211,7 +225,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
                 if (ContextCompat.checkSelfPermission(getContext(),
                         Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
                     //Request location updates:
                     location = locationManager.getLastKnownLocation(provider);
                 } else if (ContextCompat.checkSelfPermission(getContext(),
@@ -223,7 +236,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             }
         }
 
-        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        /*map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
                 map.addMarker(new MarkerOptions()
@@ -237,7 +250,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
                 map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
-        });
+        });*/
 
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -300,5 +313,42 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         super.onPause();
 
         locationManager.removeUpdates(this);
+    }
+
+
+    public static boolean searchLocation(Geocoder geocoder, String location, boolean isDeparture) {
+        List<Address> addressList = null;
+
+        try {
+            addressList = geocoder.getFromLocationName(location, 5);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(addressList == null)
+            return false;
+
+        Address address = addressList.get(0);
+        for(Address a : addressList){
+            if(a.getLocality().equals("Нови Сад")){
+                address = a;
+            }
+        }
+        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+        if (isDeparture){
+            if (departure != null) {
+                departure.remove();
+            }
+            departure = map.addMarker(new MarkerOptions().position(latLng).title(location));
+        }
+        else{
+            if (destination != null) {
+                destination.remove();
+            }
+            destination = map.addMarker(new MarkerOptions().position(latLng).title(location));
+        }
+        map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        return true;
     }
 }

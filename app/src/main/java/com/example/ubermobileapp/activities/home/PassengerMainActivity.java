@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.MenuItem;
@@ -22,26 +24,32 @@ import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity
 import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
+import com.example.ubermobileapp.fragments.home.MapFragment;
 import com.example.ubermobileapp.model.Ride;
 import com.example.ubermobileapp.model.RideOrder;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
 
 
 public class PassengerMainActivity extends AppCompatActivity {
 
     //momenta kad vozac klikne na start ride, prebaciti na passenger current activity
     //todo ukoliko dodje notifikacija da je voznja na 20 minuta, onda je prikazati
+    //todo prikazati informacije o vozacu i vozilu -> logicki dodati sve isto kao za tajmer, dizajn preuzeti od katarine
 
-    public static int currentFragment;
     CardView back;
     AppCompatButton cancelButton;
     TextView timer;
     CardView timerCard;
-
+    public static int currentFragment;
+    public static Geocoder geocoder;
     public static RideOrder order;
 
     Fragment fragment1 = new CreateRide1Fragment();
@@ -53,6 +61,8 @@ public class PassengerMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_main);
 
+        Locale locale = new Locale("sr", "RS");
+        geocoder = new Geocoder(this, locale);
         order = new RideOrder();
         back = findViewById(R.id.backCard);
         cancelButton = findViewById(R.id.cancel_order);

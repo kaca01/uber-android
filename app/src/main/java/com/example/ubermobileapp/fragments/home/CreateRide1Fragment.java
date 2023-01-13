@@ -1,6 +1,7 @@
 package com.example.ubermobileapp.fragments.home;
 
 import android.content.Intent;
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -47,6 +48,13 @@ public class CreateRide1Fragment extends Fragment {
             public void onClick(View view) {
                 if (departure.getText().toString().isEmpty() || destination.getText().toString().isEmpty()) {
                     Toast toast = Toast.makeText(view.getContext(), "You must fill all the fields!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                boolean flag1 = MapFragment.searchLocation(PassengerMainActivity.geocoder, departure.getText().toString(), true);
+                boolean flag2 = MapFragment.searchLocation(PassengerMainActivity.geocoder, destination.getText().toString(), false);
+                if (!flag1 || !flag2) {
+                    Toast toast = Toast.makeText(view.getContext(), "Couldn't find the address in country Serbia.", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }

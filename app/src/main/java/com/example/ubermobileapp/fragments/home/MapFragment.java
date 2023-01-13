@@ -52,6 +52,8 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private AlertDialog dialog;
     private Marker home;
     private GoogleMap map;
+    private Marker departure;
+    private Marker destination;
 
     public static MapFragment newInstance() {
         MapFragment mpf = new MapFragment();
@@ -291,6 +293,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
+
 
     @Override
     public void onPause() {

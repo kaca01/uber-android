@@ -15,13 +15,11 @@ import android.widget.Toast;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CreateRide1Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class CreateRide1Fragment extends Fragment {
 
+    EditText departure;
+    EditText destination;
 
     public CreateRide1Fragment() {}
 
@@ -42,8 +40,8 @@ public class CreateRide1Fragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         Button confirm = view.findViewById(R.id.confirm);
-        EditText departure = view.findViewById(R.id.departure);
-        EditText destination = view.findViewById(R.id.destination);
+        departure = view.findViewById(R.id.departure);
+        destination = view.findViewById(R.id.destination);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,8 +50,19 @@ public class CreateRide1Fragment extends Fragment {
                     toast.show();
                     return;
                 }
+                PassengerMainActivity.order.setDeparture(departure.getText().toString());
+                PassengerMainActivity.order.setDestination(destination.getText().toString());
                 ((PassengerMainActivity)getActivity()).changeToSecondFragment();
             }
         });
+
+        setParams();
+    }
+
+    private void setParams(){
+        String dep = PassengerMainActivity.order.getDeparture();
+        departure.setText(dep);
+        String des = PassengerMainActivity.order.getDestination();
+        destination.setText(des);
     }
 }

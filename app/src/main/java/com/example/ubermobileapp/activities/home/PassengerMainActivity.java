@@ -24,17 +24,13 @@ import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity
 import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
-import com.example.ubermobileapp.fragments.home.MapFragment;
 import com.example.ubermobileapp.model.Ride;
 import com.example.ubermobileapp.model.RideOrder;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.List;
 import java.util.Locale;
 
 

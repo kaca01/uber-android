@@ -54,7 +54,7 @@ public class CreateRide1Fragment extends Fragment {
                 boolean flag1 = MapFragment.searchLocation(PassengerMainActivity.geocoder, departure.getText().toString(), true);
                 boolean flag2 = MapFragment.searchLocation(PassengerMainActivity.geocoder, destination.getText().toString(), false);
                 if (!flag1 || !flag2) {
-                    Toast toast = Toast.makeText(view.getContext(), "Couldn't find the address in country Serbia.", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(view.getContext(), "Address not found!", Toast.LENGTH_LONG);
                     toast.show();
                     return;
                 }

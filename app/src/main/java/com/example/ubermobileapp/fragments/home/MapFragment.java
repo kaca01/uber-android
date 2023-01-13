@@ -66,8 +66,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private static GoogleMap map;
     private static Marker departure;
     private static Marker destination;
-    GoogleApiClient mGoogleApiClient;
-    LocationRequest mLocationRequest;
 
     public static MapFragment newInstance() {
         MapFragment mpf = new MapFragment();
@@ -326,15 +324,10 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             e.printStackTrace();
         }
 
-        if(addressList == null)
+        if(addressList == null || addressList.isEmpty())
             return false;
 
         Address address = addressList.get(0);
-        for(Address a : addressList){
-            if(a.getLocality().equals("Нови Сад")){
-                address = a;
-            }
-        }
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
         if (isDeparture){
             if (departure != null) {

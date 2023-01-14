@@ -97,7 +97,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/secondCard"
+            android:id="@+id/thirdCard"
             android:layout_width="80sp"
             android:layout_height="80sp"
             android:layout_marginStart="40sp"
@@ -116,10 +116,10 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/thirdCard"
+            android:id="@+id/secondCard"
             android:layout_width="80sp"
             android:layout_height="80sp"
-            android:layout_toRightOf="@+id/secondCard"
+            android:layout_toRightOf="@+id/thirdCard"
             android:layout_marginStart="20sp"
             app:cardCornerRadius="10sp">
 

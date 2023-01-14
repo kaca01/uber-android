@@ -26,10 +26,8 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.gms.maps.model.LatLng;
 
 public class DriverMainActivity extends AppCompatActivity {
-    private boolean play = false;
-    AlertDialog alertDialog;
 
-    private final Timer timer = new Timer();
+    private final Timer timer = Timer.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +63,6 @@ public class DriverMainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        writeOnClickListeners();
 
         if (savedInstanceState != null) {
 
@@ -125,81 +121,5 @@ public class DriverMainActivity extends AppCompatActivity {
         if (timer.isWasRunning()) {
             timer.setRunning(true);
         }
-    }
-
-    private void writeOnClickListeners() {
-        CardView passengers = findViewById(R.id.firstCard);
-        passengers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createPassengersDialog();
-            }
-        });
-
-        CardView start_pause = findViewById(R.id.secondCard);
-        start_pause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!play) {
-                    play = true;
-                    drawRoute();
-                    timer.onClickStart();
-                } else {
-                    play = false;
-                    timer.onClickStop();
-                }
-            }
-        });
-
-        start_pause.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                play = false;
-                backToCurrentLocation();
-                timer.onClickReset();
-                return true;
-            }
-        });
-
-        CardView panic = findViewById(R.id.thirdCard);
-        panic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO : implement sending notification
-                play = false;
-                backToCurrentLocation();
-                timer.onClickReset();
-            }
-        });
-    }
-
-    private void drawRoute() {
-        // TODO : here we should get current (upcoming ride) from database
-        // and send departure and destination
-        LatLng departure = new LatLng(45.15106698674585, 17.26420725907422);
-        LatLng destination = new LatLng(45.145497841538536, 17.27150286700908);
-        FragmentTransition.to(DrawRouteFragment.newInstance(departure, destination), this, false);
-    }
-
-    private void backToCurrentLocation() {
-        FragmentTransition.to(MapFragment.newInstance(), this, false);
-    }
-
-    private void createPassengersDialog() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(DriverMainActivity.this);
-
-        LayoutInflater inflater = this.getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_passengers_info, null);
-
-        dialog.setView(newView)
-                .setTitle("Passengers Info")
-                .setCancelable(true)
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        alertDialog = dialog.create();
-        alertDialog.show();
     }
 }

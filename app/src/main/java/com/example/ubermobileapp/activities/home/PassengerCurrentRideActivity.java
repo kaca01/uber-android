@@ -23,13 +23,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class PassengerCurrentRideActivity extends AppCompatActivity {
-    AlertDialog alertDialog;
-    Timer timer = new Timer();
+    private final Timer timer = Timer.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_current_ride);
+
+        timer.setTextView(findViewById(R.id.timer));
+
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
         navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -55,8 +57,22 @@ public class PassengerCurrentRideActivity extends AppCompatActivity {
             }
         });
 
-        writeOnClickListeners();
-    }
+        if (savedInstanceState != null) {
+
+            // Get the previous state of the stopwatch
+            // if the activity has been
+            // destroyed and recreated.
+            timer.setSeconds
+                    (savedInstanceState
+                            .getInt("seconds"));
+            timer.setRunning
+                    (savedInstanceState
+                            .getBoolean("running"));
+            timer.setWasRunning
+                    (savedInstanceState
+                            .getBoolean("wasRunning"));
+        }
+        timer.run();    }
 
     @Override
     public void onBackPressed() {
@@ -66,45 +82,35 @@ public class PassengerCurrentRideActivity extends AppCompatActivity {
         startActivity(a);
     }
 
-    private void createDriverDialog() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(PassengerCurrentRideActivity.this);
-
-        LayoutInflater inflater = this.getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_passengers_info, null);
-
-        dialog.setView(newView)
-                .setTitle("Driver Info")
-                .setCancelable(true)
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        alertDialog = dialog.create();
-        alertDialog.show();
+    @Override
+    public void onSaveInstanceState(
+            Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState
+                .putInt("seconds", timer.getSeconds());
+        savedInstanceState
+                .putBoolean("running", timer.isRunning());
+        savedInstanceState
+                .putBoolean("wasRunning", timer.isWasRunning());
     }
 
-    private void writeOnClickListeners() {
-        CardView passengers = findViewById(R.id.firstCard);
-        passengers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createDriverDialog();
-            }
-        });
-
-        CardView panic = findViewById(R.id.secondCard);
-        panic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO : implement sending notification
-                backToCurrentLocation();
-                timer.onClickReset();
-            }
-        });
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        timer.setWasRunning(timer.isRunning());
+        timer.setRunning(false);
     }
 
-    private void backToCurrentLocation() {
-        FragmentTransition.to(MapFragment.newInstance(), this, false);
+    // If the activity is resumed,
+    // start the stopwatch
+    // again if it was running previously.
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        if (timer.isWasRunning()) {
+            timer.setRunning(true);
+        }
     }
 }

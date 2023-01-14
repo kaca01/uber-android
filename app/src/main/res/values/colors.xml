@@ -12,4 +12,5 @@
     <color name="gray">#ADADAD</color>
     <color name="red">#FC5959</color>
     <color name="darker_red">#FF2C2C</color>
+    <color name="favorites">#ffb347</color>
 </resources>

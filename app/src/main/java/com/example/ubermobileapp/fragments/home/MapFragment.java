@@ -71,7 +71,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private boolean play = false;
     private AlertDialog alertDialog;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

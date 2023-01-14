@@ -27,7 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class DriverMainActivity extends AppCompatActivity {
 
-    private final Timer timer = Timer.getInstance();
+    private Timer timer = Timer.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +79,7 @@ public class DriverMainActivity extends AppCompatActivity {
                     (savedInstanceState
                     .getBoolean("wasRunning"));
         }
-        timer.run();
-
+            timer.run();
     }
 
     @Override
@@ -109,6 +108,7 @@ public class DriverMainActivity extends AppCompatActivity {
         super.onPause();
         timer.setWasRunning(timer.isRunning());
         timer.setRunning(false);
+        Timer.setInstance();
     }
 
     // If the activity is resumed,

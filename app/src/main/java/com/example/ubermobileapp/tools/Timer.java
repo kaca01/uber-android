@@ -20,6 +20,10 @@ public class Timer {
         return instance;
     }
 
+    public static void setInstance() {
+        instance = null;
+    }
+
     public void setTextView(TextView textView) {
         this.textView = textView;
     }

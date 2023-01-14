@@ -8,9 +8,17 @@ import java.util.Locale;
 public class Timer {
 
     private boolean running;
-    private int seconds = 0;
+    private int seconds;
     private boolean wasRunning;
     private TextView textView;
+    private static Timer instance = null;
+
+    public static Timer getInstance() {
+        if (instance == null) {
+            instance = new Timer();
+        }
+        return instance;
+    }
 
     public void setTextView(TextView textView) {
         this.textView = textView;
@@ -58,7 +66,7 @@ public class Timer {
         seconds = 0;
     }
 
-    // Sets the NUmber of seconds on the timer.
+    // Sets the Number of seconds on the timer.
     // The runTimer() method uses a Handler
     // to increment the seconds and
     // update the text view.

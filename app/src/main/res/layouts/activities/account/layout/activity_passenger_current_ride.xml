@@ -4,28 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.home.DriverMainActivity">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="10sp">
-
-        <ToggleButton
-            android:id="@+id/toggleButton"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:background="@drawable/toggle_button_background"
-            android:text="ActiveButton"
-            android:textOff="@string/inactive"
-            android:textOn="@string/active"
-            tools:ignore="MissingConstraints" />
-    </androidx.cardview.widget.CardView>
-
+    tools:context=".activities.home.PassengerCurrentRideActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView5"
@@ -35,7 +14,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_map" />
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/timer_card"
@@ -55,21 +33,12 @@
             android:layout_marginStart="20dp"
             android:gravity="right"
             android:textSize="32sp"
+            android:text="0:00:00"
             app:layout_constraintEnd_toEndOf="@id/timer_card"
             app:layout_constraintHorizontal_bias="0.533"
             app:layout_constraintStart_toStartOf="@id/timer_card"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.cardview.widget.CardView>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -83,44 +52,26 @@
             android:id="@+id/firstCard"
             android:layout_width="80sp"
             android:layout_height="80sp"
-            android:layout_marginStart="30sp"
+            android:layout_marginStart="80sp"
             app:cardCornerRadius="10sp">
 
             <ImageView
-                android:id="@+id/passengersPic"
+                android:id="@+id/driverPic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:src="@mipmap/passengers_foreground" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/thirdCard"
-            android:layout_width="80sp"
-            android:layout_height="80sp"
-            android:layout_marginStart="40sp"
-            android:layout_marginEnd="20sp"
-            android:layout_marginBottom="10sp"
-            android:layout_toRightOf="@+id/firstCard"
-            app:cardCornerRadius="10sp">
-
-            <ImageView
-                android:id="@+id/playPausePic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:src="@mipmap/play_pause_foreground" />
+                android:src="@mipmap/driver_foreground" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/secondCard"
             android:layout_width="80sp"
             android:layout_height="80sp"
-            android:layout_toRightOf="@+id/thirdCard"
-            android:layout_marginStart="20sp"
+            android:layout_marginStart="60sp"
+            android:layout_marginEnd="20sp"
+            android:layout_marginBottom="10sp"
+            android:layout_toRightOf="@+id/firstCard"
             app:cardCornerRadius="10sp">
 
             <ImageView
@@ -131,10 +82,16 @@
                 android:layout_weight="1"
                 android:src="@mipmap/panic_foreground" />
         </androidx.cardview.widget.CardView>
-
     </RelativeLayout>
 
-
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

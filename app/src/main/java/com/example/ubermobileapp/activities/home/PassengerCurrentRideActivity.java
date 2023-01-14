@@ -11,33 +11,26 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ToggleButton;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.activities.account.DriverAccountActivity;
-import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
-import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
-import com.example.ubermobileapp.fragments.home.DrawRouteFragment;
+import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
+import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
+import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.fragments.home.MapFragment;
 import com.example.ubermobileapp.tools.FragmentTransition;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.gms.maps.model.LatLng;
 
-public class DriverMainActivity extends AppCompatActivity {
-
+public class PassengerCurrentRideActivity extends AppCompatActivity {
     private final Timer timer = Timer.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver_main);
+        setContentView(R.layout.activity_passenger_current_ride);
 
         timer.setTextView(findViewById(R.id.timer));
-
-        ToggleButton toggleButton = findViewById(R.id.toggleButton);
-        toggleButton.setChecked(true);
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
@@ -48,15 +41,15 @@ public class DriverMainActivity extends AppCompatActivity {
                     case R.id.page_map:
                         return true;
                     case R.id.page_history:
-                        startActivity(new Intent(DriverMainActivity.this, DriverRideHistoryActivity.class));
+                        startActivity(new Intent(PassengerCurrentRideActivity.this, PassengerRideHistoryActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.page_inbox:
-                        startActivity(new Intent(DriverMainActivity.this, DriverInboxActivity.class));
+                        startActivity(new Intent(PassengerCurrentRideActivity.this, PassengerInboxActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.page_account:
-                        startActivity(new Intent(DriverMainActivity.this, DriverAccountActivity.class));
+                        startActivity(new Intent(PassengerCurrentRideActivity.this, PassengerAccountActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -71,17 +64,15 @@ public class DriverMainActivity extends AppCompatActivity {
             // destroyed and recreated.
             timer.setSeconds
                     (savedInstanceState
-                    .getInt("seconds"));
+                            .getInt("seconds"));
             timer.setRunning
                     (savedInstanceState
-                    .getBoolean("running"));
+                            .getBoolean("running"));
             timer.setWasRunning
                     (savedInstanceState
-                    .getBoolean("wasRunning"));
+                            .getBoolean("wasRunning"));
         }
-        timer.run();
-
-    }
+        timer.run();    }
 
     @Override
     public void onBackPressed() {

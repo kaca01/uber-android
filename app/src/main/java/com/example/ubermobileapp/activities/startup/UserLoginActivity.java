@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
+import com.example.ubermobileapp.activities.home.PassengerCurrentRideActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.model.login.LoginRequest;
 import com.example.ubermobileapp.model.login.LoginResponse;
@@ -99,7 +100,8 @@ public class UserLoginActivity extends AppCompatActivity {
                                     }
                                     case "ROLE_PASSENGER": {
                                         Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
+                                        // TODO : change the next line from Passenger Current to Passenger Main
+                                        Intent intent = new Intent(UserLoginActivity.this, PassengerCurrentRideActivity.class);
                                         startActivity(intent);
                                         break;
                                     }

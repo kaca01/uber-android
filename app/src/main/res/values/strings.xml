@@ -109,4 +109,15 @@
     <string name="order_time">Order time: now</string>
     <string name="cancel_order">Cancel order</string>
     <string name="passengers">Passengers</string>
+    <string name="start_date">Start date</string>
+    <string name="start_date_content">11.11.2022.</string>
+    <string name="estimated_time">Estimated time</string>
+    <string name="estimated_time_content">20 min</string>
+    <string name="price">Price</string>
+    <string name="price_content">320 RSD</string>
+    <string name="pet_transport">Pet transport</string>
+    <string name="baby_transport">Baby transport</string>
+    <string name="yes">Yes</string>
+    <string name="vehicle_type">Vehicle type</string>
+    <string name="standard">STANDARD</string>
 </resources>

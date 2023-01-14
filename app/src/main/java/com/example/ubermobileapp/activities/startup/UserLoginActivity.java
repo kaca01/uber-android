@@ -186,8 +186,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
     private void createPassengerNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                UserLoginActivity.this, CHANNEL_ID);
-        builder.setContentIntent(createDriverNotificationIntent())
+                UserLoginActivity.this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("Notification")
                 .setContentText("Your ride accepted!")

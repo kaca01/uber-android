@@ -1,6 +1,8 @@
 package com.example.ubermobileapp.fragments.home;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -23,6 +25,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
@@ -447,7 +450,15 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
         LayoutInflater inflater = this.getLayoutInflater();
         View newView = inflater.inflate(R.layout.fragment_passengers_info, null);
-        getRide(newView);
+        String number = getRide(newView);
+        ImageView call = newView.findViewById(R.id.call);
+        call.setClickable(true);
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialNumber(newView, number);
+            }
+        });
         dialog.setView(newView)
                 .setTitle("Ride Info")
                 .setCancelable(true)
@@ -461,9 +472,10 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     }
 
     @SuppressLint("SetTextI18n")
-    public void getRide(View view) {
+    public String getRide(View view) {
         User user = AuthService.getCurrentUser();
         Ride ride;
+        String number;
         if (user.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
             ride = RideService.getPassengerActiveRide(requireActivity().getApplicationContext(),
                     user.getId(), "Current ride not found");
@@ -473,6 +485,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             name.setText(ride.getDriver().getName() + " " + ride.getDriver().getSurname());
             TextView phone = view.findViewById(R.id.phoneNumber);
             phone.setText(ride.getDriver().getTelephoneNumber());
+            number = ride.getDriver().getTelephoneNumber();
         } else {
             ride = RideService.getDriverActiveRide(requireActivity().getApplicationContext(),
                     user.getId(), "Current ride not found");
@@ -485,6 +498,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             name.setText(passenger.getName() + " " + passenger.getSurname());
             TextView phone = view.findViewById(R.id.phoneNumber);
             phone.setText(passenger.getTelephoneNumber());
+            number = passenger.getTelephoneNumber();
         }
         TextView startDate = view.findViewById(R.id.startDate);
         startDate.setText(ride.getScheduledTime());
@@ -496,5 +510,12 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         babyTransport.setText(Boolean.toString(ride.isBabyTransport()));
         TextView petTransport = view.findViewById(R.id.petTransport);
         petTransport.setText(Boolean.toString(ride.isPetTransport()));
+
+        return number;
+    }
+
+    private void openDialNumber(View view, String number) {
+       Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel: " + Uri.encode(number)));
+       startActivity(intent);
     }
 }

@@ -53,6 +53,9 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         sender = AuthService.getCurrentUser();
+        if(receiver == null){
+            receiver = new User(3L, "darko@gmail.com", "Darko", "Darkic");
+        }
 
         setTitle();
         Drive drive = new Drive(); //initializing only to avoid warnings (delete this later)

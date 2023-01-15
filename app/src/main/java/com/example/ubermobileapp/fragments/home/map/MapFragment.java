@@ -91,6 +91,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         User user = AuthService.getCurrentUser();
         if (user.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
@@ -258,6 +259,9 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         }
 
         try {
+            if(AuthService.getCurrentUser().getRoles().get(0).getName().equals("ROLE_PASSENGER")){
+                drawRoute();
+            }
             if (ride != null) writeOnClickListeners();
             else Toast.makeText(getActivity(), "No scheduled rides.", Toast.LENGTH_SHORT).show();
         } catch (ParseException e) {

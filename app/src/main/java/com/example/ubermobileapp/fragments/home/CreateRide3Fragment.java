@@ -95,11 +95,11 @@ public class CreateRide3Fragment extends Fragment {
                 Toast toast = Toast.makeText(view.getContext(), "Your order has been sent! \nPlease wait... system is looking for the driver.", Toast.LENGTH_LONG);
                 toast.show();
 
-                if (isReservation()) {
+                /*if (isReservation()) {
                     // vratiti na pocetni ekran
                     ((PassengerMainActivity)getActivity()).refreshActivity();
                     return;
-                }
+                }*/
                 getView().setVisibility(View.GONE);
                 ((PassengerMainActivity)getActivity()).setCancelButtonAndTimerVisible();
                 ((PassengerMainActivity)getActivity()).setBackButtonInvisible();

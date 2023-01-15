@@ -1,9 +1,17 @@
 package com.example.ubermobileapp.model.pojo;
 
+import com.airbnb.lottie.L;
+import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
+import com.example.ubermobileapp.model.RideOrder;
+import com.example.ubermobileapp.model.enumeration.VehicleType;
 import com.example.ubermobileapp.model.login.User;
+import com.example.ubermobileapp.model.passenger.Passenger;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -59,6 +67,26 @@ public class Ride {
     public Ride() {
     }
 
+    public Ride(RideOrder order) {
+
+        this.scheduledTime = order.getScheduledTime();
+        this.babyTransport = order.isBabyTransport();
+        this.petTransport = order.isPetTransport();
+        this.vehicleType = VehicleType.fromInteger(order.getVehicleType()).toString();
+        Route route = new Route();
+        route.setDeparture(new Location(order.getDeparture(), MapMainFragment.departureLatitude, MapMainFragment.departureLongitude));
+        route.setDestination(new Location(order.getDestination(), MapMainFragment.destinationLatitude, MapMainFragment.destinationLongitude));
+        List<Route> locations = new ArrayList<>();
+        locations.add(route);
+        this.setLocations(locations);
+        //todo provjeriti validan unos passenger-a
+        List<User> passengers = new ArrayList<>();
+        for (String e: order.getEmails()){
+            User p = new User(e);
+            passengers.add(p);
+        }
+        this.setPassengers(passengers);
+    }
     /**
      *
      * @param passengers

@@ -9,7 +9,7 @@ public class RideOrder {
     ArrayList<String> emails;
     boolean petTransport;
     boolean babyTransport;
-    String startTime;
+    String scheduledTime;
     String favoriteName;
 
     public RideOrder(){
@@ -24,7 +24,7 @@ public class RideOrder {
         this.emails = emails;
         this.petTransport = petTransport;
         this.babyTransport = babyTransport;
-        this.startTime = startTime;
+        this.scheduledTime = startTime;
         this.favoriteName = favoriteName;
     }
 
@@ -76,12 +76,12 @@ public class RideOrder {
         this.babyTransport = babyTransport;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public String getScheduledTime() {
+        return scheduledTime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setScheduledTime(String scheduledTime) {
+        this.scheduledTime = scheduledTime;
     }
 
     public String getFavoriteName() {

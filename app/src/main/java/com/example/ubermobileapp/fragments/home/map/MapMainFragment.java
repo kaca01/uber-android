@@ -58,6 +58,10 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
     private static Marker destination;
     public static String departureString;
     public static String destinationString;
+    public static double departureLongitude;
+    public static double departureLatitude;
+    public static double destinationLongitude;
+    public static double destinationLatitude;
 
 
     @Override
@@ -329,6 +333,8 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
             }
             departure = map.addMarker(new MarkerOptions().position(latLng).title(location));
             departureString = location;
+            departureLatitude = address.getLatitude();
+            departureLongitude = address.getLongitude();
         }
         else{
             if (destination != null) {
@@ -336,6 +342,8 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
             }
             destination = map.addMarker(new MarkerOptions().position(latLng).title(location));
             destinationString = location;
+            destinationLatitude = address.getLatitude();
+            destinationLongitude = address.getLongitude();
         }
         map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         return true;

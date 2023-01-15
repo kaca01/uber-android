@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Geocoder;
@@ -20,14 +21,16 @@ import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
+import com.example.ubermobileapp.activities.inbox.ChatActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
 import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
-import com.example.ubermobileapp.model.Ride;
 import com.example.ubermobileapp.model.RideOrder;
+import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.services.implementation.RideService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -121,7 +124,7 @@ public class PassengerMainActivity extends AppCompatActivity {
     }
 
     public void createTimer(){
-        new CountDownTimer(100000, 1000) {
+        new CountDownTimer(15000, 1000) {
             public void onTick(long millisUntilFinished) {
                 NumberFormat f = new DecimalFormat("00");
                 long hour = (millisUntilFinished / 3600000) % 24;
@@ -133,6 +136,10 @@ public class PassengerMainActivity extends AppCompatActivity {
             }
             public void onFinish() {
                 timer.setText("00:00:00");
+                Toast toast = Toast.makeText(getApplicationContext(), "The Driver has arrived at the location", Toast.LENGTH_LONG);
+                toast.show();
+                Intent intent = new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class);
+                startActivity(intent);
             }
         }.start();
     }
@@ -140,6 +147,8 @@ public class PassengerMainActivity extends AppCompatActivity {
     public static Ride insertRide() {
         currentFragment = -1;
 
+        Ride ride = new Ride(order);
+        ride = RideService.insertRide(ride);
         // todo call service api with order object as parameter
 
         return new Ride();
@@ -188,7 +197,7 @@ public class PassengerMainActivity extends AppCompatActivity {
 
     public void setCancelButtonAndTimerVisible(){
         cancelButton.setVisibility(View.VISIBLE);
-        timerCard.setVisibility(View.VISIBLE);
+        //timerCard.setVisibility(View.VISIBLE);
     }
 
     public void setBackButtonInvisible(){

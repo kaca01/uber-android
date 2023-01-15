@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,8 @@ import android.widget.Toast;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 
-import java.text.ParseException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,6 +35,7 @@ public class CreateRide3Fragment extends Fragment {
     TextView textView;
     int hourOrder;
     int minuteOrder;
+    Date orderDate;
 
     public CreateRide3Fragment() {}
 
@@ -90,7 +89,9 @@ public class CreateRide3Fragment extends Fragment {
                 PassengerMainActivity.order.setBabyTransport(baby.isChecked());
                 PassengerMainActivity.order.setPetTransport(pet.isChecked());
                 PassengerMainActivity.order.setFavoriteName(favoriteName);
-                PassengerMainActivity.order.setStartTime(textView.getText().toString());
+                isReservation();
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                PassengerMainActivity.order.setScheduledTime(format.format(orderDate));
                 Toast toast = Toast.makeText(view.getContext(), "Your order has been sent! \nPlease wait... system is looking for the driver.", Toast.LENGTH_LONG);
                 toast.show();
 
@@ -115,11 +116,10 @@ public class CreateRide3Fragment extends Fragment {
 
     private boolean isReservation(){
         Date current = Calendar.getInstance().getTime();
-
+        orderDate = new Date();
         if(textView.getText().toString().equals("Order time: now")) return false;
 
         int returnVal = LocalTime.of(current.getHours(), current.getMinutes()).compareTo(LocalTime.of(hourOrder, minuteOrder));
-        Date orderDate = new Date();
         if (returnVal > 0) {
             //uneseno vrijeme pripada iducem danu
             orderDate = new Date(orderDate.getTime()+24*60*60*1000);

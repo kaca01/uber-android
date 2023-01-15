@@ -124,7 +124,7 @@ public class PassengerMainActivity extends AppCompatActivity {
     }
 
     public void createTimer(){
-        new CountDownTimer(15000,  ) {
+        new CountDownTimer(15000,  1000) {
             public void onTick(long millisUntilFinished) {
                 NumberFormat f = new DecimalFormat("00");
                 long hour = (millisUntilFinished / 3600000) % 24;

@@ -63,7 +63,7 @@ public class PassengerRideAdapter extends BaseAdapter {
         endTime.setText(ride.getEndTime());
         date.setText(ride.getDate());
         cost.setText(Double.toString(ride.getCost()));
-        passengerNum.setText(Integer.toString(ride.getPassengerNum()));
+        passengerNum.setText(Integer.toString(ride.getPassengers().size()));
         distance.setText(Double.toString(ride.getDistance()));
         path.setImageResource(ride.getPath());
 

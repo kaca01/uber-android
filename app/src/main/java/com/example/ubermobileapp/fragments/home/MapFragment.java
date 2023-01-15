@@ -41,7 +41,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class MapMainFragment extends Fragment implements LocationListener, OnMapReadyCallback {
+public class MapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
@@ -57,8 +57,8 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
     public static String departureString;
     public static String destinationString;
 
-    public static MapMainFragment newInstance() {
-        MapMainFragment mpf = new MapMainFragment();
+    public static MapFragment newInstance() {
+        MapFragment mpf = new MapFragment();
         return mpf;
     }
 
@@ -129,7 +129,7 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup vg, Bundle data) {
         setHasOptionsMenu(true);
-        View view = inflater.inflate(R.layout.fragment_map_main_page, vg, false);
+        View view = inflater.inflate(R.layout.fragment_map, vg, false);
         return view;
     }
 

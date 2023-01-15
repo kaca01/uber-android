@@ -23,7 +23,7 @@ import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity
 import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
-import com.example.ubermobileapp.fragments.home.MapMainFragment;
+import com.example.ubermobileapp.fragments.home.MapFragment;
 import com.example.ubermobileapp.model.Ride;
 import com.example.ubermobileapp.model.RideOrder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -174,8 +174,8 @@ public class PassengerMainActivity extends AppCompatActivity {
     {
         cancelButton.setVisibility(View.GONE);
         timerCard.setVisibility(View.GONE);
-        MapMainFragment.destinationString = null;
-        MapMainFragment.departureString = null;
+        MapFragment.destinationString = null;
+        MapFragment.departureString = null;
         findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
         finish();
         overridePendingTransition(0, 0);

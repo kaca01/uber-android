@@ -18,7 +18,7 @@ import com.example.ubermobileapp.activities.account.DriverAccountActivity;
 import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
 import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
 import com.example.ubermobileapp.fragments.home.DrawRouteFragment;
-import com.example.ubermobileapp.fragments.home.MapMainFragment;
+import com.example.ubermobileapp.fragments.home.MapFragment;
 import com.example.ubermobileapp.tools.FragmentTransition;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -184,7 +184,7 @@ public class DriverMainActivity extends AppCompatActivity {
     }
 
     private void backToCurrentLocation() {
-        FragmentTransition.to(MapMainFragment.newInstance(), this, false);
+        FragmentTransition.to(MapFragment.newInstance(), this, false);
     }
 
     private void createPassengersDialog() {

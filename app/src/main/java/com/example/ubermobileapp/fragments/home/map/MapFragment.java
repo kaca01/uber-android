@@ -37,6 +37,7 @@ import com.example.ubermobileapp.fragments.home.LocationDialog;
 import com.example.ubermobileapp.model.login.User;
 import com.example.ubermobileapp.model.passenger.Passenger;
 import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.services.implementation.DriverService;
 import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.ApiUtils;
@@ -508,7 +509,15 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
-                //intent.putExtra("name", name);
+                if(AuthService.getCurrentUser().getRoles().get(0).getName().equals("ROLE_PASSENGER")){
+                    ChatActivity.receiver = ride.getDriver();
+                } else{
+                    Optional<User> last = Optional.of(ride.getPassengers().stream().reduce((one, two) -> two).get());
+                    Passenger passenger = PassengerService.getPassenger(requireActivity().getApplicationContext(),
+                            last.get().getId(), "Passenger not found");
+                    ChatActivity.receiver = new User(last.get().getId(), passenger.getEmail(), passenger.getName(), passenger.getSurname());
+                }
+
                 startActivity(intent);
             }
         });
@@ -517,7 +526,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     @SuppressLint("SetTextI18n")
     public String getRide(View view) {
         User user = AuthService.getCurrentUser();
-        Ride ride;
         String number;
         if (user.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
             ride = RideService.getPassengerActiveRide(user.getId());

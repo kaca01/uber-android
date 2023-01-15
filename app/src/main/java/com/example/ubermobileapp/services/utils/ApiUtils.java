@@ -1,5 +1,6 @@
 package com.example.ubermobileapp.services.utils;
 
+import com.example.ubermobileapp.services.IDriverService;
 import com.example.ubermobileapp.services.IMessageService;
 import com.example.ubermobileapp.services.IPassengerService;
 import com.example.ubermobileapp.services.IRideService;
@@ -23,6 +24,10 @@ public class ApiUtils {
 
     public static IPassengerService getPassengerService() {
         return  RetrofitClient.getClient(BASE_URL).create(IPassengerService.class);
+    }
+
+    public static IDriverService getDriverService() {
+        return  RetrofitClient.getClient(BASE_URL).create(IDriverService.class);
     }
 
     // instancirati sve ostale servise ovdje i odavde ih pozivati pri koriscenju

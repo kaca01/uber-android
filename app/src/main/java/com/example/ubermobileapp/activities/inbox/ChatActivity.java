@@ -44,8 +44,8 @@ public class ChatActivity extends AppCompatActivity {
     private List<Message> messages = new ArrayList<>();
     private Ride ride;
     private User sender; //current user is sender
-    private User receiver = new User(3L, "pera@gmail.com", "Pera", "Petrovic"); //todo receiver depends from clicks from front
     private String chat_type = "";
+    public static User receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         sender = AuthService.getCurrentUser();
+
         setTitle();
         Drive drive = new Drive(); //initializing only to avoid warnings (delete this later)
 
@@ -118,6 +119,8 @@ public class ChatActivity extends AppCompatActivity {
                 else {
                     Message message = new Message(text, "RIDE", ride.getId());
                     message = MessageService.addMessageToDatabase(receiver.getId(), message);
+                    System.out.println("USERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+                    System.out.println(message);
                     messages.add(message);
                 }
                 recycler.scrollToPosition(messages.size() - 1);

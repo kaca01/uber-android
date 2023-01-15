@@ -37,6 +37,7 @@ import com.example.ubermobileapp.model.passenger.Passenger;
 import com.example.ubermobileapp.model.pojo.Ride;
 import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.implementation.RideService;
+import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -59,7 +60,10 @@ import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.DirectionsStep;
 import com.google.maps.model.EncodedPolyline;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,11 +84,20 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private Timer timer = Timer.getInstance();
     private boolean play = false;
     private AlertDialog alertDialog;
+    private Ride ride;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        User user = AuthService.getCurrentUser();
+        if (user.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
+            ride = RideService.getPassengerActiveRide(requireActivity().getApplicationContext(),
+                    user.getId(), "Current ride not found");
+        } else {
+            ride = RideService.getDriverActiveRide(requireActivity().getApplicationContext(),
+                    user.getId(), "Current ride not found");
+        }
 
     }
 
@@ -244,7 +257,11 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             }
         }
 
-        writeOnClickListeners();
+        try {
+            writeOnClickListeners();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -397,7 +414,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(zaragoza, 15));
     }
 
-    private void writeOnClickListeners() {
+    private void writeOnClickListeners() throws ParseException {
         CardView passengers = getActivity().findViewById(R.id.firstCard);
         passengers.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -422,6 +439,14 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                     }
                 }
             });
+        } else {
+            @SuppressLint("SimpleDateFormat")
+            Date startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                    .parse(ride.getStartTime());
+            assert startTime != null;
+            long seconds = (new Date().getTime()-startTime.getTime())/1000;
+            timer.setSeconds((int)seconds);
+            timer.onClickStart();
         }
 
         CardView panic = getActivity().findViewById(R.id.secondCard);

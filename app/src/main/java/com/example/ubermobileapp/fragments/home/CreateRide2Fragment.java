@@ -22,17 +22,14 @@ import com.example.ubermobileapp.model.Message;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CreateRide2Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CreateRide2Fragment extends Fragment {
     Spinner spin;
     ChipGroup chipGroup;
     EditText email;
+    ArrayList<String> emails = new ArrayList<>();
 
     public CreateRide2Fragment() {}
 
@@ -55,6 +52,7 @@ public class CreateRide2Fragment extends Fragment {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     String emailText = email.getText().toString();
+                    if (emailText.trim().equals("")) return false;
                     setChips(emailText);
                     email.setText("");
                 }
@@ -67,7 +65,6 @@ public class CreateRide2Fragment extends Fragment {
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, options);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(aa);
-
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -82,7 +79,6 @@ public class CreateRide2Fragment extends Fragment {
 
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // TODO Auto-generated method stub
@@ -93,6 +89,8 @@ public class CreateRide2Fragment extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PassengerMainActivity.order.setVehicleType(spin.getSelectedItemPosition());
+                PassengerMainActivity.order.setEmails(emails);
                 ((PassengerMainActivity)getActivity()).changeToThirdFragment();
             }
         });
@@ -100,7 +98,18 @@ public class CreateRide2Fragment extends Fragment {
         return view;
     }
 
-    public void setChips(String e) {
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        setParams();
+    }
+
+    private void setParams(){
+        spin.setSelection(PassengerMainActivity.order.getVehicleType());
+        emails = new ArrayList<>();
+        for(String e : PassengerMainActivity.order.getEmails()) setChips(e);
+    }
+
+    private void setChips(String e) {
         final Chip chip = (Chip) this.getLayoutInflater().inflate(R.layout.email_chip_layout, chipGroup, false);
         chip.setText(e);
 
@@ -108,8 +117,10 @@ public class CreateRide2Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 chipGroup.removeView(chip);
+                emails.remove(chip.getText().toString());
             }
         });
         chipGroup.addView(chip);
+        emails.add(e);
     }
 }

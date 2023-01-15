@@ -5,13 +5,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
@@ -21,22 +25,47 @@ import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity
 import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
+import com.example.ubermobileapp.fragments.home.MapFragment;
+import com.example.ubermobileapp.model.Ride;
+import com.example.ubermobileapp.model.RideOrder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
+
+
 public class PassengerMainActivity extends AppCompatActivity {
 
-    int currentFragment = 0;
+    //momenta kad vozac klikne na start ride, prebaciti na passenger current activity
+    //todo ukoliko dodje notifikacija da je voznja na 20 minuta, onda je prikazati
+    //todo prikazati informacije o vozacu i vozilu -> logicki dodati sve isto kao za tajmer, dizajn preuzeti od katarine
+
     CardView back;
     AppCompatButton cancelButton;
+    TextView timer;
+    CardView timerCard;
+    public static int currentFragment;
+    public static Geocoder geocoder;
+    public static RideOrder order;
+
+    Fragment fragment1 = new CreateRide1Fragment();
+    Fragment fragment2 = new CreateRide2Fragment();
+    Fragment fragment3 = new CreateRide3Fragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_main);
 
+        Locale locale = new Locale("sr", "RS");
+        geocoder = new Geocoder(this, locale);
+        order = new RideOrder();
         back = findViewById(R.id.backCard);
         cancelButton = findViewById(R.id.cancel_order);
+        timer = findViewById(R.id.timer);
+        timerCard = findViewById(R.id.timer_card);
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
@@ -80,10 +109,40 @@ public class PassengerMainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast toast = Toast.makeText(view.getContext(), "Ride canceled!", Toast.LENGTH_LONG);
                 toast.show();
-                cancelButton.setVisibility(View.GONE);
-                changeToFirstFragment();
+                refreshActivity();
             }
         });
+
+        if (currentFragment == -1) {
+            setCancelButtonAndTimerVisible();
+            //todo poslati api ponovo i setovati tajmer (najbolje izdvojiti u posebnu funkciju)
+            findViewById(R.id.fragment_container).setVisibility(View.GONE);
+        }
+    }
+
+    public void createTimer(){
+        new CountDownTimer(100000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                NumberFormat f = new DecimalFormat("00");
+                long hour = (millisUntilFinished / 3600000) % 24;
+                long min = (millisUntilFinished / 60000) % 60;
+                long sec = (millisUntilFinished / 1000) % 60;
+
+                timer.setText(f.format(hour) + ":" + f.format(min) + ":" + f.format(sec));
+
+            }
+            public void onFinish() {
+                timer.setText("00:00:00");
+            }
+        }.start();
+    }
+
+    public static Ride insertRide() {
+        currentFragment = -1;
+
+        // todo call service api with order object as parameter
+
+        return new Ride();
     }
 
     public void changeToFirstFragment()
@@ -91,7 +150,7 @@ public class PassengerMainActivity extends AppCompatActivity {
         currentFragment = 0;
         back.setVisibility(View.GONE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, CreateRide1Fragment.class, null);
+        fragmentTransaction.replace(R.id.fragment_container, fragment1, null);
         fragmentTransaction.commit();
     }
 
@@ -100,7 +159,7 @@ public class PassengerMainActivity extends AppCompatActivity {
         currentFragment = 1;
         back.setVisibility(View.VISIBLE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, CreateRide2Fragment.class, null);
+        fragmentTransaction.replace(R.id.fragment_container, fragment2, null);
         fragmentTransaction.commit();
     }
 
@@ -109,16 +168,58 @@ public class PassengerMainActivity extends AppCompatActivity {
         currentFragment = 2;
         back.setVisibility(View.VISIBLE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, CreateRide3Fragment.class, null);
+        fragmentTransaction.replace(R.id.fragment_container, fragment3, null);
         fragmentTransaction.commit();
     }
 
-    public void setCancelButtonVisible(){
+    public void refreshActivity()
+    {
+        cancelButton.setVisibility(View.GONE);
+        timerCard.setVisibility(View.GONE);
+        MapFragment.destinationString = null;
+        MapFragment.departureString = null;
+        findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+        changeToFirstFragment();
+    }
+
+    public void setCancelButtonAndTimerVisible(){
         cancelButton.setVisibility(View.VISIBLE);
+        timerCard.setVisibility(View.VISIBLE);
     }
 
     public void setBackButtonInvisible(){
         back.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (fragment1.isAdded())
+        getSupportFragmentManager().putFragment(outState, "fragment1", fragment1);
+        if (fragment2.isAdded())
+        getSupportFragmentManager().putFragment(outState, "fragment2", fragment2);
+        if (fragment3.isAdded())
+        getSupportFragmentManager().putFragment(outState, "fragment3", fragment3);
+
+        outState.putInt("currentFragment", currentFragment);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            fragment1 = getSupportFragmentManager().getFragment(savedInstanceState, "fragment1");
+            fragment2 = getSupportFragmentManager().getFragment(savedInstanceState, "fragment2");
+            fragment3 = getSupportFragmentManager().getFragment(savedInstanceState, "fragment3");
+
+            currentFragment = savedInstanceState.getInt("currentFragment");
+        }
     }
 
     @Override

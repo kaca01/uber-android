@@ -1,6 +1,5 @@
 package com.example.ubermobileapp.fragments.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,13 +14,11 @@ import android.widget.Toast;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CreateRide1Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class CreateRide1Fragment extends Fragment {
 
+    EditText departure;
+    EditText destination;
 
     public CreateRide1Fragment() {}
 
@@ -42,8 +39,8 @@ public class CreateRide1Fragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         Button confirm = view.findViewById(R.id.confirm);
-        EditText departure = view.findViewById(R.id.departure);
-        EditText destination = view.findViewById(R.id.destination);
+        departure = view.findViewById(R.id.departure);
+        destination = view.findViewById(R.id.destination);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,8 +49,26 @@ public class CreateRide1Fragment extends Fragment {
                     toast.show();
                     return;
                 }
+                boolean flag1 = MapFragment.searchLocation(PassengerMainActivity.geocoder, departure.getText().toString(), true);
+                boolean flag2 = MapFragment.searchLocation(PassengerMainActivity.geocoder, destination.getText().toString(), false);
+                if (!flag1 || !flag2) {
+                    Toast toast = Toast.makeText(view.getContext(), "Address not found!", Toast.LENGTH_LONG);
+                    toast.show();
+                    return;
+                }
+                PassengerMainActivity.order.setDeparture(departure.getText().toString());
+                PassengerMainActivity.order.setDestination(destination.getText().toString());
                 ((PassengerMainActivity)getActivity()).changeToSecondFragment();
             }
         });
+
+        setParams();
+    }
+
+    private void setParams(){
+        String dep = PassengerMainActivity.order.getDeparture();
+        departure.setText(dep);
+        String des = PassengerMainActivity.order.getDestination();
+        destination.setText(des);
     }
 }

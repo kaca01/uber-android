@@ -1,5 +1,7 @@
 package com.example.ubermobileapp.fragments.home.map;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -47,7 +49,12 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
     private SupportMapFragment mMapFragment;
     private AlertDialog dialog;
     private Marker home;
-    private GoogleMap map;
+    private static GoogleMap map;
+    private static Geocoder mGeocoder;
+    private static Marker departure;
+    private static Marker destination;
+    public static String departureString;
+    public static String destinationString;
 
 
     @Override
@@ -110,6 +117,7 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
                 }
             }
         }
+
 
     }
 
@@ -199,7 +207,6 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
 
                 if (ContextCompat.checkSelfPermission(getContext(),
                         Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
                     //Request location updates:
                     location = locationManager.getLastKnownLocation(provider);
                 } else if (ContextCompat.checkSelfPermission(getContext(),
@@ -211,7 +218,7 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
             }
         }
 
-        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        /*map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
                 map.addMarker(new MarkerOptions()
@@ -225,7 +232,7 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
 
                 map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
-        });
+        });*/
 
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -261,6 +268,13 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
         if (location != null) {
             addMarker(location);
         }
+
+        if (destinationString != null){
+            searchLocation(mGeocoder, destinationString, false);
+        }
+        if (departureString != null){
+            searchLocation(mGeocoder, departureString, true);
+        }
     }
 
     private void addMarker(Location location) {
@@ -280,5 +294,47 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
                 .target(loc).zoom(14).build();
 
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        locationManager.removeUpdates(this);
+    }
+
+
+    public static boolean searchLocation(Geocoder geocoder, String location, boolean isDeparture) {
+        List<Address> addressList = null;
+        mGeocoder = geocoder;
+        try {
+            addressList = geocoder.getFromLocationName(location, 5);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(addressList == null || addressList.isEmpty())
+            return false;
+
+        Address address = addressList.get(0);
+        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+        if (isDeparture){
+            if (departure != null) {
+                departure.remove();
+            }
+            departure = map.addMarker(new MarkerOptions().position(latLng).title(location));
+            departureString = location;
+        }
+        else{
+            if (destination != null) {
+                destination.remove();
+            }
+            destination = map.addMarker(new MarkerOptions().position(latLng).title(location));
+            destinationString = location;
+        }
+        map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        return true;
     }
 }

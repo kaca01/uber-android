@@ -124,7 +124,7 @@ public class PassengerMainActivity extends AppCompatActivity {
     }
 
     public void createTimer(){
-        new CountDownTimer(15000, 1000) {
+        new CountDownTimer(15000,  ) {
             public void onTick(long millisUntilFinished) {
                 NumberFormat f = new DecimalFormat("00");
                 long hour = (millisUntilFinished / 3600000) % 24;
@@ -138,8 +138,8 @@ public class PassengerMainActivity extends AppCompatActivity {
                 timer.setText("00:00:00");
                 /*Toast toast = Toast.makeText(getApplicationContext(), "The Driver has arrived at the location", Toast.LENGTH_LONG);
                 toast.show();*/
-                Intent intent = new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class);
+                //startActivity(intent);
             }
         }.start();
     }

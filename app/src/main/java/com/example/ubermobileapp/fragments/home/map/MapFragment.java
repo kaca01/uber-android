@@ -2,6 +2,7 @@ package com.example.ubermobileapp.fragments.home.map;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -25,6 +26,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -32,6 +34,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ubermobileapp.activities.inbox.ChatActivity;
 import com.example.ubermobileapp.fragments.home.LocationDialog;
+import com.example.ubermobileapp.model.login.User;
+import com.example.ubermobileapp.model.passenger.Passenger;
+import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.services.implementation.PassengerService;
+import com.example.ubermobileapp.services.implementation.RideService;
+import com.example.ubermobileapp.services.utils.ApiUtils;
+import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -53,8 +62,12 @@ import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.DirectionsStep;
 import com.google.maps.model.EncodedPolyline;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class MapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
 
@@ -72,12 +85,20 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private Timer timer = Timer.getInstance();
     private boolean play = false;
     private AlertDialog alertDialog;
-
+    private Ride ride;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        User user = AuthService.getCurrentUser();
+        if (user.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
+            ride = RideService.getPassengerActiveRide(requireActivity().getApplicationContext(),
+                    user.getId(), "Current ride not found");
+        } else {
+            ride = RideService.getDriverActiveRide(requireActivity().getApplicationContext(),
+                    user.getId(), "Current ride not found");
+        }
 
     }
 
@@ -237,7 +258,12 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             }
         }
 
-        writeOnClickListeners();
+        try {
+            if (ride != null) writeOnClickListeners();
+            else Toast.makeText(getActivity(), "No scheduled rides.", Toast.LENGTH_SHORT).show();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -318,6 +344,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     }
 
     public void drawRoute() {
+        // TODO : input here latitude and longitude
         LatLng first_marker = new LatLng(45.23712230840664, 19.838562878762076);
         departure = map.addMarker(new MarkerOptions().position(first_marker).title("Departure"));
 
@@ -390,7 +417,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(zaragoza, 15));
     }
 
-    private void writeOnClickListeners() {
+    private void writeOnClickListeners() throws ParseException {
         CardView passengers = getActivity().findViewById(R.id.firstCard);
         passengers.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -405,16 +432,30 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 @Override
                 public void onClick(View view) {
                     if (!play) {
+                        System.out.println("rideee");
+                        System.out.println(ride);
+                        ride = RideService.start(requireActivity().getApplicationContext(),
+                                                 ride.getId(), "Current ride not found");
                         drawRoute();
                         play = true;
                         timer.onClickStart();
                     } else {
                         play = false;
                         removeRoute();
+                        ride = RideService.end(requireActivity().getApplicationContext(),
+                                               ride.getId(), "Current ride not found");
                         timer.onClickReset();
                     }
                 }
             });
+        } else {
+            @SuppressLint("SimpleDateFormat")
+            Date startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                    .parse(ride.getStartTime());
+            assert startTime != null;
+            long seconds = (new Date().getTime()-startTime.getTime())/1000;
+            timer.setSeconds((int)seconds);
+            timer.onClickStart();
         }
 
         CardView panic = getActivity().findViewById(R.id.secondCard);
@@ -443,7 +484,15 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
         LayoutInflater inflater = this.getLayoutInflater();
         View newView = inflater.inflate(R.layout.fragment_passengers_info, null);
-
+        String number = getRide(newView);
+        ImageView call = newView.findViewById(R.id.call);
+        call.setClickable(true);
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialNumber(newView, number);
+            }
+        });
         dialog.setView(newView)
                 .setTitle("Ride Info")
                 .setCancelable(true)
@@ -465,5 +514,54 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 startActivity(intent);
             }
         });
+    }
+
+    @SuppressLint("SetTextI18n")
+    public String getRide(View view) {
+        User user = AuthService.getCurrentUser();
+        Ride ride;
+        String number;
+        if (user.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
+            ride = RideService.getPassengerActiveRide(requireActivity().getApplicationContext(),
+                    user.getId(), "Current ride not found");
+            TextView email = view.findViewById(R.id.emailInfo);
+            email.setText(ride.getDriver().getEmail());
+            TextView name = view.findViewById(R.id.nameInfo);
+            name.setText(ride.getDriver().getName() + " " + ride.getDriver().getSurname());
+            TextView phone = view.findViewById(R.id.phoneNumber);
+            phone.setText(ride.getDriver().getTelephoneNumber());
+            number = ride.getDriver().getTelephoneNumber();
+        } else {
+            ride = RideService.getDriverActiveRide(requireActivity().getApplicationContext(),
+                    user.getId(), "Current ride not found");
+//            Optional<User> first = ride.getPassengers().stream().findFirst();
+            Optional<User> last = Optional.of(ride.getPassengers().stream().reduce((one, two) -> two).get());
+            Passenger passenger = PassengerService.getPassenger(requireActivity().getApplicationContext(),
+                                  last.get().getId(), "Passenger not found");
+            TextView email = view.findViewById(R.id.emailInfo);
+            email.setText(passenger.getEmail());
+            TextView name = view.findViewById(R.id.nameInfo);
+            name.setText(passenger.getName() + " " + passenger.getSurname());
+            TextView phone = view.findViewById(R.id.phoneNumber);
+            phone.setText(passenger.getTelephoneNumber());
+            number = passenger.getTelephoneNumber();
+        }
+        TextView startDate = view.findViewById(R.id.startDate);
+        startDate.setText(ride.getScheduledTime());
+        TextView estimatedTime = view.findViewById(R.id.estimatedTime);
+        estimatedTime.setText(Double.toString(ride.getEstimatedTimeInMinutes()));
+        TextView price = view.findViewById(R.id.price);
+        price.setText(Double.toString(ride.getTotalCost()));
+        TextView babyTransport = view.findViewById(R.id.babyTransport);
+        babyTransport.setText(Boolean.toString(ride.isBabyTransport()));
+        TextView petTransport = view.findViewById(R.id.petTransport);
+        petTransport.setText(Boolean.toString(ride.isPetTransport()));
+
+        return number;
+    }
+
+    private void openDialNumber(View view, String number) {
+       Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel: " + Uri.encode(number)));
+       startActivity(intent);
     }
 }

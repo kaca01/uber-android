@@ -21,6 +21,7 @@ import com.example.ubermobileapp.activities.startup.UserLoginActivity;
 import com.example.ubermobileapp.model.passenger.CreditCard;
 import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Mockup;
+import com.example.ubermobileapp.tools.Timer;
 
 public class PassengerAccountOptionsFragment extends Fragment {
     AlertDialog alertDialog;
@@ -78,6 +79,7 @@ public class PassengerAccountOptionsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 AuthService.logout();
+                Timer.setInstance();
                 startActivity(new Intent(getActivity(), UserLoginActivity.class));
             }
         });

@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
+
     @SerializedName("id")
     @Expose
     private Long id;
@@ -158,5 +159,4 @@ public class User {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-
 }

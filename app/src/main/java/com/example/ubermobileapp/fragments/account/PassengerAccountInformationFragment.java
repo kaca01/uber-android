@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.model.passenger.Passenger;
 import com.example.ubermobileapp.tools.Mockup;
 
@@ -132,11 +130,11 @@ public class PassengerAccountInformationFragment extends Fragment {
         TextView email = view.findViewById(R.id.email);
         TextView phone = view.findViewById(R.id.phoneNumber);
 
-        String firstAndLastName = passenger.getFirstName() + " " + passenger.getLastName();
+        String firstAndLastName = passenger.getName() + " " + passenger.getSurname();
         name.setText(firstAndLastName);
-        postalAddress.setText(passenger.getPostalAddress());
+        postalAddress.setText(passenger.getAddress());
         email.setText(passenger.getEmail());
-        phone.setText(passenger.getNumber());
+        phone.setText(passenger.getTelephoneNumber());
     }
 
     private void setEditAccountData(View newView, int index) {
@@ -150,11 +148,11 @@ public class PassengerAccountInformationFragment extends Fragment {
         TextView password = newView.findViewById(R.id.passwordInput);
         TextView passwordAgain = newView.findViewById(R.id.passwordInputAgain);
 
-        name.setText(passenger.getFirstName());
-        lastName.setText(passenger.getLastName());
-        postalAddress.setText(passenger.getPostalAddress());
+        name.setText(passenger.getName());
+        lastName.setText(passenger.getSurname());
+        postalAddress.setText(passenger.getAddress());
         email.setText(passenger.getEmail());
-        phone.setText(passenger.getNumber());
+        phone.setText(passenger.getTelephoneNumber());
         password.setText(passenger.getPassword());
         passwordAgain.setText(passenger.getPassword());
     }

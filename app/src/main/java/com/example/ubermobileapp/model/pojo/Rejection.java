@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Rejection {
-
     @SerializedName("reason")
     @Expose
     private String reason;
@@ -65,5 +64,4 @@ public class Rejection {
         }
         return sb.toString();
     }
-
 }

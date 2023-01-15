@@ -258,7 +258,8 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         }
 
         try {
-            writeOnClickListeners();
+            if (ride != null) writeOnClickListeners();
+            else Toast.makeText(getActivity(), "No scheduled rides.", Toast.LENGTH_SHORT).show();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -430,10 +431,10 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 @Override
                 public void onClick(View view) {
                     if (!play) {
-                        ride = RideService.start(requireActivity().getApplicationContext(),
-                                          ride.getId(), "Current ride not found");
                         System.out.println("rideee");
                         System.out.println(ride);
+                        ride = RideService.start(requireActivity().getApplicationContext(),
+                                          ride.getId(), "Current ride not found");
                         drawRoute();
                         play = true;
                         timer.onClickStart();
@@ -519,9 +520,10 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         } else {
             ride = RideService.getDriverActiveRide(requireActivity().getApplicationContext(),
                     user.getId(), "Current ride not found");
-            Optional<User> first = ride.getPassengers().stream().findFirst();
+//            Optional<User> first = ride.getPassengers().stream().findFirst();
+            Optional<User> last = Optional.of(ride.getPassengers().stream().reduce((one, two) -> two).get());
             Passenger passenger = PassengerService.getPassenger(requireActivity().getApplicationContext(),
-                    first.get().getId(), "Passenger not found");
+                                  last.get().getId(), "Passenger not found");
             TextView email = view.findViewById(R.id.emailInfo);
             email.setText(passenger.getEmail());
             TextView name = view.findViewById(R.id.nameInfo);

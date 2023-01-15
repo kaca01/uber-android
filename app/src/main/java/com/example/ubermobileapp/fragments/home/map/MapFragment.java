@@ -30,6 +30,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.ubermobileapp.activities.inbox.ChatActivity;
 import com.example.ubermobileapp.fragments.home.LocationDialog;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.gms.maps.CameraUpdateFactory;

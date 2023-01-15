@@ -68,7 +68,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         Message message = (Message) messages.get(position);
 
         //TODO change with current user
-        if (message.getSenderId().equals(AuthService.getCurrentUser().getId())) {
+        if (message.getSenderId() == AuthService.getCurrentUser().getId()) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -88,7 +88,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
         void bind(Message message) {
             messageText.setText(message.getMessage());
-            timeText.setText(message.getTimeOfSending().toString());}
+            timeText.setText(message.getTimeOfSending().substring(11, 16));}
     }
 
     private class SentMessageHolder extends RecyclerView.ViewHolder {
@@ -103,7 +103,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
         void bind(Message message) {
             messageText.setText(message.getMessage());
-            timeText.setText(message.getMessage());
+            timeText.setText(message.getTimeOfSending().substring(11, 16));
         }
     }
 }

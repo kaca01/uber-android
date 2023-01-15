@@ -1,67 +1,43 @@
 package com.example.ubermobileapp.services.implementation;
 
-import android.content.Context;
-import android.os.Handler;
-import android.widget.Toast;
-
+import android.os.StrictMode;
 import com.example.ubermobileapp.model.pojo.Ride;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RideService {
 
-    public static Ride getPassengerActiveRide(Context context, Long id, String toastText){
-        final Ride[] ride = new Ride[1];
+    public static Ride getPassengerActiveRide(Long id){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Ride ride = new Ride();
         Call<Ride> rideResponseCall = ApiUtils.getRideService().getPassengerActiveRide(id);
-        rideResponseCall.enqueue(new Callback<Ride>() {
-            @Override
-            public void onResponse(Call<Ride> call, Response<Ride> response) {
-                if (response.isSuccessful()) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ride[0] = response.body();
-                        }
-                    }, 700);
+        try{
+            Response<Ride> response = rideResponseCall.execute();
+            ride = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
 
-                } else
-                    Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Call<Ride> call, Throwable t) {
-                Toast.makeText(context, "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-        return ride[0];
+        return ride;
     }
 
-    public static Ride getDriverActiveRide(Context context, Long id, String toastText){
-        final Ride[] ride = new Ride[1];
+    public static Ride getDriverActiveRide(Long id){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Ride ride = new Ride();
         Call<Ride> rideResponseCall = ApiUtils.getRideService().getDriverActiveRide(id);
-        rideResponseCall.enqueue(new Callback<Ride>() {
-            @Override
-            public void onResponse(Call<Ride> call, Response<Ride> response) {
-                if (response.isSuccessful()) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ride[0] = response.body();
-                        }
-                    }, 700);
+        try{
+            Response<Ride> response = rideResponseCall.execute();
+            ride = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
 
-                } else
-                    Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Call<Ride> call, Throwable t) {
-                Toast.makeText(context, "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-        return ride[0];
+        return ride;
     }
 }

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.home.DriverMainActivity;
+import com.example.ubermobileapp.activities.home.PassengerCurrentRideActivity;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.adapters.MessageAdapter;
 import com.example.ubermobileapp.model.Drive;
 import com.example.ubermobileapp.model.MessageType;
@@ -41,7 +45,7 @@ public class ChatActivity extends AppCompatActivity {
     private Ride ride;
     private User sender; //current user is sender
     private User receiver = new User(3L, "pera@gmail.com", "Pera", "Petrovic"); //todo receiver depends from clicks from front
-    String chat_type = "";
+    private String chat_type = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +61,11 @@ public class ChatActivity extends AppCompatActivity {
         if (from_inbox != null) chat_type = from_inbox.toString();
         // ako je iz inboxa usao u chat
         if (chat_type.equals(MessageType.SUPPORT.toString())){
-            //todo
+
             //messages = Mockup.getSupportMessages();
             }
         else if (chat_type.equals(MessageType.DRIVE.toString()) || chat_type.equals(MessageType.PANIC.toString())){
-            //todo
+
             drive = (Drive)getIntent().getSerializableExtra("drive"); //dobaviti ride iz intenta
             //messages = drive.getMessages();
         }
@@ -71,6 +75,7 @@ public class ChatActivity extends AppCompatActivity {
             setRide();
             messages = FindByRideIdAndOtherUser(ride, receiver);
         }
+
         MessageAdapter adapter = new MessageAdapter(this, messages);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.scrollToPosition(messages.size() - 1);
@@ -80,9 +85,21 @@ public class ChatActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ChatActivity.this, PassengerInboxActivity.class);
-                startActivity(i);
-                //todo moze isto na osnovu onoga getintent da vraca na razlicite stvari
+                if (from_inbox != null) {
+                    Intent i = new Intent(ChatActivity.this, PassengerInboxActivity.class);
+                    startActivity(i);
+                }
+                else{
+                    if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER"))
+                    {
+                        Intent i = new Intent(ChatActivity.this, PassengerCurrentRideActivity.class);
+                        startActivity(i);
+                    }
+                    else {
+                        Intent i = new Intent(ChatActivity.this, DriverMainActivity.class);
+                        startActivity(i);
+                    }
+                }
             }
         });
 
@@ -100,7 +117,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
                 else {
                     Message message = new Message(text, "RIDE", ride.getId());
-                    message = MessageService.addMessageToDatabase(getApplicationContext(), receiver.getId(), message, "Current ride not found");
+                    message = MessageService.addMessageToDatabase(receiver.getId(), message);
                     messages.add(message);
                 }
                 recycler.scrollToPosition(messages.size() - 1);
@@ -132,35 +149,24 @@ public class ChatActivity extends AppCompatActivity {
 
     private void setRide(){
         if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
-            ride = RideService.getPassengerActiveRide(getApplicationContext(), sender.getId(), "Current ride not found");
+            ride = RideService.getPassengerActiveRide(sender.getId());
         }
 
         else if(sender.getRoles().get(0).getName().equals("ROLE_DRIVER")){
-            ride = RideService.getDriverActiveRide(getApplicationContext(), sender.getId(), "Current ride not found");
+            ride = RideService.getDriverActiveRide(sender.getId());
         }
     }
 
     public void setUserMessages(){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         Call<MessageList> messageResponseCall = ApiUtils.getMessageService().getUserMessages(sender.getId());
-        messageResponseCall.enqueue(new Callback<MessageList>() {
-            @Override
-            public void onResponse(Call<MessageList> call, Response<MessageList> response) {
-                if (response.isSuccessful()) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            messages = response.body().getResults();
-                        }
-                    }, 700);
-
-                } else
-                    Toast.makeText(getApplicationContext(), "toastText", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Call<MessageList> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        try {
+            Response<MessageList> response = messageResponseCall.execute();
+            messages = response.body().getResults();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 }

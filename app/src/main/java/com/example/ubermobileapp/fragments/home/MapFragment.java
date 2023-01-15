@@ -30,7 +30,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ubermobileapp.model.login.User;
+import com.example.ubermobileapp.model.passenger.Passenger;
 import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Timer;
@@ -474,13 +476,15 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         } else {
             ride = RideService.getDriverActiveRide(requireActivity().getApplicationContext(),
                     user.getId(), "Current ride not found");
-            TextView email = view.findViewById(R.id.emailInfo);
             Optional<User> first = ride.getPassengers().stream().findFirst();
-            email.setText(first.get().getEmail());
+            Passenger passenger = PassengerService.getPassenger(requireActivity().getApplicationContext(),
+                    first.get().getId(), "Passenger not found");
+            TextView email = view.findViewById(R.id.emailInfo);
+            email.setText(passenger.getEmail());
             TextView name = view.findViewById(R.id.nameInfo);
-            name.setText(first.get().getName() + " " + first.get().getSurname());
+            name.setText(passenger.getName() + " " + passenger.getSurname());
             TextView phone = view.findViewById(R.id.phoneNumber);
-            phone.setText(first.get().getTelephoneNumber());
+            phone.setText(passenger.getTelephoneNumber());
         }
         TextView startDate = view.findViewById(R.id.startDate);
         startDate.setText(ride.getScheduledTime());

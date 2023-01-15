@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map_main_page" />
 
 
     <androidx.cardview.widget.CardView

@@ -74,7 +74,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup vg, Bundle data) {
         setHasOptionsMenu(true);
-        View view = inflater.inflate(R.layout.fragment_map, vg, false);
+        View view = inflater.inflate(R.layout.fragment_map_main_page, vg, false);
 
         return view;
     }

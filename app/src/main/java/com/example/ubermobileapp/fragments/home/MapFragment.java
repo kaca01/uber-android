@@ -29,7 +29,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.model.login.User;
 import com.example.ubermobileapp.model.pojo.Ride;
 import com.example.ubermobileapp.services.implementation.RideService;
@@ -57,7 +56,7 @@ import com.google.maps.model.EncodedPolyline;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 public class MapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
 
@@ -459,10 +458,30 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         alertDialog.show();
     }
 
+    @SuppressLint("SetTextI18n")
     public void getRide(View view) {
         User user = AuthService.getCurrentUser();
-        Ride ride = RideService.getPassengerActiveRide(requireActivity().getApplicationContext(),
-                user.getId(), "Current ride not found");
+        Ride ride;
+        if (user.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
+            ride = RideService.getPassengerActiveRide(requireActivity().getApplicationContext(),
+                    user.getId(), "Current ride not found");
+            TextView email = view.findViewById(R.id.emailInfo);
+            email.setText(ride.getDriver().getEmail());
+            TextView name = view.findViewById(R.id.nameInfo);
+            name.setText(ride.getDriver().getName() + " " + ride.getDriver().getSurname());
+            TextView phone = view.findViewById(R.id.phoneNumber);
+            phone.setText(ride.getDriver().getTelephoneNumber());
+        } else {
+            ride = RideService.getDriverActiveRide(requireActivity().getApplicationContext(),
+                    user.getId(), "Current ride not found");
+            TextView email = view.findViewById(R.id.emailInfo);
+            Optional<User> first = ride.getPassengers().stream().findFirst();
+            email.setText(first.get().getEmail());
+            TextView name = view.findViewById(R.id.nameInfo);
+            name.setText(first.get().getName() + " " + first.get().getSurname());
+            TextView phone = view.findViewById(R.id.phoneNumber);
+            phone.setText(first.get().getTelephoneNumber());
+        }
         TextView startDate = view.findViewById(R.id.startDate);
         startDate.setText(ride.getScheduledTime());
         TextView estimatedTime = view.findViewById(R.id.estimatedTime);

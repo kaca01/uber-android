@@ -91,12 +91,10 @@ public class CreateRide2Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 PassengerMainActivity.order.setVehicleType(spin.getSelectedItemPosition());
-                PassengerMainActivity.order.setEmails(emails);
-                System.out.println("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEJ");
-                System.out.println(emails);
+                ArrayList<String> orderEmails = new ArrayList<>();
+                orderEmails.addAll(emails);
+                PassengerMainActivity.order.setEmails(orderEmails);
                 PassengerMainActivity.order.getEmails().add(AuthService.getCurrentUser().getEmail());
-                System.out.println("POZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
-                System.out.println(emails);
                 ((PassengerMainActivity)getActivity()).changeToThirdFragment();
             }
         });

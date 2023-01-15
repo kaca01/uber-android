@@ -29,6 +29,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
+import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -52,6 +54,7 @@ import com.google.maps.model.EncodedPolyline;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
 
@@ -440,7 +443,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
         LayoutInflater inflater = this.getLayoutInflater();
         View newView = inflater.inflate(R.layout.fragment_passengers_info, null);
-
+        getRide(newView);
         dialog.setView(newView)
                 .setTitle("Ride Info")
                 .setCancelable(true)
@@ -451,5 +454,11 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 });
         alertDialog = dialog.create();
         alertDialog.show();
+    }
+
+    public void getRide(View view) {
+        Ride ride = RideService.getPassengerActiveRide(requireActivity().getApplicationContext(), 4L, "Current ride not found");
+        System.out.println("rideee");
+        System.out.println(ride);
     }
 }

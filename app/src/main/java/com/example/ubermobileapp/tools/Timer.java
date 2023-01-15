@@ -76,11 +76,9 @@ public class Timer {
     // update the text view.
     public void run()
     {
-        final TextView timeView
-                = textView;
+        final TextView timeView = textView;
 
-        final Handler handler
-                = new Handler();
+        final Handler handler = new Handler();
 
         // Call the post() method,
         // passing in a new Runnable.

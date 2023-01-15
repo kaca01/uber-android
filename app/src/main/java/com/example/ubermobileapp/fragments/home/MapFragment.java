@@ -23,14 +23,17 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
+import com.example.ubermobileapp.model.login.User;
 import com.example.ubermobileapp.model.pojo.Ride;
 import com.example.ubermobileapp.services.implementation.RideService;
+import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -457,8 +460,18 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     }
 
     public void getRide(View view) {
-        Ride ride = RideService.getPassengerActiveRide(requireActivity().getApplicationContext(), 4L, "Current ride not found");
-        System.out.println("rideee");
-        System.out.println(ride);
+        User user = AuthService.getCurrentUser();
+        Ride ride = RideService.getPassengerActiveRide(requireActivity().getApplicationContext(),
+                user.getId(), "Current ride not found");
+        TextView startDate = view.findViewById(R.id.startDate);
+        startDate.setText(ride.getScheduledTime());
+        TextView estimatedTime = view.findViewById(R.id.estimatedTime);
+        estimatedTime.setText(Double.toString(ride.getEstimatedTimeInMinutes()));
+        TextView price = view.findViewById(R.id.price);
+        price.setText(Double.toString(ride.getTotalCost()));
+        TextView babyTransport = view.findViewById(R.id.babyTransport);
+        babyTransport.setText(Boolean.toString(ride.isBabyTransport()));
+        TextView petTransport = view.findViewById(R.id.petTransport);
+        petTransport.setText(Boolean.toString(ride.isPetTransport()));
     }
 }

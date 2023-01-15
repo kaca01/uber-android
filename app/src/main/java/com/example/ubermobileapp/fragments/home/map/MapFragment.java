@@ -348,10 +348,10 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
     public void drawRoute() {
         // TODO : input here latitude and longitude
-        LatLng first_marker = new LatLng(45.23712230840664, 19.838562878762076);
+        LatLng first_marker = new LatLng(45.23644043364487, 19.838435923672563);
         departure = map.addMarker(new MarkerOptions().position(first_marker).title("Departure"));
 
-        LatLng second_marker = new LatLng(45.238024236996345, 19.83914507943879);
+        LatLng second_marker = new LatLng(45.23774361234722, 19.843219159886523);
         destination = map.addMarker(new MarkerOptions().position(second_marker).title("Destination"));
 
         LatLng zaragoza = first_marker;

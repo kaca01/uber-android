@@ -1,7 +1,5 @@
 package com.example.ubermobileapp.fragments.home;
 
-import android.content.Intent;
-import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -51,8 +49,8 @@ public class CreateRide1Fragment extends Fragment {
                     toast.show();
                     return;
                 }
-                boolean flag1 = MapFragment.searchLocation(PassengerMainActivity.geocoder, departure.getText().toString(), true);
-                boolean flag2 = MapFragment.searchLocation(PassengerMainActivity.geocoder, destination.getText().toString(), false);
+                boolean flag1 = MapMainFragment.searchLocation(PassengerMainActivity.geocoder, departure.getText().toString(), true);
+                boolean flag2 = MapMainFragment.searchLocation(PassengerMainActivity.geocoder, destination.getText().toString(), false);
                 if (!flag1 || !flag2) {
                     Toast toast = Toast.makeText(view.getContext(), "Address not found!", Toast.LENGTH_LONG);
                     toast.show();

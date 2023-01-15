@@ -36,7 +36,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView5"
-        android:name="com.example.ubermobileapp.fragments.home.MapFragment"
+        android:name="com.example.ubermobileapp.fragments.home.MapMainFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_map"

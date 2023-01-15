@@ -1,29 +1,20 @@
 package com.example.ubermobileapp.activities.home;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ToggleButton;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.DriverAccountActivity;
 import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
 import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
-import com.example.ubermobileapp.fragments.home.DrawRouteFragment;
-import com.example.ubermobileapp.fragments.home.MapFragment;
-import com.example.ubermobileapp.tools.FragmentTransition;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.gms.maps.model.LatLng;
 
 public class DriverMainActivity extends AppCompatActivity {
 

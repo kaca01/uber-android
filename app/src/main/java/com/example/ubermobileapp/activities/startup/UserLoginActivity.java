@@ -118,8 +118,7 @@ public class UserLoginActivity extends AppCompatActivity {
                                     }
                                     case "ROLE_PASSENGER": {
                                         Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
-                                        // TODO : change the next line from Passenger Current to Passenger Main
-                                        Intent intent = new Intent(UserLoginActivity.this, PassengerCurrentRideActivity.class);
+                                        Intent intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
                                         startActivity(intent);
                                         // check if necessary for receive notification
                                         isRideAccepted();

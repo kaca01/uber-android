@@ -1,4 +1,4 @@
-package com.example.ubermobileapp.fragments.home;
+package com.example.ubermobileapp.fragments.home.map;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,7 +28,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.ubermobileapp.activities.home.DriverMainActivity;
+import com.example.ubermobileapp.fragments.home.LocationDialog;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -65,7 +65,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private GoogleMap map;
     private Marker departure;
     private Marker destination;
-    private MapFragment instance = null;
     private List<Polyline> polylines = new ArrayList<>();
     private Timer timer = Timer.getInstance();
     private boolean play = false;

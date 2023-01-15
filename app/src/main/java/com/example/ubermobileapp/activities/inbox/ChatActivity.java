@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,8 +21,10 @@ import com.example.ubermobileapp.model.Drive;
 import com.example.ubermobileapp.model.MessageType;
 import com.example.ubermobileapp.model.login.User;
 import com.example.ubermobileapp.model.pojo.Message;
+import com.example.ubermobileapp.model.pojo.MessageList;
 import com.example.ubermobileapp.model.pojo.Ride;
 import com.example.ubermobileapp.services.implementation.MessageService;
+import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 
@@ -34,10 +37,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChatActivity extends AppCompatActivity {
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
     private Ride ride;
     private User sender; //current user is sender
-    private User receiver = new User(3L, "pera@gmail.com"); //todo receiver depends from clicks from front
+    private User receiver = new User(3L, "pera@gmail.com", "Pera", "Petrovic"); //todo receiver depends from clicks from front
     String chat_type = "";
 
     @Override
@@ -46,7 +49,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         sender = AuthService.getCurrentUser();
-
+        setTitle();
         Drive drive = new Drive(); //initializing only to avoid warnings (delete this later)
 
         RecyclerView recycler = (RecyclerView) findViewById(R.id.recycler_chat);
@@ -83,10 +86,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        TextView action_bar_name = (TextView) findViewById(R.id.action_bar_name);
-        String title = receiver.getName() + " " + receiver.getSurname();
-        action_bar_name.setText(title);
-
         Button send = (Button) findViewById(R.id.button_chat_send);
         Drive finalDrive = drive;
         send.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +100,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
                 else {
                     Message message = new Message(text, "RIDE", ride.getId());
-                    message = MessageService.addMessageToDatabase(getApplicationContext(), message, "Current ride not found");
+                    message = MessageService.addMessageToDatabase(getApplicationContext(), receiver.getId(), message, "Current ride not found");
                     messages.add(message);
                 }
                 recycler.scrollToPosition(messages.size() - 1);
@@ -112,9 +111,15 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    public List<Message> FindByRideIdAndOtherUser(Ride ride, User receiver){
+    private void setTitle()
+    {
+        TextView action_bar_name = (TextView) findViewById(R.id.action_bar_name);
+        String title = receiver.getName() + " " + receiver.getSurname();
+        action_bar_name.setText(title);
+    }
 
-        // treba prvo da pozove iz baze pa onda da filtrira
+    public List<Message> FindByRideIdAndOtherUser(Ride ride, User receiver){
+        setUserMessages();
         List<Message> filteredMessages = new ArrayList<>();
         for (Message m: messages) {
             if(m.getRideId() == ride.getId() && (m.getSenderId()==receiver.getId() ||
@@ -127,60 +132,35 @@ public class ChatActivity extends AppCompatActivity {
 
     private void setRide(){
         if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
-            setPassengerActiveRide();
+            ride = RideService.getPassengerActiveRide(getApplicationContext(), sender.getId(), "Current ride not found");
         }
 
         else if(sender.getRoles().get(0).getName().equals("ROLE_DRIVER")){
-            setDriverActiveRide();
+            ride = RideService.getDriverActiveRide(getApplicationContext(), sender.getId(), "Current ride not found");
         }
     }
 
-    private void setPassengerActiveRide(){
-        Call<Ride> rideResponseCall = ApiUtils.getRideService().getPassengerActiveRide((sender.getId()));
-        rideResponseCall.enqueue(new Callback<Ride>() {
+    public void setUserMessages(){
+        Call<MessageList> messageResponseCall = ApiUtils.getMessageService().getUserMessages(sender.getId());
+        messageResponseCall.enqueue(new Callback<MessageList>() {
             @Override
-            public void onResponse(Call<Ride> call, Response<Ride> response) {
+            public void onResponse(Call<MessageList> call, Response<MessageList> response) {
                 if (response.isSuccessful()) {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            ride = response.body();
+                            messages = response.body().getResults();
                         }
                     }, 700);
 
                 } else
-                    Toast.makeText(getApplicationContext(), "Current ride not found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "toastText", Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<Ride> call, Throwable t) {
+            public void onFailure(Call<MessageList> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
-
-    private void setDriverActiveRide(){
-        Call<Ride> rideResponseCall = ApiUtils.getRideService().getDriverActiveRide((sender.getId()));
-        rideResponseCall.enqueue(new Callback<Ride>() {
-            @Override
-            public void onResponse(Call<Ride> call, Response<Ride> response) {
-                if (response.isSuccessful()) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ride = response.body();
-                        }
-                    }, 700);
-
-                } else
-                    Toast.makeText(getApplicationContext(), "Current ride not found", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Call<Ride> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
 }

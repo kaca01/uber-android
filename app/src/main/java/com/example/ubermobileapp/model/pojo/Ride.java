@@ -44,7 +44,7 @@ public class Ride {
     private Rejection rejection;
     @SerializedName("locations")
     @Expose
-    private List<Location> locations = null;
+    private List<Route> locations = null;
     @SerializedName("status")
     @Expose
     private String status;
@@ -76,7 +76,7 @@ public class Ride {
      * @param vehicleType
      * @param status
      */
-    public Ride(Long id, String startTime, String endTime, double totalCost, User driver, List<User> passengers, double estimatedTimeInMinutes, String vehicleType, boolean babyTransport, boolean petTransport, Rejection rejection, List<Location> locations, String status, String scheduledTime) {
+    public Ride(Long id, String startTime, String endTime, double totalCost, User driver, List<User> passengers, double estimatedTimeInMinutes, String vehicleType, boolean babyTransport, boolean petTransport, Rejection rejection, List<Route> locations, String status, String scheduledTime) {
         super();
         this.id = id;
         this.startTime = startTime;
@@ -182,11 +182,11 @@ public class Ride {
         this.rejection = rejection;
     }
 
-    public List<Location> getLocations() {
+    public List<Route> getLocations() {
         return locations;
     }
 
-    public void setLocations(List<Location> locations) {
+    public void setLocations(List<Route> locations) {
         this.locations = locations;
     }
 

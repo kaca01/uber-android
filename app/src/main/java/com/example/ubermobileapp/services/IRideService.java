@@ -7,16 +7,16 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
 
-public interface RideService {
+public interface IRideService {
 
     //active ride for driver
     @Headers("Content-Type: application/json")
-    @GET("driver/{driverId}/active")
+    @GET("ride/driver/{driverId}/active")
     Call<Ride> getDriverActiveRide(@Path("driverId") Long id);
 
     //active ride for passenger
     @Headers({"Content-Type:application/json"})
-    @GET("passenger/{passengerId}/active")
+    @GET("ride/passenger/{passengerId}/active")
     Call<Ride> getPassengerActiveRide(@Path("passengerId") Long id);
 
 }

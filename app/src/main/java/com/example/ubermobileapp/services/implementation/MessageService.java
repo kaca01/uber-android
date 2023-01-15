@@ -5,7 +5,10 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.example.ubermobileapp.model.pojo.Message;
+import com.example.ubermobileapp.model.pojo.MessageList;
 import com.example.ubermobileapp.services.utils.ApiUtils;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,9 +16,9 @@ import retrofit2.Response;
 
 public class MessageService {
 
-    public static Message addMessageToDatabase(Context context, Message message, String toastText){
+    public static Message addMessageToDatabase(Context context, Long id, Message message, String toastText){
         final Message[] returnMessage = new Message[1];
-        Call<Message> rideResponseCall = ApiUtils.getMessageService().sendMessage(message);
+        Call<Message> rideResponseCall = ApiUtils.getMessageService().sendMessage(id, message);
         rideResponseCall.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {

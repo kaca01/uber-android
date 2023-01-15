@@ -48,8 +48,10 @@ public class User {
 
     public User() {}
 
-    public User(Long id, String email) {
+    public User(Long id, String email, String firstname, String lastname) {
         this.id = id;
+        this.name = firstname;
+        this.surname = lastname;
         this.email = email;
     }
 

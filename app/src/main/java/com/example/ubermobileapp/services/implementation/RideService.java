@@ -13,7 +13,7 @@ import retrofit2.Response;
 
 public class RideService {
 
-    private Ride getPassengerActiveRide(Context context, Long id){
+    public static Ride getPassengerActiveRide(Context context, Long id, String toastText){
         final Ride[] ride = new Ride[1];
         Call<Ride> rideResponseCall = ApiUtils.getRideService().getPassengerActiveRide(id);
         rideResponseCall.enqueue(new Callback<Ride>() {
@@ -28,7 +28,33 @@ public class RideService {
                     }, 700);
 
                 } else
-                    Toast.makeText(context, "Current ride not found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Ride> call, Throwable t) {
+                Toast.makeText(context, "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        return ride[0];
+    }
+
+    public static Ride getDriverActiveRide(Context context, Long id, String toastText){
+        final Ride[] ride = new Ride[1];
+        Call<Ride> rideResponseCall = ApiUtils.getRideService().getDriverActiveRide(id);
+        rideResponseCall.enqueue(new Callback<Ride>() {
+            @Override
+            public void onResponse(Call<Ride> call, Response<Ride> response) {
+                if (response.isSuccessful()) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ride[0] = response.body();
+                        }
+                    }, 700);
+
+                } else
+                    Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
             }
 
             @Override

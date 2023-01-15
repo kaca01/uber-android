@@ -7,17 +7,18 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
-public interface MessageService {
+public interface IMessageService {
 
     //get all messages from that{id} user
     @Headers("Content-Type: application/json")
     @GET("user/{id}/message")
-    Call<MessageList> getUserMessages();
+    Call<MessageList> getUserMessages(@Path("id") Long id);
 
     //send a message to the user, sender is taken from token
     @Headers({"Content-Type:application/json"})
     @POST("user/{id}/message")
-    Call<Message> sendMessage(@Body Message message);
+    Call<Message> sendMessage(@Path("id") Long id, @Body Message message);
 
 }

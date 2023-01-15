@@ -22,4 +22,8 @@ public interface IRideService {
     @Headers({"Content-Type:application/json"})
     @PUT("ride/{id}/start")
     Call<Ride> startRide(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @PUT("ride/{id}/end")
+    Call<Ride> endRide(@Path("id") Long id);
 }

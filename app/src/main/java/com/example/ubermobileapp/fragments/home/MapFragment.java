@@ -434,13 +434,15 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                         System.out.println("rideee");
                         System.out.println(ride);
                         ride = RideService.start(requireActivity().getApplicationContext(),
-                                          ride.getId(), "Current ride not found");
+                                                 ride.getId(), "Current ride not found");
                         drawRoute();
                         play = true;
                         timer.onClickStart();
                     } else {
                         play = false;
                         removeRoute();
+                        ride = RideService.end(requireActivity().getApplicationContext(),
+                                               ride.getId(), "Current ride not found");
                         timer.onClickReset();
                     }
                 }

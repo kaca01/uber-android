@@ -136,8 +136,8 @@ public class PassengerMainActivity extends AppCompatActivity {
             }
             public void onFinish() {
                 timer.setText("00:00:00");
-                Toast toast = Toast.makeText(getApplicationContext(), "The Driver has arrived at the location", Toast.LENGTH_LONG);
-                toast.show();
+                /*Toast toast = Toast.makeText(getApplicationContext(), "The Driver has arrived at the location", Toast.LENGTH_LONG);
+                toast.show();*/
                 Intent intent = new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class);
                 startActivity(intent);
             }

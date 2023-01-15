@@ -45,4 +45,20 @@ public class RideService {
 
         return ride;
     }
+
+    public static Ride start(Context context, Long id, String toastText){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Ride ride = new Ride();
+        Call<Ride> rideResponseCall = ApiUtils.getRideService().startRide(id);
+        try{
+            Response<Ride> response = rideResponseCall.execute();
+            ride = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return ride;
+    }
 }

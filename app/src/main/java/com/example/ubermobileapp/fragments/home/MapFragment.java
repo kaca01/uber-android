@@ -342,6 +342,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     }
 
     public void drawRoute() {
+        // TODO : input here latitude and longitude
         LatLng first_marker = new LatLng(45.23712230840664, 19.838562878762076);
         departure = map.addMarker(new MarkerOptions().position(first_marker).title("Departure"));
 
@@ -429,6 +430,10 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 @Override
                 public void onClick(View view) {
                     if (!play) {
+                        ride = RideService.start(requireActivity().getApplicationContext(),
+                                          ride.getId(), "Current ride not found");
+                        System.out.println("rideee");
+                        System.out.println(ride);
                         drawRoute();
                         play = true;
                         timer.onClickStart();

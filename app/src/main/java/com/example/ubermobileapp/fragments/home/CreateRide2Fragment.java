@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.model.Message;
+import com.example.ubermobileapp.services.utils.AuthService;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -91,6 +92,11 @@ public class CreateRide2Fragment extends Fragment {
             public void onClick(View view) {
                 PassengerMainActivity.order.setVehicleType(spin.getSelectedItemPosition());
                 PassengerMainActivity.order.setEmails(emails);
+                System.out.println("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEJ");
+                System.out.println(emails);
+                PassengerMainActivity.order.getEmails().add(AuthService.getCurrentUser().getEmail());
+                System.out.println("POZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+                System.out.println(emails);
                 ((PassengerMainActivity)getActivity()).changeToThirdFragment();
             }
         });

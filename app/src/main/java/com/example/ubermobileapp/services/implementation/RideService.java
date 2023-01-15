@@ -40,4 +40,19 @@ public class RideService {
 
         return ride;
     }
+
+    public static Ride insertRide(Ride ride){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Call<Ride> rideResponseCall = ApiUtils.getRideService().insertRide(ride);
+        try{
+            Response<Ride> response = rideResponseCall.execute();
+            ride = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return ride;
+    }
 }

@@ -1,10 +1,14 @@
 package com.example.ubermobileapp.services;
 
+import com.example.ubermobileapp.model.RideOrder;
+import com.example.ubermobileapp.model.pojo.Message;
 import com.example.ubermobileapp.model.pojo.Ride;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface IRideService {
@@ -18,5 +22,9 @@ public interface IRideService {
     @Headers({"Content-Type:application/json"})
     @GET("ride/passenger/{passengerId}/active")
     Call<Ride> getPassengerActiveRide(@Path("passengerId") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @POST("ride")
+    Call<Ride> insertRide(@Body Ride ride);
 
 }

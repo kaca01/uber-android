@@ -26,8 +26,9 @@ import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
-import com.example.ubermobileapp.model.Ride;
 import com.example.ubermobileapp.model.RideOrder;
+import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.services.implementation.RideService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -140,6 +141,8 @@ public class PassengerMainActivity extends AppCompatActivity {
     public static Ride insertRide() {
         currentFragment = -1;
 
+        Ride ride = new Ride(order);
+        ride = RideService.insertRide(ride);
         // todo call service api with order object as parameter
 
         return new Ride();

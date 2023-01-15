@@ -4,16 +4,14 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.model.Message;
-import com.example.ubermobileapp.tools.Mockup;
+import com.example.ubermobileapp.model.pojo.Message;
+import com.example.ubermobileapp.services.utils.AuthService;
 
 import java.util.List;
 
@@ -70,7 +68,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         Message message = (Message) messages.get(position);
 
         //TODO change with current user
-        if (message.getSender().equals("korisnik1")) {
+        if (message.getSenderId() == AuthService.getCurrentUser().getId()) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -89,8 +87,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
         }
 
         void bind(Message message) {
-            messageText.setText(message.getText());
-            timeText.setText(message.getTime());}
+            messageText.setText(message.getMessage());
+            timeText.setText(message.getTimeOfSending().substring(11, 16));}
     }
 
     private class SentMessageHolder extends RecyclerView.ViewHolder {
@@ -104,8 +102,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
         }
 
         void bind(Message message) {
-            messageText.setText(message.getText());
-            timeText.setText(message.getTime());
+            messageText.setText(message.getMessage());
+            timeText.setText(message.getTimeOfSending().substring(11, 16));
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.ubermobileapp.fragments.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
+import com.example.ubermobileapp.activities.inbox.ChatActivity;
+import com.example.ubermobileapp.model.MessageType;
+import com.example.ubermobileapp.model.pojo.Message;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,4 +73,5 @@ public class PassengersInfo extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_passengers_info, container, false);
     }
+
 }

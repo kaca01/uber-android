@@ -1,5 +1,6 @@
 package com.example.ubermobileapp.fragments.home.map;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -23,6 +24,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -451,5 +453,16 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 });
         alertDialog = dialog.create();
         alertDialog.show();
+
+        ImageView chat = newView.findViewById(R.id.chat);
+        chat.setClickable(true);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                //intent.putExtra("name", name);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -8,7 +8,7 @@ public class User {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private Long id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -46,11 +46,20 @@ public class User {
     @Expose
     private Boolean enabled;
 
-    public Integer getId() {
+    public User() {}
+
+    public User(Long id, String email, String firstname, String lastname) {
+        this.id = id;
+        this.name = firstname;
+        this.surname = lastname;
+        this.email = email;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

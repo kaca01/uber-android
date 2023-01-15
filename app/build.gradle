@@ -7,6 +7,9 @@ android {
     compileSdk 32
 
     defaultConfig {
+        aaptOptions {
+            additionalParameters "--no-version-vectors"
+        }
         applicationId "com.example.ubermobileapp"
         minSdk 29
         targetSdk 32

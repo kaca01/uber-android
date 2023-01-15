@@ -278,7 +278,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 home.setFlat(true);
 
                 CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(latLng).zoom(14).build();
+                        .target(latLng).zoom(18).build();
 
                 map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
@@ -334,7 +334,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         home.setFlat(true);
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(loc).zoom(14).build();
+                .target(loc).zoom(18).build();
 
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
@@ -417,7 +417,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         }
 
         map.getUiSettings().setZoomControlsEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(zaragoza, 15));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(zaragoza, 18));
     }
 
     private void writeOnClickListeners() throws ParseException {

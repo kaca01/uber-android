@@ -420,6 +420,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(zaragoza, 18));
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void writeOnClickListeners() throws ParseException {
         CardView passengers = getActivity().findViewById(R.id.firstCard);
         passengers.setOnClickListener(new View.OnClickListener() {
@@ -452,9 +453,13 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 }
             });
         } else {
-            @SuppressLint("SimpleDateFormat")
-            Date startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                    .parse(ride.getStartTime());
+            Date startTime;
+            if (ride.getStartTime() == null) {
+                startTime = new Date();
+            }else {
+                startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                        .parse(ride.getStartTime());
+            }
             assert startTime != null;
             long seconds = (new Date().getTime()-startTime.getTime())/1000;
             timer.setSeconds((int)seconds);

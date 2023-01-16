@@ -174,7 +174,8 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15sp">
 
             <Button
                 android:id="@+id/btnOrder1"
@@ -190,14 +191,6 @@
                 android:layout_toEndOf="@+id/btnOrder1"
                 android:layout_marginStart="20sp"/>
         </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_marginTop="20sp"
-            android:layout_marginBottom="10sp"
-            android:layout_height="3sp"
-            android:background="?android:attr/listDivider"
-            tools:ignore="SmallSp" />
 
     </LinearLayout>
 </RelativeLayout>

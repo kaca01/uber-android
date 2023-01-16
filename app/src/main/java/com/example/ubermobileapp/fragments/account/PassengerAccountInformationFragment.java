@@ -1,6 +1,7 @@
 package com.example.ubermobileapp.fragments.account;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -10,7 +11,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
@@ -25,6 +28,8 @@ import com.example.ubermobileapp.tools.Mockup;
 public class PassengerAccountInformationFragment extends Fragment {
     AlertDialog alertDialog;
     private View view;
+    int SELECT_IMAGE_CODE = 1;
+    ImageView imgGallery;
 
     public PassengerAccountInformationFragment() {
         // Required empty public constructor
@@ -87,6 +92,19 @@ public class PassengerAccountInformationFragment extends Fragment {
         View newView = inflater.inflate(R.layout.fragment_edit_account_information, null);
         setEditAccountData(newView, 0);
 
+        Button button = newView.findViewById(R.id.btnChangePic);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Title"), SELECT_IMAGE_CODE);
+            }
+        });
+
+        imgGallery = view.findViewById(R.id.profilePicture);
+
         dialog.setView(newView)
                 .setTitle("Edit account information")
                 .setCancelable(false)
@@ -112,11 +130,11 @@ public class PassengerAccountInformationFragment extends Fragment {
         TextView email = view.findViewById(R.id.email);
         TextView phone = view.findViewById(R.id.phoneNumber);
 
-        String firstAndLastName = passenger.getFirstName() + " " + passenger.getLastName();
+        String firstAndLastName = passenger.getName() + " " + passenger.getSurname();
         name.setText(firstAndLastName);
-        postalAddress.setText(passenger.getPostalAddress());
+        postalAddress.setText(passenger.getAddress());
         email.setText(passenger.getEmail());
-        phone.setText(passenger.getNumber());
+        phone.setText(passenger.getTelephoneNumber());
     }
 
     private void setEditAccountData(View newView, int index) {
@@ -130,13 +148,24 @@ public class PassengerAccountInformationFragment extends Fragment {
         TextView password = newView.findViewById(R.id.passwordInput);
         TextView passwordAgain = newView.findViewById(R.id.passwordInputAgain);
 
-        name.setText(passenger.getFirstName());
-        lastName.setText(passenger.getLastName());
-        postalAddress.setText(passenger.getPostalAddress());
+        name.setText(passenger.getName());
+        lastName.setText(passenger.getSurname());
+        postalAddress.setText(passenger.getAddress());
         email.setText(passenger.getEmail());
-        phone.setText(passenger.getNumber());
+        phone.setText(passenger.getTelephoneNumber());
         password.setText(passenger.getPassword());
         passwordAgain.setText(passenger.getPassword());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode==1) {
+
+            imgGallery.setImageURI(data.getData());
+
+        }
     }
 
 }

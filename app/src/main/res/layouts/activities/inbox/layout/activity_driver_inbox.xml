@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".activities.inbox.DriverInboxActivity">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_inbox"
+        android:name="com.example.ubermobileapp.fragments.inbox.InboxFragment"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="DRIVER INBOX ACTIVITY!"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_inbox" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

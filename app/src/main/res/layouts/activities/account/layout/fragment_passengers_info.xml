@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.home.PassengersInfo">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="20sp"
+                android:text="@string/input_email" />
+
+            <TextView
+                android:id="@+id/emailInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180sp"
+                android:layout_marginTop="20sp"
+                android:layout_marginEnd="20sp"
+                android:text="@string/email" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="60sp"
+                android:text="@string/input_name" />
+
+            <TextView
+                android:id="@+id/nameInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180sp"
+                android:layout_marginTop="60sp"
+                android:layout_marginEnd="20sp"
+                android:text="@string/name" />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="100sp"
+                android:text="@string/phone" />
+
+            <TextView
+                android:id="@+id/phoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180sp"
+                android:layout_marginTop="100sp"
+                android:layout_marginEnd="20sp"
+                android:text="@string/phoneNumber" />
+
+            <ImageView
+                android:id="@+id/chat"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_marginStart="80sp"
+                android:layout_marginTop="160sp"
+                android:src="@drawable/ic_chat" />
+
+            <ImageView
+                android:id="@+id/call"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_marginStart="200sp"
+                android:layout_marginTop="160sp"
+                android:src="@drawable/ic_baseline_phone_24" />
+
+            <TextView
+                android:id="@+id/startDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="220sp"
+                android:text="@string/start_date" />
+
+            <TextView
+                android:id="@+id/startDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180sp"
+                android:layout_marginTop="220sp"
+                android:layout_marginEnd="20sp"
+                android:text="@string/start_date_content" />
+
+            <TextView
+                android:id="@+id/estimatedTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="260sp"
+                android:text="@string/estimated_time" />
+
+            <TextView
+                android:id="@+id/estimatedTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180sp"
+                android:layout_marginTop="260sp"
+                android:layout_marginEnd="20sp"
+                android:text="@string/estimated_time_content" />
+
+            <TextView
+                android:id="@+id/priceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="300sp"
+                android:text="@string/price" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180sp"
+                android:layout_marginTop="300sp"
+                android:layout_marginEnd="20sp"
+                android:text="@string/price_content" />
+
+            <TextView
+                android:id="@+id/babyTransportLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="340sp"
+                android:text="@string/baby_transport" />
+
+            <TextView
+                android:id="@+id/babyTransport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180sp"
+                android:layout_marginTop="340sp"
+                android:layout_marginEnd="20sp"
+                android:text="@string/yes" />
+
+            <TextView
+                android:id="@+id/petTransportLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="380sp"
+                android:text="@string/pet_transport" />
+
+            <TextView
+                android:id="@+id/petTransport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180sp"
+                android:layout_marginTop="380sp"
+                android:layout_marginEnd="20sp"
+                android:text="@string/no" />
+
+            <TextView
+                android:id="@+id/vehicleTypeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="420sp"
+                android:text="@string/vehicle_type" />
+
+            <TextView
+                android:id="@+id/vehicleType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180sp"
+                android:layout_marginTop="420sp"
+                android:layout_marginEnd="20sp"
+                android:text="@string/standard" />
+
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="2sp"-->
+<!--                android:background="?android:attr/listDivider"-->
+<!--                tools:ignore="SmallSp"-->
+<!--                android:layout_marginTop="200sp"/>-->
+        </FrameLayout>
+    </ScrollView>
+
+
+</FrameLayout>

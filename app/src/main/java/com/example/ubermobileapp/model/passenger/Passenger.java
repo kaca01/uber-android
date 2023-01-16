@@ -2,62 +2,62 @@ package com.example.ubermobileapp.model.passenger;
 
 public class Passenger {
     private int ID;
-    private String firstName;
-    private String lastName;
-    private String number;
-    private String postalAddress;
+    private String name;
+    private String surname;
+    private String telephoneNumber;
+    private String address;
     private String email;
     private String password;
-    private String creditCardNumber;
+    private String profilePicture;
 
     public Passenger() {
     }
 
-    public Passenger(String firstName, String lastName, String number, String postalAddress,
-                     String email, String password, String creditCardNumber) {
+    public Passenger(String name, String surname, String telephoneNumber, String address,
+                     String email, String password, String profilePicture) {
         this.ID = generateID();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.number = number;
-        this.postalAddress = postalAddress;
+        this.name = name;
+        this.surname = surname;
+        this.telephoneNumber = telephoneNumber;
+        this.address = address;
         this.email = email;
         this.password = password;
-        this.creditCardNumber = creditCardNumber;
+        this.profilePicture = profilePicture;
     }
     public int getID() {return ID;}
 
     public void setID(int id) {this.ID = id;}
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getNumber() {
-        return number;
+    public String getTelephoneNumber() {
+        return telephoneNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 
-    public String getPostalAddress() {
-        return postalAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPostalAddress(String postalAddress) {
-        this.postalAddress = postalAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getEmail() {
@@ -76,24 +76,24 @@ public class Passenger {
         this.password = password;
     }
 
-    public String getCreditCardNumber() {
-        return creditCardNumber;
+    public String getProfilePicture() {
+        return profilePicture;
     }
 
-    public void setCreditCardNumber(String creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     @Override
     public String toString() {
         return "Passenger{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", number='" + number + '\'' +
-                ", postalAddress='" + postalAddress + '\'' +
+                "firstName='" + name + '\'' +
+                ", lastName='" + surname + '\'' +
+                ", number='" + telephoneNumber + '\'' +
+                ", postalAddress='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", creditCardNumber='" + creditCardNumber + '\'' +
+                ", creditCardNumber='" + profilePicture + '\'' +
                 '}';
     }
 

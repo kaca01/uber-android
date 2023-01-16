@@ -5,7 +5,12 @@
     <color name="greenDefault">#96D49C</color>
     <color name="background">#121212</color>
     <color name="transparentGreenDefault">#4D96D49C</color>
+    <color name="transparentGreenDefault2">#C2EDC6</color>
     <color name="transparentRed">#4Dff6961</color>
     <color name="light_gray">#edebeb</color>
     <color name="dark_gray">#3d3d3d</color>
+    <color name="gray">#ADADAD</color>
+    <color name="red">#FC5959</color>
+    <color name="darker_red">#FF2C2C</color>
+    <color name="favorites">#ffb347</color>
 </resources>

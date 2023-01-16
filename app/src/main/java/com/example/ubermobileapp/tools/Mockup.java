@@ -155,7 +155,8 @@ public class Mockup {
     public static List<Ride> getRides() {
         ArrayList<Ride> rides = new ArrayList<>();
         ArrayList<Passenger> passengers = new ArrayList<>();
-        passengers.add(getPassengers().get(0));
+        passengers.add(getPassengers().get(getPassengers().size()-1));
+//        passengers.add(getPassengers().get(0));
 
         Ride r1 = new Ride("14:01", "14:30", "10/02/2022", 800.00, getPassengers(), 10.00, R.drawable.map, getReviews(), RideStatus.FINISHED, "boki@gmail.com");
         Ride r2 = new Ride("10:00", "10:20", "11/05/2022", 562.36, getPassengers(), 5.03, R.drawable.map, null, RideStatus.FINISHED, "zlata@gmail.com");

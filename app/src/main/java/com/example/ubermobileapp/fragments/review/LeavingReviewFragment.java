@@ -1,5 +1,6 @@
 package com.example.ubermobileapp.fragments.review;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,6 +15,8 @@ import android.widget.Button;
 import android.widget.RatingBar;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
+import com.example.ubermobileapp.activities.inbox.ChatActivity;
 
 
 public class LeavingReviewFragment extends DialogFragment {
@@ -34,6 +37,17 @@ public class LeavingReviewFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 getDialog().dismiss();
+            }
+        });
+
+        Button doneButton = (Button) view.findViewById(R.id.done);
+        doneButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+                Intent intent = new Intent(getActivity(), PassengerMainActivity.class);
+                startActivity(intent);
             }
         });
         return view;

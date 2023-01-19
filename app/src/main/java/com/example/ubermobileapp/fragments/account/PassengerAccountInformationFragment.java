@@ -1,5 +1,6 @@
 package com.example.ubermobileapp.fragments.account;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +18,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.model.login.User;
 import com.example.ubermobileapp.model.passenger.Passenger;
+import com.example.ubermobileapp.services.implementation.PassengerService;
+import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Mockup;
 
 /**
@@ -58,7 +62,7 @@ public class PassengerAccountInformationFragment extends Fragment {
         view =  inflater.inflate(R.layout.fragment_passenger_account_information, container,
                 false);
 
-        setAccountData(0);
+        setAccountData();
 
         ImageButton edit = view.findViewById(R.id.buttonEdit);
         edit.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +94,7 @@ public class PassengerAccountInformationFragment extends Fragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View newView = inflater.inflate(R.layout.fragment_edit_account_information, null);
-        setEditAccountData(newView, 0);
+        setEditAccountData(newView);
 
         Button button = newView.findViewById(R.id.btnChangePic);
         button.setOnClickListener(new View.OnClickListener() {
@@ -122,8 +126,8 @@ public class PassengerAccountInformationFragment extends Fragment {
         alertDialog.show();
     }
 
-    private void setAccountData(int index) {
-        Passenger passenger = Mockup.getPassengers().get(index);
+    private void setAccountData() {
+        User passenger = AuthService.getCurrentUser();
 
         TextView name = view.findViewById(R.id.name);
         TextView postalAddress = view.findViewById(R.id.address);
@@ -137,14 +141,15 @@ public class PassengerAccountInformationFragment extends Fragment {
         phone.setText(passenger.getTelephoneNumber());
     }
 
-    private void setEditAccountData(View newView, int index) {
-        Passenger passenger = Mockup.getPassengers().get(index);
+    private void setEditAccountData(View newView) {
+        User passenger = AuthService.getCurrentUser();
 
         TextView name = newView.findViewById(R.id.inputName);
         TextView lastName = newView.findViewById(R.id.inputSurname);
         TextView postalAddress = newView.findViewById(R.id.postalAdressInput);
         TextView email = newView.findViewById(R.id.inputEmail);
         TextView phone = newView.findViewById(R.id.inputPhone);
+        // TODO : check how user can change password
         TextView password = newView.findViewById(R.id.passwordInput);
         TextView passwordAgain = newView.findViewById(R.id.passwordInputAgain);
 
@@ -153,8 +158,6 @@ public class PassengerAccountInformationFragment extends Fragment {
         postalAddress.setText(passenger.getAddress());
         email.setText(passenger.getEmail());
         phone.setText(passenger.getTelephoneNumber());
-        password.setText(passenger.getPassword());
-        passwordAgain.setText(passenger.getPassword());
     }
 
     @Override
@@ -162,10 +165,9 @@ public class PassengerAccountInformationFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode==1) {
-
+            assert data != null;
             imgGallery.setImageURI(data.getData());
 
         }
     }
-
 }

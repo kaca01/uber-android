@@ -1,8 +1,7 @@
 package com.example.ubermobileapp.services;
 
-import com.example.ubermobileapp.model.RideOrder;
-import com.example.ubermobileapp.model.pojo.Message;
-import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.model.pojo.ride.Ride;
+import com.example.ubermobileapp.model.pojo.ride.FavoriteOrder;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -34,4 +33,6 @@ public interface IRideService {
     @POST("ride")
     Call<Ride> insertRide(@Body Ride ride);
 
+    @GET("ride/favorites")
+    Call<FavoriteOrder> favorites(@Body FavoriteOrder favoriteOrder);
 }

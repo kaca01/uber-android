@@ -1,4 +1,4 @@
-package com.example.ubermobileapp.model.pojo;
+package com.example.ubermobileapp.model.pojo.communication;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

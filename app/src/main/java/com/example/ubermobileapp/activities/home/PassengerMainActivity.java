@@ -1,15 +1,12 @@
 package com.example.ubermobileapp.activities.home;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -21,7 +18,6 @@ import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
-import com.example.ubermobileapp.activities.inbox.ChatActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
 import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
@@ -29,7 +25,7 @@ import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
 import com.example.ubermobileapp.model.RideOrder;
-import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.model.pojo.ride.Ride;
 import com.example.ubermobileapp.services.implementation.RideService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;

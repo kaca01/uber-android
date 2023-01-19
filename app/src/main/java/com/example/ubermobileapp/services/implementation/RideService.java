@@ -2,11 +2,8 @@ package com.example.ubermobileapp.services.implementation;
 
 import android.os.StrictMode;
 import android.content.Context;
-import android.os.Handler;
-import android.os.StrictMode;
-import android.widget.Toast;
 
-import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.model.pojo.ride.Ride;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 
 import retrofit2.Call;

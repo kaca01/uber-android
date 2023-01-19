@@ -11,7 +11,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class PassengerService {
-    public static Passenger getPassenger(Context context, Long id, String toastText){
+    public static Passenger getPassenger(Long id){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

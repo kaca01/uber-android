@@ -1,16 +1,13 @@
-package com.example.ubermobileapp.model.pojo;
+package com.example.ubermobileapp.model.pojo.ride;
 
-import com.airbnb.lottie.L;
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
 import com.example.ubermobileapp.model.RideOrder;
 import com.example.ubermobileapp.model.enumeration.VehicleType;
 import com.example.ubermobileapp.model.login.User;
-import com.example.ubermobileapp.model.passenger.Passenger;
+import com.example.ubermobileapp.model.pojo.communication.Rejection;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

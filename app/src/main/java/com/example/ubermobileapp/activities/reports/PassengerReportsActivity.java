@@ -15,7 +15,7 @@ import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
 import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
-import com.example.ubermobileapp.model.Report;
+import com.example.ubermobileapp.models.Report;
 import com.example.ubermobileapp.tools.Mockup;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;

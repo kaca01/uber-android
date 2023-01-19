@@ -16,9 +16,9 @@ import android.widget.Toast;
 import com.example.ubermobileapp.activities.inbox.ChatActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.adapters.DriveAdapter;
-import com.example.ubermobileapp.model.Drive;
-import com.example.ubermobileapp.model.Message;
-import com.example.ubermobileapp.model.MessageType;
+import com.example.ubermobileapp.models.Drive;
+import com.example.ubermobileapp.models.Message;
+import com.example.ubermobileapp.models.MessageType;
 import com.example.ubermobileapp.tools.Mockup;
 
 import java.util.ArrayList;

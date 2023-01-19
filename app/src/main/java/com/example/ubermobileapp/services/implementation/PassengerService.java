@@ -1,9 +1,8 @@
 package com.example.ubermobileapp.services.implementation;
 
-import android.content.Context;
 import android.os.StrictMode;
 
-import com.example.ubermobileapp.model.passenger.Passenger;
+import com.example.ubermobileapp.models.passenger.Passenger;
 
 import com.example.ubermobileapp.services.utils.ApiUtils;
 

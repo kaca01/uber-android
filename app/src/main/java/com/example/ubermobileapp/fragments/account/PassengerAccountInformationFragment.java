@@ -1,6 +1,5 @@
 package com.example.ubermobileapp.fragments.account;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,11 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.model.login.User;
-import com.example.ubermobileapp.model.passenger.Passenger;
-import com.example.ubermobileapp.services.implementation.PassengerService;
+import com.example.ubermobileapp.models.login.User;
 import com.example.ubermobileapp.services.utils.AuthService;
-import com.example.ubermobileapp.tools.Mockup;
 
 /**
  * A simple {@link Fragment} subclass.

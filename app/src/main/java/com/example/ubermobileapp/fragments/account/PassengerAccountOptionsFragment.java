@@ -18,7 +18,7 @@ import com.example.ubermobileapp.activities.favorite_ride.PassengerFavoriteRoute
 import com.example.ubermobileapp.activities.reports.PassengerReportsActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.startup.UserLoginActivity;
-import com.example.ubermobileapp.model.passenger.CreditCard;
+import com.example.ubermobileapp.models.passenger.CreditCard;
 import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Mockup;
 import com.example.ubermobileapp.tools.Timer;

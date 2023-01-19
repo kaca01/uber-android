@@ -14,16 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.activities.account.DriverAccountActivity;
 import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
-import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
-import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.fragments.history.CommentsFragment;
 import com.example.ubermobileapp.fragments.history.RatingFragment;
 import com.example.ubermobileapp.fragments.review.LeavingReviewFragment;
-import com.example.ubermobileapp.model.communication.Review;
+import com.example.ubermobileapp.models.communication.Review;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

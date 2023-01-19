@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.model.Ride;
+import com.example.ubermobileapp.models.Ride;
 import com.example.ubermobileapp.tools.Mockup;
 
 public class DriverRideAdapter extends BaseAdapter {

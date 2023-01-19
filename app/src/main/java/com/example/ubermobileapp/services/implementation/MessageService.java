@@ -2,7 +2,7 @@ package com.example.ubermobileapp.services.implementation;
 
 import android.os.StrictMode;
 
-import com.example.ubermobileapp.model.pojo.communication.Message;
+import com.example.ubermobileapp.models.pojo.communication.Message;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 
 import retrofit2.Call;

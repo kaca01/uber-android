@@ -3,7 +3,7 @@ package com.example.ubermobileapp.services.implementation;
 import android.os.StrictMode;
 import android.content.Context;
 
-import com.example.ubermobileapp.model.pojo.ride.Ride;
+import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 
 import retrofit2.Call;

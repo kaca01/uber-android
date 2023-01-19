@@ -14,13 +14,6 @@ import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
-import com.example.ubermobileapp.model.Ride;
-import com.example.ubermobileapp.model.communication.Review;
-import com.example.ubermobileapp.model.enumeration.RideStatus;
-import com.example.ubermobileapp.model.passenger.Passenger;
-import com.example.ubermobileapp.tools.Mockup;
-
-import java.util.ArrayList;
 
 public class AcceptanceRideActivity extends AppCompatActivity {
 

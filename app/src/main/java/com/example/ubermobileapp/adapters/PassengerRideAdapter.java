@@ -10,11 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.fragment.app.FragmentManager;
-
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.fragments.review.LeavingReviewFragment;
-import com.example.ubermobileapp.model.Ride;
+import com.example.ubermobileapp.models.Ride;
 import com.example.ubermobileapp.tools.Mockup;
 
 public class PassengerRideAdapter extends BaseAdapter {

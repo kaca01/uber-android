@@ -1,7 +1,7 @@
 package com.example.ubermobileapp.services;
 
-import com.example.ubermobileapp.model.pojo.ride.Ride;
-import com.example.ubermobileapp.model.pojo.ride.FavoriteOrder;
+import com.example.ubermobileapp.models.pojo.ride.Ride;
+import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

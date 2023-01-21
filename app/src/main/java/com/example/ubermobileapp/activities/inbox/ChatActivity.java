@@ -83,8 +83,15 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (from_inbox != null) {
-                    Intent i = new Intent(ChatActivity.this, PassengerInboxActivity.class);
-                    startActivity(i);
+                    if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER"))
+                    {
+                        Intent i = new Intent(ChatActivity.this, PassengerInboxActivity.class);
+                        startActivity(i);
+                    }
+                    else {
+                        Intent i = new Intent(ChatActivity.this, DriverInboxActivity.class);
+                        startActivity(i);
+                    }
                 }
                 else{
                     if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER"))
@@ -200,8 +207,15 @@ public class ChatActivity extends AppCompatActivity {
     public void onBackPressed(){
         Serializable from_inbox = getIntent().getSerializableExtra("name");
         if (from_inbox != null) {
-            Intent i = new Intent(ChatActivity.this, PassengerInboxActivity.class);
-            startActivity(i);
+            if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER"))
+            {
+                Intent i = new Intent(ChatActivity.this, PassengerInboxActivity.class);
+                startActivity(i);
+            }
+            else {
+                Intent i = new Intent(ChatActivity.this, DriverInboxActivity.class);
+                startActivity(i);
+            }
         }
         else{
             if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER"))

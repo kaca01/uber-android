@@ -94,7 +94,7 @@ public class Message implements Serializable {
         message.setSender("korisnik1");
         message.setReceiver(drive.getDriverName());
         message.setTime(new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date()));
-        message.setType(MessageType.DRIVE);
+        message.setType(MessageType.RIDE);
         return message;
     }
 }

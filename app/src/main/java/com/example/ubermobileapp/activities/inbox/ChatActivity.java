@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.activities.home.PassengerCurrentRideActivity;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.adapters.MessageAdapter;
 import com.example.ubermobileapp.model.Drive;
 import com.example.ubermobileapp.model.MessageType;
@@ -58,7 +59,7 @@ public class ChatActivity extends AppCompatActivity {
         if (chat_type.equals(MessageType.SUPPORT.toString())) {
             getSupportMessages();
         }
-        else if (chat_type.equals(MessageType.DRIVE.toString())){
+        else if (chat_type.equals(MessageType.RIDE.toString())){
             Long rideId = (Long)getIntent().getSerializableExtra("rideId");
             ride = RideService.getRideDetails(rideId);
             setReceiver();
@@ -107,8 +108,8 @@ public class ChatActivity extends AppCompatActivity {
                 String text = newChat.getText().toString().trim();
                 if (text.isEmpty()) return;
                 if (chat_type.equals(MessageType.SUPPORT.toString())) {
-                    Message message = new Message(text, "SUPPORT", null);
-                    message = MessageService.addMessageToDatabase(null, message);
+                    Message message = new Message(text, "SUPPORT", 0L);
+                    message = MessageService.addMessageToDatabase(sender.getId(), message);
                     messages.add(message);
                 }
                 else {
@@ -192,6 +193,26 @@ public class ChatActivity extends AppCompatActivity {
             messages = response.body().getResults();
         }catch(Exception ex){
             ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onBackPressed(){
+        Serializable from_inbox = getIntent().getSerializableExtra("name");
+        if (from_inbox != null) {
+            Intent i = new Intent(ChatActivity.this, PassengerInboxActivity.class);
+            startActivity(i);
+        }
+        else{
+            if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER"))
+            {
+                Intent i = new Intent(ChatActivity.this, PassengerCurrentRideActivity.class);
+                startActivity(i);
+            }
+            else {
+                Intent i = new Intent(ChatActivity.this, DriverMainActivity.class);
+                startActivity(i);
+            }
         }
     }
 }

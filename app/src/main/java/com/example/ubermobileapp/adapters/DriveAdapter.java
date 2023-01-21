@@ -80,7 +80,7 @@ public class DriveAdapter extends BaseAdapter {
         name.setText(getTitle(ride));
         time.setText(messages.get(messages.size()-1).getTimeOfSending().substring(11, 16));
         destination.setText(ride.getLocations().get(0).getDestination().getAddress());
-        date.setText(ride.getStartTime());
+        date.setText(ride.getStartTime().substring(0, 10));
         String message = messages.get(messages.size()-1).getMessage();
         if(message.length() > 100) {
             message = message.substring(0, 100);

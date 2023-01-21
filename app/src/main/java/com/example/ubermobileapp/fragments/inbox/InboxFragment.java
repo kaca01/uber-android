@@ -17,15 +17,12 @@ import android.widget.Toast;
 import com.example.ubermobileapp.activities.inbox.ChatActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.adapters.DriveAdapter;
-import com.example.ubermobileapp.model.Drive;
 import com.example.ubermobileapp.model.MessageType;
-import com.example.ubermobileapp.model.pojo.Ride;
 import com.example.ubermobileapp.model.pojo.login.User;
 import com.example.ubermobileapp.model.pojo.Message;
 import com.example.ubermobileapp.model.pojo.MessageList;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
-import com.example.ubermobileapp.tools.Mockup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +92,7 @@ public class InboxFragment extends ListFragment {
             name = MessageType.SUPPORT.toString();
         }
         else {
-            name = MessageType.DRIVE.toString();
+            name = MessageType.RIDE.toString();
         }
 
         Intent intent = new Intent(getActivity(), ChatActivity.class);

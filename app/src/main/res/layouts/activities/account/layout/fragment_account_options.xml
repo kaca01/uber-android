@@ -29,7 +29,7 @@
                 android:layout_height="80sp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="horizontal"
-                android:background="#F0F0F0"
+                android:background="?attr/carousel_firstView"
                 >
                 <ImageView
                     android:id="@+id/accountData"
@@ -44,7 +44,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="12sp"
+                    android:layout_gravity="center"
                     android:textSize="17sp"
                     android:text="@string/view_account_data" />
 
@@ -67,7 +67,7 @@
                 android:layout_height="80sp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="horizontal"
-                android:background="#F0F0F0">
+                android:background="?attr/carousel_firstView">
                 <ImageView
                     android:id="@+id/resumePic"
                     android:layout_marginStart="10sp"
@@ -81,7 +81,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="30sp"
+                    android:layout_gravity="center"
                     android:textSize="17sp"
                     android:text="@string/view_reports" />
 

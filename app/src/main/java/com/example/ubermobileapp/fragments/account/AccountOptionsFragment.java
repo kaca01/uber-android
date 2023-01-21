@@ -166,7 +166,7 @@ public class AccountOptionsFragment extends Fragment {
             }
         });
 
-        imgGallery = view.findViewById(R.id.profilePicture);
+        imgGallery = getActivity().findViewById(R.id.profilePicture);
 
         dialog.setView(newView)
                 .setTitle("Edit account information")

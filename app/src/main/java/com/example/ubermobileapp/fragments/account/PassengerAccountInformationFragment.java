@@ -1,5 +1,6 @@
 package com.example.ubermobileapp.fragments.account;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,27 +49,16 @@ public class PassengerAccountInformationFragment extends Fragment {
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_passenger_account_information, container,
                 false);
-
+        User passenger = AuthService.getCurrentUser();
+        TextView hi = view.findViewById(R.id.hi);
+        hi.setText("Hello,\n" + passenger.getName());
         return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        // TODO do not delete this code, this is for later
-        /*ImageButton imageButton = (ImageButton) getView().findViewById(R.id.buttonEdit);
-
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), PassengerMainActivity.class);
-                startActivity(intent);
-            }
-        });*/
     }
 }

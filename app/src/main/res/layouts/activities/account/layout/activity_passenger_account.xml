@@ -24,21 +24,32 @@
             android:layout_gravity="center"
             tools:layout="@layout/fragment_passenger_account_information" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView6"
-            android:name="com.example.ubermobileapp.fragments.account.AccountOptionsFragment"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_account_options" />
+            android:layout_height="match_parent">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentAccountOptions"
-            android:name="com.example.ubermobileapp.fragments.account.PassengerAccountOptionsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            tools:layout="@layout/fragment_passenger_account_options" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragmentContainerView6"
+                    android:name="com.example.ubermobileapp.fragments.account.AccountOptionsFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout="@layout/fragment_account_options" />
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragmentAccountOptions"
+                    android:name="com.example.ubermobileapp.fragments.account.PassengerAccountOptionsFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    tools:layout="@layout/fragment_passenger_account_options" />
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 

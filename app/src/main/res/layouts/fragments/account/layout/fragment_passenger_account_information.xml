@@ -9,12 +9,21 @@
     android:layout_height="wrap_content"
     tools:context=".fragments.account.PassengerAccountInformationFragment">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView7"
+        android:name="com.example.ubermobileapp.fragments.account.AccountInfromationTitleFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_account_infromation_title" />
+
     <TextView
         android:id="@+id/hi"
         android:layout_width="200sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="190dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="108dp"
         android:text="Hello,\nAna"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -25,7 +34,7 @@
         android:id="@+id/cardView"
         android:layout_width="100sp"
         android:layout_marginStart="50sp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="100sp"
         app:cardCornerRadius="50dp"
         android:layout_height="100sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="1sp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="170sp"
+        android:layout_marginTop="240sp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

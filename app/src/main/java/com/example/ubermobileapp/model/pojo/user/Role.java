@@ -1,4 +1,4 @@
-package com.example.ubermobileapp.model.pojo.login;
+package com.example.ubermobileapp.model.pojo.user;
 
 
 import com.google.gson.annotations.Expose;

@@ -8,12 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.model.MessageType;
-import com.example.ubermobileapp.model.pojo.login.Passenger;
+import com.example.ubermobileapp.model.enumeration.MessageType;
+import com.example.ubermobileapp.model.pojo.user.Passenger;
 import com.example.ubermobileapp.model.pojo.Message;
 import com.example.ubermobileapp.model.pojo.MessageList;
 import com.example.ubermobileapp.model.pojo.Ride;
-import com.example.ubermobileapp.model.pojo.login.User;
+import com.example.ubermobileapp.model.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.ApiUtils;

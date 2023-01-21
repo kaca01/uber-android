@@ -2,7 +2,7 @@ package com.example.ubermobileapp.services.utils;
 
 import android.os.StrictMode;
 
-import com.example.ubermobileapp.model.pojo.login.User;
+import com.example.ubermobileapp.model.pojo.user.User;
 
 import retrofit2.Call;
 import retrofit2.Response;

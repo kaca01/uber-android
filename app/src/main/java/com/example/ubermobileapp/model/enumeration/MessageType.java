@@ -1,4 +1,4 @@
-package com.example.ubermobileapp.model;
+package com.example.ubermobileapp.model.enumeration;
 
 import java.io.Serializable;
 

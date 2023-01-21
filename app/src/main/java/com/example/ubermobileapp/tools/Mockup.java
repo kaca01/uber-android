@@ -3,7 +3,7 @@ package com.example.ubermobileapp.tools;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.model.Drive;
 import com.example.ubermobileapp.model.Message;
-import com.example.ubermobileapp.model.MessageType;
+import com.example.ubermobileapp.model.enumeration.MessageType;
 import com.example.ubermobileapp.model.Ride;
 import com.example.ubermobileapp.model.Report;
 import com.example.ubermobileapp.model.ReportsType;

@@ -1,4 +1,6 @@
-package com.example.ubermobileapp.model.pojo.login;
+package com.example.ubermobileapp.model.pojo.user;
+
+import com.example.ubermobileapp.model.pojo.user.User;
 
 public class Passenger extends User {
     private String password;

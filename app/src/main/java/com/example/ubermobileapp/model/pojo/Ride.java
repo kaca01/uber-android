@@ -3,7 +3,7 @@ package com.example.ubermobileapp.model.pojo;
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
 import com.example.ubermobileapp.model.RideOrder;
 import com.example.ubermobileapp.model.enumeration.VehicleType;
-import com.example.ubermobileapp.model.pojo.login.User;
+import com.example.ubermobileapp.model.pojo.user.User;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

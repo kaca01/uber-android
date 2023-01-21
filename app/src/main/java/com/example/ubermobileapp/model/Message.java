@@ -1,8 +1,6 @@
 package com.example.ubermobileapp.model;
 
-import androidx.core.app.NotificationCompat;
-
-import com.example.ubermobileapp.tools.Mockup;
+import com.example.ubermobileapp.model.enumeration.MessageType;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

@@ -3,7 +3,7 @@ package com.example.ubermobileapp.services.implementation;
 import android.content.Context;
 import android.os.StrictMode;
 
-import com.example.ubermobileapp.model.pojo.login.Passenger;
+import com.example.ubermobileapp.model.pojo.user.Passenger;
 
 import com.example.ubermobileapp.services.utils.ApiUtils;
 

@@ -27,7 +27,7 @@ import com.example.ubermobileapp.model.Ride;
 import com.example.ubermobileapp.model.enumeration.RideStatus;
 import com.example.ubermobileapp.model.pojo.login.LoginRequest;
 import com.example.ubermobileapp.model.pojo.login.LoginResponse;
-import com.example.ubermobileapp.model.pojo.login.Role;
+import com.example.ubermobileapp.model.pojo.user.Role;
 import com.example.ubermobileapp.model.passenger.Passenger;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;

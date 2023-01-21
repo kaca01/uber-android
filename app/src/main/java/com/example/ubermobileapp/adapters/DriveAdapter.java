@@ -1,35 +1,57 @@
 package com.example.ubermobileapp.adapters;
 
 import android.app.Activity;
+import android.os.StrictMode;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
-
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.model.Drive;
-import com.example.ubermobileapp.model.Message;
-import com.example.ubermobileapp.tools.Mockup;
+import com.example.ubermobileapp.model.MessageType;
+import com.example.ubermobileapp.model.pojo.login.Passenger;
+import com.example.ubermobileapp.model.pojo.Message;
+import com.example.ubermobileapp.model.pojo.MessageList;
+import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.model.pojo.login.User;
+import com.example.ubermobileapp.services.implementation.PassengerService;
+import com.example.ubermobileapp.services.implementation.RideService;
+import com.example.ubermobileapp.services.utils.ApiUtils;
+import com.example.ubermobileapp.services.utils.AuthService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class DriveAdapter extends BaseAdapter {
 
     private Activity activity;
+    private HashMap<Long, List<Message>> messagesMap = new HashMap<>();
 
     public DriveAdapter(Activity activity) {
         this.activity = activity;
+        getMessagesByRides();
     }
 
     @Override
     public int getCount() {
-        return Mockup.getDrives().size();
+        return messagesMap.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return Mockup.getDrives().get(position);
+    public List<Message> getItem(int position) {
+        int i = 0;
+        for (Map.Entry<Long, List<Message>> entry : messagesMap.entrySet()) {
+            if(i == position){
+                return entry.getValue();
+            }
+            i++;
+        }
+        return null;
     }
 
     @Override
@@ -37,40 +59,90 @@ public class DriveAdapter extends BaseAdapter {
         return position;
     }
 
-    // preko Drive se dobavljaju panic i drive chatovi
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        Drive drive = Mockup.getDrives().get(position);
+        List<Message> messages = getItem(position);
 
-        if(convertView==null)
+        if(convertView==null) {
             view = activity.getLayoutInflater().inflate(R.layout.inbox_drive_list, null);
+        }
+        if (messages == null || messages.isEmpty()) return null;
 
-        if (drive.getMessages().isEmpty() || drive.getMessages() == null) return null;
+        Ride ride = getRideById(messages.get(0).getRideId());
 
-        TextView name = (TextView)view.findViewById(R.id.name);
-        TextView time = (TextView)view.findViewById(R.id.message_date);
-        TextView destination = (TextView)view.findViewById(R.id.destination);
-        TextView date = (TextView)view.findViewById(R.id.route_date);
-        TextView msg = (TextView)view.findViewById(R.id.message);
+        TextView name = view.findViewById(R.id.name);
+        TextView time = view.findViewById(R.id.message_date);
+        TextView destination = view.findViewById(R.id.destination);
+        TextView date = view.findViewById(R.id.route_date);
+        TextView msg = view.findViewById(R.id.message);
 
-        name.setText(drive.getDriverName());
-        time.setText(drive.getMessages().get(drive.getMessages().size()-1).getTime());
-        destination.setText(drive.getDestination());
-        date.setText(drive.getStartDate());
-        String message = drive.getMessages().get(drive.getMessages().size()-1).getText();
+        name.setText(getTitle(ride));
+        time.setText(messages.get(messages.size()-1).getTimeOfSending().substring(11, 16));
+        destination.setText(ride.getLocations().get(0).getDestination().getAddress());
+        date.setText(ride.getStartTime());
+        String message = messages.get(messages.size()-1).getMessage();
         if(message.length() > 100) {
             message = message.substring(0, 100);
             message = message + "...";
         };
         msg.setText(message);
-
-        Message panic = drive.getPanicMessage();
-        if (panic != null) {
+        boolean isPanic = checkIfHasPanic(messages);
+        if (isPanic)
             view.setBackgroundResource(R.drawable.panic_item_background);
-        }
         else view.setBackgroundResource(R.drawable.drive_item_background);
 
         return  view;
+    }
+
+    private boolean checkIfHasPanic(List<Message> messages) {
+        boolean isPanic = false;
+        for(Message m: messages){
+            if(m.getType().equals(MessageType.PANIC.toString())){
+                isPanic = true;
+                break;
+            }
+        }
+        return isPanic;
+    }
+
+    private Ride getRideById(Long id) {
+        return RideService.getRideDetails(id);
+    }
+
+    private void getMessagesByRides(){
+        List<Message> allMessages = new ArrayList<>();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Call<MessageList> messageResponseCall = ApiUtils.getMessageService().getUserMessages(AuthService.getCurrentUser().getId());
+        try {
+            Response<MessageList> response = messageResponseCall.execute();
+            allMessages = response.body().getResults();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        for (Message m: allMessages){
+            if (m.getType().equals(MessageType.SUPPORT.toString())) continue;
+            if (messagesMap.containsKey(m.getRideId())) messagesMap.get(m.getRideId()).add(m);
+            else {
+                messagesMap.put(m.getRideId(), new ArrayList<>());
+                messagesMap.get(m.getRideId()).add(m);
+            }
+        }
+    }
+
+    public String getTitle(Ride ride)
+    {
+        String title;
+        if(AuthService.getCurrentUser().getRoles().get(0).getName().equals("ROLE_PASSENGER"))
+            title = ride.getDriver().getName() + " " + ride.getDriver().getSurname();
+        else {
+            User user = ride.getPassengers().get(ride.getPassengers().size()-1);
+            Passenger p = PassengerService.getPassenger(null, user.getId(), null);
+            title = p.getName() + " " + p.getSurname();
+        }
+        return title;
     }
 }

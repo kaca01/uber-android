@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.ListFragment;
 
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,13 +18,25 @@ import com.example.ubermobileapp.activities.inbox.ChatActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.adapters.DriveAdapter;
 import com.example.ubermobileapp.model.Drive;
-import com.example.ubermobileapp.model.Message;
 import com.example.ubermobileapp.model.MessageType;
+import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.model.pojo.login.User;
+import com.example.ubermobileapp.model.pojo.Message;
+import com.example.ubermobileapp.model.pojo.MessageList;
+import com.example.ubermobileapp.services.utils.ApiUtils;
+import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Mockup;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class InboxFragment extends ListFragment {
+
+    List<Message> supportMessage = new ArrayList<>();
+    DriveAdapter adapter;
 
     public InboxFragment() {}
 
@@ -35,7 +48,7 @@ public class InboxFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DriveAdapter adapter = new DriveAdapter(getActivity());
+        adapter = new DriveAdapter(getActivity());
         setListAdapter(adapter);
     }
 
@@ -50,17 +63,17 @@ public class InboxFragment extends ListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         View header = getLayoutInflater().inflate(R.layout.inbox_support_list, null);
-        ArrayList<Message> msgs = Mockup.getSupportMessages();
+        getSupportMessages();
         TextView time = header.findViewById(R.id.support_message_date);
         TextView msg = header.findViewById(R.id.support_message);
-        if (msgs.isEmpty()){
+        if (supportMessage.isEmpty()){
             time.setText("");
             String message = "Need help? Contact us!";
             msg.setText(message);
             }
         else {
-            time.setText(msgs.get(msgs.size()-1).getTime());
-            String message = msgs.get(msgs.size()-1).getText();
+            time.setText(supportMessage.get(supportMessage.size()-1).getTimeOfSending().substring(11, 16));
+            String message = supportMessage.get(supportMessage.size()-1).getMessage();
             if(message.length() > 100) {
                 message = message.substring(0, 100);
                 message = message + "...";
@@ -76,25 +89,19 @@ public class InboxFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        //TODO item position in listview is not the same as in Mockup because of the header?
-        // and note that there could be more items in the header
         String name;
-        Drive drive;
+        List<Message> messagesChat = adapter.getItem(position-1);
         if (position==0) {
             name = MessageType.SUPPORT.toString();
-            //TODO what if there are zero Drives
-            drive = Mockup.getDrives().get(0);
         }
         else {
-            drive = Mockup.getDrives().get(position-1);
-            name = drive.getDriverName();
+            name = MessageType.DRIVE.toString();
         }
 
         Intent intent = new Intent(getActivity(), ChatActivity.class);
         intent.putExtra("name", name);
-        //TODO everything in ChatActivity class has been fixed so no need for
-        // putExtra(drive) -> (in case of support message type)
-        intent.putExtra("drive", drive);
+        if(!name.equals(MessageType.SUPPORT.toString()))
+            intent.putExtra("rideId", messagesChat.get(0).getRideId());
         startActivity(intent);
     }
 
@@ -106,11 +113,25 @@ public class InboxFragment extends ListFragment {
         int id = item.getItemId();
 
         if(id == R.id.search){
-            Toast.makeText(getActivity(), "Serach", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Search", Toast.LENGTH_SHORT).show();
         }
         if(id == R.id.filter){
             Toast.makeText(getActivity(), "Filter", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getSupportMessages(){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        User currentUser = AuthService.getCurrentUser();
+
+        Call<MessageList> messageResponseCall = ApiUtils.getMessageService().getSupportMessages(currentUser.getId());
+        try {
+            Response<MessageList> response = messageResponseCall.execute();
+            supportMessage = response.body().getResults();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 }

@@ -16,6 +16,11 @@ public interface IMessageService {
     @GET("user/{id}/message")
     Call<MessageList> getUserMessages(@Path("id") Long id);
 
+    //get all support messages from that{id} user
+    @Headers("Content-Type: application/json")
+    @GET("user/{id}/message/support")
+    Call<MessageList> getSupportMessages(@Path("id") Long id);
+
     //send a message to the user, sender is taken from token
     @Headers({"Content-Type:application/json"})
     @POST("user/{id}/message")

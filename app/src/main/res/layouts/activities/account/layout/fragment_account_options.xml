@@ -28,7 +28,9 @@
                 android:layout_width="300sp"
                 android:layout_height="80sp"
                 android:foreground="?attr/selectableItemBackground"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#F0F0F0"
+                >
                 <ImageView
                     android:id="@+id/accountData"
                     android:layout_marginStart="10sp"
@@ -42,7 +44,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="10sp"
+                    android:layout_marginTop="12sp"
                     android:textSize="17sp"
                     android:text="@string/view_account_data" />
 
@@ -56,15 +58,16 @@
             android:layout_marginTop="170sp"
             android:layout_marginStart="5sp"
             android:layout_marginBottom="5sp"
-            app:cardCornerRadius="10sp">
-
+            app:cardCornerRadius="10sp"
+           >
 
             <LinearLayout
                 android:id="@+id/secondBtn"
                 android:layout_width="300sp"
                 android:layout_height="80sp"
                 android:foreground="?attr/selectableItemBackground"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#F0F0F0">
                 <ImageView
                     android:id="@+id/resumePic"
                     android:layout_marginStart="10sp"

@@ -11,6 +11,7 @@
     android:layout_centerVertical="true">
 
     <RelativeLayout
+        android:id="@+id/relative"
         android:layout_width="305sp"
         android:layout_height="150sp"
         android:layout_marginTop="20sp"
@@ -29,7 +30,8 @@
                 android:layout_width="300sp"
                 android:layout_height="80sp"
                 android:foreground="?attr/selectableItemBackground"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#F0F0F0">
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_marginStart="10sp"
@@ -50,5 +52,18 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/logOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="12sp"
+        android:layout_below="@+id/relative"
+        android:layout_centerHorizontal="true"
+        android:textSize="17sp"
+        android:textColor="@color/red"
+        android:textStyle="bold"
+        android:text="@string/log_out" />
 
 </RelativeLayout>

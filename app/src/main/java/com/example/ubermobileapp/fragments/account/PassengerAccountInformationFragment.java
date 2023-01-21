@@ -60,13 +60,13 @@ public class PassengerAccountInformationFragment extends Fragment {
 
         setAccountData();
 
-        ImageButton edit = view.findViewById(R.id.buttonEdit);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createEditDialog();
-            }
-        });
+//        ImageButton edit = view.findViewById(R.id.buttonEdit);
+//        edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                createEditDialog();
+//            }
+//        });
 
         return view;
     }
@@ -125,16 +125,16 @@ public class PassengerAccountInformationFragment extends Fragment {
     private void setAccountData() {
         User passenger = AuthService.getCurrentUser();
 
-        TextView name = view.findViewById(R.id.name);
-        TextView postalAddress = view.findViewById(R.id.address);
-        TextView email = view.findViewById(R.id.email);
-        TextView phone = view.findViewById(R.id.phoneNumber);
-
-        String firstAndLastName = passenger.getName() + " " + passenger.getSurname();
-        name.setText(firstAndLastName);
-        postalAddress.setText(passenger.getAddress());
-        email.setText(passenger.getEmail());
-        phone.setText(passenger.getTelephoneNumber());
+//        TextView name = view.findViewById(R.id.name);
+//        TextView postalAddress = view.findViewById(R.id.address);
+//        TextView email = view.findViewById(R.id.email);
+//        TextView phone = view.findViewById(R.id.phoneNumber);
+//
+//        String firstAndLastName = passenger.getName() + " " + passenger.getSurname();
+//        name.setText(firstAndLastName);
+//        postalAddress.setText(passenger.getAddress());
+//        email.setText(passenger.getEmail());
+//        phone.setText(passenger.getTelephoneNumber());
     }
 
     private void setEditAccountData(View newView) {

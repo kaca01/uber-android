@@ -117,4 +117,7 @@
     <string name="yes">Yes</string>
     <string name="vehicle_type">Vehicle type</string>
     <string name="standard">STANDARD</string>
+    <string name="check_favorite_locations">Check your favorite locations</string>
+    <string name="view_account_data">View and edit your account data</string>
+    <string name="view_reports">View your ride reports</string>
 </resources>

@@ -58,31 +58,31 @@ public class PassengerAccountOptionsFragment extends Fragment {
             }
         });
 
-        CardView creditCard = view.findViewById(R.id.secondCard);
-        creditCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               createCreditCardDialog();
-            }
-        });
+//        CardView creditCard = view.findViewById(R.id.secondCard);
+//        creditCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//               createCreditCardDialog();
+//            }
+//        });
 
-        CardView reports = view.findViewById(R.id.thirdCard);
-        reports.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createStartDateDialog();
-            }
-        });
-
-        CardView logOut = view.findViewById(R.id.fourthCard);
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AuthService.logout();
-                Timer.setInstance();
-                startActivity(new Intent(getActivity(), UserLoginActivity.class));
-            }
-        });
+//        CardView reports = view.findViewById(R.id.thirdCard);
+//        reports.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                createStartDateDialog();
+//            }
+//        });
+//
+//        CardView logOut = view.findViewById(R.id.fourthCard);
+//        logOut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AuthService.logout();
+//                Timer.setInstance();
+//                startActivity(new Intent(getActivity(), UserLoginActivity.class));
+//            }
+//        });
 
         return view;
     }

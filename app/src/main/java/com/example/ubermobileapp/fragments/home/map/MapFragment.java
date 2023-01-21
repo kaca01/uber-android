@@ -34,12 +34,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ubermobileapp.activities.inbox.ChatActivity;
 import com.example.ubermobileapp.fragments.home.LocationDialog;
-import com.example.ubermobileapp.model.login.User;
-import com.example.ubermobileapp.model.passenger.Passenger;
+import com.example.ubermobileapp.model.pojo.login.User;
+import com.example.ubermobileapp.model.pojo.login.Passenger;
 import com.example.ubermobileapp.model.pojo.Ride;
 import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.implementation.RideService;
-import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.gms.maps.CameraUpdateFactory;

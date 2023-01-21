@@ -1,7 +1,6 @@
 package com.example.ubermobileapp.services;
 
-import com.example.ubermobileapp.model.login.User;
-import com.example.ubermobileapp.model.passenger.Passenger;
+import com.example.ubermobileapp.model.pojo.login.Passenger;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

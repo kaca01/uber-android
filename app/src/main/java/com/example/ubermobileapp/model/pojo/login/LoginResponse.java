@@ -1,4 +1,4 @@
-package com.example.ubermobileapp.model.login;
+package com.example.ubermobileapp.model.pojo.login;
 
 public class LoginResponse {
     private String accessToken;

@@ -20,24 +20,20 @@ import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
-import com.example.ubermobileapp.activities.home.PassengerCurrentRideActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.activities.notification.AcceptanceRideActivity;
 import com.example.ubermobileapp.androidService.NotificationService;
 import com.example.ubermobileapp.model.Ride;
-import com.example.ubermobileapp.model.communication.Review;
 import com.example.ubermobileapp.model.enumeration.RideStatus;
-import com.example.ubermobileapp.model.login.LoginRequest;
-import com.example.ubermobileapp.model.login.LoginResponse;
-import com.example.ubermobileapp.model.login.Role;
+import com.example.ubermobileapp.model.pojo.login.LoginRequest;
+import com.example.ubermobileapp.model.pojo.login.LoginResponse;
+import com.example.ubermobileapp.model.pojo.login.Role;
 import com.example.ubermobileapp.model.passenger.Passenger;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Mockup;
 
 import org.json.JSONException;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;

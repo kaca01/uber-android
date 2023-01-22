@@ -1,6 +1,6 @@
 package com.example.ubermobileapp.services;
-import com.example.ubermobileapp.model.pojo.Message;
-import com.example.ubermobileapp.model.pojo.MessageList;
+import com.example.ubermobileapp.models.pojo.communication.Message;
+import com.example.ubermobileapp.models.pojo.communication.MessageList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

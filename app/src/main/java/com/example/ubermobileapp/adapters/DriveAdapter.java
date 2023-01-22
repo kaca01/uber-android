@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
-
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.model.Drive;
-import com.example.ubermobileapp.model.Message;
+import com.example.ubermobileapp.models.Drive;
+import com.example.ubermobileapp.models.Message;
 import com.example.ubermobileapp.tools.Mockup;
 
 public class DriveAdapter extends BaseAdapter {

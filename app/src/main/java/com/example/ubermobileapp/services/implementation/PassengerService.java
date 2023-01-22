@@ -1,9 +1,8 @@
 package com.example.ubermobileapp.services.implementation;
 
-import android.content.Context;
 import android.os.StrictMode;
 
-import com.example.ubermobileapp.model.passenger.Passenger;
+import com.example.ubermobileapp.models.passenger.Passenger;
 
 import com.example.ubermobileapp.services.utils.ApiUtils;
 
@@ -11,7 +10,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class PassengerService {
-    public static Passenger getPassenger(Context context, Long id, String toastText){
+    public static Passenger getPassenger(Long id){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

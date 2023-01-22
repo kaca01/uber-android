@@ -34,12 +34,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ubermobileapp.activities.inbox.ChatActivity;
 import com.example.ubermobileapp.fragments.home.LocationDialog;
-import com.example.ubermobileapp.model.login.User;
-import com.example.ubermobileapp.model.passenger.Passenger;
-import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.models.login.User;
+import com.example.ubermobileapp.models.passenger.Passenger;
+import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.implementation.RideService;
-import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -532,8 +531,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             ride = RideService.getDriverActiveRide(user.getId());
 //            Optional<User> first = ride.getPassengers().stream().findFirst();
             Optional<User> last = Optional.of(ride.getPassengers().stream().reduce((one, two) -> two).get());
-            Passenger passenger = PassengerService.getPassenger(requireActivity().getApplicationContext(),
-                                  last.get().getId(), "Passenger not found");
+            Passenger passenger = PassengerService.getPassenger(last.get().getId());
             TextView email = view.findViewById(R.id.emailInfo);
             email.setText(passenger.getEmail());
             TextView name = view.findViewById(R.id.nameInfo);

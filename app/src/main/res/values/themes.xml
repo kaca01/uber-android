@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.UberMobileApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="fontFamily">@font/poppins_medium</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/greenDefault</item>
         <item name="colorPrimaryVariant">@color/greenDefault</item>

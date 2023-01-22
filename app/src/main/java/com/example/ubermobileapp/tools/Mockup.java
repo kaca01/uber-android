@@ -1,18 +1,18 @@
 package com.example.ubermobileapp.tools;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.model.Drive;
-import com.example.ubermobileapp.model.Message;
-import com.example.ubermobileapp.model.MessageType;
-import com.example.ubermobileapp.model.Ride;
-import com.example.ubermobileapp.model.Report;
-import com.example.ubermobileapp.model.ReportsType;
-import com.example.ubermobileapp.model.communication.Review;
-import com.example.ubermobileapp.model.enumeration.ReviewType;
-import com.example.ubermobileapp.model.passenger.CreditCard;
-import com.example.ubermobileapp.model.passenger.CreditCardType;
-import com.example.ubermobileapp.model.passenger.Passenger;
-import com.example.ubermobileapp.model.enumeration.RideStatus;
+import com.example.ubermobileapp.models.Drive;
+import com.example.ubermobileapp.models.Message;
+import com.example.ubermobileapp.models.MessageType;
+import com.example.ubermobileapp.models.Ride;
+import com.example.ubermobileapp.models.Report;
+import com.example.ubermobileapp.models.ReportsType;
+import com.example.ubermobileapp.models.communication.Review;
+import com.example.ubermobileapp.models.enumeration.ReviewType;
+import com.example.ubermobileapp.models.passenger.CreditCard;
+import com.example.ubermobileapp.models.passenger.CreditCardType;
+import com.example.ubermobileapp.models.passenger.Passenger;
+import com.example.ubermobileapp.models.enumeration.RideStatus;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

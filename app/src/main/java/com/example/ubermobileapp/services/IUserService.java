@@ -1,7 +1,7 @@
 package com.example.ubermobileapp.services;
-import com.example.ubermobileapp.model.login.LoginRequest;
-import com.example.ubermobileapp.model.login.LoginResponse;
-import com.example.ubermobileapp.model.login.User;
+import com.example.ubermobileapp.models.login.LoginRequest;
+import com.example.ubermobileapp.models.login.LoginResponse;
+import com.example.ubermobileapp.models.login.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

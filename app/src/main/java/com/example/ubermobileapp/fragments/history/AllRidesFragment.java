@@ -15,8 +15,8 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.history.PassengerRideInfoActivity;
 import com.example.ubermobileapp.adapters.PassengerRideAdapter;
 import com.example.ubermobileapp.adapters.DriverRideAdapter;
-import com.example.ubermobileapp.model.Ride;
-import com.example.ubermobileapp.model.communication.Review;
+import com.example.ubermobileapp.models.Ride;
+import com.example.ubermobileapp.models.communication.Review;
 import com.example.ubermobileapp.tools.Mockup;
 
 import java.util.ArrayList;

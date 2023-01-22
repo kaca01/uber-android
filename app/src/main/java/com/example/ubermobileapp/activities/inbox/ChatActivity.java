@@ -4,29 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.activities.home.PassengerCurrentRideActivity;
-import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.adapters.MessageAdapter;
-import com.example.ubermobileapp.model.Drive;
-import com.example.ubermobileapp.model.MessageType;
-import com.example.ubermobileapp.model.login.User;
-import com.example.ubermobileapp.model.pojo.Message;
-import com.example.ubermobileapp.model.pojo.MessageList;
-import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.models.Drive;
+import com.example.ubermobileapp.models.MessageType;
+import com.example.ubermobileapp.models.login.User;
+import com.example.ubermobileapp.models.pojo.communication.Message;
+import com.example.ubermobileapp.models.pojo.communication.MessageList;
+import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.services.implementation.MessageService;
 import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.ApiUtils;
@@ -37,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChatActivity extends AppCompatActivity {

@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.model.pojo.Message;
+import com.example.ubermobileapp.models.pojo.communication.Message;
 import com.example.ubermobileapp.services.utils.AuthService;
 
 import java.util.List;

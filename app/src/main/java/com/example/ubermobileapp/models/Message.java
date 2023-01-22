@@ -1,5 +1,8 @@
 package com.example.ubermobileapp.models;
 
+
+import com.example.ubermobileapp.models.enumeration.MessageType;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -90,7 +93,7 @@ public class Message implements Serializable {
         message.setSender("korisnik1");
         message.setReceiver(drive.getDriverName());
         message.setTime(new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date()));
-        message.setType(MessageType.DRIVE);
+        message.setType(MessageType.RIDE);
         return message;
     }
 }

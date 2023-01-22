@@ -23,6 +23,10 @@ public interface IRideService {
     Call<Ride> getPassengerActiveRide(@Path("passengerId") Long id);
 
     @Headers({"Content-Type:application/json"})
+    @GET("ride/{id}")
+    Call<Ride> getRideDetails(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
     @PUT("ride/{id}/start")
     Call<Ride> startRide(@Path("id") Long id);
 

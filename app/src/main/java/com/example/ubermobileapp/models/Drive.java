@@ -1,5 +1,7 @@
 package com.example.ubermobileapp.models;
 
+import com.example.ubermobileapp.model.enumeration.MessageType;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

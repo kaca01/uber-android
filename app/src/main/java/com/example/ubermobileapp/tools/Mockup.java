@@ -3,11 +3,11 @@ package com.example.ubermobileapp.tools;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.models.Drive;
 import com.example.ubermobileapp.models.Message;
-import com.example.ubermobileapp.models.MessageType;
 import com.example.ubermobileapp.models.Ride;
 import com.example.ubermobileapp.models.Report;
 import com.example.ubermobileapp.models.ReportsType;
 import com.example.ubermobileapp.models.communication.Review;
+import com.example.ubermobileapp.models.enumeration.MessageType;
 import com.example.ubermobileapp.models.enumeration.ReviewType;
 import com.example.ubermobileapp.models.passenger.CreditCard;
 import com.example.ubermobileapp.models.passenger.CreditCardType;
@@ -25,12 +25,12 @@ public class Mockup {
     // all messages for one user
     public static List<Message> getMessages(){
         ArrayList<Message> messages = new ArrayList<Message>();
-        Message m1 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit..", "korisnik1", "Boban Bobo", "10:30", MessageType.DRIVE);
-        Message m2 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "korisnik1", "Jelena Karleuša", "10:40", MessageType.DRIVE);
-        Message m3 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "korisnik1", "Dragoslav Simic", "10:50", MessageType.DRIVE);
-        Message m4 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Jelena Karleuša", "korisnik1", "11:30", MessageType.DRIVE);
+        Message m1 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit..", "korisnik1", "Boban Bobo", "10:30", MessageType.RIDE);
+        Message m2 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "korisnik1", "Jelena Karleuša", "10:40", MessageType.RIDE);
+        Message m3 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "korisnik1", "Dragoslav Simic", "10:50", MessageType.RIDE);
+        Message m4 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Jelena Karleuša", "korisnik1", "11:30", MessageType.RIDE);
         Message m5 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit..", "Boban Bobo", "korisnik1", "11:40", MessageType.PANIC);
-        Message m6 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Dragoslav Simic", "korisnik1", "11:50", MessageType.DRIVE);
+        Message m6 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Dragoslav Simic", "korisnik1", "11:50", MessageType.RIDE);
 
         Message m7 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "korisnik1", "Administrator Prezime", "11:45", MessageType.SUPPORT);
         Message m8 = new Message("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Administrator Prezime", "korisnik1", "12:50", MessageType.SUPPORT);
@@ -126,7 +126,7 @@ public class Mockup {
         ArrayList<Message> msgs = new ArrayList<>();
 
         for (Message msg : getMessages()) {
-            if (msg.getType().equals(MessageType.DRIVE) || msg.getType().equals(MessageType.PANIC))
+            if (msg.getType().equals(MessageType.RIDE) || msg.getType().equals(MessageType.PANIC))
                 msgs.add(msg);
         }
         return msgs;
@@ -136,7 +136,7 @@ public class Mockup {
         ArrayList<Message> msgs = new ArrayList<>();
 
         for (Message msg : getMessages()) {
-            if (msg.getType().equals(MessageType.DRIVE))
+            if (msg.getType().equals(MessageType.RIDE))
                 msgs.add(msg);
         }
         return msgs;

@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:app/src/main/java/com/example/ubermobileapp/models/login/Role.java
 package com.example.ubermobileapp.models.login;
+========
+package com.example.ubermobileapp.model.pojo.user;
+>>>>>>>> feature-inbox-binding:app/src/main/java/com/example/ubermobileapp/model/pojo/user/Role.java
 
 
 import com.google.gson.annotations.Expose;

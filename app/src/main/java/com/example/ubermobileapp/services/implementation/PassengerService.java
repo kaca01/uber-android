@@ -2,7 +2,7 @@ package com.example.ubermobileapp.services.implementation;
 
 import android.os.StrictMode;
 
-import com.example.ubermobileapp.models.passenger.Passenger;
+import com.example.ubermobileapp.models.pojo.user.Passenger;
 
 import com.example.ubermobileapp.services.utils.ApiUtils;
 

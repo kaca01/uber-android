@@ -1,9 +1,9 @@
-package com.example.ubermobileapp.models;
+package com.example.ubermobileapp.models.enumeration;
 
 import java.io.Serializable;
 
 public enum MessageType implements Serializable {
-    DRIVE,
+    RIDE,
     SUPPORT,
     PANIC
 }

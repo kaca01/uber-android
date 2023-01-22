@@ -1,8 +1,7 @@
 package com.example.ubermobileapp.models.pojo.ride;
 
 import com.example.ubermobileapp.enumerations.VehicleTypeName;
-import com.example.ubermobileapp.models.login.User;
-import com.example.ubermobileapp.models.passenger.Passenger;
+import com.example.ubermobileapp.models.pojo.user.User;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

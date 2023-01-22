@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:app/src/main/java/com/example/ubermobileapp/models/login/LoginRequest.java
-package com.example.ubermobileapp.models.login;
-========
-package com.example.ubermobileapp.model.pojo.login;
->>>>>>>> feature-inbox-binding:app/src/main/java/com/example/ubermobileapp/model/pojo/login/LoginRequest.java
+package com.example.ubermobileapp.models.pojo.login;
 
 public class LoginRequest {
 

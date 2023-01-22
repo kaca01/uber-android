@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:app/src/main/java/com/example/ubermobileapp/models/login/User.java
-package com.example.ubermobileapp.models.login;
-========
-package com.example.ubermobileapp.model.pojo.user;
->>>>>>>> feature-inbox-binding:app/src/main/java/com/example/ubermobileapp/model/pojo/user/User.java
+package com.example.ubermobileapp.models.pojo.user;
 
 import java.util.List;
 

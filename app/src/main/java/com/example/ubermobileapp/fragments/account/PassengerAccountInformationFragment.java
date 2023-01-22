@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.models.login.User;
+import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.utils.AuthService;
 
 /**

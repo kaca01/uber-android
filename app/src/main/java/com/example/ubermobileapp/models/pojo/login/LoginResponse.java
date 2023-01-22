@@ -1,9 +1,4 @@
-<<<<<<<< HEAD:app/src/main/java/com/example/ubermobileapp/models/login/LoginResponse.java
-package com.example.ubermobileapp.models.login;
-========
-package com.example.ubermobileapp.model.pojo.login;
->>>>>>>> feature-inbox-binding:app/src/main/java/com/example/ubermobileapp/model/pojo/login/LoginResponse.java
-
+package com.example.ubermobileapp.models.pojo.login;
 public class LoginResponse {
     private String accessToken;
     private double expiresIn;

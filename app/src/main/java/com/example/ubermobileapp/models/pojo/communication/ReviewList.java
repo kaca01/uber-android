@@ -1,12 +1,9 @@
 package com.example.ubermobileapp.models.pojo.communication;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ReviewList implements Parcelable {
+public class ReviewList {
 
     @SerializedName("vehicleReview")
     @Expose
@@ -21,22 +18,6 @@ public class ReviewList implements Parcelable {
         this.vehicleReview = vehicleReview;
         this.driverReview = driverReview;
     }
-
-    protected ReviewList(Parcel in) {
-
-    }
-
-    public static final Creator<ReviewList> CREATOR = new Creator<ReviewList>() {
-        @Override
-        public ReviewList createFromParcel(Parcel in) {
-            return new ReviewList(in);
-        }
-
-        @Override
-        public ReviewList[] newArray(int size) {
-            return new ReviewList[size];
-        }
-    };
 
     public Review getVehicleReview() {
         return vehicleReview;
@@ -60,16 +41,5 @@ public class ReviewList implements Parcelable {
                 "vehicleReview=" + vehicleReview +
                 ", driverReview=" + driverReview +
                 '}';
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        if(vehicleReview != null) dest.writeString(vehicleReview.toString());
-        if(driverReview != null) dest.writeString(driverReview.toString());
     }
 }

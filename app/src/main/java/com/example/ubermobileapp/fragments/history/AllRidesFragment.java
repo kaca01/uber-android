@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.ListFragment;
 
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,15 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.history.PassengerRideInfoActivity;
 import com.example.ubermobileapp.adapters.PassengerRideAdapter;
 import com.example.ubermobileapp.adapters.DriverRideAdapter;
+import com.example.ubermobileapp.models.pojo.communication.Review;
+import com.example.ubermobileapp.models.pojo.communication.ReviewList;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.ride.RideList;
 import com.example.ubermobileapp.models.pojo.user.Passenger;
 import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.DriverService;
 import com.example.ubermobileapp.services.implementation.PassengerService;
+import com.example.ubermobileapp.services.implementation.ReviewService;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 
@@ -35,6 +39,8 @@ import retrofit2.Response;
 public class AllRidesFragment extends ListFragment {
 
     private List<Ride> rides = new ArrayList<>();
+
+    private ArrayList<ReviewList> reviews = new ArrayList<>();
 
     public AllRidesFragment() { }
 
@@ -122,11 +128,9 @@ public class AllRidesFragment extends ListFragment {
         rides.removeIf(ride -> !ride.getStatus().equals("FINISHED"));
 
         Ride ride = rides.get(position);
-        Passenger passenger = PassengerService.getPassenger(ride.getPassengers().get(0).getId());
-//        ArrayList<Review> reviews = ride.getReviews();
-        Intent intent = new Intent(getActivity(), DriverRideInfoActivity.class);
 
-        Bundle bundle = new Bundle();
+        Passenger passenger = PassengerService.getPassenger(ride.getPassengers().get(0).getId());
+        Intent intent = new Intent(getActivity(), DriverRideInfoActivity.class);
 
         String[] dateAndStartTime = ride.getStartTime().split("T");
         String[] dateAndEndTime = ride.getEndTime().split("T");
@@ -142,13 +146,8 @@ public class AllRidesFragment extends ListFragment {
         intent.putExtra("departure", ride.getLocations().get(0).getDeparture().getAddress());
         intent.putExtra("destination", ride.getLocations().get(0).getDestination().getAddress());
         intent.putExtra("name", passenger.getName() + " " + passenger.getSurname());
-//        if(ride.getReviews() == null)
-//            intent.putExtra("review", "null");
-//        else
-//        {
-//            bundle.putParcelableArrayList("review", reviews);
-//            intent.putExtras(bundle);
-//        }
+        intent.putExtra("rideId", Long.toString(ride.getId()));
+
         startActivity(intent);
     }
 }

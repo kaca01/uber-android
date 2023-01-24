@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
                 android:numStars="5"
-                android:rating="5"
+                android:rating="0"
                 android:progressTint="?attr/colorPrimary"/>
 
             <View
@@ -38,9 +38,23 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/driver_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5/5 - 2 ocene"
+                android:layout_gravity="center_vertical"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/5"
+                android:layout_gravity="center_vertical"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/num_driver_grades"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textSize="13sp"/>
         </LinearLayout>
@@ -67,7 +81,7 @@
             android:layout_marginBottom="10sp">
 
             <RatingBar
-                android:id="@+id/car_rating_bar"
+                android:id="@+id/vehicle_rating_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
@@ -81,9 +95,23 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/vehicle_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.5/5 - 2 ocene"
+                android:layout_gravity="center_vertical"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/5"
+                android:layout_gravity="center_vertical"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/num_vehicle_grades"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textSize="13sp"/>
         </LinearLayout>

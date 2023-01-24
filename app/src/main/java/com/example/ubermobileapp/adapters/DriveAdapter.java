@@ -115,6 +115,7 @@ public class DriveAdapter extends BaseAdapter {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        if (AuthService.getCurrentUser() == null) return;
         Call<MessageList> messageResponseCall = ApiUtils.getMessageService().getUserMessages(AuthService.getCurrentUser().getId());
         try {
             Response<MessageList> response = messageResponseCall.execute();

@@ -42,8 +42,12 @@ public class DriverRideInfoActivity extends AppCompatActivity {
         distance.setText(getIntent().getStringExtra("distance"));
         TextView cost = findViewById(R.id.cost);
         cost.setText(getIntent().getStringExtra("cost"));
-        ImageView map = findViewById(R.id.ride);
-        map.setImageResource(getIntent().getIntExtra("path", R.drawable.map));
+        TextView departure = findViewById(R.id.departure);
+        departure.setText(getIntent().getStringExtra("departure"));
+        TextView destination = findViewById(R.id.destination);
+        destination.setText(getIntent().getStringExtra("destination"));
+        TextView name = findViewById(R.id.name);
+        name.setText(getIntent().getStringExtra("name"));
 
         ArrayList<Review> reviews = this.getIntent().getExtras().getParcelableArrayList("review");
 

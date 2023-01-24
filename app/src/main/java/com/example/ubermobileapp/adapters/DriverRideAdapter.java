@@ -83,8 +83,8 @@ public class DriverRideAdapter extends BaseAdapter {
         return view;
     }
 
-    private List<com.example.ubermobileapp.models.pojo.ride.Ride> setRides() {
-        List<com.example.ubermobileapp.models.pojo.ride.Ride> rides = new ArrayList<>();
+    private List<Ride> setRides() {
+        List<Ride> rides = new ArrayList<>();
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);

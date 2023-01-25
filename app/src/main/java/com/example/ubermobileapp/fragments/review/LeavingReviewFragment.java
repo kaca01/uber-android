@@ -71,8 +71,11 @@ public class LeavingReviewFragment extends DialogFragment {
                     Review vehicle = new Review(vehicleRating, vehicleCom);
                     ReviewService.addVehicleReview(rideId, vehicle);
 
+                    Toast.makeText(getActivity(), "Thank You!", Toast.LENGTH_SHORT).show();
+
                     getDialog().dismiss();
 
+                    // refresh page
                     getActivity().finish();
                     startActivity(getActivity().getIntent());
                 }

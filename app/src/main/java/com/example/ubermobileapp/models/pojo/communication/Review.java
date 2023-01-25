@@ -32,6 +32,12 @@ public class Review  {
         this.type = type;
     }
 
+    // request
+    public Review(int rating, String comment) {
+        this.rating = rating;
+        this.comment = comment;
+    }
+
     public Long getId() {
         return id;
     }

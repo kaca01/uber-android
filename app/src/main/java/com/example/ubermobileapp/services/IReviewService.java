@@ -1,5 +1,6 @@
 package com.example.ubermobileapp.services;
 
+import com.example.ubermobileapp.models.pojo.communication.Review;
 import com.example.ubermobileapp.models.pojo.communication.ReviewList;
 
 import java.util.List;
@@ -17,7 +18,11 @@ public interface IReviewService {
     @GET("review/{rideId}")
     Call<List<ReviewList>> getRideReviews(@Path("rideId") Long rideId);
 
-//    @Headers({"Content-Type:application/json"})
-//    @POST("user/{id}/message")
-//    Call<Message> sendMessage(@Path("id") Long id, @Body Message message);
+    @Headers({"Content-Type:application/json"})
+    @POST("review/{rideId}/driver")
+    Call<Review> addDriverReview(@Path("rideId") Long rideId, @Body Review review);
+
+    @Headers({"Content-Type:application/json"})
+    @POST("review/{rideId}/vehicle")
+    Call<Review> addVehicleReview(@Path("rideId") Long rideId, @Body Review review);
 }

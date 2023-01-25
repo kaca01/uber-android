@@ -28,4 +28,32 @@ public class ReviewService {
         }
         return rides;
     }
+
+    public static Review addDriverReview(Long rideId, Review review){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Call<Review> reviewResponseCall = ApiUtils.getReviewService().addDriverReview(rideId, review);
+        try {
+            Response<Review> response = reviewResponseCall.execute();
+            review = response.body();
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return review;
+    }
+
+    public static Review addVehicleReview(Long rideId, Review review){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Call<Review> reviewResponseCall = ApiUtils.getReviewService().addVehicleReview(rideId, review);
+        try {
+            Response<Review> response = reviewResponseCall.execute();
+            review = response.body();
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return review;
+    }
 }

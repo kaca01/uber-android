@@ -67,9 +67,9 @@ public class PassengerRideInfoActivity extends AppCompatActivity {
         ArrayList<ReviewList> reviews = (ArrayList<ReviewList>) ReviewService.getRideReviews(Long.parseLong(rideId));
 
         if(reviews.isEmpty())
-            openDialog();
+            openDialog(rideId);
         else
-            addRatingFragment(reviews, getIntent().getStringExtra("date"));
+            addRatingFragment(reviews, getIntent().getStringExtra("date"), rideId);
 
         BottomNavigationView navigation = findViewById(R.id.bottom_nav);
         navigation.setSelectedItemId(R.id.page_history);
@@ -105,7 +105,9 @@ public class PassengerRideInfoActivity extends AppCompatActivity {
         overridePendingTransition(0,0);
     }
 
-    private void openDialog() {
+    private void openDialog(String rideId) {
+        // todo proveri koliko je dana proslo
+
         Button clickButton = (Button) findViewById(R.id.add_review);
         clickButton.setOnClickListener( new View.OnClickListener() {
 
@@ -113,13 +115,13 @@ public class PassengerRideInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // show fragment for rating
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment();
+                LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment(rideId);
                 leavingReviewFragment.show(fragmentManager, "leaving_review");
             }
         });
     }
 
-    private void addRatingFragment(ArrayList<ReviewList> reviews, String rideDate) {
+    private void addRatingFragment(ArrayList<ReviewList> reviews, String rideDate, String rideId) {
         User currentUser = AuthService.getCurrentUser();
         boolean isPassed = isPassed3Days(rideDate);
         boolean isRated = false;
@@ -145,7 +147,7 @@ public class PassengerRideInfoActivity extends AppCompatActivity {
         if (!isPassed) removeAddReviewButton();
         else {
             if (isRated) removeAddReviewButton();
-            else openDialog();
+            else openDialog(rideId);
         }
 
         // add rating and reviews fragment

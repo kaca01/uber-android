@@ -92,7 +92,7 @@ public class DriverRideInfoActivity extends AppCompatActivity {
     }
 
     private void addRatingFragment(ArrayList<ReviewList> reviews) {
-        // remove ADD REVIEW button
+        // remove NO REVIEWS text
         TextView noRating = (TextView) findViewById(R.id.no_rating);
         noRating.setVisibility(View.GONE);
 

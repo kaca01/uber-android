@@ -118,28 +118,29 @@ public class ChatActivity extends AppCompatActivity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if (chat_type.equals(MessageType.SUPPORT.toString())) {
-                    getSupportMessages();
-                }
-                else if (chat_type.equals(MessageType.RIDE.toString())){
-                    Long rideId = (Long)getIntent().getSerializableExtra("rideId");
-                    ride = RideService.getRideDetails(rideId);
-                    setReceiver();
-                    messages = FindByRideIdAndOtherUser(ride, receiver);
-                }
-                //ukoliko nije iz inboxa usao u chat
-                else{
-                    setRide();
-                    setReceiver();
-                    messages = FindByRideIdAndOtherUser(ride, receiver);
-                }
+                if (AuthService.getCurrentUser() != null) {
+                    if (chat_type.equals(MessageType.SUPPORT.toString())) {
+                        getSupportMessages();
+                    } else if (chat_type.equals(MessageType.RIDE.toString())) {
+                        Long rideId = (Long) getIntent().getSerializableExtra("rideId");
+                        ride = RideService.getRideDetails(rideId);
+                        setReceiver();
+                        messages = FindByRideIdAndOtherUser(ride, receiver);
+                    }
+                    //ukoliko nije iz inboxa usao u chat
+                    else {
+                        setRide();
+                        setReceiver();
+                        messages = FindByRideIdAndOtherUser(ride, receiver);
+                    }
 
-                setTitle();
-                RecyclerView recycler = (RecyclerView) findViewById(R.id.recycler_chat);
-                adapter = new MessageAdapter(messages);
-                recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                recycler.scrollToPosition(messages.size() - 1);
-                recycler.setAdapter(adapter);
+                    setTitle();
+                    RecyclerView recycler = (RecyclerView) findViewById(R.id.recycler_chat);
+                    adapter = new MessageAdapter(messages);
+                    recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    recycler.scrollToPosition(messages.size() - 1);
+                    recycler.setAdapter(adapter);
+                }
 
                 handler.postDelayed(this, 3000);
             }

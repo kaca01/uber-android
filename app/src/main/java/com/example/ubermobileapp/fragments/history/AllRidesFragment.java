@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.ListFragment;
 
-import android.os.Parcelable;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,33 +13,21 @@ import android.widget.ListView;
 
 import com.example.ubermobileapp.activities.history.DriverRideInfoActivity;
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.activities.history.PassengerRideInfoActivity;
 import com.example.ubermobileapp.adapters.PassengerRideAdapter;
 import com.example.ubermobileapp.adapters.DriverRideAdapter;
-import com.example.ubermobileapp.models.pojo.communication.Review;
-import com.example.ubermobileapp.models.pojo.communication.ReviewList;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
-import com.example.ubermobileapp.models.pojo.ride.RideList;
 import com.example.ubermobileapp.models.pojo.user.Passenger;
 import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.DriverService;
 import com.example.ubermobileapp.services.implementation.PassengerService;
-import com.example.ubermobileapp.services.implementation.ReviewService;
-import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Response;
-
-
 public class AllRidesFragment extends ListFragment {
 
     private List<Ride> rides = new ArrayList<>();
-
-    private ArrayList<ReviewList> reviews = new ArrayList<>();
 
     public AllRidesFragment() { }
 

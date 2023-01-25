@@ -24,7 +24,7 @@ import retrofit2.Response;
 public class DriverRideAdapter extends BaseAdapter {
 
     private Activity activity;
-    private List<com.example.ubermobileapp.models.pojo.ride.Ride> rides = setRides();
+    private List<Ride> rides = setRides();
 
     public DriverRideAdapter(Activity activity) {
         this.activity = activity;
@@ -90,9 +90,9 @@ public class DriverRideAdapter extends BaseAdapter {
         StrictMode.setThreadPolicy(policy);
         User currentUser = AuthService.getCurrentUser();
 
-        Call<RideList> messageResponseCall = ApiUtils.getDriverService().getRides(currentUser.getId());
+        Call<RideList> rideResponseCall = ApiUtils.getDriverService().getRides(currentUser.getId());
         try {
-            Response<RideList> response = messageResponseCall.execute();
+            Response<RideList> response = rideResponseCall.execute();
             rides = response.body().getResults();
             rides.removeIf(ride -> !ride.getStatus().equals("FINISHED"));
         } catch(Exception ex) {

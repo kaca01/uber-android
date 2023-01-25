@@ -32,7 +32,6 @@
             <include layout="@layout/fragment_about_ride" />
 
             <include layout="@layout/list_of_passengers"/>
-            <include layout="@layout/list_of_passengers"/>
 
             <View
                 android:layout_width="match_parent"

@@ -12,6 +12,7 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.ride.RideList;
 import com.example.ubermobileapp.models.pojo.user.User;
+import com.example.ubermobileapp.services.implementation.DriverService;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 
@@ -84,20 +85,12 @@ public class DriverRideAdapter extends BaseAdapter {
     }
 
     private List<Ride> setRides() {
-        List<Ride> rides = new ArrayList<>();
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         User currentUser = AuthService.getCurrentUser();
 
-        Call<RideList> rideResponseCall = ApiUtils.getDriverService().getRides(currentUser.getId());
-        try {
-            Response<RideList> response = rideResponseCall.execute();
-            rides = response.body().getResults();
-            rides.removeIf(ride -> !ride.getStatus().equals("FINISHED"));
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
+        List<Ride> rides = DriverService.getRides(currentUser.getId());
+        rides.removeIf(ride -> !ride.getStatus().equals("FINISHED"));
         return rides;
     }
 }

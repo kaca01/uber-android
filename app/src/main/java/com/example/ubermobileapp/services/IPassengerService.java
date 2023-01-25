@@ -1,5 +1,6 @@
 package com.example.ubermobileapp.services;
 
+import com.example.ubermobileapp.models.pojo.ride.RideList;
 import com.example.ubermobileapp.models.pojo.user.Passenger;
 
 import retrofit2.Call;
@@ -12,4 +13,8 @@ public interface IPassengerService {
     @Headers("Content-Type: application/json")
     @GET("passenger/{id}")
     Call<Passenger> getPassenger(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @GET("passenger/{id}/ride")
+    Call<RideList> getRides(@Path("id") Long id);
 }

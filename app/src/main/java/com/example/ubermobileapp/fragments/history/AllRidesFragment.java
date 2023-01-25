@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.example.ubermobileapp.activities.history.DriverRideInfoActivity;
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.history.PassengerRideInfoActivity;
 import com.example.ubermobileapp.adapters.PassengerRideAdapter;
 import com.example.ubermobileapp.adapters.DriverRideAdapter;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
@@ -62,52 +63,10 @@ public class AllRidesFragment extends ListFragment {
         StrictMode.setThreadPolicy(policy);
         User currentUser = AuthService.getCurrentUser();
 
-        if(getActivity().toString().contains("DriverRideHistoryActivity")) {
+        if(getActivity().toString().contains("DriverRideHistoryActivity"))
             setDataForDriver(currentUser, position);
-        }
-
-//        Ride ride = rides.get(position);
-//        Passenger passenger = new Passenger();
-//
-//        if(getActivity().toString().contains("DriverRideHistoryActivity")) {
-//            passenger = PassengerService.getPassenger(ride.getPassengers().get(0).getId());
-//        }
-//        ArrayList<Review> reviews = ride.getReviews();
-//        Intent intent;
-//
-//        if(getActivity().toString().contains("DriverRideHistoryActivity"))
-//            intent = new Intent(getActivity(), DriverRideInfoActivity.class);
-//        else
-//            intent = new Intent(getActivity(), PassengerRideInfoActivity.class);
-//
-//        System.out.println("LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-//        System.out.println(ride.getPassengers().get(0));
-//
-//        Bundle bundle = new Bundle();
-//
-//        String[] dateAndStartTime = ride.getStartTime().split("T");
-//        String[] dateAndEndTime = ride.getEndTime().split("T");
-//        String[] startTime = dateAndStartTime[1].split(":");
-//        String[] endTime = dateAndEndTime[1].split(":");
-//
-//        intent.putExtra("date", dateAndStartTime[0]);
-//        intent.putExtra("start_time", startTime[0] + ":" + startTime[1]);
-//        intent.putExtra("end_time", endTime[0] + ":" + endTime[1]);
-//        double kms = 50*ride.getEstimatedTimeInMinutes()* 0.016667;
-//        intent.putExtra("distance", Double.toString(Math.round(kms)));
-//        intent.putExtra("cost", Double.toString(ride.getTotalCost()));
-//        intent.putExtra("departure", ride.getLocations().get(0).getDeparture().getAddress());
-//        intent.putExtra("destination", ride.getLocations().get(0).getDestination().getAddress());
-//        intent.putExtra("name", passenger.getName() + " " + passenger.getSurname());
-//        if(ride.getReviews() == null)
-//            intent.putExtra("review", "null");
-//        else
-//        {
-//            bundle.putParcelableArrayList("review", reviews);
-//            intent.putExtras(bundle);
-//        }
-
-//        startActivity(intent);
+        else
+            setDataForPassenger(currentUser, position);
     }
 
     private void setDataForDriver(User currentUser, int position) {
@@ -134,6 +93,34 @@ public class AllRidesFragment extends ListFragment {
         intent.putExtra("destination", ride.getLocations().get(0).getDestination().getAddress());
         intent.putExtra("name", passenger.getName() + " " + passenger.getSurname());
         intent.putExtra("rideId", Long.toString(ride.getId()));
+
+        startActivity(intent);
+    }
+
+    private void setDataForPassenger(User currentUser, int position) {
+        rides = PassengerService.getRides(currentUser.getId());
+        rides.removeIf(ride -> !ride.getStatus().equals("FINISHED"));
+
+        Ride ride = rides.get(position);
+
+        Intent intent = new Intent(getActivity(), PassengerRideInfoActivity.class);
+
+        String[] dateAndStartTime = ride.getStartTime().split("T");
+        String[] dateAndEndTime = ride.getEndTime().split("T");
+        String[] startTime = dateAndStartTime[1].split(":");
+        String[] endTime = dateAndEndTime[1].split(":");
+
+        intent.putExtra("date", dateAndStartTime[0]);
+        intent.putExtra("start_time", startTime[0] + ":" + startTime[1]);
+        intent.putExtra("end_time", endTime[0] + ":" + endTime[1]);
+        double kms = 50*ride.getEstimatedTimeInMinutes()* 0.016667;
+        intent.putExtra("distance", Double.toString(Math.round(kms)));
+        intent.putExtra("cost", Double.toString(ride.getTotalCost()));
+        intent.putExtra("departure", ride.getLocations().get(0).getDeparture().getAddress());
+        intent.putExtra("destination", ride.getLocations().get(0).getDestination().getAddress());
+        intent.putExtra("name", currentUser.getName() + " " + currentUser.getSurname());
+        intent.putExtra("rideId", Long.toString(ride.getId()));
+        intent.putExtra("driver", ride.getDriver().getName() + " " + ride.getDriver().getSurname());
 
         startActivity(intent);
     }

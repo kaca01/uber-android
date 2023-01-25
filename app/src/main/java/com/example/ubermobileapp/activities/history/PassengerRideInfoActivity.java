@@ -43,15 +43,21 @@ public class PassengerRideInfoActivity extends AppCompatActivity {
         distance.setText(getIntent().getStringExtra("distance"));
         TextView cost = findViewById(R.id.cost);
         cost.setText(getIntent().getStringExtra("cost"));
-        ImageView map = findViewById(R.id.ride);
-        map.setImageResource(getIntent().getIntExtra("path", R.drawable.map));
+        TextView departure = findViewById(R.id.departure);
+        departure.setText(getIntent().getStringExtra("departure"));
+        TextView destination = findViewById(R.id.destination);
+        destination.setText(getIntent().getStringExtra("destination"));
+        TextView name = findViewById(R.id.name);
+        name.setText(getIntent().getStringExtra("name"));
+        TextView driver = findViewById(R.id.driver);
+        driver.setText(getIntent().getStringExtra("driver"));
 
-        ArrayList<Review> reviews = this.getIntent().getExtras().getParcelableArrayList("review");
-
-        if(reviews == null)
-            addAddReviewFragment();
-        else
-            addRatingFragment();
+//        ArrayList<Review> reviews = this.getIntent().getExtras().getParcelableArrayList("review");
+//
+//        if(reviews == null)
+//            addAddReviewFragment();
+//        else
+//            addRatingFragment();
 
         BottomNavigationView navigation = findViewById(R.id.bottom_nav);
         navigation.setSelectedItemId(R.id.page_history);

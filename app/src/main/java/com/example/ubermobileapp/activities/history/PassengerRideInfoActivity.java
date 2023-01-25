@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +23,18 @@ import com.example.ubermobileapp.fragments.history.RatingFragment;
 import com.example.ubermobileapp.fragments.review.LeavingReviewFragment;
 import com.example.ubermobileapp.models.pojo.communication.Review;
 import com.example.ubermobileapp.models.pojo.communication.ReviewList;
+import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.ReviewService;
+import com.example.ubermobileapp.services.utils.AuthService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class PassengerRideInfoActivity extends AppCompatActivity {
 
@@ -56,12 +63,13 @@ public class PassengerRideInfoActivity extends AppCompatActivity {
         driver.setText(getIntent().getStringExtra("driver"));
 
         String rideId = this.getIntent().getStringExtra("rideId");
+        // all reviews for the selected ride
         ArrayList<ReviewList> reviews = (ArrayList<ReviewList>) ReviewService.getRideReviews(Long.parseLong(rideId));
 
         if(reviews.isEmpty())
-            addAddReviewFragment();
+            openDialog();
         else
-            addRatingFragment(reviews);
+            addRatingFragment(reviews, getIntent().getStringExtra("date"));
 
         BottomNavigationView navigation = findViewById(R.id.bottom_nav);
         navigation.setSelectedItemId(R.id.page_history);
@@ -97,12 +105,13 @@ public class PassengerRideInfoActivity extends AppCompatActivity {
         overridePendingTransition(0,0);
     }
 
-    private void addAddReviewFragment() {
+    private void openDialog() {
         Button clickButton = (Button) findViewById(R.id.add_review);
         clickButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                // show fragment for rating
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment();
                 leavingReviewFragment.show(fragmentManager, "leaving_review");
@@ -110,26 +119,61 @@ public class PassengerRideInfoActivity extends AppCompatActivity {
         });
     }
 
-    private void addRatingFragment(ArrayList<ReviewList> reviews) {
-        // remove ADD REVIEW button
-        Button addReview = (Button) findViewById(R.id.add_review);
-        addReview.setVisibility(View.GONE);
+    private void addRatingFragment(ArrayList<ReviewList> reviews, String rideDate) {
+        User currentUser = AuthService.getCurrentUser();
+        boolean isPassed = isPassed3Days(rideDate);
+        boolean isRated = false;
+
+        List<Review> commentsReviews = new ArrayList<>();
+        for (ReviewList review: reviews) {
+            if(review.getDriverReview().getComment() != null &&
+                    !review.getDriverReview().getComment().equals(""))
+            {
+                commentsReviews.add(review.getDriverReview());
+                if (review.getDriverReview().getPassenger().getId().equals(currentUser.getId()))
+                    isRated = true;
+            }
+            if(review.getVehicleReview().getComment() != null &&
+                    !review.getVehicleReview().getComment().equals(""))
+            {
+                commentsReviews.add(review.getVehicleReview());
+                if (review.getVehicleReview().getPassenger().getId().equals(currentUser.getId()))
+                    isRated = true;
+            }
+        }
+
+        if (!isPassed) removeAddReviewButton();
+        else {
+            if (isRated) removeAddReviewButton();
+            else openDialog();
+        }
 
         // add rating and reviews fragment
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         RatingFragment rating = new RatingFragment(reviews);
         fragmentTransaction.add(R.id.review, rating);
 
-        List<Review> commentsReviews = new ArrayList<>();
-        for (ReviewList review: reviews) {
-            if(review.getDriverReview().getComment() != null &&
-                    !review.getDriverReview().getComment().equals("")) commentsReviews.add(review.getDriverReview());
-            if(review.getVehicleReview().getComment() != null &&
-                    !review.getVehicleReview().getComment().equals("")) commentsReviews.add(review.getVehicleReview());
-        }
-
         CommentsFragment comments = new CommentsFragment(commentsReviews);
         fragmentTransaction.add(R.id.comments, comments);
         fragmentTransaction.commit();
+    }
+
+    private boolean isPassed3Days(String rideDate) {
+        Date date;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(rideDate);
+            long diff = (new Date()).getTime() - date.getTime();
+            System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+            return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) < 4;
+
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    private void removeAddReviewButton() {
+        // remove ADD REVIEW button
+        Button addReview = (Button) findViewById(R.id.add_review);
+        addReview.setVisibility(View.GONE);
     }
 }

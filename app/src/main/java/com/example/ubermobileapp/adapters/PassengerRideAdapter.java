@@ -71,7 +71,7 @@ public class PassengerRideAdapter extends BaseAdapter {
         destination.setText(ride.getLocations().get(0).getDestination().getAddress());
         startTimeText.setText(startTime[0] + ":" + startTime[1]);
         endTimeText.setText(endTime[0] + ":" + endTime[1]);
-        date.setText(dateAndStartTime[0]);
+        date.setText(dateAndEndTime[0]);
         cost.setText(Double.toString(ride.getTotalCost()));
         passengerNum.setText(Integer.toString(ride.getPassengers().size()));
 

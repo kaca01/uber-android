@@ -59,7 +59,8 @@
                 android:id="@+id/add_review"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ADD REVIEW"/>
+                android:text="ADD YOUR REVIEW"
+                android:layout_marginBottom="30sp"/>
 
             <FrameLayout
                 android:id="@+id/review"

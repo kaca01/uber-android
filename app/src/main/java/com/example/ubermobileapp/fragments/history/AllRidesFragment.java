@@ -110,7 +110,7 @@ public class AllRidesFragment extends ListFragment {
         String[] startTime = dateAndStartTime[1].split(":");
         String[] endTime = dateAndEndTime[1].split(":");
 
-        intent.putExtra("date", dateAndStartTime[0]);
+        intent.putExtra("date", dateAndEndTime[0]);
         intent.putExtra("start_time", startTime[0] + ":" + startTime[1]);
         intent.putExtra("end_time", endTime[0] + ":" + endTime[1]);
         double kms = 50*ride.getEstimatedTimeInMinutes()* 0.016667;

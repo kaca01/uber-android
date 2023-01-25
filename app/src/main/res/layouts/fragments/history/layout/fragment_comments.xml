@@ -17,9 +17,9 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/passenger"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/name"
                 android:layout_gravity="center_vertical"
                 android:textSize="17sp"/>
 
@@ -36,17 +36,11 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Great ride! The car is clean and the driver is pleasant."/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2sp"
-            android:background="?android:attr/listDivider"
-            android:layout_marginTop="20sp"
-            android:layout_marginBottom="10sp"
-            tools:ignore="SmallSp" />
+            android:textColor="?attr/colorSecondary"
+            android:layout_marginBottom="20dp"/>
 
     </LinearLayout>
 

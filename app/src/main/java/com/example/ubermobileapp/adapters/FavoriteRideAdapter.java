@@ -50,7 +50,6 @@ public class FavoriteRideAdapter extends BaseAdapter {
         TextView cost = (TextView) view.findViewById(R.id.cost);
         TextView passengerNum = (TextView) view.findViewById(R.id.passenger_num);
         TextView distance = (TextView) view.findViewById(R.id.distance);
-        ImageView path = (ImageView) view.findViewById(R.id.ride);
 
         startTime.setText(ride.getStartTime());
         endTime.setText(ride.getEndTime());
@@ -58,7 +57,6 @@ public class FavoriteRideAdapter extends BaseAdapter {
         cost.setText(Double.toString(ride.getCost()));
         passengerNum.setText(Integer.toString(ride.getPassengers().size()));
         distance.setText(Double.toString(ride.getDistance()));
-        path.setImageResource(ride.getPath());
 
         return view;
     }

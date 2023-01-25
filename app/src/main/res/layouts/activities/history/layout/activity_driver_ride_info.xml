@@ -68,7 +68,7 @@
                 android:id="@+id/comments"
                 android:name="com.example.ubermobileapp.fragments.history.CommentsFragment"
                 android:layout_width="match_parent"
-                android:layout_height="403dp"
+                android:layout_height="410dp"
                 tools:layout="@layout/list_of_comments" />
         </LinearLayout>
 

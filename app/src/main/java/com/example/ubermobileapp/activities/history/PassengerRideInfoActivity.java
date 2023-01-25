@@ -20,11 +20,14 @@ import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.fragments.history.CommentsFragment;
 import com.example.ubermobileapp.fragments.history.RatingFragment;
 import com.example.ubermobileapp.fragments.review.LeavingReviewFragment;
-import com.example.ubermobileapp.models.communication.Review;
+import com.example.ubermobileapp.models.pojo.communication.Review;
+import com.example.ubermobileapp.models.pojo.communication.ReviewList;
+import com.example.ubermobileapp.services.implementation.ReviewService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PassengerRideInfoActivity extends AppCompatActivity {
 
@@ -52,12 +55,13 @@ public class PassengerRideInfoActivity extends AppCompatActivity {
         TextView driver = findViewById(R.id.driver);
         driver.setText(getIntent().getStringExtra("driver"));
 
-//        ArrayList<Review> reviews = this.getIntent().getExtras().getParcelableArrayList("review");
-//
-//        if(reviews == null)
-//            addAddReviewFragment();
-//        else
-//            addRatingFragment();
+        String rideId = this.getIntent().getStringExtra("rideId");
+        ArrayList<ReviewList> reviews = (ArrayList<ReviewList>) ReviewService.getRideReviews(Long.parseLong(rideId));
+
+        if(reviews.isEmpty())
+            addAddReviewFragment();
+        else
+            addRatingFragment(reviews);
 
         BottomNavigationView navigation = findViewById(R.id.bottom_nav);
         navigation.setSelectedItemId(R.id.page_history);
@@ -106,18 +110,25 @@ public class PassengerRideInfoActivity extends AppCompatActivity {
         });
     }
 
-    private void addRatingFragment() {
+    private void addRatingFragment(ArrayList<ReviewList> reviews) {
         // remove ADD REVIEW button
         Button addReview = (Button) findViewById(R.id.add_review);
         addReview.setVisibility(View.GONE);
 
         // add rating and reviews fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        RatingFragment rating = new RatingFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        RatingFragment rating = new RatingFragment(reviews);
         fragmentTransaction.add(R.id.review, rating);
 
-        CommentsFragment comments = new CommentsFragment();
+        List<Review> commentsReviews = new ArrayList<>();
+        for (ReviewList review: reviews) {
+            if(review.getDriverReview().getComment() != null &&
+                    !review.getDriverReview().getComment().equals("")) commentsReviews.add(review.getDriverReview());
+            if(review.getVehicleReview().getComment() != null &&
+                    !review.getVehicleReview().getComment().equals("")) commentsReviews.add(review.getVehicleReview());
+        }
+
+        CommentsFragment comments = new CommentsFragment(commentsReviews);
         fragmentTransaction.add(R.id.comments, comments);
         fragmentTransaction.commit();
     }

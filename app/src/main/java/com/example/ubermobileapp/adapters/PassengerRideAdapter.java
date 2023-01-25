@@ -16,6 +16,7 @@ import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.utils.AuthService;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class PassengerRideAdapter extends BaseAdapter {
@@ -106,6 +107,7 @@ public class PassengerRideAdapter extends BaseAdapter {
 
         List<Ride> rides = PassengerService.getRides(currentUser.getId());
         rides.removeIf(ride -> !ride.getStatus().equals("FINISHED"));
+        rides.sort(Comparator.comparing(Ride::getEndTime).reversed());
         return rides;
     }
 }

@@ -10,17 +10,12 @@ import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
-import com.example.ubermobileapp.models.pojo.ride.RideList;
 import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.DriverService;
-import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class DriverRideAdapter extends BaseAdapter {
 
@@ -91,6 +86,7 @@ public class DriverRideAdapter extends BaseAdapter {
 
         List<Ride> rides = DriverService.getRides(currentUser.getId());
         rides.removeIf(ride -> !ride.getStatus().equals("FINISHED"));
+        rides.sort(Comparator.comparing(Ride::getEndTime).reversed());
         return rides;
     }
 }

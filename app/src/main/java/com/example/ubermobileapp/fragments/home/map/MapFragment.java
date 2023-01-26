@@ -480,7 +480,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = this.getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_passengers_info, null);
+        View newView = inflater.inflate(R.layout.fragment_ride_info, null);
         String number = getRide(newView);
         ImageView call = newView.findViewById(R.id.call);
         call.setClickable(true);

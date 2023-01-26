@@ -12,10 +12,10 @@ import com.example.ubermobileapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PassengersInfo#newInstance} factory method to
+ * Use the {@link RideInfo#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PassengersInfo extends Fragment {
+public class RideInfo extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class PassengersInfo extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public PassengersInfo() {
+    public RideInfo() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class PassengersInfo extends Fragment {
      * @return A new instance of fragment PassengersInfo.
      */
     // TODO: Rename and change types and number of parameters
-    public static PassengersInfo newInstance(String param1, String param2) {
-        PassengersInfo fragment = new PassengersInfo();
+    public static RideInfo newInstance(String param1, String param2) {
+        RideInfo fragment = new RideInfo();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,7 +61,7 @@ public class PassengersInfo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_passengers_info, container, false);
+        return inflater.inflate(R.layout.fragment_ride_info, container, false);
     }
 
 }

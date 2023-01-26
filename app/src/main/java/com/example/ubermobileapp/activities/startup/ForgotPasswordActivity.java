@@ -63,7 +63,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        Call<Boolean> resCall = ApiUtils.getUserService().sendMail(emailInput.getText().toString());
+        Call<Boolean> resCall = ApiUtils.getUserService().sendMail(emailInput.getText().toString().trim());
 
         try {
             Response<Boolean> res = resCall.execute();
@@ -71,8 +71,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             if(statusCode == 204) {
                 Toast.makeText(ForgotPasswordActivity.this, "Please check Your email!", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(ForgotPasswordActivity.this, ResetPasswordActivity.class);
-                startActivity(i);
+                moveToResetPassword();
             }
             else
                 Toast.makeText(ForgotPasswordActivity.this, "Invalid email!", Toast.LENGTH_SHORT).show();
@@ -80,5 +79,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void moveToResetPassword() {
+        Intent i = new Intent(ForgotPasswordActivity.this, ResetPasswordActivity.class);
+        // send user email to reset password activity
+        Bundle bundle = new Bundle();
+        bundle.putString("email", emailInput.getText().toString().trim());
+        i.putExtras(bundle);
+        startActivity(i);
     }
 }

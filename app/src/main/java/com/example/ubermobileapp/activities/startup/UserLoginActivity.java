@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -99,35 +100,30 @@ public class UserLoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     AuthService.setAccessToken(response.body().getAccessToken());
                     new AuthService().getMyInfo();  // load current user
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            for (Role r: AuthService.getCurrentUser().getRoles()) {
-                                switch (r.getName()) {
-                                    case "ROLE_DRIVER": {
-                                        Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
-                                        startActivity(intent);
-                                        // add notification
-                                        createDriverNotification();
-                                        break;
-                                    }
-                                    case "ROLE_PASSENGER": {
-                                        Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
-                                        startActivity(intent);
-                                        // check if necessary for receive notification
-                                        isRideAccepted();
-                                        break;
-                                    }
-                                    case "ROLE_ADMIN":
-                                        AuthService.logout();
-                                        Toast.makeText(UserLoginActivity.this, "Admin cannot log in", Toast.LENGTH_LONG).show();
-                                        return;
-                                }
+                    for (Role r: AuthService.getCurrentUser().getRoles()) {
+                        switch (r.getName()) {
+                            case "ROLE_DRIVER": {
+                                Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
+                                startActivity(intent);
+                                // add notification
+                                createDriverNotification();
+                                break;
                             }
+                            case "ROLE_PASSENGER": {
+                                Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
+                                startActivity(intent);
+                                // check if necessary for receive notification
+                                isRideAccepted();
+                                break;
+                            }
+                            case "ROLE_ADMIN":
+                                AuthService.logout();
+                                Toast.makeText(UserLoginActivity.this, "Admin cannot log in", Toast.LENGTH_LONG).show();
+                                return;
                         }
-                    }, 700);
+                    }
 
                 } else
                     Toast.makeText(UserLoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();

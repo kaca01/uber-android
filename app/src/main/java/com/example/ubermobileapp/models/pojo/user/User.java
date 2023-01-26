@@ -20,6 +20,9 @@ public class User {
     @SerializedName("profilePicture")
     @Expose
     private String profilePicture;
+    @SerializedName("password")
+    @Expose
+    private String password;
     @SerializedName("telephoneNumber")
     @Expose
     private String telephoneNumber;
@@ -60,6 +63,23 @@ public class User {
         this.name = firstname;
         this.surname = lastname;
         this.email = email;
+    }
+
+    public User(String name, String surname, String telephoneNumber, String email, String address, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.telephoneNumber = telephoneNumber;
+        this.email = email;
+        this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {

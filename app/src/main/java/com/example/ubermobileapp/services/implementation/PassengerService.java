@@ -1,6 +1,7 @@
 package com.example.ubermobileapp.services.implementation;
 
 import android.os.StrictMode;
+import android.widget.Toast;
 
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.ride.RideList;
@@ -8,6 +9,8 @@ import com.example.ubermobileapp.models.pojo.user.Passenger;
 
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +58,17 @@ public class PassengerService {
         try{
             Response<Passenger> response = rideResponseCall.execute();
             passenger = response.body();
+            if (passenger == null){
+                String error = response.errorBody().string();
+                passenger = new Passenger();
+                JSONObject json = new JSONObject(error);
+                if(json.has("message")) {
+                    passenger.setEmail(json.getString("message"));
+                }else if(json.has("errors")){
+                    passenger.setEmail(json.getString("errors").replace("[", "")
+                            .replace("]", ""));
+                }
+            }
         }catch(Exception ex){
             ex.printStackTrace();
         }

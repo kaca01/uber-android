@@ -59,7 +59,10 @@ public class PassengerRegisterActivity extends AppCompatActivity {
                         phone.getText().toString(), email.getText().toString(),
                         address.getText().toString(), password.getText().toString());
                 passenger = PassengerService.insertPassenger(passenger);
-                System.out.print(passenger);
+                if(passenger.getName()==null){
+                    Toast.makeText(getApplicationContext(), passenger.getEmail(), Toast.LENGTH_LONG).show();
+                    return;
+                }
                 TextView activation = findViewById(R.id.activation);
                 activation.setVisibility(View.VISIBLE);
                 //Intent i = new Intent(PassengerRegisterActivity.this, PassengerMainActivity.class);

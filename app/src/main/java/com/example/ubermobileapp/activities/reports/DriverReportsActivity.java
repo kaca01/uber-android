@@ -38,7 +38,7 @@ public class DriverReportsActivity extends AppCompatActivity {
         setReportData(1, 2);
         setChart(findViewById(R.id.lineChart), "Number of Rides Report");
         setChart(findViewById(R.id.lineChart2), "Crossed km Report");
-        
+
         LineChart chart = (findViewById(R.id.lineChart3));
         chart.setVisibility(View.GONE);
         TextView moneySpent = (findViewById(R.id.spentMoney));

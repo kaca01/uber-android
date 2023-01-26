@@ -5,15 +5,18 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.models.Ride;
-import com.example.ubermobileapp.tools.Mockup;
+import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
+import com.example.ubermobileapp.services.implementation.RideService;
+
+import java.util.List;
 
 public class FavoriteRideAdapter extends BaseAdapter {
+
     private Activity activity;
+    private List<FavoriteOrder> favoriteOrders = RideService.getFavorites();;
 
     public FavoriteRideAdapter(Activity activity) {
         this.activity = activity;
@@ -21,12 +24,12 @@ public class FavoriteRideAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return Mockup.getFavoriteRides().size();
+        return favoriteOrders.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return Mockup.getFavoriteRides().get(position);
+        return favoriteOrders.get(position);
     }
 
     @Override
@@ -38,25 +41,20 @@ public class FavoriteRideAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        Ride ride = Mockup.getFavoriteRides().get(position);
 
         if(convertView==null)
             view = activity.getLayoutInflater().inflate(
                     R.layout.fragment_passenger_ride_favorite_list, null);
 
-        TextView startTime = (TextView) view.findViewById(R.id.start_time);
-        TextView endTime = (TextView) view.findViewById(R.id.end_time);
-        TextView date = (TextView) view.findViewById(R.id.date);
-        TextView cost = (TextView) view.findViewById(R.id.cost);
-        TextView passengerNum = (TextView) view.findViewById(R.id.passenger_num);
-        TextView distance = (TextView) view.findViewById(R.id.distance);
+        FavoriteOrder ride = favoriteOrders.get(position);
 
-        startTime.setText(ride.getStartTime());
-        endTime.setText(ride.getEndTime());
-        date.setText(ride.getDate());
-        cost.setText(Double.toString(ride.getCost()));
-        passengerNum.setText(Integer.toString(ride.getPassengers().size()));
-        distance.setText(Double.toString(ride.getDistance()));
+        TextView departure = (TextView) view.findViewById(R.id.departure);
+        TextView destination = (TextView) view.findViewById(R.id.destination);
+        TextView name = (TextView) view.findViewById(R.id.name);
+
+        departure.setText(ride.getLocations().get(0).getDeparture().getAddress());
+        destination.setText(ride.getLocations().get(0).getDestination().getAddress());
+        name.setText(ride.getFavoriteName());
 
         return view;
     }

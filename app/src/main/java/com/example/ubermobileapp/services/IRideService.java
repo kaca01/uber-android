@@ -1,10 +1,14 @@
 package com.example.ubermobileapp.services;
 
+import com.example.ubermobileapp.models.pojo.GenericList;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.PUT;
@@ -37,6 +41,15 @@ public interface IRideService {
     @POST("ride")
     Call<Ride> insertRide(@Body Ride ride);
 
+    @Headers({"Content-Type:application/json"})
     @GET("ride/favorites")
-    Call<FavoriteOrder> favorites(@Body FavoriteOrder favoriteOrder);
+    Call<GenericList<FavoriteOrder>> getFavorites();
+
+    @Headers({"Content-Type:application/json"})
+    @POST("ride/favorites")
+    Call<FavoriteOrder> addFavorite(@Body FavoriteOrder favoriteOrder);
+
+    @Headers({"Content-Type:application/json"})
+    @DELETE("ride/favorites/{id}")
+    Call<Boolean> deleteFavorite(@Path("id") Long id);
 }

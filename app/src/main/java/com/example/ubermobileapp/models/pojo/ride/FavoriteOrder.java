@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.net.UnknownServiceException;
+import java.util.List;
 import java.util.Set;
 
 public class FavoriteOrder {
@@ -39,7 +40,7 @@ public class FavoriteOrder {
 
     @SerializedName("locations")
     @Expose
-    private Set<Route> locations;
+    private List<Route> locations;
 
     public FavoriteOrder() {
 
@@ -47,7 +48,7 @@ public class FavoriteOrder {
 
     public FavoriteOrder(Long id, String favoriteName, VehicleTypeName vehicleType, User passenger,
                          Set<User> passengers, boolean babyTransport, boolean petTransport,
-                         Set<Route> locations) {
+                         List<Route> locations) {
         this.id = id;
         this.favoriteName = favoriteName;
         this.vehicleType = vehicleType;
@@ -114,11 +115,11 @@ public class FavoriteOrder {
         this.petTransport = petTransport;
     }
 
-    public Set<Route> getLocations() {
+    public List<Route> getLocations() {
         return locations;
     }
 
-    public void setLocations(Set<Route> locations) {
+    public void setLocations(List<Route> locations) {
         this.locations = locations;
     }
 }

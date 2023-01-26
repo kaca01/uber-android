@@ -3,8 +3,13 @@ package com.example.ubermobileapp.services.implementation;
 import android.os.StrictMode;
 import android.content.Context;
 
+import com.example.ubermobileapp.models.pojo.GenericList;
+import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.services.utils.ApiUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -91,7 +96,7 @@ public class RideService {
         return ride;
     }
 
-        public static Ride insertRide(Ride ride){
+    public static Ride insertRide(Ride ride){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -104,5 +109,22 @@ public class RideService {
         }
 
         return ride;
+    }
+
+    public static List<FavoriteOrder> getFavorites() {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        List<FavoriteOrder> favoriteOrders = new ArrayList<>();
+
+        Call<GenericList<FavoriteOrder>> rideResponseCall = ApiUtils.getRideService().getFavorites();
+        try{
+            Response<GenericList<FavoriteOrder>> response = rideResponseCall.execute();
+            favoriteOrders = response.body().getResults();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return favoriteOrders;
     }
 }

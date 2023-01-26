@@ -7,28 +7,17 @@
     android:orientation="vertical"
     tools:context=".fragments.account.StatisticsFragment">
 
-    <View
-        android:id="@+id/line"
-        android:layout_width="250sp"
-        android:layout_height="1sp"
-        android:layout_gravity="center_horizontal"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="7sp"/>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/background_card"
-        android:layout_width="330sp"
+        android:layout_width="300sp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15sp"
-        android:layout_marginStart="15sp"
-        android:layout_marginTop="27sp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="5dp"
+        android:layout_marginTop="25sp"
+        app:cardBackgroundColor="?attr/carousel_firstView"
+        app:cardCornerRadius="10sp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view">
+        app:layout_constraintEnd_toEndOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -42,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:layout_marginBottom="17sp"
+                android:layout_marginBottom="15sp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -51,11 +40,11 @@
                     android:text="@string/statistics"
                     android:textStyle="bold"
                     android:textSize="25sp"
-                    android:layout_marginTop="5sp"/>
+                    android:layout_marginTop="8sp"/>
                 <Spinner
                     android:id="@+id/range_spinner"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="5sp"
+                    android:layout_marginTop="8sp"
                     android:layout_marginStart="35sp"
                     android:textAlignment="textEnd"
                     android:layout_height="match_parent" />

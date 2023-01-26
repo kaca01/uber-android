@@ -33,7 +33,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ubermobileapp.activities.inbox.ChatActivity;
-import com.example.ubermobileapp.fragments.home.LocationDialog;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.Passenger;
 import com.example.ubermobileapp.models.pojo.user.User;
@@ -112,17 +111,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         mMapFragment.getMapAsync(this);
     }
 
-    private void showLocatonDialog() {
-        if (dialog == null) {
-            dialog = new LocationDialog(getActivity()).prepareDialog();
-        } else {
-            if (dialog.isShowing()) {
-                dialog.dismiss();
-            }
-        }
-        dialog.show();
-    }
-
     @SuppressLint("MissingPermission")
     @Override
     public void onResume() {
@@ -130,29 +118,19 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
         createMapFragmentAndInflate();
 
-        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        boolean wifi = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        Log.i("wwww", String.valueOf(gps));
-        Log.i("wqqqq", String.valueOf(wifi));
-        if (!gps && !wifi) {
-            Log.i("ASD", "ASDresumemap");
-            showLocatonDialog();
-        } else {
-            if (checkLocationPermission()) {
-                if (ContextCompat.checkSelfPermission(requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
+        if (checkLocationPermission()) {
+            if (ContextCompat.checkSelfPermission(requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
 
-                    //Request location updates:
-                    locationManager.requestLocationUpdates(provider, 2000, 0, this);
-                }else if(ContextCompat.checkSelfPermission(getContext(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                //Request location updates:
+                locationManager.requestLocationUpdates(provider, 2000, 0, this);
+            }else if(ContextCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 
-                    //Request location updates:
-                    locationManager.requestLocationUpdates(provider, 2000, 0, this);
-                }
+                //Request location updates:
+                locationManager.requestLocationUpdates(provider, 2000, 0, this);
             }
         }
-
     }
 
     @Override

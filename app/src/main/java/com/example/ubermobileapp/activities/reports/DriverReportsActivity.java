@@ -1,20 +1,21 @@
 package com.example.ubermobileapp.activities.reports;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
-import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
-import com.example.ubermobileapp.activities.home.PassengerMainActivity;
-import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
+import com.example.ubermobileapp.activities.account.DriverAccountActivity;
+import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
+import com.example.ubermobileapp.activities.home.DriverMainActivity;
+import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
 import com.example.ubermobileapp.models.Report;
 import com.example.ubermobileapp.tools.Mockup;
 import com.github.mikephil.charting.charts.LineChart;
@@ -27,26 +28,29 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
-public class PassengerReportsActivity extends AppCompatActivity {
-    LineChart lineChart;
-    LineChart lineChart2;
-    LineChart lineChart3;
+public class DriverReportsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.ubermobileapp.R.layout.activity_reports);
         setNavigation();
-        setReportData(1, 2, 3);
+        setReportData(1, 2);
         setChart(findViewById(R.id.lineChart), "Number of Rides Report");
         setChart(findViewById(R.id.lineChart2), "Crossed km Report");
-        setChart(findViewById(R.id.lineChart3), "Money Spent Report");
+        
+        LineChart chart = (findViewById(R.id.lineChart3));
+        chart.setVisibility(View.GONE);
+        TextView moneySpent = (findViewById(R.id.spentMoney));
+        moneySpent.setVisibility(View.GONE);
+        TextView averageSpent = (findViewById(R.id.averageSpent));
+        averageSpent.setVisibility(View.GONE);
     }
 
     @Override
     public void onBackPressed(){
-        startActivity(new Intent(PassengerReportsActivity.this,
-                PassengerAccountActivity.class));
+        startActivity(new Intent(DriverReportsActivity.this,
+                DriverAccountActivity.class));
         overridePendingTransition(0,0);
     }
 
@@ -98,19 +102,16 @@ public class PassengerReportsActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.page_map:
-                        startActivity(new Intent(PassengerReportsActivity.this,
-                                PassengerMainActivity.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(DriverReportsActivity.this, DriverMainActivity.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.page_history:
-                        startActivity(new Intent(PassengerReportsActivity.this,
-                                PassengerRideHistoryActivity.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(DriverReportsActivity.this, DriverRideHistoryActivity.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.page_inbox:
-                        startActivity(new Intent(PassengerReportsActivity.this,
-                                PassengerInboxActivity.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(DriverReportsActivity.this, DriverInboxActivity.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.page_account:
                         return true;
@@ -120,17 +121,14 @@ public class PassengerReportsActivity extends AppCompatActivity {
         });
     }
 
-    private void setReportData(int firstReportID, int secondReportID, int thirdReportID) {
+    private void setReportData(int firstReportID, int secondReportID) {
         Report firstReport = Mockup.getReport(firstReportID);
         Report secondReport = Mockup.getReport(secondReportID);
-        Report thirdReport = Mockup.getReport(thirdReportID);
 
         TextView numOfRides = findViewById(R.id.numOfRides);
         TextView averageRides = findViewById(R.id.averageRides);
         TextView crossed = findViewById(R.id.crossedkm);
         TextView crossedAverage = findViewById(R.id.averageCrossed);
-        TextView moneySpent = findViewById(R.id.spentMoney);
-        TextView averageSpent = findViewById(R.id.averageSpent);
 
         String textTotal = "Total: ";
         String textAverage = "Average: ";
@@ -145,10 +143,5 @@ public class PassengerReportsActivity extends AppCompatActivity {
         crossed.setText(total);
         average = textAverage + Double.toString(secondReport.getAverage());
         crossedAverage.setText(average);
-
-        total = textTotal + Double.toString(thirdReport.getTotal());
-        moneySpent.setText(total);
-        average = textAverage + Double.toString(thirdReport.getAverage());
-        averageSpent.setText(average);
     }
 }

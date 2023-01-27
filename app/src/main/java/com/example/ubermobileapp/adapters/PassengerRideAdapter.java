@@ -14,7 +14,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.fragments.dialogs.OrderFavRideFragment;
+import com.example.ubermobileapp.fragments.dialogs.OrderHistoryRideFragment;
 import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.User;
@@ -60,7 +65,8 @@ public class PassengerRideAdapter extends BaseAdapter {
 
         Ride ride = rides.get(position);
 
-        changeFavButton(view, ride);
+        addToFavorite(view, ride);
+        orderRide(view, ride);
 
         String[] dateAndStartTime = ride.getStartTime().split("T");
         String[] dateAndEndTime = ride.getEndTime().split("T");
@@ -90,7 +96,7 @@ public class PassengerRideAdapter extends BaseAdapter {
         return view;
     }
 
-    private void changeFavButton(View view, Ride ride) {
+    private void addToFavorite(View view, Ride ride) {
         Button favorite = view.findViewById(R.id.add_to_favorite);
         favorite.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -155,5 +161,18 @@ public class PassengerRideAdapter extends BaseAdapter {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         return AuthService.getCurrentUser();
+    }
+
+    private void orderRide(View view, Ride ride) {
+        Button orderBtn = (Button) view.findViewById(R.id.order_ride);
+        orderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = (FragmentActivity)(activity);
+                FragmentManager fm = act.getSupportFragmentManager();
+                OrderHistoryRideFragment orderRideFragment = new OrderHistoryRideFragment(ride);
+                orderRideFragment.show(fm, "order_ride");
+            }
+        });
     }
 }

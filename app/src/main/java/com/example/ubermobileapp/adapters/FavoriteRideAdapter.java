@@ -13,14 +13,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.fragments.dialogs.LeavingReviewFragment;
-import com.example.ubermobileapp.fragments.dialogs.OrderRideFragment;
-import com.example.ubermobileapp.models.pojo.GenericList;
+import com.example.ubermobileapp.fragments.dialogs.OrderFavRideFragment;
 import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -104,8 +101,7 @@ public class FavoriteRideAdapter extends BaseAdapter {
             public void onClick(View v) {
                 FragmentActivity act = (FragmentActivity)(activity);
                 FragmentManager fm = act.getSupportFragmentManager();
-                // todo odabranu omiljenu voznji i onda u dijalogu setuj
-                OrderRideFragment orderRideFragment = new OrderRideFragment(ride);
+                OrderFavRideFragment orderRideFragment = new OrderFavRideFragment(ride);
                 orderRideFragment.show(fm, "order_ride");
             }
         });

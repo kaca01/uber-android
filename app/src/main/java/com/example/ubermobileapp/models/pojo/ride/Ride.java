@@ -84,6 +84,17 @@ public class Ride {
         }
         this.setPassengers(passengers);
     }
+
+    // request
+    public Ride(String scheduledTime, boolean babyTransport, boolean petTransport, List<Route> locations,
+                String vehicleType, List<User> passengers) {
+        this.scheduledTime = scheduledTime;
+        this.babyTransport = babyTransport;
+        this.petTransport = petTransport;
+        this.locations = locations;
+        this.vehicleType = vehicleType;
+        this.passengers = passengers;
+    }
     /**
      *
      * @param passengers

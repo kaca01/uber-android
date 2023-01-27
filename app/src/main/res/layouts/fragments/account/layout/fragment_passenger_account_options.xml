@@ -6,23 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.account.PassengerAccountOptionsFragment"
-    android:layout_marginTop="25sp"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true">
 
     <RelativeLayout
         android:id="@+id/relative"
-        android:layout_width="305sp"
-        android:layout_height="150sp"
-        android:layout_marginTop="0sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/firstCard"
             android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0sp"
-            android:layout_marginStart="5sp"
+            android:layout_marginTop="25sp"
             app:cardCornerRadius="10sp">
 
             <LinearLayout
@@ -58,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginTop="0sp"
+        android:layout_marginTop="25sp"
         android:layout_below="@+id/relative"
         android:layout_centerHorizontal="true"
         android:textSize="17sp"

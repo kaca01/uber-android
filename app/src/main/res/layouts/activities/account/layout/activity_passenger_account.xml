@@ -13,7 +13,6 @@
         android:orientation="vertical"
         android:layout_weight="1"
         android:layout_marginTop="20sp"
-        android:layout_marginBottom="20sp"
         android:layout_gravity="center_horizontal">
 
         <androidx.fragment.app.FragmentContainerView
@@ -28,11 +27,11 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentAccountInfos"
-            android:name="com.example.ubermobileapp.fragments.account.PassengerAccountInformationFragment"
+            android:name="com.example.ubermobileapp.fragments.account.AccountInformationFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            tools:layout="@layout/fragment_passenger_account_information" />
+            tools:layout="@layout/fragment_account_information" />
 
         <ScrollView
             android:layout_width="match_parent"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,47 +7,46 @@
     android:layout_height="match_parent"
     tools:context=".activities.account.DriverAccountActivity">
 
-    <ScrollView
-        android:id="@+id/scroll"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginTop="20sp"
+        android:layout_gravity="center_horizontal">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView7"
+            android:name="com.example.ubermobileapp.fragments.account.AccountInfromationTitleFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout="@layout/fragment_account_infromation_title" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentAccountInfos"
+            android:name="com.example.ubermobileapp.fragments.account.AccountInformationFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView"
-                android:name="com.example.ubermobileapp.fragments.account.AccountInfromationTitleFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_account_infromation_title"
-                android:layout_marginTop="65sp"/>
+            android:layout_gravity="center"
+            tools:layout="@layout/fragment_account_information" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_marginTop="20sp"
-                android:layout_marginBottom="30sp"
-                android:layout_gravity="center_horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
                 <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/fragmentAccountInfos"
-                    android:name="com.example.ubermobileapp.fragments.account.PassengerAccountInformationFragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    tools:layout="@layout/fragment_passenger_account_information" />
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/fragmentAccountOptions"
-                    android:name="com.example.ubermobileapp.fragments.account.DriverAccountOptionsFragment"
+                    android:id="@+id/fragmentContainerView6"
+                    android:name="com.example.ubermobileapp.fragments.account.AccountOptionsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    tools:layout="@layout/fragment_driver_account_options" />
+                    tools:layout="@layout/fragment_account_options" />
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/fragment_statistics"
@@ -57,19 +56,28 @@
                     android:layout_gravity="center"
                     tools:layout="@layout/fragment_statistics" />
 
+                <TextView
+                    android:id="@+id/logOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="25sp"
+                    android:layout_marginBottom="20sp"
+                    android:layout_gravity="center"
+                    android:textSize="17sp"
+                    android:textColor="@color/red"
+                    android:textStyle="bold"
+                    android:text="@string/log_out" />
+
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@id/scroll"
         app:menu="@menu/bottom_navigation_menu"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

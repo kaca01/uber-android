@@ -7,7 +7,7 @@
     android:id="@+id/accountInfos"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragments.account.PassengerAccountInformationFragment">
+    tools:context=".fragments.account.AccountInformationFragment">
 
     <TextView
         android:id="@+id/hi"

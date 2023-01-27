@@ -88,14 +88,6 @@ public class AccountOptionsFragment extends Fragment {
             }
         });
 
-        CardView reports = view.findViewById(R.id.secondCard);
-        reports.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createStartDateDialog();
-            }
-        });
-
         return view;
     }
 

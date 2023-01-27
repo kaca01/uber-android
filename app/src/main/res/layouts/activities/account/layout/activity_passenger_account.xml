@@ -54,11 +54,77 @@
                     android:id="@+id/fragmentAccountOptions"
                     android:name="com.example.ubermobileapp.fragments.account.PassengerAccountOptionsFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="130sp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
                     tools:layout="@layout/fragment_passenger_account_options" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/report1"
+                    android:layout_width="300sp"
+                    android:layout_marginTop="40sp"
+                    android:layout_height="200sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10sp">
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/pieChart1"
+                        android:name="com.example.ubermobileapp.fragments.account.PassengerPieChartFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/report2"
+                    android:layout_width="300sp"
+                    android:layout_marginTop="40sp"
+                    android:layout_height="200sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10sp">
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/pieChart2"
+                        android:name="com.example.ubermobileapp.fragments.account.PassengerPieChartFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/report3"
+                    android:layout_width="300sp"
+                    android:layout_marginTop="40sp"
+                    android:layout_height="200sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10sp">
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/pieChart3"
+                        android:name="com.example.ubermobileapp.fragments.account.PassengerPieChartFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/logOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20sp"
+                    android:textSize="17sp"
+                    android:textColor="@color/red"
+                    android:textStyle="bold"
+                    android:text="@string/log_out" />
+
             </LinearLayout>
+
+
         </ScrollView>
 
     </LinearLayout>

@@ -127,4 +127,19 @@ public class RideService {
 
         return favoriteOrders;
     }
+
+    public static FavoriteOrder addFavorite(FavoriteOrder favoriteOrder){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Call<FavoriteOrder> rideResponseCall = ApiUtils.getRideService().addFavorite(favoriteOrder);
+        try{
+            Response<FavoriteOrder> response = rideResponseCall.execute();
+            favoriteOrder = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return favoriteOrder;
+    }
 }

@@ -20,7 +20,7 @@ public class FavoriteOrder {
 
     @SerializedName("vehicleType")
     @Expose
-    private VehicleTypeName vehicleType;
+    private String vehicleType;
 
     @SerializedName("passenger")
     @Expose
@@ -28,7 +28,7 @@ public class FavoriteOrder {
 
     @SerializedName("passengers")
     @Expose
-    private Set<User> passengers;
+    private List<User> passengers;
 
     @SerializedName("babyTransport")
     @Expose
@@ -46,13 +46,25 @@ public class FavoriteOrder {
 
     }
 
-    public FavoriteOrder(Long id, String favoriteName, VehicleTypeName vehicleType, User passenger,
-                         Set<User> passengers, boolean babyTransport, boolean petTransport,
+    public FavoriteOrder(Long id, String favoriteName, String vehicleType, User passenger,
+                         List<User> passengers, boolean babyTransport, boolean petTransport,
                          List<Route> locations) {
         this.id = id;
         this.favoriteName = favoriteName;
         this.vehicleType = vehicleType;
         this.passenger = passenger;
+        this.passengers = passengers;
+        this.babyTransport = babyTransport;
+        this.petTransport = petTransport;
+        this.locations = locations;
+    }
+
+    // request
+    public FavoriteOrder(String favoriteName, String vehicleType,
+                         List<User> passengers, boolean babyTransport, boolean petTransport,
+                         List<Route> locations) {
+        this.favoriteName = favoriteName;
+        this.vehicleType = vehicleType;
         this.passengers = passengers;
         this.babyTransport = babyTransport;
         this.petTransport = petTransport;
@@ -75,11 +87,11 @@ public class FavoriteOrder {
         this.favoriteName = favoriteName;
     }
 
-    public VehicleTypeName getVehicleType() {
+    public String getVehicleType() {
         return vehicleType;
     }
 
-    public void setVehicleType(VehicleTypeName vehicleType) {
+    public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
     }
 
@@ -91,11 +103,11 @@ public class FavoriteOrder {
         this.passenger = passenger;
     }
 
-    public Set<User> getPassengers() {
+    public List<User> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(Set<User> passengers) {
+    public void setPassengers(List<User> passengers) {
         this.passengers = passengers;
     }
 

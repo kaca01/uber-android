@@ -224,9 +224,9 @@
                 android:id="@+id/add_to_favorite"
                 android:layout_width="120sp"
                 android:layout_height="60sp"
-                android:backgroundTint="@color/light_gray"
+                android:backgroundTint="@color/favorites"
                 android:focusable="false"
-                android:text="@string/not_a_favorite"/>
+                android:text="ADD TO FAVORITE"/>
 
         </LinearLayout>
 

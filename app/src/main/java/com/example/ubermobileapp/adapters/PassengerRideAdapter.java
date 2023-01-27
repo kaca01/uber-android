@@ -2,20 +2,27 @@ package com.example.ubermobileapp.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Color;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.StrictMode;
+import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.PassengerService;
+import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.AuthService;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -23,6 +30,7 @@ public class PassengerRideAdapter extends BaseAdapter {
 
     private Activity activity;
     private List<Ride> rides = setRides();
+    private String favoriteName;
 
     public PassengerRideAdapter(Activity activity) {
         this.activity = activity;
@@ -50,9 +58,9 @@ public class PassengerRideAdapter extends BaseAdapter {
         if(convertView==null)
             view = activity.getLayoutInflater().inflate(R.layout.start_ride_info_passenger, null);
 
-        changeFavButton(view);
-
         Ride ride = rides.get(position);
+
+        changeFavButton(view, ride);
 
         String[] dateAndStartTime = ride.getStartTime().split("T");
         String[] dateAndEndTime = ride.getEndTime().split("T");
@@ -82,32 +90,71 @@ public class PassengerRideAdapter extends BaseAdapter {
         return view;
     }
 
-    private void changeFavButton(View view) {
+    private void changeFavButton(View view, Ride ride) {
         Button favorite = view.findViewById(R.id.add_to_favorite);
         favorite.setOnClickListener( new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                if(favorite.getText().toString().contains("NOT")) {
-                    favorite.setBackgroundColor(Color.rgb(255,179,71));
-                    favorite.setText("FAVORITE");
-                }
-                else {
-                    favorite.setBackgroundColor(Color.rgb(237, 235, 235));
-                    favorite.setText("NOT A FAVORITE");
-                }
+                favoriteDialog(view, ride);
             }
         });
     }
 
     private List<Ride> setRides() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        User currentUser = AuthService.getCurrentUser();
-
+        User currentUser = getCurrentUser();
         List<Ride> rides = PassengerService.getRides(currentUser.getId());
         rides.removeIf(ride -> !ride.getStatus().equals("FINISHED"));
         rides.sort(Comparator.comparing(Ride::getEndTime).reversed());
         return rides;
+    }
+
+    private void favoriteDialog(View view, Ride ride){
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setTitle("Add favorite ride");
+
+        final EditText input = new EditText(view.getContext());
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setHint("Add name for your favorite ride...");
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                favoriteName = input.getText().toString().trim();
+                if (favoriteName.equals("")) Toast.makeText(view.getContext(),
+                        "Error: You must type a name!", Toast.LENGTH_SHORT).show();
+                else {
+                    User currentUser = getCurrentUser();
+                    List<User> passenger = new ArrayList<>();
+                    passenger.add(currentUser);
+                    FavoriteOrder order = new FavoriteOrder(favoriteName,
+                            ride.getVehicleType(),
+                            passenger,
+                            ride.isBabyTransport(),
+                            ride.isPetTransport(),
+                            ride.getLocations());
+
+                    System.out.println("LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    FavoriteOrder fav = RideService.addFavorite(order);
+
+                    Toast.makeText(view.getContext(), "Successfully added!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    private User getCurrentUser() {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        return AuthService.getCurrentUser();
     }
 }

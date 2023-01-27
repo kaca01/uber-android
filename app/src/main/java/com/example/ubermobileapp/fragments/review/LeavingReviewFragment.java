@@ -1,25 +1,29 @@
 package com.example.ubermobileapp.fragments.review;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.activities.home.PassengerMainActivity;
-import com.example.ubermobileapp.activities.inbox.ChatActivity;
+import com.example.ubermobileapp.models.pojo.communication.Review;
+import com.example.ubermobileapp.services.implementation.ReviewService;
 
 
 public class LeavingReviewFragment extends DialogFragment {
+
+    private Long rideId;
+
+    public LeavingReviewFragment(String rideId) {
+        this.rideId = Long.parseLong(rideId);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,9 +49,36 @@ public class LeavingReviewFragment extends DialogFragment {
 
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
-                Intent intent = new Intent(getActivity(), PassengerMainActivity.class);
-                startActivity(intent);
+                EditText driverInput = (EditText) view.findViewById(R.id.driver_comment);
+                String driverCom = driverInput.getText().toString().trim();
+
+                RatingBar driverRatingBar = view.findViewById(R.id.driver_rating_bar);
+                int driverRating = (int) (driverRatingBar.getRating());
+
+                EditText vehicleInput = (EditText) view.findViewById(R.id.vehicle_comment);
+                String vehicleCom = vehicleInput.getText().toString().trim();
+
+                RatingBar vehicleRatingBar = view.findViewById(R.id.vehicle_rating_bar);
+                int vehicleRating = (int) (vehicleRatingBar.getRating());
+
+                if(driverRating == 0 || vehicleRating == 0)
+                    Toast.makeText(getActivity(), "Please enter rating", Toast.LENGTH_SHORT).show();
+
+                else {
+                    Review driver = new Review(driverRating, driverCom);
+                    ReviewService.addDriverReview(rideId, driver);
+
+                    Review vehicle = new Review(vehicleRating, vehicleCom);
+                    ReviewService.addVehicleReview(rideId, vehicle);
+
+                    Toast.makeText(getActivity(), "Thank You!", Toast.LENGTH_SHORT).show();
+
+                    getDialog().dismiss();
+
+                    // refresh page
+                    getActivity().finish();
+                    startActivity(getActivity().getIntent());
+                }
             }
         });
         return view;

@@ -1,4 +1,4 @@
-package com.example.ubermobileapp.fragments.review;
+package com.example.ubermobileapp.fragments.dialogs;
 
 import android.os.Bundle;
 

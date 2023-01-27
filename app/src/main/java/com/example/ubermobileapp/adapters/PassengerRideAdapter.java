@@ -134,7 +134,6 @@ public class PassengerRideAdapter extends BaseAdapter {
                             ride.isPetTransport(),
                             ride.getLocations());
 
-                    System.out.println("LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     FavoriteOrder fav = RideService.addFavorite(order);
 
                     Toast.makeText(view.getContext(), "Successfully added!", Toast.LENGTH_SHORT).show();

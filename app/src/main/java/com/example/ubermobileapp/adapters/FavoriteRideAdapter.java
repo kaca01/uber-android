@@ -9,7 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.fragments.dialogs.LeavingReviewFragment;
+import com.example.ubermobileapp.fragments.dialogs.OrderRideFragment;
 import com.example.ubermobileapp.models.pojo.GenericList;
 import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 import com.example.ubermobileapp.services.implementation.RideService;
@@ -65,6 +70,7 @@ public class FavoriteRideAdapter extends BaseAdapter {
         name.setText(ride.getFavoriteName());
 
         delete(view, ride.getId());
+        orderRide(view, ride);
 
         return view;
     }
@@ -87,6 +93,20 @@ public class FavoriteRideAdapter extends BaseAdapter {
                 } catch(Exception ex){
                     ex.printStackTrace();
                 }
+            }
+        });
+    }
+
+    private void orderRide(View view, FavoriteOrder ride) {
+        Button orderBtn = (Button) view.findViewById(R.id.btnOrder1);
+        orderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = (FragmentActivity)(activity);
+                FragmentManager fm = act.getSupportFragmentManager();
+                // todo odabranu omiljenu voznji i onda u dijalogu setuj
+                OrderRideFragment orderRideFragment = new OrderRideFragment(ride);
+                orderRideFragment.show(fm, "order_ride");
             }
         });
     }

@@ -28,8 +28,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.ubermobileapp.fragments.home.LocationDialog;
-import com.example.ubermobileapp.tools.Timer;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,7 +48,6 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
     private LocationManager locationManager;
     private String provider;
     private SupportMapFragment mMapFragment;
-    private AlertDialog dialog;
     private Marker home;
     private static GoogleMap map;
     private static Geocoder mGeocoder;
@@ -84,17 +81,6 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
         mMapFragment.getMapAsync(this);
     }
 
-    private void showLocatonDialog() {
-        if (dialog == null) {
-            dialog = new LocationDialog(getActivity()).prepareDialog();
-        } else {
-            if (dialog.isShowing()) {
-                dialog.dismiss();
-            }
-        }
-        dialog.show();
-    }
-
     @SuppressLint("MissingPermission")
     @Override
     public void onResume() {
@@ -102,30 +88,19 @@ public class MapMainFragment extends Fragment implements LocationListener, OnMap
 
         createMapFragmentAndInflate();
 
-        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        boolean wifi = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        Log.i("wwww", String.valueOf(gps));
-        Log.i("wqqqq", String.valueOf(wifi));
-        if (!gps && !wifi) {
-            Log.i("ASD", "ASDresumemap");
-            showLocatonDialog();
-        } else {
-            if (checkLocationPermission()) {
-                if (ContextCompat.checkSelfPermission(requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (checkLocationPermission()) {
+            if (ContextCompat.checkSelfPermission(requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                    //Request location updates:
-                    locationManager.requestLocationUpdates(provider, 2000, 0, this);
-                } else if (ContextCompat.checkSelfPermission(getContext(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                //Request location updates:
+                locationManager.requestLocationUpdates(provider, 2000, 0, this);
+            } else if (ContextCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                    //Request location updates:
-                    locationManager.requestLocationUpdates(provider, 2000, 0, this);
-                }
+                //Request location updates:
+                locationManager.requestLocationUpdates(provider, 2000, 0, this);
             }
         }
-
-
     }
 
     @Override

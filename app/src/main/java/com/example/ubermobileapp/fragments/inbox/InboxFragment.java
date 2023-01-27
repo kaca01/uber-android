@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.ListFragment;
 
+import android.os.Handler;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -44,9 +45,9 @@ public class InboxFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        adapter = new DriveAdapter(getActivity());
-        setListAdapter(adapter);
+//        adapter = new DriveAdapter(getActivity());
+//        setListAdapter(adapter);
+        run();
     }
 
     @Override
@@ -130,5 +131,19 @@ public class InboxFragment extends ListFragment {
         }catch(Exception ex){
             ex.printStackTrace();
         }
+    }
+
+    public void run() {
+        final Handler handler = new Handler();
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                adapter = new DriveAdapter(getActivity());
+                setListAdapter(adapter);
+
+                handler.postDelayed(this, 3000);
+            }
+        });
     }
 }

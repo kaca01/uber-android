@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +43,7 @@ public class ChatActivity extends AppCompatActivity {
     private User sender; //current user is sender
     private User receiver = null;
     private String chat_type = "";
+    private MessageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,27 +56,8 @@ public class ChatActivity extends AppCompatActivity {
         Serializable from_inbox = getIntent().getSerializableExtra("name");
         // ako je iz inboxa usao u chat
         if (from_inbox != null) chat_type = from_inbox.toString();
-        if (chat_type.equals(MessageType.SUPPORT.toString())) {
-            getSupportMessages();
-        }
-        else if (chat_type.equals(MessageType.RIDE.toString())){
-            Long rideId = (Long)getIntent().getSerializableExtra("rideId");
-            ride = RideService.getRideDetails(rideId);
-            setReceiver();
-            messages = FindByRideIdAndOtherUser(ride, receiver);
-        }
-        //ukoliko nije iz inboxa usao u chat
-        else{
-            setRide();
-            setReceiver();
-            messages = FindByRideIdAndOtherUser(ride, receiver);
-        }
-
-        setTitle();
-        MessageAdapter adapter = new MessageAdapter(this, messages);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.scrollToPosition(messages.size() - 1);
-        recycler.setAdapter(adapter);
+        
+        run();
 
         ImageView back = (ImageView) findViewById(R.id.back_arrow);
         back.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +108,41 @@ public class ChatActivity extends AppCompatActivity {
                 recycler.scrollToPosition(messages.size() - 1);
                 adapter.notifyDataSetChanged();
                 newChat.setText("");
+            }
+        });
+
+    }
+
+    private void run() {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (AuthService.getCurrentUser() != null) {
+                    if (chat_type.equals(MessageType.SUPPORT.toString())) {
+                        getSupportMessages();
+                    } else if (chat_type.equals(MessageType.RIDE.toString())) {
+                        Long rideId = (Long) getIntent().getSerializableExtra("rideId");
+                        ride = RideService.getRideDetails(rideId);
+                        setReceiver();
+                        messages = FindByRideIdAndOtherUser(ride, receiver);
+                    }
+                    //ukoliko nije iz inboxa usao u chat
+                    else {
+                        setRide();
+                        setReceiver();
+                        messages = FindByRideIdAndOtherUser(ride, receiver);
+                    }
+
+                    setTitle();
+                    RecyclerView recycler = (RecyclerView) findViewById(R.id.recycler_chat);
+                    adapter = new MessageAdapter(messages);
+                    recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    recycler.scrollToPosition(messages.size() - 1);
+                    recycler.setAdapter(adapter);
+                }
+
+                handler.postDelayed(this, 3000);
             }
         });
 

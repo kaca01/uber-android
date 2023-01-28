@@ -78,7 +78,7 @@
                         android:layout_marginEnd="8sp"
                         android:text="Total number:"/>
                     <TextView
-                        android:id="@+id/declined_drives"
+                        android:id="@+id/total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="17sp"
@@ -97,7 +97,7 @@
                         android:layout_marginEnd="8sp"
                         android:text="Average number:"/>
                     <TextView
-                        android:id="@+id/accepted_drives"
+                        android:id="@+id/average"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="17sp"

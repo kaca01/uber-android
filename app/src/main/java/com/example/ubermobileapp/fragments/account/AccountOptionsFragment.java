@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.activities.reports.PassengerReportsActivity;
 import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.utils.AuthService;
 
@@ -27,51 +26,23 @@ import com.example.ubermobileapp.services.utils.AuthService;
  * create an instance of this fragment.
  */
 public class AccountOptionsFragment extends Fragment {
-    AlertDialog startDateDialog;
-    AlertDialog endDateDialog;
     AlertDialog alertDialog;
     private View view;
     int SELECT_IMAGE_CODE = 1;
     ImageView imgGallery;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public AccountOptionsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AccountOptionsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static AccountOptionsFragment newInstance(String param1, String param2) {
         AccountOptionsFragment fragment = new AccountOptionsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -89,55 +60,6 @@ public class AccountOptionsFragment extends Fragment {
         });
 
         return view;
-    }
-
-
-    protected void createStartDateDialog() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_start_date, null);
-
-        dialog.setView(newView)
-                .setTitle("Reports")
-                .setCancelable(false)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        createEndDateDialog();
-                    }
-                })
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        startDateDialog = dialog.create();
-        startDateDialog.show();
-    }
-
-
-    protected void createEndDateDialog() {
-        startDateDialog.cancel();
-        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_end_date, null);
-
-        dialog.setView(newView)
-                .setTitle("Reports")
-                .setCancelable(false)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        startActivity(new Intent(getActivity(), PassengerReportsActivity.class));
-                    }
-                })
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        endDateDialog = dialog.create();
-        endDateDialog.show();
     }
 
     protected void createEditDialog() {

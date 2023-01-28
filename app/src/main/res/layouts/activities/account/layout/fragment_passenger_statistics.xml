@@ -106,6 +106,15 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <com.anychart.AnyChartView
+                android:id="@+id/pieChart"
+                android:layout_width="match_parent"
+                android:layout_height="300sp"
+                android:layout_marginVertical="20sp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

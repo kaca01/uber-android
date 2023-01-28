@@ -29,8 +29,6 @@ public class PassengerAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_account);
 
-        addPieChartClickListeners();
-
         TextView logOut = findViewById(R.id.logOut);
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,54 +69,5 @@ public class PassengerAccountActivity extends AppCompatActivity {
     public void onBackPressed(){
         startActivity(new Intent(PassengerAccountActivity.this, PassengerMainActivity.class));
         overridePendingTransition(0,0);
-    }
-
-    public void addPieChartClickListeners() {
-        TextView first = findViewById(R.id.first);
-        TextView second = findViewById(R.id.second);
-        TextView third = findViewById(R.id.third);
-
-        CardView firstReport = findViewById(R.id.report1);
-        CardView secondReport = findViewById(R.id.report2);
-        CardView thirdReport = findViewById(R.id.report3);
-
-        secondReport.setVisibility(View.GONE);
-        thirdReport.setVisibility(View.GONE);
-
-        first.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firstReport.setVisibility(View.VISIBLE);
-                secondReport.setVisibility(View.GONE);
-                thirdReport.setVisibility(View.GONE);
-                first.setTextColor(Color.parseColor("#96D49C"));
-                second.setTextColor(Color.parseColor("#000000"));
-                third.setTextColor(Color.parseColor("#000000"));
-            }
-        });
-
-        second.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firstReport.setVisibility(View.GONE);
-                secondReport.setVisibility(View.VISIBLE);
-                thirdReport.setVisibility(View.GONE);
-                first.setTextColor(Color.parseColor("#000000"));
-                second.setTextColor(Color.parseColor("#96D49C"));
-                third.setTextColor(Color.parseColor("#000000"));
-            }
-        });
-
-        third.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firstReport.setVisibility(View.GONE);
-                secondReport.setVisibility(View.GONE);
-                thirdReport.setVisibility(View.VISIBLE);
-                first.setTextColor(Color.parseColor("#000000"));
-                second.setTextColor(Color.parseColor("#000000"));
-                third.setTextColor(Color.parseColor("#96D49C"));
-            }
-        });
     }
 }

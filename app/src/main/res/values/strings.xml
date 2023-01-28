@@ -112,8 +112,8 @@
     <string name="estimated_time_content">20 min</string>
     <string name="price">Price</string>
     <string name="price_content">320 RSD</string>
-    <string name="pet_transport">Pet transport:</string>
-    <string name="baby_transport">Baby transport:</string>
+    <string name="pet_transport">Pet transport</string>
+    <string name="baby_transport">Baby transport</string>
     <string name="yes">Yes</string>
     <string name="vehicle_type">Vehicle type</string>
     <string name="standard">STANDARD</string>

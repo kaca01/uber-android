@@ -34,12 +34,18 @@ public class PassengerStatisticsFragment extends Fragment {
     Spinner spinner;
 
     AnyChartView anyChart;
+    Pie pie;
+    List<DataEntry> dataEntries = new ArrayList<>();
 
     List<String> days = new ArrayList<>();
 
     // rides statistic
     HashMap<String, Integer> numberOfRidesPerDay = new HashMap<>();
     private int numberOfRides;
+
+    // cost statistic
+    HashMap<String, Double> totalCostPerDay = new HashMap<>();
+    private double totalCost;
 
     public PassengerStatisticsFragment() {
         // Required empty public constructor
@@ -60,6 +66,7 @@ public class PassengerStatisticsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_passenger_statistics, container, false);
         anyChart = view.findViewById(R.id.pieChart);
+        pie = AnyChart.pie();
         spinner = (Spinner)view.findViewById(R.id.range_spinner);
         String[] options = { "Rides", "Cost", "kms"};
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, options);
@@ -74,31 +81,44 @@ public class PassengerStatisticsFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        displayRidesStatistic();
         addSpinnerActionListener(view);
 
         return view;
     }
 
     private void displayRidesStatistic() {
-        Pie pie = AnyChart.pie();
-        List<DataEntry> dataEntries = new ArrayList<>();
+        dataEntries.clear();
         for (String key: numberOfRidesPerDay.keySet()) {
             dataEntries.add(new ValueDataEntry(key, numberOfRidesPerDay.get(key)));
         }
 
         pie.data(dataEntries);
         pie.title("Number of rides");
+        anyChart.clear();
         anyChart.setChart(pie);
+//        anyChart.refreshDrawableState();
     }
 
     private void displayCostStatistic() {
+        dataEntries.clear();
+        for (String key: totalCostPerDay.keySet()) {
+            dataEntries.add(new ValueDataEntry(key, totalCostPerDay.get(key)));
+        }
 
+        pie.data(dataEntries);
+        pie.title("Total cost");
+        anyChart.clear();
+        anyChart.setChart(pie);
+//        anyChart.refreshDrawableState();
     }
 
+    @SuppressLint("SetTextI18n")
     private void addSpinnerActionListener(View view) {
         TextView total = view.findViewById(R.id.total);
         TextView average = view.findViewById(R.id.average);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("DefaultLocale")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position==0)
@@ -108,8 +128,8 @@ public class PassengerStatisticsFragment extends Fragment {
                     displayRidesStatistic();
                 } else if (position==1)
                 {
-                    total.setText("20000");
-                    average.setText("420");
+                    total.setText(String.format("%.02f", totalCost));
+                    average.setText(String.format("%.02f", totalCost/30));
                     displayCostStatistic();
                 }
                 else if(position==2){
@@ -129,6 +149,11 @@ public class PassengerStatisticsFragment extends Fragment {
         return new Date(new Date().getTime() - (1000L * 60 * 60 * 24 * 30));
     }
 
+    private List<Ride> getRides() {
+        long id = AuthService.getCurrentUser().getId();
+        return PassengerService.getRides(id);
+    }
+
     private void populateData() {
         Date date = getOneMonthAgoDate();
         @SuppressLint("SimpleDateFormat")
@@ -141,8 +166,7 @@ public class PassengerStatisticsFragment extends Fragment {
     }
 
     private void populateNumberOfRides() throws ParseException {
-        long id = AuthService.getCurrentUser().getId();
-        List<Ride> rides = PassengerService.getRides(id);
+        List<Ride> rides = getRides();
         Date oneMonthAgo = getOneMonthAgoDate();
 
         for (Ride ride: rides) {
@@ -162,7 +186,24 @@ public class PassengerStatisticsFragment extends Fragment {
         }
     }
 
-    private void populateTotalCost() {
+    private void populateTotalCost() throws ParseException {
+        List<Ride> rides = getRides();
+        Date oneMonthAgo = getOneMonthAgoDate();
 
+        for (Ride ride: rides) {
+            if(!ride.getStatus().equals("FINISHED")) continue;
+
+            @SuppressLint("SimpleDateFormat")
+            Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(ride.getStartTime().split("T")[0]);
+            assert startDate != null;
+
+            if (startDate.after(oneMonthAgo)) {
+                totalCost += ride.getTotalCost();
+                String key = ride.getStartTime().split("T")[0];
+                if (totalCostPerDay.containsKey(key))
+                    totalCostPerDay.put(key, numberOfRidesPerDay.get(key) + ride.getTotalCost());
+                else totalCostPerDay.put(key, ride.getTotalCost());
+            }
+        }
     }
 }

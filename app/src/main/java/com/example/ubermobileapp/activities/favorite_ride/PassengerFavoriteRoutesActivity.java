@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
+import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,6 +33,8 @@ public class PassengerFavoriteRoutesActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.page_history:
+                        startActivity(new Intent(PassengerFavoriteRoutesActivity.this, PassengerRideHistoryActivity.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.page_inbox:
                         startActivity(new Intent(PassengerFavoriteRoutesActivity.this, PassengerInboxActivity.class));

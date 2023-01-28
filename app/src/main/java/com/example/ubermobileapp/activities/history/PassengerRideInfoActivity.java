@@ -7,11 +7,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
@@ -20,7 +18,7 @@ import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.fragments.history.CommentsFragment;
 import com.example.ubermobileapp.fragments.history.RatingFragment;
-import com.example.ubermobileapp.fragments.review.LeavingReviewFragment;
+import com.example.ubermobileapp.fragments.dialogs.LeavingReviewFragment;
 import com.example.ubermobileapp.models.pojo.communication.Review;
 import com.example.ubermobileapp.models.pojo.communication.ReviewList;
 import com.example.ubermobileapp.models.pojo.user.User;

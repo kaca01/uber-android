@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.net.UnknownServiceException;
+import java.util.List;
 import java.util.Set;
 
 public class FavoriteOrder {
@@ -19,7 +20,7 @@ public class FavoriteOrder {
 
     @SerializedName("vehicleType")
     @Expose
-    private VehicleTypeName vehicleType;
+    private String vehicleType;
 
     @SerializedName("passenger")
     @Expose
@@ -27,7 +28,7 @@ public class FavoriteOrder {
 
     @SerializedName("passengers")
     @Expose
-    private Set<User> passengers;
+    private List<User> passengers;
 
     @SerializedName("babyTransport")
     @Expose
@@ -39,19 +40,31 @@ public class FavoriteOrder {
 
     @SerializedName("locations")
     @Expose
-    private Set<Route> locations;
+    private List<Route> locations;
 
     public FavoriteOrder() {
 
     }
 
-    public FavoriteOrder(Long id, String favoriteName, VehicleTypeName vehicleType, User passenger,
-                         Set<User> passengers, boolean babyTransport, boolean petTransport,
-                         Set<Route> locations) {
+    public FavoriteOrder(Long id, String favoriteName, String vehicleType, User passenger,
+                         List<User> passengers, boolean babyTransport, boolean petTransport,
+                         List<Route> locations) {
         this.id = id;
         this.favoriteName = favoriteName;
         this.vehicleType = vehicleType;
         this.passenger = passenger;
+        this.passengers = passengers;
+        this.babyTransport = babyTransport;
+        this.petTransport = petTransport;
+        this.locations = locations;
+    }
+
+    // request
+    public FavoriteOrder(String favoriteName, String vehicleType,
+                         List<User> passengers, boolean babyTransport, boolean petTransport,
+                         List<Route> locations) {
+        this.favoriteName = favoriteName;
+        this.vehicleType = vehicleType;
         this.passengers = passengers;
         this.babyTransport = babyTransport;
         this.petTransport = petTransport;
@@ -74,11 +87,11 @@ public class FavoriteOrder {
         this.favoriteName = favoriteName;
     }
 
-    public VehicleTypeName getVehicleType() {
+    public String getVehicleType() {
         return vehicleType;
     }
 
-    public void setVehicleType(VehicleTypeName vehicleType) {
+    public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
     }
 
@@ -90,11 +103,11 @@ public class FavoriteOrder {
         this.passenger = passenger;
     }
 
-    public Set<User> getPassengers() {
+    public List<User> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(Set<User> passengers) {
+    public void setPassengers(List<User> passengers) {
         this.passengers = passengers;
     }
 
@@ -114,11 +127,25 @@ public class FavoriteOrder {
         this.petTransport = petTransport;
     }
 
-    public Set<Route> getLocations() {
+    public List<Route> getLocations() {
         return locations;
     }
 
-    public void setLocations(Set<Route> locations) {
+    public void setLocations(List<Route> locations) {
         this.locations = locations;
+    }
+
+    @Override
+    public String toString() {
+        return "FavoriteOrder{" +
+                "id=" + id +
+                ", favoriteName='" + favoriteName + '\'' +
+                ", vehicleType='" + vehicleType + '\'' +
+                ", passenger=" + passenger +
+                ", passengers=" + passengers +
+                ", babyTransport=" + babyTransport +
+                ", petTransport=" + petTransport +
+                ", locations=" + locations +
+                '}';
     }
 }

@@ -19,7 +19,6 @@ public class AllFavRidesFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Add adapter
         FavoriteRideAdapter adapter = new FavoriteRideAdapter(getActivity());
         setListAdapter(adapter);
@@ -29,7 +28,7 @@ public class AllFavRidesFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_all_rides, container, false);
+        return inflater.inflate(R.layout.all_fav_rides, container, false);
     }
 
 }

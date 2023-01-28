@@ -134,4 +134,18 @@ public class FavoriteOrder {
     public void setLocations(List<Route> locations) {
         this.locations = locations;
     }
+
+    @Override
+    public String toString() {
+        return "FavoriteOrder{" +
+                "id=" + id +
+                ", favoriteName='" + favoriteName + '\'' +
+                ", vehicleType='" + vehicleType + '\'' +
+                ", passenger=" + passenger +
+                ", passengers=" + passengers +
+                ", babyTransport=" + babyTransport +
+                ", petTransport=" + petTransport +
+                ", locations=" + locations +
+                '}';
+    }
 }

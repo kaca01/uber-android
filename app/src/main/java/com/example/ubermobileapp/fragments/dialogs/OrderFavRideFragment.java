@@ -70,6 +70,10 @@ public class OrderFavRideFragment extends DialogFragment {
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, options);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(aa);
+        for (int i = 0; i < options.length; i++) {
+            if(ride.getVehicleType().equals(options[i]))
+                spin.setSelection(i);
+        }
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -83,9 +87,13 @@ public class OrderFavRideFragment extends DialogFragment {
             }
         });
 
+        // set baby and pet transport
         CheckBox baby = (CheckBox) view.findViewById(R.id.baby_transport);
+        baby.setChecked(ride.isBabyTransport());
         CheckBox pet = (CheckBox) view.findViewById(R.id.pet_transport);
+        pet.setChecked(ride.isPetTransport());
 
+        // set time
         time = (TextView) view.findViewById(R.id.time_text);
         ImageButton timepicker = view.findViewById(R.id.timepicker);
         timepicker.setOnClickListener(new View.OnClickListener() {

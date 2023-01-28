@@ -73,7 +73,7 @@ public class FavoriteRideAdapter extends BaseAdapter {
     }
 
     private void delete(View view, Long rideId) {
-        Button button = (Button) view.findViewById(R.id.remove1);
+        Button button = (Button) view.findViewById(R.id.remove);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +95,7 @@ public class FavoriteRideAdapter extends BaseAdapter {
     }
 
     private void orderRide(View view, FavoriteOrder ride) {
-        Button orderBtn = (Button) view.findViewById(R.id.btnOrder1);
+        Button orderBtn = (Button) view.findViewById(R.id.order_ride);
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -210,7 +210,7 @@
             <Button
                 android:id="@+id/order_ride"
                 android:layout_width="120sp"
-                android:layout_height="60sp"
+                android:layout_height="wrap_content"
                 android:backgroundTint="?attr/colorPrimary"
                 android:focusable="false"
                 android:text="@string/order_ride"/>
@@ -223,7 +223,7 @@
             <Button
                 android:id="@+id/add_to_favorite"
                 android:layout_width="120sp"
-                android:layout_height="60sp"
+                android:layout_height="wrap_content"
                 android:backgroundTint="@color/favorites"
                 android:focusable="false"
                 android:text="ADD TO FAVORITE"/>

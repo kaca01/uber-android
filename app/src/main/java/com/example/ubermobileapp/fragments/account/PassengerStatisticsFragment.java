@@ -1,6 +1,7 @@
 package com.example.ubermobileapp.fragments.account;
 
 import android.annotation.SuppressLint;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -33,11 +34,12 @@ import java.util.List;
 public class PassengerStatisticsFragment extends Fragment {
     Spinner spinner;
 
+    // pie chart
     AnyChartView anyChart;
     Pie pie;
     List<DataEntry> dataEntries = new ArrayList<>();
 
-    List<String> days = new ArrayList<>();
+    private List<Ride> rides = new ArrayList<>();
 
     // rides statistic
     HashMap<String, Integer> numberOfRidesPerDay = new HashMap<>();
@@ -46,6 +48,10 @@ public class PassengerStatisticsFragment extends Fragment {
     // cost statistic
     HashMap<String, Double> totalCostPerDay = new HashMap<>();
     private double totalCost;
+
+    // distance statistic
+    HashMap<String, Double> totalDistancePerDay = new HashMap<>();
+    private double totalDistance;
 
     public PassengerStatisticsFragment() {
         // Required empty public constructor
@@ -74,10 +80,11 @@ public class PassengerStatisticsFragment extends Fragment {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
 
-        populateData();
         try {
+            populateRides();
             populateNumberOfRides();
             populateTotalCost();
+            populateTotalDistance();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -94,10 +101,9 @@ public class PassengerStatisticsFragment extends Fragment {
         }
 
         pie.data(dataEntries);
-        pie.title("Number of rides");
+        pie.title("Number of rides in the last 30 days");
         anyChart.clear();
         anyChart.setChart(pie);
-//        anyChart.refreshDrawableState();
     }
 
     private void displayCostStatistic() {
@@ -107,10 +113,21 @@ public class PassengerStatisticsFragment extends Fragment {
         }
 
         pie.data(dataEntries);
-        pie.title("Total cost");
+        pie.title("Total cost in the last 30 days");
         anyChart.clear();
         anyChart.setChart(pie);
-//        anyChart.refreshDrawableState();
+    }
+
+    private void displayDistanceStatistic() {
+        dataEntries.clear();
+        for (String key: totalDistancePerDay.keySet()) {
+            dataEntries.add(new ValueDataEntry(key, totalDistancePerDay.get(key)));
+        }
+
+        pie.data(dataEntries);
+        pie.title("Total distance in the last 30 days");
+        anyChart.clear();
+        anyChart.setChart(pie);
     }
 
     @SuppressLint("SetTextI18n")
@@ -133,8 +150,9 @@ public class PassengerStatisticsFragment extends Fragment {
                     displayCostStatistic();
                 }
                 else if(position==2){
-                    total.setText("25");
-                    average.setText("2.1");
+                    total.setText(String.format("%.02f", totalDistance));
+                    average.setText(String.format("%.02f", totalDistance/30));
+                    displayDistanceStatistic();
                 }
             }
 
@@ -149,61 +167,63 @@ public class PassengerStatisticsFragment extends Fragment {
         return new Date(new Date().getTime() - (1000L * 60 * 60 * 24 * 30));
     }
 
-    private List<Ride> getRides() {
+    private void populateRides() throws ParseException {
+        Date oneMonthAgo = getOneMonthAgoDate();
         long id = AuthService.getCurrentUser().getId();
-        return PassengerService.getRides(id);
-    }
+        List<Ride> allRides = PassengerService.getRides(id);
 
-    private void populateData() {
-        Date date = getOneMonthAgoDate();
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        for (Ride ride: allRides) {
+            if (!ride.getStatus().equals("FINISHED")) continue;
+            @SuppressLint("SimpleDateFormat")
+            Date startDate = new SimpleDateFormat("yyyy-MM-dd")
+                            .parse(ride.getStartTime().split("T")[0]);
+            assert startDate != null;
 
-        for (int i = 0; i < 30; i++) {
-            date = new Date(date.getTime() + (1000L * 60 * 60 * 24));
-            days.add(format.format(date));
+            if (startDate.after(oneMonthAgo)) {
+                rides.add(ride);
+            }
         }
     }
 
     private void populateNumberOfRides() throws ParseException {
-        List<Ride> rides = getRides();
-        Date oneMonthAgo = getOneMonthAgoDate();
-
         for (Ride ride: rides) {
-            if (!ride.getStatus().equals("FINISHED")) continue;
-
-            @SuppressLint("SimpleDateFormat")
-            Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(ride.getStartTime().split("T")[0]);
-            assert startDate != null;
-
-            if (startDate.after(oneMonthAgo)) {
-                numberOfRides++;
-                String key = ride.getStartTime().split("T")[0];
-                if (numberOfRidesPerDay.containsKey(key))
-                    numberOfRidesPerDay.put(key, numberOfRidesPerDay.get(key) + 1);
-                else numberOfRidesPerDay.put(key, 1);
-            }
+            numberOfRides++;
+            String key = ride.getStartTime().split("T")[0];
+            if (numberOfRidesPerDay.containsKey(key))
+                numberOfRidesPerDay.put(key, numberOfRidesPerDay.get(key) + 1);
+            else numberOfRidesPerDay.put(key, 1);
         }
     }
 
     private void populateTotalCost() throws ParseException {
-        List<Ride> rides = getRides();
-        Date oneMonthAgo = getOneMonthAgoDate();
-
         for (Ride ride: rides) {
-            if(!ride.getStatus().equals("FINISHED")) continue;
-
-            @SuppressLint("SimpleDateFormat")
-            Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(ride.getStartTime().split("T")[0]);
-            assert startDate != null;
-
-            if (startDate.after(oneMonthAgo)) {
-                totalCost += ride.getTotalCost();
-                String key = ride.getStartTime().split("T")[0];
-                if (totalCostPerDay.containsKey(key))
-                    totalCostPerDay.put(key, numberOfRidesPerDay.get(key) + ride.getTotalCost());
-                else totalCostPerDay.put(key, ride.getTotalCost());
-            }
+            totalCost += ride.getTotalCost();
+            String key = ride.getStartTime().split("T")[0];
+            if (totalCostPerDay.containsKey(key))
+                totalCostPerDay.put(key, numberOfRidesPerDay.get(key) + ride.getTotalCost());
+            else totalCostPerDay.put(key, ride.getTotalCost());
         }
+    }
+
+    private void populateTotalDistance() {
+        for (Ride ride: rides) {
+            float distance = calculateDistance(ride.getLocations().get(0).getDeparture(),
+                    ride.getLocations().get(0).getDestination());
+            totalDistance += distance;
+            String key = ride.getStartTime().split("T")[0];
+            if (totalDistancePerDay.containsKey(key))
+                totalDistancePerDay.put(key, totalDistancePerDay.get(key) + distance);
+            else totalDistancePerDay.put(key, (double) distance);
+        }
+    }
+
+    private float calculateDistance(com.example.ubermobileapp.models.pojo.ride.Location departure,
+                                    com.example.ubermobileapp.models.pojo.ride.Location destination)
+    {
+        float[] results = new float[1];
+        Location.distanceBetween(departure.getLatitude(), departure.getLongitude(),
+                                 destination.getLatitude(), destination.getLongitude(), results);
+
+        return results[0]/1000;
     }
 }

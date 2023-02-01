@@ -53,11 +53,33 @@
                     android:id="@+id/fragmentAccountOptions"
                     android:name="com.example.ubermobileapp.fragments.account.PassengerAccountOptionsFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="102sp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
                     tools:layout="@layout/fragment_passenger_account_options" />
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragmentContainerView8"
+                    android:name="com.example.ubermobileapp.fragments.account.PassengerStatisticsFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout="@layout/fragment_passenger_statistics" />
+
+                <TextView
+                    android:id="@+id/logOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20sp"
+                    android:textSize="17sp"
+                    android:textColor="@color/red"
+                    android:textStyle="bold"
+                    android:text="@string/log_out" />
+
             </LinearLayout>
+
+
         </ScrollView>
 
     </LinearLayout>

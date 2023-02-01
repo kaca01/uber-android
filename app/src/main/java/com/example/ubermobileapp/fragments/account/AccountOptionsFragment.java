@@ -17,14 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.activities.reports.DriverReportsActivity;
-import com.example.ubermobileapp.activities.reports.PassengerReportsActivity;
 import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.utils.AuthService;
 
 public class AccountOptionsFragment extends Fragment {
-    AlertDialog startDateDialog;
-    AlertDialog endDateDialog;
     AlertDialog alertDialog;
     private View view;
     int SELECT_IMAGE_CODE = 1;
@@ -35,7 +31,8 @@ public class AccountOptionsFragment extends Fragment {
     }
 
     public static AccountOptionsFragment newInstance(String param1, String param2) {
-        return new AccountOptionsFragment();
+        AccountOptionsFragment fragment = new AccountOptionsFragment();
+        return fragment;
     }
 
     @Override
@@ -57,69 +54,7 @@ public class AccountOptionsFragment extends Fragment {
             }
         });
 
-        CardView reports = view.findViewById(R.id.secondCard);
-        reports.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createStartDateDialog();
-            }
-        });
-
         return view;
-    }
-
-
-    protected void createStartDateDialog() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_start_date, null);
-
-        dialog.setView(newView)
-                .setTitle("Reports")
-                .setCancelable(false)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        createEndDateDialog();
-                    }
-                })
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        startDateDialog = dialog.create();
-        startDateDialog.show();
-    }
-
-
-    protected void createEndDateDialog() {
-        startDateDialog.cancel();
-        AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View newView = inflater.inflate(R.layout.fragment_end_date, null);
-
-        dialog.setView(newView)
-                .setTitle("Reports")
-                .setCancelable(false)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        if (AuthService.getCurrentUser().getRoles().get(0).getName().equals("ROLE_PASSENGER")){
-                            startActivity(new Intent(getActivity(), PassengerReportsActivity.class));
-                        }
-                        else{
-                            startActivity(new Intent(getActivity(), DriverReportsActivity.class));
-                        }
-                    }
-                })
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        endDateDialog = dialog.create();
-        endDateDialog.show();
     }
 
     protected void createEditDialog() {

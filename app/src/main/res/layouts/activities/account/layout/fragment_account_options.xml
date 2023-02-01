@@ -51,44 +51,6 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/secondCard"
-            android:layout_width="300sp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25sp"
-            app:cardCornerRadius="10sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/firstCard">
-
-            <LinearLayout
-                android:id="@+id/secondBtn"
-                android:layout_width="300sp"
-                android:layout_height="80sp"
-                android:background="?attr/carousel_firstView"
-                android:foreground="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/resumePic"
-                    android:layout_width="60sp"
-                    android:layout_height="60sp"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginTop="10sp"
-                    android:src="@mipmap/reports" />
-
-                <TextView
-                    android:id="@+id/editAccount"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/view_reports"
-                    android:textSize="17sp" />
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

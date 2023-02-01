@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.activities.favorite_ride.PassengerFavoriteRoutesActivity;
-import com.example.ubermobileapp.activities.reports.PassengerReportsActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.startup.UserLoginActivity;
 import com.example.ubermobileapp.models.passenger.CreditCard;
@@ -53,15 +52,15 @@ public class PassengerAccountOptionsFragment extends Fragment {
             }
         });
 
-        TextView logOut = view.findViewById(R.id.logOut);
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AuthService.logout();
-                Timer.setInstance();
-                startActivity(new Intent(getActivity(), UserLoginActivity.class));
-            }
-        });
+//        TextView logOut = view.findViewById(R.id.logOut);
+//        logOut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AuthService.logout();
+//                Timer.setInstance();
+//                startActivity(new Intent(getActivity(), UserLoginActivity.class));
+//            }
+//        });
 
         return view;
     }

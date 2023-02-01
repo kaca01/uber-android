@@ -36,8 +36,6 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private NotificationReceiver notificationReceiver;
     public static String SYNC_DATA = "SYNC_DATA";
-    private PendingIntent pendingIntent;
-    private AlarmManager manager;
     private static final String CHANNEL_ID = "Zero channel";
 
     @Override

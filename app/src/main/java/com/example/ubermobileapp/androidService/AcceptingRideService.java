@@ -22,7 +22,6 @@ public class AcceptingRideService extends Service {
 
     public static String RESULT_CODE = "RESULT_CODE";
 
-    ExecutorService executor = Executors.newSingleThreadExecutor(); // kreira samo jedan thread
     Handler handler = new Handler(Looper.getMainLooper());
 
     public AcceptingRideService() { }
@@ -30,59 +29,42 @@ public class AcceptingRideService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        /*
-         * Primer poziva asinhronog zadatka ako ima veze ka mrezi
-         * npr. sinhronizacija mail-ova fotografija, muzike dokumenata isl.
-         * */
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         User current = AuthService.getCurrentUser();
-//        if(ride != null){
-//            executor.execute(() -> {
-                        //Background work here
-//                        try {
-//                            Thread.sleep(1000);
-                System.out.println("treeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed");
-//                            Intent ints = new Intent(UserLoginActivity.SYNC_DATA);
-//                            int intsStatus = 1; // true
-//                            ints.putExtra(RESULT_CODE, intsStatus); // salje se u main activity rezultat
-//                            getApplicationContext().sendBroadcast(ints);
 
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Ride ride = RideService.getPendingRide(current.getId());
+                System.out.println("serviiiiiiiiiiiiiiiiiiiisssssssssssssssssssssssss");
+                System.out.println(ride);
+                if(ride != null) {
+                    System.out.println("radi radi radi");
+                    Intent ints = new Intent(DriverMainActivity.SYNC_DATA);
+                    int intsStatus = 1; // true
+                    ints.putExtra(RESULT_CODE, intsStatus); // salje se u main activity rezultat
+                    getApplicationContext().sendBroadcast(ints);
+                }
 
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Ride ride = RideService.getPendingRide(current.getId());
-                        System.out.println("serviiiiiiiiiiiiiiiiiiiisssssssssssssssssssssssss");
-                        System.out.println(ride);
-                        if(ride != null) {
-                            System.out.println("radi radi radi");
-                            Intent ints = new Intent(DriverMainActivity.SYNC_DATA);
-                            int intsStatus = 1; // true
-                            ints.putExtra(RESULT_CODE, intsStatus); // salje se u main activity rezultat
-                            getApplicationContext().sendBroadcast(ints);
-                        }
+                handler.postDelayed(this, 10000);
+            }
 
-                        handler.postDelayed(this, 5000);
-                    }
+        });
 
-                });
-//            });
-//        }
-
-        /*
-         * Ako iz nekog razloga operativni sistem ubije servis
-         * ne kreirati novi.
-         * */
+        // if for some reason the os kills the service, do not create a new one
         return START_NOT_STICKY;
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        System.out.println("biiiiiiiiiiiiiiiiiiiiiiiiiiiiiinddddddddddddddddddddd");
         return null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopSelf();
+        handler.removeCallbacksAndMessages(null);
     }
 }

@@ -25,6 +25,9 @@
         android:theme="@style/Theme.UberMobileApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <service android:name=".androidService.AcceptingRideService"/>
+        <receiver android:name=".activities.receiver.NotificationReceiver"/>
+
         <activity
             android:name=".activities.notification.AcceptanceRideActivity"
             android:exported="false">
@@ -39,6 +42,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -181,7 +185,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".androidService.NotificationService"/>
+
+        <service android:name=".androidService.NotificationService" />
 
         <meta-data
             android:name="preloaded_fonts"

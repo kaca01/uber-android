@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +26,8 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.activities.notification.AcceptanceRideActivity;
+import com.example.ubermobileapp.activities.receiver.NotificationReceiver;
+import com.example.ubermobileapp.androidService.AcceptingRideService;
 import com.example.ubermobileapp.androidService.NotificationService;
 import com.example.ubermobileapp.models.Ride;
 import com.example.ubermobileapp.models.enumeration.RideStatus;
@@ -106,8 +111,6 @@ public class UserLoginActivity extends AppCompatActivity {
                                 Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
                                 startActivity(intent);
-                                // add notification
-                                createDriverNotification();
                                 break;
                             }
                             case "ROLE_PASSENGER": {
@@ -151,30 +154,6 @@ public class UserLoginActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
-
-    private void createDriverNotification() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                UserLoginActivity.this, CHANNEL_ID);
-        builder.setContentIntent(createDriverNotificationIntent())
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("New ride")
-                .setContentText("You have a new notification!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(UserLoginActivity.this);
-        notificationManager.notify(1, builder.build());
-    }
-
-    private PendingIntent createDriverNotificationIntent() {
-        Intent notifyIntent = new Intent(this, AcceptanceRideActivity.class);
-        // Set the Activity to start in a new, empty task
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-        // Create the PendingIntent
-        return PendingIntent.getActivity(
-                this, 0, notifyIntent, PendingIntent.FLAG_IMMUTABLE);
     }
 
     private void createPassengerNotification() {

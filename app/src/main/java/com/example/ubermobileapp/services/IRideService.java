@@ -52,4 +52,8 @@ public interface IRideService {
     @Headers({"Content-Type:application/json"})
     @DELETE("ride/favorites/{id}")
     Call<Boolean> deleteFavorite(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @GET("ride/pending/{id}")
+    Call<Ride> getPendingRide(@Path("id") Long id);
 }

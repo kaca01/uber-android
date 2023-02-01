@@ -7,8 +7,12 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.MenuItem;
@@ -20,6 +24,9 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
+import com.example.ubermobileapp.activities.receiver.NotificationReceiver;
+import com.example.ubermobileapp.androidService.AcceptedRideService;
+import com.example.ubermobileapp.androidService.AcceptingRideService;
 import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
@@ -53,6 +60,11 @@ public class PassengerMainActivity extends AppCompatActivity {
     Fragment fragment2 = new CreateRide2Fragment();
     Fragment fragment3 = new CreateRide3Fragment();
 
+    // notifications
+    private NotificationReceiver notificationReceiver;
+    public static String ACCEPTED_DATA = "ACCEPTED_DATA";
+    private static final String CHANNEL_ID = "Zero channel";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +77,8 @@ public class PassengerMainActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancel_order);
         timer = findViewById(R.id.timer);
         timerCard = findViewById(R.id.timer_card);
+
+        createNotificationChannel();
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
@@ -117,6 +131,20 @@ public class PassengerMainActivity extends AppCompatActivity {
             //todo poslati api ponovo i setovati tajmer (najbolje izdvojiti u posebnu funkciju)
             findViewById(R.id.fragment_container).setVisibility(View.GONE);
         }
+
+        setUpReceiver();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setUpReceiver();
+
+        // send filter to receiver
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACCEPTED_DATA);
+        registerReceiver(notificationReceiver, filter);
     }
 
     public void createTimer(){
@@ -233,5 +261,23 @@ public class PassengerMainActivity extends AppCompatActivity {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notification channel";
+            String description = "Description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void setUpReceiver() {
+        notificationReceiver = new NotificationReceiver();
+        Intent alarmIntent = new Intent(this, AcceptedRideService.class);
+        startService(alarmIntent);
     }
 }

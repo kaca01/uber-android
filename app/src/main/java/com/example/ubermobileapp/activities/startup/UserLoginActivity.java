@@ -117,8 +117,6 @@ public class UserLoginActivity extends AppCompatActivity {
                                 Toast.makeText(UserLoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
                                 startActivity(intent);
-                                // check if necessary for receive notification
-                                isRideAccepted();
                                 break;
                             }
                             case "ROLE_ADMIN":
@@ -156,32 +154,32 @@ public class UserLoginActivity extends AppCompatActivity {
         }
     }
 
-    private void createPassengerNotification() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                UserLoginActivity.this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Notification")
-                .setContentText("Your ride accepted!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
+//    private void createPassengerNotification() {
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+//                UserLoginActivity.this, CHANNEL_ID)
+//                .setSmallIcon(R.drawable.ic_launcher_foreground)
+//                .setContentTitle("Notification")
+//                .setContentText("Your ride accepted!")
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                .setAutoCancel(true);
+//
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(UserLoginActivity.this);
+//        notificationManager.notify(1, builder.build());
+//    }
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(UserLoginActivity.this);
-        notificationManager.notify(1, builder.build());
-    }
-
-    private void isRideAccepted() {
-        for (Ride ride: Mockup.getRides()) {
-            for (Passenger passenger : ride.getPassengers()) {
-                if (passenger.getEmail().equals(AuthService.getCurrentUser().getEmail()) &&
-                        ride.getStatus() == RideStatus.ACCEPTED) {
-                    // notification for accepted ride
-                    createPassengerNotification();
-                    // notification for arrived vehicle
-                    startService(new Intent(this, NotificationService.class));
-                    // TODO prebaci se na passenger ride activity
-                    break;
-                }
-            }
-        }
-    }
+//    private void isRideAccepted() {
+//        for (Ride ride: Mockup.getRides()) {
+//            for (Passenger passenger : ride.getPassengers()) {
+//                if (passenger.getEmail().equals(AuthService.getCurrentUser().getEmail()) &&
+//                        ride.getStatus() == RideStatus.ACCEPTED) {
+//                    // notification for accepted ride
+//                    createPassengerNotification();
+//                    // notification for arrived vehicle
+//                    startService(new Intent(this, NotificationService.class));
+//                    // TODO prebaci se na passenger ride activity
+//                    break;
+//                }
+//            }
+//        }
+//    }
 }

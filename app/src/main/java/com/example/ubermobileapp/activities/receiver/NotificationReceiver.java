@@ -13,8 +13,10 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.activities.notification.AcceptanceRideActivity;
 import com.example.ubermobileapp.activities.startup.UserLoginActivity;
+import com.example.ubermobileapp.androidService.AcceptedRideService;
 import com.example.ubermobileapp.androidService.AcceptingRideService;
 
 public class NotificationReceiver extends BroadcastReceiver {
@@ -37,6 +39,20 @@ public class NotificationReceiver extends BroadcastReceiver {
                         .setSmallIcon(R.drawable.ic_launcher_foreground)
                         .setContentTitle("New ride")
                         .setContentText("You have a new notification!")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setAutoCancel(true);
+            }
+
+            notificationManager.notify(NOTIFICATION_ID, builder.build());
+        }
+
+        else if(intent.getAction().equals(PassengerMainActivity.ACCEPTED_DATA)) {
+            int resultCode = intent.getExtras().getInt(AcceptedRideService.RESULT_CODE);
+
+            if(resultCode == 1) {
+                builder.setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentTitle("Notification")
+                        .setContentText("You ride accepted!")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
             }

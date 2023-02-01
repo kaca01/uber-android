@@ -1,6 +1,7 @@
 package com.example.ubermobileapp.services;
 
 import com.example.ubermobileapp.models.pojo.GenericList;
+import com.example.ubermobileapp.models.pojo.communication.Rejection;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 
@@ -60,4 +61,8 @@ public interface IRideService {
     @Headers({"Content-Type:application/json"})
     @PUT("ride/{id}/accept")
     Call<Ride> acceptRide(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @PUT("ride/{id}/cancel")
+    Call<Ride> cancelRide(@Path("id") Long id, @Body Rejection rejection);
 }

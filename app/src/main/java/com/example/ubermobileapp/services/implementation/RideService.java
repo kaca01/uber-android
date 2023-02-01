@@ -4,6 +4,7 @@ import android.os.StrictMode;
 import android.content.Context;
 
 import com.example.ubermobileapp.models.pojo.GenericList;
+import com.example.ubermobileapp.models.pojo.communication.Rejection;
 import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.services.utils.ApiUtils;
@@ -165,6 +166,22 @@ public class RideService {
 
         Ride ride = new Ride();
         Call<Ride> rideResponseCall = ApiUtils.getRideService().acceptRide(id);
+        try{
+            Response<Ride> response = rideResponseCall.execute();
+            ride = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return ride;
+    }
+
+    public static Ride cancelRide(Long id, Rejection rejection){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Ride ride = new Ride();
+        Call<Ride> rideResponseCall = ApiUtils.getRideService().cancelRide(id, rejection);
         try{
             Response<Ride> response = rideResponseCall.execute();
             ride = response.body();

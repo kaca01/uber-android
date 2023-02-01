@@ -18,6 +18,11 @@ public class Rejection {
     public Rejection() {
     }
 
+    // request
+    public Rejection(String reason) {
+        this.reason = reason;
+    }
+
     /**
      *
      * @param reason

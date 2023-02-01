@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.androidService.AcceptingRideService;
+import com.example.ubermobileapp.models.pojo.communication.Rejection;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.RideService;
@@ -65,11 +66,19 @@ public class AcceptanceRideActivity extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast toast = Toast.makeText(view.getContext(), "Thank you for the feedback!", Toast.LENGTH_SHORT);
-                        toast.show();
-                        Intent intent = new Intent(AcceptanceRideActivity.this, DriverMainActivity.class);
-                        startActivity(intent);
-                        // TODO dodaj da se ovde voznja otkaze, tj da se nadje novi vozac
+                        // todo kada se otkaze nadji novog vozaca
+                        String reason = input.getText().toString().trim();
+                        if(reason.equals("")) {
+                            Toast toast = Toast.makeText(view.getContext(), "Input field is required!", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                        else {
+                            cancelRide(reason);
+                            Toast toast = Toast.makeText(view.getContext(), "Thank you for the feedback!", Toast.LENGTH_SHORT);
+                            toast.show();
+                            Intent intent = new Intent(AcceptanceRideActivity.this, DriverMainActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -123,8 +132,13 @@ public class AcceptanceRideActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
 
-        // todo promeni status
-        // todo proveri da li je voznja za sad, ako jeste prebaci ga na current ride
+    private void cancelRide(String reason) {
+        Ride ride = getRide();
+        Rejection rejection = new Rejection(reason);
+
+        Ride cancelRide = RideService.cancelRide(ride.getId(), rejection);
+        // todo nadji novog vozaca
     }
 }

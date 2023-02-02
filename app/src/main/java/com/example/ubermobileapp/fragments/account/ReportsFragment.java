@@ -21,6 +21,7 @@ import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Pie;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
+import com.example.ubermobileapp.services.implementation.DriverService;
 import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.utils.AuthService;
 
@@ -74,7 +75,12 @@ public class ReportsFragment extends Fragment {
         anyChart = view.findViewById(R.id.pieChart);
         pie = AnyChart.pie();
         spinner = (Spinner)view.findViewById(R.id.range_spinner);
-        String[] options = { "Rides", "Cost", "kms"};
+        String[] options;
+        if(AuthService.getCurrentUser().getRoles().get(0).getName().equals("ROLE_PASSENGER"))
+            options = new String[]{"Rides", "kms", "Cost"};
+        else{
+            options = new String[]{"Rides", "kms"};
+        }
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, options);
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -83,7 +89,8 @@ public class ReportsFragment extends Fragment {
         try {
             populateRides();
             populateNumberOfRides();
-            populateTotalCost();
+            if(AuthService.getCurrentUser().getRoles().get(0).getName().equals("ROLE_PASSENGER"))
+                populateTotalCost();
             populateTotalDistance();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -145,14 +152,14 @@ public class ReportsFragment extends Fragment {
                     displayRidesStatistic();
                 } else if (position==1)
                 {
-                    total.setText(String.format("%.02f", totalCost));
-                    average.setText(String.format("%.02f", totalCost/30));
-                    displayCostStatistic();
-                }
-                else if(position==2){
                     total.setText(String.format("%.02f", totalDistance));
                     average.setText(String.format("%.02f", totalDistance/30));
                     displayDistanceStatistic();
+                }
+                else if(position==2){
+                    total.setText(String.format("%.02f", totalCost));
+                    average.setText(String.format("%.02f", totalCost/30));
+                    displayCostStatistic();
                 }
             }
 
@@ -170,7 +177,13 @@ public class ReportsFragment extends Fragment {
     private void populateRides() throws ParseException {
         Date oneMonthAgo = getOneMonthAgoDate();
         long id = AuthService.getCurrentUser().getId();
-        List<Ride> allRides = PassengerService.getRides(id);
+        List<Ride> allRides;
+
+        if(AuthService.getCurrentUser().getRoles().get(0).getName().equals("ROLE_PASSENGER"))
+            allRides = PassengerService.getRides(id);
+        else{
+            allRides = DriverService.getRides(id);
+        }
 
         for (Ride ride: allRides) {
             if (!ride.getStatus().equals("FINISHED")) continue;

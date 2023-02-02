@@ -56,6 +56,13 @@
                     android:layout_gravity="center"
                     tools:layout="@layout/fragment_statistics" />
 
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragmentContainerView8"
+                    android:name="com.example.ubermobileapp.fragments.account.ReportsFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout="@layout/fragment_reports" />
+
                 <TextView
                     android:id="@+id/logOut"
                     android:layout_width="wrap_content"

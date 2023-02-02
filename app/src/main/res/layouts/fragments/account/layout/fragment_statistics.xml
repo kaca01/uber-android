@@ -7,13 +7,20 @@
     android:orientation="vertical"
     tools:context=".fragments.account.StatisticsFragment">
 
+    <View
+        android:id="@+id/line"
+        android:layout_width="250sp"
+        android:layout_height="1sp"
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="20sp"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/background_card"
         android:layout_width="300sp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="25sp"
-        app:cardBackgroundColor="?attr/carousel_firstView"
         app:cardCornerRadius="10sp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
@@ -30,8 +37,8 @@
                 android:id="@+id/layout_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_marginBottom="15sp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -43,9 +50,9 @@
                     android:layout_marginTop="8sp"/>
                 <Spinner
                     android:id="@+id/range_spinner"
-                    android:layout_width="match_parent"
+                    android:layout_width="135dp"
                     android:layout_marginTop="8sp"
-                    android:layout_marginStart="35sp"
+                    android:layout_marginStart="15sp"
                     android:textAlignment="textEnd"
                     android:layout_height="match_parent" />
             </LinearLayout>

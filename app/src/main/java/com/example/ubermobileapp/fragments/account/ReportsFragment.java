@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class PassengerStatisticsFragment extends Fragment {
+public class ReportsFragment extends Fragment {
     Spinner spinner;
 
     // pie chart
@@ -53,12 +53,12 @@ public class PassengerStatisticsFragment extends Fragment {
     HashMap<String, Double> totalDistancePerDay = new HashMap<>();
     private double totalDistance;
 
-    public PassengerStatisticsFragment() {
+    public ReportsFragment() {
         // Required empty public constructor
     }
 
-    public static PassengerStatisticsFragment newInstance(String param1, String param2) {
-        PassengerStatisticsFragment fragment = new PassengerStatisticsFragment();
+    public static ReportsFragment newInstance(String param1, String param2) {
+        ReportsFragment fragment = new ReportsFragment();
         return fragment;
     }
 
@@ -70,7 +70,7 @@ public class PassengerStatisticsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_passenger_statistics, container, false);
+        View view = inflater.inflate(R.layout.fragment_reports, container, false);
         anyChart = view.findViewById(R.id.pieChart);
         pie = AnyChart.pie();
         spinner = (Spinner)view.findViewById(R.id.range_spinner);

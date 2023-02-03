@@ -90,7 +90,7 @@ public class CreateRide3Fragment extends Fragment {
                 PassengerMainActivity.order.setPetTransport(pet.isChecked());
                 PassengerMainActivity.order.setFavoriteName(favoriteName);
                 isReservation();
-                DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 PassengerMainActivity.order.setScheduledTime(format.format(orderDate));
                 Toast toast = Toast.makeText(view.getContext(), "Your order has been sent! \nPlease wait... system is looking for the driver.", Toast.LENGTH_LONG);
                 toast.show();

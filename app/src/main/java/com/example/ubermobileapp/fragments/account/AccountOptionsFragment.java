@@ -17,7 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.models.pojo.user.Passenger;
 import com.example.ubermobileapp.models.pojo.user.User;
+import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.utils.AuthService;
 
 public class AccountOptionsFragment extends Fragment {
@@ -82,7 +84,7 @@ public class AccountOptionsFragment extends Fragment {
                 .setCancelable(false)
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
+                        updateAccountData(newView);
                     }
                 })
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -120,5 +122,27 @@ public class AccountOptionsFragment extends Fragment {
         if (requestCode==1) {
             if (data != null) imgGallery.setImageURI(data.getData());
         }
+    }
+
+    public void updateAccountData(View newView) {
+        Passenger passenger = new Passenger();
+        TextView name = newView.findViewById(R.id.inputName);
+        passenger.setName(name.getText().toString());
+        TextView surname = newView.findViewById(R.id.inputSurname);
+        passenger.setSurname(surname.getText().toString());
+        // TODO : work on this
+        passenger.setProfilePicture("");
+        TextView phone = newView.findViewById(R.id.inputPhone);
+        passenger.setTelephoneNumber(phone.getText().toString());
+        // TODO : verification?
+        TextView email = newView.findViewById(R.id.inputEmail);
+        passenger.setEmail(email.getText().toString());
+        TextView address = newView.findViewById(R.id.postalAdressInput);
+        passenger.setAddress(address.getText().toString());
+
+        Long id = AuthService.getCurrentUser().getId();
+
+        Passenger updatedPassenger = PassengerService.updatePassenger(passenger, id);
+        if (updatedPassenger != null) setEditAccountData(newView);
     }
 }

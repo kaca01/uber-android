@@ -95,7 +95,7 @@ public class AcceptanceRideActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         User current = AuthService.getCurrentUser();
-        return RideService.getDriverPendingRide(current.getId());
+        return RideService.getPendingRide(current.getId());
     }
 
     @SuppressLint("SetTextI18n")

@@ -1,13 +1,17 @@
 package com.example.ubermobileapp.fragments.account;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
@@ -52,6 +56,18 @@ public class AccountInformationFragment extends Fragment {
         User passenger = AuthService.getCurrentUser();
         TextView hi = view.findViewById(R.id.hi);
         hi.setText("Hello,\n" + passenger.getName());
+        getProfilePicture(view);
         return view;
+    }
+
+    public void getProfilePicture(View view) {
+        User currentUser = AuthService.getCurrentUser();
+
+        byte[] decodedString = Base64.decode(currentUser.getProfilePicture(), Base64.DEFAULT);
+        Bitmap bitMap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        ImageView profilePicture = view.findViewById(R.id.profilePicture);
+        profilePicture.setImageBitmap(bitMap);
+
     }
 }

@@ -134,9 +134,9 @@ public class AccountOptionsFragment extends Fragment {
         passenger.setProfilePicture("");
         TextView phone = newView.findViewById(R.id.inputPhone);
         passenger.setTelephoneNumber(phone.getText().toString());
-        // TODO : verification?
-        TextView email = newView.findViewById(R.id.inputEmail);
-        passenger.setEmail(email.getText().toString());
+//        // TODO : verification?
+//        TextView email = newView.findViewById(R.id.inputEmail);
+//        passenger.setEmail(email.getText().toString());
         TextView address = newView.findViewById(R.id.postalAdressInput);
         passenger.setAddress(address.getText().toString());
 

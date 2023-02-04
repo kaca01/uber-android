@@ -81,8 +81,6 @@ public class PassengerService {
 
         Passenger newPass = new Passenger();
         Call<Passenger> responseCall = ApiUtils.getPassengerService().updatePassenger(passenger, id);
-        System.out.println("RESPONSEEEEEEEEE");
-        System.out.println(responseCall);
         try{
             Response<Passenger> response = responseCall.execute();
             newPass = response.body();

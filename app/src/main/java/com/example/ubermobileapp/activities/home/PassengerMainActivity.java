@@ -15,6 +15,7 @@ import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -26,14 +27,15 @@ import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
 import com.example.ubermobileapp.activities.receiver.NotificationReceiver;
 import com.example.ubermobileapp.androidService.AcceptedRideService;
-import com.example.ubermobileapp.androidService.AcceptingRideService;
 import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
 import com.example.ubermobileapp.models.RideOrder;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
+import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.RideService;
+import com.example.ubermobileapp.services.utils.AuthService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -43,10 +45,6 @@ import java.util.Locale;
 
 
 public class PassengerMainActivity extends AppCompatActivity {
-
-    //momenta kad vozac klikne na start ride, prebaciti na passenger current activity
-    //todo ukoliko dodje notifikacija da je voznja na 20 minuta, onda je prikazati
-    //todo prikazati informacije o vozacu i vozilu -> logicki dodati sve isto kao za tajmer, dizajn preuzeti od katarine
 
     CardView back;
     AppCompatButton cancelButton;
@@ -69,6 +67,10 @@ public class PassengerMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_main);
+
+        checkForPendingRide();
+        checkForActiveRide();
+        checkForAcceptedRide();
 
         Locale locale = new Locale("sr", "RS");
         geocoder = new Geocoder(this, locale);
@@ -122,13 +124,13 @@ public class PassengerMainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast toast = Toast.makeText(view.getContext(), "Ride canceled!", Toast.LENGTH_LONG);
                 toast.show();
+                //todo update it in database
                 refreshActivity();
             }
         });
 
         if (currentFragment == -1) {
-            setCancelButtonAndTimerVisible();
-            //todo poslati api ponovo i setovati tajmer (najbolje izdvojiti u posebnu funkciju)
+            setCancelButtonVisible();
             findViewById(R.id.fragment_container).setVisibility(View.GONE);
         }
 
@@ -160,22 +162,81 @@ public class PassengerMainActivity extends AppCompatActivity {
             }
             public void onFinish() {
                 timer.setText("00:00:00");
-                Toast toast = Toast.makeText(getApplicationContext(), "The Driver has arrived at the location", Toast.LENGTH_LONG);
-                toast.show();
-                Intent intent = new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class);
-                startActivity(intent);
             }
         }.start();
+    }
+
+    public void checkForActiveRide(){
+        User user = AuthService.getCurrentUser();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean stop = false;
+                try {
+                    if (RideService.getPassengerActiveRide(user.getId()) != null){
+                        startActivity(new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class));
+                        overridePendingTransition(0,0);
+                        stop = true;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                if (!stop) {
+                    handler.postDelayed(this, 3000);
+                }
+            }
+        }, 3000);
+    }
+
+    public void checkForAcceptedRide(){
+        User user = AuthService.getCurrentUser();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean stop = false;
+                if (RideService.getAcceptedRide(user.getId()) != null){
+                    timerCard.setVisibility(View.VISIBLE);
+                    stop = true;
+                    setCancelButtonVisible();
+                    findViewById(R.id.fragment_container).setVisibility(View.GONE);
+                    createTimer();
+                }
+
+                if (!stop) {
+                    handler.postDelayed(this, 2000);
+                }
+            }
+        }, 2000);
+    }
+
+    public void checkForPendingRide(){
+        User user = AuthService.getCurrentUser();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean stop = false;
+                if (RideService.getPassengerPendingRide(user.getId()) != null){
+                    setCancelButtonVisible();
+                    findViewById(R.id.fragment_container).setVisibility(View.GONE);
+                    setBackButtonInvisible();
+                }
+
+                if (!stop) {
+                    handler.postDelayed(this, 2000);
+                }
+            }
+        }, 2000);
     }
 
     public static Ride insertRide() {
         currentFragment = -1;
 
         Ride ride = new Ride(order);
-        ride = RideService.insertRide(ride);
-        // todo call service api with order object as parameter
-
-        return new Ride();
+        return RideService.insertRide(ride);
     }
 
     public void changeToFirstFragment()
@@ -219,9 +280,8 @@ public class PassengerMainActivity extends AppCompatActivity {
         changeToFirstFragment();
     }
 
-    public void setCancelButtonAndTimerVisible(){
+    public void setCancelButtonVisible(){
         cancelButton.setVisibility(View.VISIBLE);
-        //timerCard.setVisibility(View.VISIBLE);
     }
 
     public void setBackButtonInvisible(){

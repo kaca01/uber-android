@@ -24,7 +24,6 @@ import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.AuthService;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -96,7 +95,7 @@ public class AcceptanceRideActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         User current = AuthService.getCurrentUser();
-        return RideService.getPendingRide(current.getId());
+        return RideService.getDriverPendingRide(current.getId());
     }
 
     @SuppressLint("SetTextI18n")

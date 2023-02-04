@@ -91,7 +91,11 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         User user = AuthService.getCurrentUser();
         if (user.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
-            ride = RideService.getPassengerActiveRide(user.getId());
+            try {
+                ride = RideService.getPassengerActiveRide(user.getId());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else {
             ride = RideService.getDriverActiveRide(user.getId());
         }
@@ -397,7 +401,11 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         passengers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createRideInfoDialog();
+                try {
+                    createRideInfoDialog();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -454,7 +462,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         }
     }
 
-    public void createRideInfoDialog() {
+    public void createRideInfoDialog() throws InterruptedException {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = this.getLayoutInflater();
@@ -492,7 +500,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     }
 
     @SuppressLint("SetTextI18n")
-    public String getRide(View view) {
+    public String getRide(View view) throws InterruptedException {
         User user = AuthService.getCurrentUser();
         Ride ride;
         String number;

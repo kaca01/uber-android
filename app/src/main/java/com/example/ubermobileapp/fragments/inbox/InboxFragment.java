@@ -1,8 +1,11 @@
 package com.example.ubermobileapp.fragments.inbox;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.fragment.app.ListFragment;
 
 import android.os.Handler;
@@ -35,6 +38,8 @@ public class InboxFragment extends ListFragment {
 
     List<Message> supportMessage = new ArrayList<>();
     DriveAdapter adapter;
+    private String filterBy = "";
+    private String search = "";
 
     public InboxFragment() {}
 
@@ -54,7 +59,31 @@ public class InboxFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_inbox, container, false);
+        View view = inflater.inflate(R.layout.fragment_inbox, container, false);
+        setOnClickListeners(view);
+        return view;
+    }
+
+    private void setOnClickListeners(View view) {
+        ActionMenuItemView filter = view.findViewById(R.id.filter);
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO : open here dialog
+                // TODO : set here filterBy
+                createFilterDialog();
+//                adapter.filter = "panic";
+//                filterBy = "panic";
+            }
+        });
+
+        ActionMenuItemView search = view.findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO : open here dialog
+            }
+        });
     }
 
     @Override
@@ -110,6 +139,9 @@ public class InboxFragment extends ListFragment {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        System.out.println("iddddddd");
+        System.out.println(id);
+
         if(id == R.id.search){
             Toast.makeText(getActivity(), "Search", Toast.LENGTH_SHORT).show();
         }
@@ -139,11 +171,38 @@ public class InboxFragment extends ListFragment {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                adapter = new DriveAdapter(getActivity());
+                // TODO : search
+                adapter = new DriveAdapter(getActivity(), filterBy, "");
+//                adapter.filter = filterBy;
                 setListAdapter(adapter);
 
                 handler.postDelayed(this, 3000);
             }
         });
+    }
+
+    void createFilterDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        List<String> items = new ArrayList<>();
+        items.add("PANIC");
+        items.add("RIDE");
+        items.add("NONE");
+        builder.setTitle("Filter by")
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setItems(R.array.filters_array, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        if (which == 0) filterBy = "none";
+                        else if(which == 1) filterBy = "ride";
+                        else if (which == 2) filterBy = "panic";
+                    }
+                });
+        builder.create();
+        builder.show();
     }
 }

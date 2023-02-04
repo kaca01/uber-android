@@ -14,6 +14,7 @@ import com.example.ubermobileapp.models.pojo.communication.MessageList;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.Passenger;
 import com.example.ubermobileapp.models.pojo.user.User;
+import com.example.ubermobileapp.services.implementation.DriverService;
 import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.ApiUtils;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -31,10 +33,12 @@ public class DriveAdapter extends BaseAdapter {
 
     private Activity activity;
     private HashMap<Long, List<Message>> messagesMap = new HashMap<>();
+//    public String filter = "";
+    public String search = "";
 
-    public DriveAdapter(Activity activity) {
+    public DriveAdapter(Activity activity, String filter, String search) {
         this.activity = activity;
-        getMessagesByRides();
+        getMessagesByRides(filter, search);
     }
 
     @Override
@@ -110,7 +114,7 @@ public class DriveAdapter extends BaseAdapter {
         return RideService.getRideDetails(id);
     }
 
-    private void getMessagesByRides(){
+    private void getMessagesByRides(String filter, String search){
         List<Message> allMessages = new ArrayList<>();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -125,13 +129,49 @@ public class DriveAdapter extends BaseAdapter {
         }
 
         for (Message m: allMessages){
+            String type = "";
+            System.out.println("FILTERRRR");
+            System.out.println(filter);
+            switch (filter) {
+                case "panic":
+                    type = MessageType.PANIC.toString();
+                    break;
+                case "ride":
+                    type = MessageType.RIDE.toString();
+                    break;
+                case "none":
+                    type = "";
+                    break;
+            }
+
             if (m.getType().equals(MessageType.SUPPORT.toString())) continue;
+
+            if (!type.equals("")) {
+                if (!m.getType().equals(type)) continue;
+            }
+
+            if (!search.equals("")) {
+                // TODO : this is not finished
+                checkIfMessageContains(search, m);
+            }
+
             if (messagesMap.containsKey(m.getRideId())) messagesMap.get(m.getRideId()).add(m);
             else {
                 messagesMap.put(m.getRideId(), new ArrayList<>());
                 messagesMap.get(m.getRideId()).add(m);
             }
         }
+    }
+
+    private void checkIfMessageContains(String search, Message m) {
+        User current = AuthService.getCurrentUser();
+        User reciever = PassengerService.getPassenger(m.getReceiverId());
+        if (reciever == null) {
+            reciever = DriverService.getDriver(m.getReceiverId());
+        }
+
+        System.out.println("FOUNDDDDDDDD");
+        System.out.println(reciever.toString());
     }
 
     public String getTitle(Ride ride)

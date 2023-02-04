@@ -14,15 +14,19 @@ import com.example.ubermobileapp.models.pojo.communication.MessageList;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.Passenger;
 import com.example.ubermobileapp.models.pojo.user.User;
+import com.example.ubermobileapp.services.implementation.DriverService;
 import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 
+import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -31,10 +35,12 @@ public class DriveAdapter extends BaseAdapter {
 
     private Activity activity;
     private HashMap<Long, List<Message>> messagesMap = new HashMap<>();
+//    public String filter = "";
+    public String search = "";
 
-    public DriveAdapter(Activity activity) {
+    public DriveAdapter(Activity activity, String filter, String search) {
         this.activity = activity;
-        getMessagesByRides();
+        getMessagesByRides(filter, search);
     }
 
     @Override
@@ -110,7 +116,7 @@ public class DriveAdapter extends BaseAdapter {
         return RideService.getRideDetails(id);
     }
 
-    private void getMessagesByRides(){
+    private void getMessagesByRides(String filter, String search){
         List<Message> allMessages = new ArrayList<>();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -125,13 +131,63 @@ public class DriveAdapter extends BaseAdapter {
         }
 
         for (Message m: allMessages){
+            String type = "";
+            switch (filter) {
+                case "panic":
+                    type = MessageType.PANIC.toString();
+                    break;
+                case "ride":
+                    type = MessageType.RIDE.toString();
+                    break;
+                case "none":
+                    type = "";
+                    break;
+            }
+
             if (m.getType().equals(MessageType.SUPPORT.toString())) continue;
+
+            if (!type.equals("")) {
+                if (!m.getType().equals(type)) continue;
+            }
+
+            if (!search.equals("")) {
+                // TODO : this is not finished
+                if (!checkIfMessageContains(search, m)) continue;
+            }
+
+
             if (messagesMap.containsKey(m.getRideId())) messagesMap.get(m.getRideId()).add(m);
             else {
                 messagesMap.put(m.getRideId(), new ArrayList<>());
                 messagesMap.get(m.getRideId()).add(m);
             }
         }
+    }
+
+    private boolean checkIfMessageContains(String search, Message m) {
+        User reciever = null;
+        User sender = null;
+        User current = AuthService.getCurrentUser();
+        if (m.getReceiverId() != current.getId()) {
+            reciever = PassengerService.getPassenger(m.getReceiverId());
+            if (reciever == null) {
+                reciever = DriverService.getDriver(m.getReceiverId());
+            }
+            if (reciever != null) {
+                if (reciever.getName().toLowerCase().contains(search.toLowerCase())) return true;
+                return reciever.getSurname().toLowerCase().contains(search.toLowerCase());
+            }
+        }
+        else if (m.getSenderId() != current.getId()) {
+            sender = DriverService.getDriver(m.getSenderId());
+            if (sender == null) sender = PassengerService.getPassenger(m.getSenderId());
+            if (sender != null) {
+                if (sender.getName().toLowerCase().contains(search.toLowerCase())) return true;
+                return sender.getSurname().toLowerCase().contains(search.toLowerCase());
+            }
+        }
+
+        return false;
     }
 
     public String getTitle(Ride ride)

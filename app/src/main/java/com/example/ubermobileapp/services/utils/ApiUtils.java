@@ -9,7 +9,7 @@ import com.example.ubermobileapp.services.IUserService;
 
 public class ApiUtils {
 
-    public static final String BASE_URL = "http://192.168.0.102:8081/api/";
+    public static final String BASE_URL = "http://192.168.8.251:8081/api/";
 
     public static IUserService getUserService(){
         return RetrofitClient.getClient(BASE_URL).create(IUserService.class);

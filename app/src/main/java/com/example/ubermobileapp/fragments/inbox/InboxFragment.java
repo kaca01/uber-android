@@ -1,8 +1,11 @@
 package com.example.ubermobileapp.fragments.inbox;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.fragment.app.ListFragment;
 
 import android.os.Handler;
@@ -11,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +39,8 @@ public class InboxFragment extends ListFragment {
 
     List<Message> supportMessage = new ArrayList<>();
     DriveAdapter adapter;
+    private String filterBy = "";
+    private String search = "";
 
     public InboxFragment() {}
 
@@ -54,7 +60,29 @@ public class InboxFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_inbox, container, false);
+        View view = inflater.inflate(R.layout.fragment_inbox, container, false);
+        setOnClickListeners(view);
+        return view;
+    }
+
+    private void setOnClickListeners(View view) {
+        ActionMenuItemView filter = view.findViewById(R.id.filter);
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createFilterDialog();
+//                adapter.filter = "panic";
+//                filterBy = "panic";
+            }
+        });
+
+        ActionMenuItemView search = view.findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createSearchDialog();
+            }
+        });
     }
 
     @Override
@@ -110,6 +138,9 @@ public class InboxFragment extends ListFragment {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        System.out.println("iddddddd");
+        System.out.println(id);
+
         if(id == R.id.search){
             Toast.makeText(getActivity(), "Search", Toast.LENGTH_SHORT).show();
         }
@@ -139,11 +170,57 @@ public class InboxFragment extends ListFragment {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                adapter = new DriveAdapter(getActivity());
+                // TODO : search
+                // TODO : bind search to input in fragment
+                adapter = new DriveAdapter(getActivity(), filterBy, search);
+//                adapter.filter = filterBy;
                 setListAdapter(adapter);
 
                 handler.postDelayed(this, 3000);
             }
         });
+    }
+
+    void createFilterDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Filter by")
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setItems(R.array.filters_array, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        if (which == 0) filterBy = "none";
+                        else if(which == 1) filterBy = "ride";
+                        else if (which == 2) filterBy = "panic";
+                    }
+                });
+        builder.create();
+        builder.show();
+    }
+
+    void createSearchDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_inbox_search, null);
+        builder.setTitle("Search by name")
+                .setView(newView)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditText s = newView.findViewById(R.id.search);
+                        search = s.getText().toString();
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.create();
+        builder.show();
     }
 }

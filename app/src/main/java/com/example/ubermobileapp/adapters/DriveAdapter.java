@@ -24,6 +24,7 @@ import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -172,16 +173,18 @@ public class DriveAdapter extends BaseAdapter {
             if (reciever == null) {
                 reciever = DriverService.getDriver(m.getReceiverId());
             }
-
-            if (reciever.getName().contains(search)) return true;
-            if (reciever.getSurname().contains(search)) return true;
+            if (reciever != null) {
+                if (reciever.getName().toLowerCase().contains(search.toLowerCase())) return true;
+                return reciever.getSurname().toLowerCase().contains(search.toLowerCase());
+            }
         }
         else if (m.getSenderId() != current.getId()) {
             sender = DriverService.getDriver(m.getSenderId());
             if (sender == null) sender = PassengerService.getPassenger(m.getSenderId());
-
-            if (sender.getName().contains(search)) return true;
-            if (sender.getSurname().contains(search)) return true;
+            if (sender != null) {
+                if (sender.getName().toLowerCase().contains(search.toLowerCase())) return true;
+                return sender.getSurname().toLowerCase().contains(search.toLowerCase());
+            }
         }
 
         return false;

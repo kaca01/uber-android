@@ -20,6 +20,7 @@ import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 
+import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -152,8 +153,9 @@ public class DriveAdapter extends BaseAdapter {
 
             if (!search.equals("")) {
                 // TODO : this is not finished
-                checkIfMessageContains(search, m);
+                if (!checkIfMessageContains(search, m)) continue;
             }
+
 
             if (messagesMap.containsKey(m.getRideId())) messagesMap.get(m.getRideId()).add(m);
             else {
@@ -163,15 +165,28 @@ public class DriveAdapter extends BaseAdapter {
         }
     }
 
-    private void checkIfMessageContains(String search, Message m) {
+    private boolean checkIfMessageContains(String search, Message m) {
+        User reciever = null;
+        User sender = null;
         User current = AuthService.getCurrentUser();
-        User reciever = PassengerService.getPassenger(m.getReceiverId());
-        if (reciever == null) {
-            reciever = DriverService.getDriver(m.getReceiverId());
+        if (m.getReceiverId() != current.getId()) {
+            reciever = PassengerService.getPassenger(m.getReceiverId());
+            if (reciever == null) {
+                reciever = DriverService.getDriver(m.getReceiverId());
+            }
+
+            if (reciever.getName().contains(search)) return true;
+            if (reciever.getSurname().contains(search)) return true;
+        }
+        else if (m.getSenderId() != current.getId()) {
+            sender = DriverService.getDriver(m.getSenderId());
+            if (sender == null) sender = PassengerService.getPassenger(m.getSenderId());
+
+            if (sender.getName().contains(search)) return true;
+            if (sender.getSurname().contains(search)) return true;
         }
 
-        System.out.println("FOUNDDDDDDDD");
-        System.out.println(reciever.toString());
+        return false;
     }
 
     public String getTitle(Ride ride)

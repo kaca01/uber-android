@@ -183,10 +183,6 @@ public class InboxFragment extends ListFragment {
 
     void createFilterDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        List<String> items = new ArrayList<>();
-        items.add("PANIC");
-        items.add("RIDE");
-        items.add("NONE");
         builder.setTitle("Filter by")
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

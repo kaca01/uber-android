@@ -35,7 +35,7 @@ public class AcceptingRideService extends Service {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                Ride ride = RideService.getDriverPendingRide(current.getId());
+                Ride ride = RideService.getPendingRide(current.getId());
                 System.out.println("serviiiiiiiiiiiiiiiiiiiisssssssssssssssssssssssss");
                 System.out.println(ride);
                 if (ride != null) {

@@ -162,12 +162,12 @@ public class RideService {
         return favoriteOrder;
     }
 
-    public static Ride getDriverPendingRide(Long id){
+    public static Ride getPendingRide(Long id){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         Ride ride = new Ride();
-        Call<Ride> rideResponseCall = ApiUtils.getRideService().getDriverPendingRide(id);
+        Call<Ride> rideResponseCall = ApiUtils.getRideService().getPendingRide(id);
         try{
             Response<Ride> response = rideResponseCall.execute();
             ride = response.body();

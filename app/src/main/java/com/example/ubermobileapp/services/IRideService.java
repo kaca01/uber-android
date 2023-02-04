@@ -57,7 +57,7 @@ public interface IRideService {
 
     @Headers({"Content-Type:application/json"})
     @GET("ride/pending/{id}/driver")
-    Call<Ride> getDriverPendingRide(@Path("id") Long id);
+    Call<Ride> getPendingRide(@Path("id") Long id);
 
     @Headers({"Content-Type:application/json"})
     @GET("ride/pending/{id}/passenger")

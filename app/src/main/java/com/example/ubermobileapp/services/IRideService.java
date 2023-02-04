@@ -61,6 +61,10 @@ public interface IRideService {
     Call<Ride> getPassengerPendingRide(@Path("id") Long id);
 
     @Headers({"Content-Type:application/json"})
+    @GET("ride/driver/{id}/accepted")
+    Call<Ride> getDriverAcceptedRide(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
     @PUT("ride/{id}/accept")
     Call<Ride> acceptRide(@Path("id") Long id);
 

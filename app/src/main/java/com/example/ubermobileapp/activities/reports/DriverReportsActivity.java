@@ -33,18 +33,18 @@ public class DriverReportsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.example.ubermobileapp.R.layout.activity_reports);
-        setNavigation();
-        setReportData(1, 2);
-        setChart(findViewById(R.id.lineChart), "Number of Rides Report");
-        setChart(findViewById(R.id.lineChart2), "Crossed km Report");
-
-        LineChart chart = (findViewById(R.id.lineChart3));
-        chart.setVisibility(View.GONE);
-        TextView moneySpent = (findViewById(R.id.spentMoney));
-        moneySpent.setVisibility(View.GONE);
-        TextView averageSpent = (findViewById(R.id.averageSpent));
-        averageSpent.setVisibility(View.GONE);
+//        setContentView(com.example.ubermobileapp.R.layout.activity_reports);
+//        setNavigation();
+//        setReportData(1, 2);
+//        setChart(findViewById(R.id.lineChart), "Number of Rides Report");
+//        setChart(findViewById(R.id.lineChart2), "Crossed km Report");
+//
+//        LineChart chart = (findViewById(R.id.lineChart3));
+//        chart.setVisibility(View.GONE);
+//        TextView moneySpent = (findViewById(R.id.spentMoney));
+//        moneySpent.setVisibility(View.GONE);
+//        TextView averageSpent = (findViewById(R.id.averageSpent));
+//        averageSpent.setVisibility(View.GONE);
     }
 
     @Override
@@ -125,23 +125,23 @@ public class DriverReportsActivity extends AppCompatActivity {
         Report firstReport = Mockup.getReport(firstReportID);
         Report secondReport = Mockup.getReport(secondReportID);
 
-        TextView numOfRides = findViewById(R.id.numOfRides);
-        TextView averageRides = findViewById(R.id.averageRides);
-        TextView crossed = findViewById(R.id.crossedkm);
-        TextView crossedAverage = findViewById(R.id.averageCrossed);
+//        TextView numOfRides = findViewById(R.id.numOfRides);
+//        TextView averageRides = findViewById(R.id.averageRides);
+//        TextView crossed = findViewById(R.id.crossedkm);
+//        TextView crossedAverage = findViewById(R.id.averageCrossed);
 
         String textTotal = "Total: ";
         String textAverage = "Average: ";
         String total, average;
-
-        total = textTotal + Double.toString(firstReport.getTotal());
-        numOfRides.setText(total);
-        average = textAverage + Double.toString(firstReport.getAverage());
-        averageRides.setText(average);
-
-        total = textTotal + Double.toString(secondReport.getTotal());
-        crossed.setText(total);
-        average = textAverage + Double.toString(secondReport.getAverage());
-        crossedAverage.setText(average);
+//
+//        total = textTotal + Double.toString(firstReport.getTotal());
+//        numOfRides.setText(total);
+//        average = textAverage + Double.toString(firstReport.getAverage());
+//        averageRides.setText(average);
+//
+//        total = textTotal + Double.toString(secondReport.getTotal());
+//        crossed.setText(total);
+//        average = textAverage + Double.toString(secondReport.getAverage());
+//        crossedAverage.setText(average);
     }
 }

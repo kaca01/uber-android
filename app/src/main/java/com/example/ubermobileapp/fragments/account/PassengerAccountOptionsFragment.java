@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.ubermobileapp.activities.account.DriverAccountActivity;
 import com.example.ubermobileapp.activities.favorite_ride.PassengerFavoriteRoutesActivity;
-import com.example.ubermobileapp.activities.reports.PassengerReportsActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.startup.UserLoginActivity;
 import com.example.ubermobileapp.androidService.AcceptingRideService;

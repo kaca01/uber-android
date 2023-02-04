@@ -43,6 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="17sp"
+                    android:layout_marginEnd="30px"
                     android:layout_gravity="center"
                     android:text="@string/check_favorite_locations" />
 

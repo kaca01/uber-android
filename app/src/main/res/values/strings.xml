@@ -121,4 +121,6 @@
     <string name="view_reports">View your ride reports</string>
     <string name="verification_code">Verification code</string>
     <string name="activation">Please visit your email address to activate your account!</string>
+    <string name="average">Average number:</string>
+    <string name="total">Total number:</string>
 </resources>

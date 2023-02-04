@@ -90,15 +90,22 @@ public class PassengerCurrentRideActivity extends AppCompatActivity {
             @Override
             public void run() {
                 boolean stop = false;
-                if (RideService.getRideDetails(ride.getId()).getStatus().equals(RideStatus.FINISHED.toString())){
-                    stop = true;
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment(String.valueOf(ride.getId()), true);
-                    leavingReviewFragment.show(fragmentManager, "leaving_review");
-                }
+                if ((ride != null) && (user != null)) {
+                    System.out.println("RIDEEEE");
+                    System.out.println(ride.toString());
+                    Ride rideDetails = RideService.getRideDetails(ride.getId());
+                    if (rideDetails != null) {
+                        if (rideDetails.getStatus().equals(RideStatus.FINISHED.toString())) {
+                            stop = true;
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment(String.valueOf(ride.getId()), true);
+                            leavingReviewFragment.show(fragmentManager, "leaving_review");
+                        }
 
-                if (!stop) {
-                    handler.postDelayed(this, 3000);
+                        if (!stop) {
+                            handler.postDelayed(this, 3000);
+                        }
+                    }
                 }
             }
         }, 3000);

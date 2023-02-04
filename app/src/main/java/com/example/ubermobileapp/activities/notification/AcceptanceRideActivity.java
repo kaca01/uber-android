@@ -66,7 +66,6 @@ public class AcceptanceRideActivity extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // todo kada se otkaze nadji novog vozaca
                         String reason = input.getText().toString().trim();
                         if(reason.equals("")) {
                             Toast toast = Toast.makeText(view.getContext(), "Input field is required!", Toast.LENGTH_SHORT);
@@ -139,6 +138,6 @@ public class AcceptanceRideActivity extends AppCompatActivity {
         Rejection rejection = new Rejection(reason);
 
         Ride cancelRide = RideService.cancelRide(ride.getId(), rejection);
-        // todo nadji novog vozaca
+        // todo posalji notifikaciju putniku da mu je voznja odbijena i da proba ponovo
     }
 }

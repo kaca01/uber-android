@@ -15,6 +15,7 @@ import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.StrictMode;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -33,13 +34,17 @@ import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
 import com.example.ubermobileapp.models.RideOrder;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
+import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.RideService;
+import com.example.ubermobileapp.services.utils.AuthService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
+
+import io.opencensus.common.ServerStatsFieldEnums;
 
 
 public class PassengerMainActivity extends AppCompatActivity {
@@ -60,10 +65,7 @@ public class PassengerMainActivity extends AppCompatActivity {
     Fragment fragment2 = new CreateRide2Fragment();
     Fragment fragment3 = new CreateRide3Fragment();
 
-    // notifications
-    private NotificationReceiver notificationReceiver;
     public static String ACCEPTED_DATA = "ACCEPTED_DATA";
-    private static final String CHANNEL_ID = "Zero channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +79,6 @@ public class PassengerMainActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancel_order);
         timer = findViewById(R.id.timer);
         timerCard = findViewById(R.id.timer_card);
-
-        createNotificationChannel();
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
@@ -131,20 +131,6 @@ public class PassengerMainActivity extends AppCompatActivity {
             //todo poslati api ponovo i setovati tajmer (najbolje izdvojiti u posebnu funkciju)
             findViewById(R.id.fragment_container).setVisibility(View.GONE);
         }
-
-        setUpReceiver();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        setUpReceiver();
-
-        // send filter to receiver
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(ACCEPTED_DATA);
-        registerReceiver(notificationReceiver, filter);
     }
 
     public void createTimer(){
@@ -159,6 +145,7 @@ public class PassengerMainActivity extends AppCompatActivity {
 
             }
             public void onFinish() {
+                // todo dodaj notifikaciju da je stiglo vozilo
                 timer.setText("00:00:00");
                 Toast toast = Toast.makeText(getApplicationContext(), "The Driver has arrived at the location", Toast.LENGTH_LONG);
                 toast.show();
@@ -261,23 +248,5 @@ public class PassengerMainActivity extends AppCompatActivity {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
-    }
-
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Notification channel";
-            String description = "Description";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    private void setUpReceiver() {
-        notificationReceiver = new NotificationReceiver();
-        Intent alarmIntent = new Intent(this, AcceptedRideService.class);
-        startService(alarmIntent);
     }
 }

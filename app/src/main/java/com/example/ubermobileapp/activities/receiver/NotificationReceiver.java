@@ -4,9 +4,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -15,7 +12,6 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.activities.notification.AcceptanceRideActivity;
-import com.example.ubermobileapp.activities.startup.UserLoginActivity;
 import com.example.ubermobileapp.androidService.AcceptedRideService;
 import com.example.ubermobileapp.androidService.AcceptingRideService;
 
@@ -48,15 +44,23 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         else if(intent.getAction().equals(PassengerMainActivity.ACCEPTED_DATA)) {
             int resultCode = intent.getExtras().getInt(AcceptedRideService.RESULT_CODE);
-
+            System.out.println("USLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             if(resultCode == 1) {
                 builder.setSmallIcon(R.drawable.ic_launcher_foreground)
                         .setContentTitle("Notification")
-                        .setContentText("You ride accepted!")
+                        .setContentText("You ride is accepted!")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setAutoCancel(true);
+                // kill service
+                context.stopService(new Intent(context, AcceptedRideService.class));
+            }
+            else if(resultCode == 0) {
+                builder.setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentTitle("Notification")
+                        .setContentText("You ride is rejected!\nTry to order a ride again.")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
             }
-
             notificationManager.notify(NOTIFICATION_ID, builder.build());
         }
 

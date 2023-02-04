@@ -1,12 +1,18 @@
 package com.example.ubermobileapp.fragments.home;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.StrictMode;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +27,12 @@ import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
+import com.example.ubermobileapp.activities.receiver.NotificationReceiver;
+import com.example.ubermobileapp.androidService.AcceptedRideService;
+import com.example.ubermobileapp.models.pojo.ride.Ride;
+import com.example.ubermobileapp.models.pojo.user.User;
+import com.example.ubermobileapp.services.implementation.RideService;
+import com.example.ubermobileapp.services.utils.AuthService;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,6 +48,9 @@ public class CreateRide3Fragment extends Fragment {
     int hourOrder;
     int minuteOrder;
     Date orderDate;
+
+    public static String ACCEPTED_DATA = "ACCEPTED_DATA";
+    private static final String CHANNEL_ID = "Zero channel";
 
     public CreateRide3Fragment() {}
 
@@ -106,6 +121,9 @@ public class CreateRide3Fragment extends Fragment {
 
                 PassengerMainActivity.insertRide(); //ova funkcija bi mogla da bude i ovdje
                 ((PassengerMainActivity)getActivity()).createTimer();
+                // notifications
+                createNotificationChannel();
+                setUpReceiver();
                 // todo da prepravlja timer na svakih 30 sekudni u novoj niti,
                 //  api za tajmer i provjera u posebnoj funkciji u okviru aktivnosti
             }
@@ -167,5 +185,37 @@ public class CreateRide3Fragment extends Fragment {
                 builder.show();
             }
         });
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notification channel";
+            String description = "Description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void setUpReceiver() {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        User current = AuthService.getCurrentUser();
+
+        // get order ride
+        Ride ride = RideService.getPendingRide(current.getId());
+
+        // notifications
+        NotificationReceiver notificationReceiver = new NotificationReceiver();
+        Intent serviceIntent = new Intent((PassengerMainActivity)getActivity(), AcceptedRideService.class);
+        serviceIntent.putExtra("rideId", Long.toString(ride.getId()));
+        getActivity().startService(serviceIntent);
+
+        // send filter to receiver
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACCEPTED_DATA);
+        getActivity().registerReceiver(notificationReceiver, filter);
     }
 }

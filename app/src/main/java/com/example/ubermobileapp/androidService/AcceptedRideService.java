@@ -7,7 +7,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.StrictMode;
 
-import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.User;
@@ -28,26 +27,35 @@ public class AcceptedRideService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        User current = AuthService.getCurrentUser();
+        String rideId = intent.getStringExtra("rideId");
 
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                Ride ride = RideService.getAcceptedRide(current.getId());
-                System.out.println("paseeeeeeeeeeeeeeeeeeengeeeeeeeeeeeeeeeeeeeeeeer");
-                System.out.println(ride);
-                if (ride != null) {
-                    System.out.println("radi radi radi");
-                    Intent ints = new Intent(PassengerMainActivity.ACCEPTED_DATA);
-                    int intsStatus = 1; // true
-                    ints.putExtra(RESULT_CODE, intsStatus); // salje se u main activity rezultat
-                    getApplicationContext().sendBroadcast(ints);
-                }
-                else
-                    handler.postDelayed(this, 10000);
+//                System.out.println("serviiiiiiiiiiiiiiiiiiiiiiiis");
+//                Ride pendingRide = RideService.getPendingRide(current.getId());
+//                System.out.println(pendingRide);
+//                if(pendingRide != null) {
+//                    Ride ride = RideService.getRideDetails(pendingRide.getId());
+                Ride ride = RideService.getRideDetails(Long.parseLong(rideId));
+                    System.out.println("paseeeeeeeeeeeeeeeeeeengeeeeeeeeeeeeeeeeeeeeeeer");
+                    System.out.println(ride);
+                    if (ride.getStatus().equals("ACCEPTED")) {
+                        System.out.println("prihvacenooooo");
+                        Intent ints = new Intent(PassengerMainActivity.ACCEPTED_DATA);
+                        int intsStatus = 1; // true
+                        ints.putExtra(RESULT_CODE, intsStatus); // salje se u main activity rezultat
+                        getApplicationContext().sendBroadcast(ints);
+                    }
+                    else if(ride.getStatus().equals("REJECTED")) {
+                        System.out.println("odbijenooooooooooo");
+                        Intent ints = new Intent(PassengerMainActivity.ACCEPTED_DATA);
+                        int intsStatus = 0; // false
+                        ints.putExtra(RESULT_CODE, intsStatus); // salje se u main activity rezultat
+                        getApplicationContext().sendBroadcast(ints);
+                    }
+//                }
+                handler.postDelayed(this, 10000);
             }
         });
 

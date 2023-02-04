@@ -85,15 +85,29 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private AlertDialog alertDialog;
     private Ride ride;
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         User user = AuthService.getCurrentUser();
         if (user.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
-            ride = RideService.getPassengerActiveRide(user.getId());
+            try {
+                ride = RideService.getPassengerActiveRide(user.getId());
+                setData();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else {
             ride = RideService.getDriverActiveRide(user.getId());
+
+            if (ride != null) {
+                setData();
+            }
+            else {
+                ride = RideService.getDriverAcceptedRide(user.getId());
+            }
         }
 
     }
@@ -289,6 +303,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
         if (location != null) {
             addMarker(location);
+            if (play) drawRoute();
         }
     }
 
@@ -319,11 +334,16 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     }
 
     public void drawRoute() {
-        // TODO : input here latitude and longitude
-        LatLng first_marker = new LatLng(45.23712230840664, 19.838562878762076);
+        com.example.ubermobileapp.models.pojo.ride.Location locationDeparture =
+                ride.getLocations().get(0).getDeparture();
+        com.example.ubermobileapp.models.pojo.ride.Location locationDestination =
+                ride.getLocations().get(0).getDestination();
+        LatLng first_marker = new LatLng(locationDeparture.getLatitude(),
+                                         locationDeparture.getLongitude());
         departure = map.addMarker(new MarkerOptions().position(first_marker).title("Departure"));
 
-        LatLng second_marker = new LatLng(45.238024236996345, 19.83914507943879);
+        LatLng second_marker = new LatLng(locationDestination.getLatitude(),
+                                          locationDestination.getLongitude());
         destination = map.addMarker(new MarkerOptions().position(second_marker).title("Destination"));
 
         LatLng zaragoza = first_marker;
@@ -397,7 +417,11 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         passengers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createRideInfoDialog();
+                try {
+                    createRideInfoDialog();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -407,8 +431,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 @Override
                 public void onClick(View view) {
                     if (!play) {
-                        System.out.println("rideee");
-                        System.out.println(ride);
                         ride = RideService.start(requireActivity().getApplicationContext(),
                                                  ride.getId(), "Current ride not found");
                         drawRoute();
@@ -454,7 +476,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         }
     }
 
-    public void createRideInfoDialog() {
+    public void createRideInfoDialog() throws InterruptedException {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = this.getLayoutInflater();
@@ -492,7 +514,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     }
 
     @SuppressLint("SetTextI18n")
-    public String getRide(View view) {
+    public String getRide(View view) throws InterruptedException {
         User user = AuthService.getCurrentUser();
         Ride ride;
         String number;
@@ -535,5 +557,24 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private void openDialNumber(String number) {
        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel: " + Uri.encode(number)));
        startActivity(intent);
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private void setData() {
+        if (ride != null) {
+            @SuppressLint("SimpleDateFormat")
+            Date startTime = null;
+            try {
+                startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                        .parse(ride.getStartTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            assert startTime != null;
+            long seconds = (new Date().getTime()-startTime.getTime())/1000;
+            timer.setSeconds((int)seconds);
+            timer.setRunning(true);
+            play = true;
+        }
     }
 }

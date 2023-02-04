@@ -31,6 +31,7 @@ import com.example.ubermobileapp.receiver.NotificationReceiver;
 import com.example.ubermobileapp.androidService.AcceptedRideService;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.User;
+import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.AuthService;
 
@@ -100,42 +101,40 @@ public class CreateRide3Fragment extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //validate or whatever
-                PassengerMainActivity.order.setBabyTransport(baby.isChecked());
-                PassengerMainActivity.order.setPetTransport(pet.isChecked());
-                PassengerMainActivity.order.setFavoriteName(favoriteName);
-                isReservation();
+                setOrderData();
+                checkIfReservation();
                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 PassengerMainActivity.order.setScheduledTime(format.format(orderDate));
-                Toast toast = Toast.makeText(view.getContext(), "Your order has been sent! \nPlease wait... system is looking for the driver.", Toast.LENGTH_LONG);
-                toast.show();
-
-                if (isReservation()) {
-                    // vratiti na pocetni ekran
-                    ((PassengerMainActivity)getActivity()).refreshActivity();
+                if (orderDate.getTime() - Calendar.getInstance().getTime().getTime() > 5*60*60*1000) {
+                    Toast.makeText(view.getContext(), "Reservation can be made within next 5 hours only!", Toast.LENGTH_LONG).show();
                     return;
                 }
+                Toast toast = Toast.makeText(view.getContext(), "Your order has been sent! \nPlease wait... system is looking for the driver.", Toast.LENGTH_LONG);
+                toast.show();
                 getView().setVisibility(View.GONE);
-                ((PassengerMainActivity)getActivity()).setCancelButtonAndTimerVisible();
+                ((PassengerMainActivity)getActivity()).setCancelButtonVisible();
                 ((PassengerMainActivity)getActivity()).setBackButtonInvisible();
 
-                PassengerMainActivity.insertRide(); //ova funkcija bi mogla da bude i ovdje
-                ((PassengerMainActivity)getActivity()).createTimer();
-                // notifications
+                PassengerMainActivity.insertRide();
+
                 createNotificationChannel();
                 setUpReceiver();
-                // todo da prepravlja timer na svakih 30 sekudni u novoj niti,
-                //  api za tajmer i provjera u posebnoj funkciji u okviru aktivnosti
             }
         });
 
         favoriteDialog(view);
     }
 
-    private boolean isReservation(){
+    private void setOrderData(){
+        PassengerMainActivity.order.setBabyTransport(baby.isChecked());
+        PassengerMainActivity.order.setPetTransport(pet.isChecked());
+        PassengerMainActivity.order.setFavoriteName(favoriteName);
+    }
+
+    private void checkIfReservation(){
         Date current = Calendar.getInstance().getTime();
         orderDate = new Date();
-        if(textView.getText().toString().equals("Order time: now")) return false;
+        if(textView.getText().toString().equals("Order time: now")) return;
 
         int returnVal = LocalTime.of(current.getHours(), current.getMinutes()).compareTo(LocalTime.of(hourOrder, minuteOrder));
         if (returnVal > 0) {
@@ -144,11 +143,6 @@ public class CreateRide3Fragment extends Fragment {
         }
         orderDate.setHours(hourOrder);
         orderDate.setMinutes(minuteOrder);
-
-        if (orderDate.getTime() - current.getTime() > 20*60*1000) {
-            return true;
-        }
-        return false;
     }
 
     private void favoriteDialog(View view){
@@ -170,8 +164,12 @@ public class CreateRide3Fragment extends Fragment {
                         favoriteName = input.getText().toString();
                         if (favoriteName.equals("")) Toast.makeText(view.getContext(),
                                 "Error: You must type a name!", Toast.LENGTH_SHORT).show();
-                        else
+                        else {
+                            setOrderData();
+                            FavoriteOrder favoriteOrder = new FavoriteOrder(PassengerMainActivity.order, AuthService.getCurrentUser());
+                            RideService.insertFavoriteLocation(favoriteOrder);
                             Toast.makeText(view.getContext(), "Successfully added!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 

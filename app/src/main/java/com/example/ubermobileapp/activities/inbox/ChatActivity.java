@@ -129,7 +129,11 @@ public class ChatActivity extends AppCompatActivity {
                     }
                     //ukoliko nije iz inboxa usao u chat
                     else {
-                        setRide();
+                        try {
+                            setRide();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         setReceiver();
                         messages = FindByRideIdAndOtherUser(ride, receiver);
                     }
@@ -181,7 +185,7 @@ public class ChatActivity extends AppCompatActivity {
         return filteredMessages;
     }
 
-    private void setRide(){
+    private void setRide() throws InterruptedException {
         if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
             ride = RideService.getPassengerActiveRide(sender.getId());
         }

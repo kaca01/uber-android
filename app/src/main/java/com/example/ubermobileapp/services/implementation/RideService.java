@@ -17,20 +17,22 @@ import retrofit2.Response;
 
 public class RideService {
 
-    public static Ride getPassengerActiveRide(Long id){
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        Ride ride = new Ride();
-        Call<Ride> rideResponseCall = ApiUtils.getRideService().getPassengerActiveRide(id);
-        try{
-            Response<Ride> response = rideResponseCall.execute();
-            ride = response.body();
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-
-        return ride;
+    public static Ride getPassengerActiveRide(Long id) throws InterruptedException {
+        final Ride[] ride = {new Ride()};
+        Thread thread = new Thread(){
+            public void run() {
+                Call<Ride> rideResponseCall = ApiUtils.getRideService().getPassengerActiveRide(id);
+                try {
+                    Response<Ride> response = rideResponseCall.execute();
+                    ride[0] = response.body();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+        thread.start();
+        thread.join();
+        return ride[0];
     }
 
     public static Ride getDriverActiveRide(Long id){
@@ -112,6 +114,22 @@ public class RideService {
         return ride;
     }
 
+    public static FavoriteOrder insertFavoriteLocation(FavoriteOrder order){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Call<FavoriteOrder> rideResponseCall = ApiUtils.getRideService().insertFavoriteOrder(order);
+        try{
+            Response<FavoriteOrder> response = rideResponseCall.execute();
+            order = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return order;
+    }
+
+
     public static List<FavoriteOrder> getFavorites() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -160,6 +178,40 @@ public class RideService {
         return ride;
     }
 
+    public static Ride getPassengerPendingRide(Long id) throws InterruptedException {
+        final Ride[] ride = {new Ride()};
+        Thread thread = new Thread(){
+            public void run() {
+                Call<Ride> rideResponseCall = ApiUtils.getRideService().getPassengerPendingRide(id);
+                try {
+                    Response<Ride> response = rideResponseCall.execute();
+                    ride[0] = response.body();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+        thread.start();
+        thread.join();
+        return ride[0];
+    }
+
+    public static Ride getDriverAcceptedRide(Long id){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Ride ride = new Ride();
+        Call<Ride> rideResponseCall = ApiUtils.getRideService().getDriverAcceptedRide(id);
+        try{
+            Response<Ride> response = rideResponseCall.execute();
+            ride = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return ride;
+    }
+
     public static Ride acceptRide(Long id){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -190,5 +242,39 @@ public class RideService {
         }
 
         return ride;
+    }
+
+    public static Ride cancelRideByPassenger(Long id){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Ride ride = new Ride();
+        Call<Ride> rideResponseCall = ApiUtils.getRideService().cancelRideByPassenger(id);
+        try{
+            Response<Ride> response = rideResponseCall.execute();
+            ride = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return ride;
+    }
+
+    public static Ride getAcceptedRide(Long id) throws InterruptedException {
+        final Ride[] ride = {new Ride()};
+        Thread thread = new Thread(){
+            public void run() {
+                Call<Ride> rideResponseCall = ApiUtils.getRideService().getAcceptedRide(id);
+                try {
+                    Response<Ride> response = rideResponseCall.execute();
+                    ride[0] = response.body();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+        thread.start();
+        thread.join();
+        return ride[0];
     }
 }

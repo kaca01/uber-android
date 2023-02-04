@@ -5,8 +5,6 @@ import com.example.ubermobileapp.models.pojo.communication.Rejection;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -42,6 +40,9 @@ public interface IRideService {
     @POST("ride")
     Call<Ride> insertRide(@Body Ride ride);
 
+    @POST("ride/favorites")
+    Call<FavoriteOrder> insertFavoriteOrder(@Body FavoriteOrder order);
+
     @Headers({"Content-Type:application/json"})
     @GET("ride/favorites")
     Call<GenericList<FavoriteOrder>> getFavorites();
@@ -55,8 +56,16 @@ public interface IRideService {
     Call<Boolean> deleteFavorite(@Path("id") Long id);
 
     @Headers({"Content-Type:application/json"})
-    @GET("ride/pending/{id}")
+    @GET("ride/pending/{id}/driver")
     Call<Ride> getPendingRide(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @GET("ride/pending/{id}/passenger")
+    Call<Ride> getPassengerPendingRide(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @GET("ride/driver/{id}/accepted")
+    Call<Ride> getDriverAcceptedRide(@Path("id") Long id);
 
     @Headers({"Content-Type:application/json"})
     @PUT("ride/{id}/accept")
@@ -65,4 +74,12 @@ public interface IRideService {
     @Headers({"Content-Type:application/json"})
     @PUT("ride/{id}/cancel")
     Call<Ride> cancelRide(@Path("id") Long id, @Body Rejection rejection);
+
+    @Headers({"Content-Type:application/json"})
+    @PUT("ride/{id}/withdraw")
+    Call<Ride> cancelRideByPassenger(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @GET("ride/accepted/{id}")
+    Call<Ride> getAcceptedRide(@Path("id") Long id);
 }

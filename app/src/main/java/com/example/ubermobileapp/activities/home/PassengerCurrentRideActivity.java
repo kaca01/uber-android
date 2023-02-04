@@ -2,6 +2,7 @@ package com.example.ubermobileapp.activities.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 
 import com.example.ubermobileapp.R;
@@ -16,12 +18,19 @@ import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
 import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.receiver.NotificationReceiver;
+import com.example.ubermobileapp.fragments.dialogs.LeavingReviewFragment;
+import com.example.ubermobileapp.models.enumeration.RideStatus;
+import com.example.ubermobileapp.models.pojo.ride.Ride;
+import com.example.ubermobileapp.models.pojo.user.User;
+import com.example.ubermobileapp.services.implementation.RideService;
+import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class PassengerCurrentRideActivity extends AppCompatActivity {
     private final Timer timer = Timer.getInstance();
+    Ride ride;
 
     // notifications
     private NotificationReceiver notificationReceiver;
@@ -32,10 +41,15 @@ public class PassengerCurrentRideActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_current_ride);
-
+        try {
+            ride = RideService.getPassengerActiveRide(AuthService.getCurrentUser().getId());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         timer.setTextView(findViewById(R.id.timer));
 
         createNotificationChannel();
+        checkIfRideEnded();
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
@@ -77,7 +91,34 @@ public class PassengerCurrentRideActivity extends AppCompatActivity {
                     (savedInstanceState
                             .getBoolean("wasRunning"));
         }
-        timer.run();    }
+        timer.run();
+    }
+
+    public void checkIfRideEnded(){
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean stop = false;
+                Ride thisRide = RideService.getRideDetails(ride.getId());
+                if(thisRide != null) {
+                    if (thisRide.getStatus().equals(RideStatus.FINISHED.toString())) {
+                        stop = true;
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment(String.valueOf(ride.getId()), true);
+                        try {
+                            leavingReviewFragment.show(fragmentManager, "leaving_review");
+                        }catch (IllegalStateException ignored) {
+                            // There's no way to avoid getting this if saveInstanceState has already been called.
+                        }
+                    }
+                }
+                if (!stop) {
+                    handler.postDelayed(this, 3000);
+                }
+            }
+        }, 3000);
+    }
 
     @Override
     public void onBackPressed() {
@@ -90,6 +131,12 @@ public class PassengerCurrentRideActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(
             Bundle savedInstanceState) {
+        Ride thisRide = RideService.getRideDetails(ride.getId());
+        if(thisRide != null) {
+            if (thisRide.getStatus().equals(RideStatus.FINISHED.toString())) {
+                return;
+            }
+        }
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState
                 .putInt("seconds", timer.getSeconds());

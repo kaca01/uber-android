@@ -92,9 +92,12 @@ public class CreateRide3Fragment extends Fragment {
                 checkIfReservation();
                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 PassengerMainActivity.order.setScheduledTime(format.format(orderDate));
+                if (orderDate.getTime() - Calendar.getInstance().getTime().getTime() > 5*60*60*1000) {
+                    Toast.makeText(view.getContext(), "Reservation can be made within next 5 hours only!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Toast toast = Toast.makeText(view.getContext(), "Your order has been sent! \nPlease wait... system is looking for the driver.", Toast.LENGTH_LONG);
                 toast.show();
-                checkIfReservation();
                 getView().setVisibility(View.GONE);
                 ((PassengerMainActivity)getActivity()).setCancelButtonVisible();
                 ((PassengerMainActivity)getActivity()).setBackButtonInvisible();
@@ -124,9 +127,6 @@ public class CreateRide3Fragment extends Fragment {
         }
         orderDate.setHours(hourOrder);
         orderDate.setMinutes(minuteOrder);
-
-        if (orderDate.getTime() - current.getTime() > 20*60*1000) {
-        }
     }
 
     private void favoriteDialog(View view){

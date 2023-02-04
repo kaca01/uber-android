@@ -2,28 +2,43 @@ package com.example.ubermobileapp.activities.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
 import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
+import com.example.ubermobileapp.fragments.dialogs.LeavingReviewFragment;
+import com.example.ubermobileapp.models.enumeration.RideStatus;
+import com.example.ubermobileapp.models.pojo.ride.Ride;
+import com.example.ubermobileapp.models.pojo.user.User;
+import com.example.ubermobileapp.services.implementation.RideService;
+import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class PassengerCurrentRideActivity extends AppCompatActivity {
     private final Timer timer = Timer.getInstance();
+    Ride ride;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_current_ride);
-
+        try {
+            ride = RideService.getPassengerActiveRide(AuthService.getCurrentUser().getId());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         timer.setTextView(findViewById(R.id.timer));
+
+        checkIfRideEnded();
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);
@@ -65,7 +80,29 @@ public class PassengerCurrentRideActivity extends AppCompatActivity {
                     (savedInstanceState
                             .getBoolean("wasRunning"));
         }
-        timer.run();    }
+        timer.run();
+    }
+
+    public void checkIfRideEnded(){
+        User user = AuthService.getCurrentUser();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean stop = false;
+                if (RideService.getRideDetails(ride.getId()).getStatus().equals(RideStatus.FINISHED.toString())){
+                    stop = true;
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment(String.valueOf(ride.getId()), true);
+                    leavingReviewFragment.show(fragmentManager, "leaving_review");
+                }
+
+                if (!stop) {
+                    handler.postDelayed(this, 3000);
+                }
+            }
+        }, 3000);
+    }
 
     @Override
     public void onBackPressed() {

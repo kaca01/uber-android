@@ -114,6 +114,22 @@ public class RideService {
         return ride;
     }
 
+    public static FavoriteOrder insertFavoriteLocation(FavoriteOrder order){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Call<FavoriteOrder> rideResponseCall = ApiUtils.getRideService().insertFavoriteOrder(order);
+        try{
+            Response<FavoriteOrder> response = rideResponseCall.execute();
+            order = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return order;
+    }
+
+
     public static List<FavoriteOrder> getFavorites() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);

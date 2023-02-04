@@ -40,6 +40,9 @@ public interface IRideService {
     @POST("ride")
     Call<Ride> insertRide(@Body Ride ride);
 
+    @POST("ride/favorites")
+    Call<FavoriteOrder> insertFavoriteOrder(@Body FavoriteOrder order);
+
     @Headers({"Content-Type:application/json"})
     @GET("ride/favorites")
     Call<GenericList<FavoriteOrder>> getFavorites();

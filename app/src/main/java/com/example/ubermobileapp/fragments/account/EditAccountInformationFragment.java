@@ -11,9 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
+import com.example.ubermobileapp.models.pojo.user.Passenger;
+import com.example.ubermobileapp.services.implementation.PassengerService;
+import com.example.ubermobileapp.services.utils.ApiUtils;
+import com.example.ubermobileapp.services.utils.AuthService;
 
 /**
  * A simple {@link Fragment} subclass.

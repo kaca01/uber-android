@@ -1,14 +1,13 @@
 package com.example.ubermobileapp.services.implementation;
 
 import android.os.StrictMode;
-import android.widget.Toast;
 
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.ride.RideList;
 import com.example.ubermobileapp.models.pojo.user.Passenger;
 
+import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.utils.ApiUtils;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONObject;
 
@@ -74,5 +73,20 @@ public class PassengerService {
         }
 
         return passenger;
+    }
+
+    public static Passenger updatePassenger(Passenger passenger, Long id){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Passenger newPass = new Passenger();
+        Call<Passenger> responseCall = ApiUtils.getPassengerService().updatePassenger(passenger, id);
+        try{
+            Response<Passenger> response = responseCall.execute();
+            newPass = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return newPass;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.ubermobileapp.activities.receiver;
+package com.example.ubermobileapp.receiver;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -10,6 +10,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
+import com.example.ubermobileapp.activities.home.PassengerCurrentRideActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.activities.notification.AcceptanceRideActivity;
 import com.example.ubermobileapp.androidService.AcceptedRideService;
@@ -44,18 +45,18 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         else if(intent.getAction().equals(PassengerMainActivity.ACCEPTED_DATA)) {
             int resultCode = intent.getExtras().getInt(AcceptedRideService.RESULT_CODE);
-            System.out.println("USLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+
             if(resultCode == 1) {
                 builder.setSmallIcon(R.drawable.ic_launcher_foreground)
                         .setContentTitle("Notification")
-                        .setContentText("You ride is accepted!")
+                        .setContentText("Your ride is accepted!")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
             }
             else if(resultCode == 0) {
                 builder.setSmallIcon(R.drawable.ic_launcher_foreground)
                         .setContentTitle("Notification")
-                        .setContentText("You ride is rejected!\nTry to order a ride again.")
+                        .setContentText("Sorry, Your ride is rejected!\nTry to order a ride again.")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
             }
@@ -64,6 +65,14 @@ public class NotificationReceiver extends BroadcastReceiver {
             notificationManager.notify(NOTIFICATION_ID, builder.build());
         }
 
+        else if(intent.getAction().equals(PassengerCurrentRideActivity.VEHICLE_DATA))
+            builder.setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setContentTitle("Started ride")
+                    .setContentText("Your ride has started!")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setAutoCancel(true);
+
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
 
     private PendingIntent createDriverNotificationIntent(Context context) {

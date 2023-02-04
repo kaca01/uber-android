@@ -28,7 +28,7 @@
         <service android:name=".androidService.AcceptedRideService"/>
         <service android:name=".androidService.AcceptingRideService" />
 
-        <receiver android:name=".activities.receiver.NotificationReceiver" />
+        <receiver android:name=".receiver.NotificationReceiver" />
 
         <activity
             android:name=".activities.notification.AcceptanceRideActivity"

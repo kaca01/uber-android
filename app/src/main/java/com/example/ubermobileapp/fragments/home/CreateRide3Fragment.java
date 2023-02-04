@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
-import com.example.ubermobileapp.activities.receiver.NotificationReceiver;
+import com.example.ubermobileapp.receiver.NotificationReceiver;
 import com.example.ubermobileapp.androidService.AcceptedRideService;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.User;

@@ -7,15 +7,10 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.location.Geocoder;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.StrictMode;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -25,26 +20,19 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
-import com.example.ubermobileapp.activities.receiver.NotificationReceiver;
-import com.example.ubermobileapp.androidService.AcceptedRideService;
-import com.example.ubermobileapp.androidService.AcceptingRideService;
 import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
 import com.example.ubermobileapp.models.RideOrder;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
-import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.RideService;
-import com.example.ubermobileapp.services.utils.AuthService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
-
-import io.opencensus.common.ServerStatsFieldEnums;
 
 
 public class PassengerMainActivity extends AppCompatActivity {

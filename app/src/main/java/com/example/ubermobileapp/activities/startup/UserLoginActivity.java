@@ -1,20 +1,12 @@
 package com.example.ubermobileapp.activities.startup;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
-import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -25,19 +17,11 @@ import android.widget.Toast;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
-import com.example.ubermobileapp.activities.notification.AcceptanceRideActivity;
-import com.example.ubermobileapp.activities.receiver.NotificationReceiver;
-import com.example.ubermobileapp.androidService.AcceptingRideService;
-import com.example.ubermobileapp.androidService.NotificationService;
-import com.example.ubermobileapp.models.Ride;
-import com.example.ubermobileapp.models.enumeration.RideStatus;
-import com.example.ubermobileapp.models.passenger.Passenger;
 import com.example.ubermobileapp.models.pojo.login.LoginRequest;
 import com.example.ubermobileapp.models.pojo.login.LoginResponse;
 import com.example.ubermobileapp.models.pojo.user.Role;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
-import com.example.ubermobileapp.tools.Mockup;
 
 import org.json.JSONException;
 

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,8 +70,6 @@ public class InboxFragment extends ListFragment {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO : open here dialog
-                // TODO : set here filterBy
                 createFilterDialog();
 //                adapter.filter = "panic";
 //                filterBy = "panic";
@@ -81,7 +80,7 @@ public class InboxFragment extends ListFragment {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO : open here dialog
+                createSearchDialog();
             }
         });
     }
@@ -172,7 +171,8 @@ public class InboxFragment extends ListFragment {
             @Override
             public void run() {
                 // TODO : search
-                adapter = new DriveAdapter(getActivity(), filterBy, "");
+                // TODO : bind search to input in fragment
+                adapter = new DriveAdapter(getActivity(), filterBy, search);
 //                adapter.filter = filterBy;
                 setListAdapter(adapter);
 
@@ -196,6 +196,28 @@ public class InboxFragment extends ListFragment {
                         if (which == 0) filterBy = "none";
                         else if(which == 1) filterBy = "ride";
                         else if (which == 2) filterBy = "panic";
+                    }
+                });
+        builder.create();
+        builder.show();
+    }
+
+    void createSearchDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_inbox_search, null);
+        builder.setTitle("Search by name")
+                .setView(newView)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditText s = newView.findViewById(R.id.search);
+                        search = s.getText().toString();
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
                     }
                 });
         builder.create();

@@ -131,8 +131,6 @@ public class DriveAdapter extends BaseAdapter {
 
         for (Message m: allMessages){
             String type = "";
-            System.out.println("FILTERRRR");
-            System.out.println(filter);
             switch (filter) {
                 case "panic":
                     type = MessageType.PANIC.toString();

@@ -10,9 +10,8 @@
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginStart="50sp"
+        android:layout_marginStart="20sp"
         android:layout_marginTop="20sp"
-        android:inputType="text"
-        android:text="Search by name" />
+        android:ems="10"
+        android:inputType="text" />
 </FrameLayout>

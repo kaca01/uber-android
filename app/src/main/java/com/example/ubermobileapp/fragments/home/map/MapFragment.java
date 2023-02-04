@@ -101,11 +101,12 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             }
         } else {
             ride = RideService.getDriverActiveRide(user.getId());
+
             if (ride != null) {
                 setData();
             }
             else {
-                ride = RideService.getDriverAcceptedRide(user.getId());;
+                ride = RideService.getDriverAcceptedRide(user.getId());
             }
         }
 

@@ -94,25 +94,15 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         if (user.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
             try {
                 ride = RideService.getPassengerActiveRide(user.getId());
+                setData();
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         } else {
             ride = RideService.getDriverActiveRide(user.getId());
             if (ride != null) {
-                @SuppressLint("SimpleDateFormat")
-                Date startTime = null;
-                try {
-                    startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                            .parse(ride.getStartTime());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                assert startTime != null;
-                long seconds = (new Date().getTime()-startTime.getTime())/1000;
-                timer.setSeconds((int)seconds);
-                timer.setRunning(true);
-                play = true;
+                setData();
             }
             else {
                 ride = RideService.getDriverAcceptedRide(user.getId());;
@@ -566,5 +556,24 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private void openDialNumber(String number) {
        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel: " + Uri.encode(number)));
        startActivity(intent);
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private void setData() {
+        if (ride != null) {
+            @SuppressLint("SimpleDateFormat")
+            Date startTime = null;
+            try {
+                startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                        .parse(ride.getStartTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            assert startTime != null;
+            long seconds = (new Date().getTime()-startTime.getTime())/1000;
+            timer.setSeconds((int)seconds);
+            timer.setRunning(true);
+            play = true;
+        }
     }
 }

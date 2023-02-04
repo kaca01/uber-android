@@ -36,7 +36,12 @@ public class AcceptedRideService extends Service {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                Ride ride = RideService.getAcceptedRide(current.getId());
+                Ride ride = null;
+                try {
+                    ride = RideService.getAcceptedRide(current.getId());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("paseeeeeeeeeeeeeeeeeeengeeeeeeeeeeeeeeeeeeeeeeer");
                 System.out.println(ride);
                 if (ride != null) {

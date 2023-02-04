@@ -175,9 +175,9 @@ public class PassengerMainActivity extends AppCompatActivity {
                 boolean stop = false;
                 try {
                     if (RideService.getPassengerActiveRide(user.getId()) != null){
+                        stop = true;
                         startActivity(new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class));
                         overridePendingTransition(0,0);
-                        stop = true;
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -197,12 +197,16 @@ public class PassengerMainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 boolean stop = false;
-                if (RideService.getAcceptedRide(user.getId()) != null){
-                    timerCard.setVisibility(View.VISIBLE);
-                    stop = true;
-                    setCancelButtonVisible();
-                    findViewById(R.id.fragment_container).setVisibility(View.GONE);
-                    createTimer();
+                try {
+                    if (RideService.getAcceptedRide(user.getId()) != null){
+                        timerCard.setVisibility(View.VISIBLE);
+                        stop = true;
+                        setCancelButtonVisible();
+                        findViewById(R.id.fragment_container).setVisibility(View.GONE);
+                        createTimer();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
                 if (!stop) {
@@ -219,10 +223,14 @@ public class PassengerMainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 boolean stop = false;
-                if (RideService.getPassengerPendingRide(user.getId()) != null){
-                    setCancelButtonVisible();
-                    findViewById(R.id.fragment_container).setVisibility(View.GONE);
-                    setBackButtonInvisible();
+                try {
+                    if (RideService.getPassengerPendingRide(user.getId()) != null){
+                        setCancelButtonVisible();
+                        findViewById(R.id.fragment_container).setVisibility(View.GONE);
+                        setBackButtonInvisible();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
                 if (!stop) {

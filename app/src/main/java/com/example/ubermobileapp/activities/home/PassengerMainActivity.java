@@ -173,12 +173,16 @@ public class PassengerMainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 boolean stop = false;
+                Ride activeRide;
                 try {
-                    if (RideService.getPassengerActiveRide(user.getId()) != null){
-                        stop = true;
-                        refreshActivity();
-                        startActivity(new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class));
-                        overridePendingTransition(0,0);
+                    if (user != null){
+                        activeRide = RideService.getPassengerActiveRide(user.getId());
+                        if ( activeRide != null){
+                            stop = true;
+                            refreshActivity();
+                            startActivity(new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class));
+                            overridePendingTransition(0,0);
+                        }
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -198,13 +202,17 @@ public class PassengerMainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 boolean stop = false;
+                Ride thisRide;
                 try {
-                    if (RideService.getAcceptedRide(user.getId()) != null){
-                        stop = true;
-                        timerCard.setVisibility(View.VISIBLE);
-                        setCancelButtonVisible();
-                        findViewById(R.id.fragment_container).setVisibility(View.GONE);
-                        createTimer();
+                    if (user != null){
+                        thisRide = RideService.getAcceptedRide(user.getId());
+                        if (thisRide != null){
+                            stop = true;
+                            timerCard.setVisibility(View.VISIBLE);
+                            setCancelButtonVisible();
+                            findViewById(R.id.fragment_container).setVisibility(View.GONE);
+                            createTimer();
+                        }
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -224,12 +232,16 @@ public class PassengerMainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 boolean stop = false;
+                Ride thisRide;
                 try {
-                    if (RideService.getPassengerPendingRide(user.getId()) != null){
-                        stop = true;
-                        setCancelButtonVisible();
-                        findViewById(R.id.fragment_container).setVisibility(View.GONE);
-                        setBackButtonInvisible();
+                    if (user != null) {
+                        thisRide = RideService.getPassengerPendingRide(user.getId());
+                        if (thisRide != null) {
+                            stop = true;
+                            setCancelButtonVisible();
+                            findViewById(R.id.fragment_container).setVisibility(View.GONE);
+                            setBackButtonInvisible();
+                        }
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -257,7 +269,7 @@ public class PassengerMainActivity extends AppCompatActivity {
         back.setVisibility(View.GONE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment1, null);
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
     public void changeToSecondFragment()

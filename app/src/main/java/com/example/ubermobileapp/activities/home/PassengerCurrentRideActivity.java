@@ -84,19 +84,24 @@ public class PassengerCurrentRideActivity extends AppCompatActivity {
     }
 
     public void checkIfRideEnded(){
-        User user = AuthService.getCurrentUser();
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 boolean stop = false;
-                if (RideService.getRideDetails(ride.getId()).getStatus().equals(RideStatus.FINISHED.toString())){
-                    stop = true;
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment(String.valueOf(ride.getId()), true);
-                    leavingReviewFragment.show(fragmentManager, "leaving_review");
+                Ride thisRide = RideService.getRideDetails(ride.getId());
+                if(thisRide != null) {
+                    if (thisRide.getStatus().equals(RideStatus.FINISHED.toString())) {
+                        stop = true;
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment(String.valueOf(ride.getId()), true);
+                        try {
+                            leavingReviewFragment.show(fragmentManager, "leaving_review");
+                        }catch (IllegalStateException ignored) {
+                            // There's no way to avoid getting this if saveInstanceState has already been called.
+                        }
+                    }
                 }
-
                 if (!stop) {
                     handler.postDelayed(this, 3000);
                 }
@@ -115,6 +120,12 @@ public class PassengerCurrentRideActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(
             Bundle savedInstanceState) {
+        Ride thisRide = RideService.getRideDetails(ride.getId());
+        if(thisRide != null) {
+            if (thisRide.getStatus().equals(RideStatus.FINISHED.toString())) {
+                return;
+            }
+        }
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState
                 .putInt("seconds", timer.getSeconds());

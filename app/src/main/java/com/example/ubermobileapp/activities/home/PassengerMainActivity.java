@@ -21,8 +21,6 @@ import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.account.PassengerAccountActivity;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
 import com.example.ubermobileapp.activities.history.PassengerRideHistoryActivity;
-import com.example.ubermobileapp.activities.receiver.NotificationReceiver;
-import com.example.ubermobileapp.androidService.AcceptedRideService;
 import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
@@ -74,8 +72,6 @@ public class PassengerMainActivity extends AppCompatActivity {
         checkForAcceptedRide();
         checkForActiveRide();
         checkIfRideIsRejected();
-
-        createNotificationChannel();
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setSelectedItemId(R.id.page_map);

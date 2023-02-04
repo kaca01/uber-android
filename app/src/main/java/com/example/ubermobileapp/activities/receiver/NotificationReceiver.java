@@ -51,8 +51,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                         .setContentText("You ride is accepted!")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
-                // kill service
-                context.stopService(new Intent(context, AcceptedRideService.class));
             }
             else if(resultCode == 0) {
                 builder.setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -61,6 +59,8 @@ public class NotificationReceiver extends BroadcastReceiver {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
             }
+            // kill service
+            context.stopService(new Intent(context, AcceptedRideService.class));
             notificationManager.notify(NOTIFICATION_ID, builder.build());
         }
 

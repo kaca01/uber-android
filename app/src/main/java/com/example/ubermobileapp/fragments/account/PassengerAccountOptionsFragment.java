@@ -54,17 +54,6 @@ public class PassengerAccountOptionsFragment extends Fragment {
             }
         });
 
-        TextView logOut = view.findViewById(R.id.logOut);
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AuthService.logout();
-                Timer.setInstance();
-                getActivity().stopService(new Intent(getActivity(), AcceptingRideService.class));
-                startActivity(new Intent(getActivity(), UserLoginActivity.class));
-            }
-        });
-
         return view;
     }
 }

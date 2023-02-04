@@ -3,6 +3,7 @@ package com.example.ubermobileapp.models;
 import java.util.ArrayList;
 
 public class RideOrder {
+    Long rideId;
     String destination;
     String departure;
     int vehicleType;
@@ -90,5 +91,13 @@ public class RideOrder {
 
     public void setFavoriteName(String favoriteName) {
         this.favoriteName = favoriteName;
+    }
+
+    public Long getRideId() {
+        return rideId;
+    }
+
+    public void setRideId(Long rideId) {
+        this.rideId = rideId;
     }
 }

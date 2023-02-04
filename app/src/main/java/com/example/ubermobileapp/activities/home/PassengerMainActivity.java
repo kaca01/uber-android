@@ -124,7 +124,7 @@ public class PassengerMainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast toast = Toast.makeText(view.getContext(), "Ride canceled!", Toast.LENGTH_LONG);
                 toast.show();
-                //todo update it in database
+                RideService.cancelRideByPassenger(order.getRideId());
                 refreshActivity();
             }
         });
@@ -246,7 +246,9 @@ public class PassengerMainActivity extends AppCompatActivity {
         currentFragment = -1;
 
         Ride ride = new Ride(order);
-        return RideService.insertRide(ride);
+        ride = RideService.insertRide(ride);
+        order.setRideId(ride.getId());
+        return ride;
     }
 
     public void changeToFirstFragment()

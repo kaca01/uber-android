@@ -72,6 +72,10 @@ public interface IRideService {
     Call<Ride> cancelRide(@Path("id") Long id, @Body Rejection rejection);
 
     @Headers({"Content-Type:application/json"})
+    @PUT("ride/{id}/withdraw")
+    Call<Ride> cancelRideByPassenger(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
     @GET("ride/accepted/{id}")
     Call<Ride> getAcceptedRide(@Path("id") Long id);
 }

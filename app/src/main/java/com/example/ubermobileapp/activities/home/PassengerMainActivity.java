@@ -32,6 +32,7 @@ import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
 import com.example.ubermobileapp.models.RideOrder;
+import com.example.ubermobileapp.models.enumeration.RideStatus;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.RideService;
@@ -79,6 +80,7 @@ public class PassengerMainActivity extends AppCompatActivity {
         checkForPendingRide();
         checkForAcceptedRide();
         checkForActiveRide();
+        checkIfRideIsRejected();
 
         createNotificationChannel();
 
@@ -164,6 +166,28 @@ public class PassengerMainActivity extends AppCompatActivity {
                 timer.setText("00:00:00");
             }
         }.start();
+    }
+
+    public void checkIfRideIsRejected(){
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean stop = false;
+                Ride activeRide;
+                if (order.getRideId() != null && AuthService.getCurrentUser() != null){
+                    activeRide = RideService.getRideDetails(order.getRideId());
+                    if ( activeRide != null && activeRide.getStatus().equals(RideStatus.REJECTED.toString())){
+                        stop = true;
+                        refreshActivity();
+                    }
+                }
+
+                if (!stop) {
+                    handler.postDelayed(this, 3000);
+                }
+            }
+        }, 3000);
     }
 
     public void checkForActiveRide(){

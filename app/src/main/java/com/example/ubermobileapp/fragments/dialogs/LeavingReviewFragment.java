@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.PassengerCurrentRideActivity;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
+import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.models.pojo.communication.Review;
 import com.example.ubermobileapp.services.implementation.ReviewService;
 
@@ -29,6 +30,8 @@ public class LeavingReviewFragment extends DialogFragment {
         this.rideId = Long.parseLong(rideId);
         this.toMain = toMain;
     }
+
+    public static LeavingReviewFragment newInstance(String rideId, boolean toMain) { return new LeavingReviewFragment(rideId, toMain); }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

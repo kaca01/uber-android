@@ -121,7 +121,7 @@ public class PassengerRideInfoActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     // show fragment for rating
                     FragmentManager fragmentManager = getSupportFragmentManager();
-                    LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment(getIntent().getStringExtra("rideId"));
+                    LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment(getIntent().getStringExtra("rideId"), false);
                     leavingReviewFragment.show(fragmentManager, "leaving_review");
                 }
             });

@@ -17,6 +17,7 @@ import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
 import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.activities.startup.UserLoginActivity;
+import com.example.ubermobileapp.androidService.AcceptingRideService;
 import com.example.ubermobileapp.services.utils.AuthService;
 import com.example.ubermobileapp.tools.Timer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,6 +36,7 @@ public class DriverAccountActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AuthService.logout();
                 Timer.setInstance();
+                stopService(new Intent(DriverAccountActivity.this, AcceptingRideService.class));
                 startActivity(new Intent(DriverAccountActivity.this, UserLoginActivity.class));
             }
         });

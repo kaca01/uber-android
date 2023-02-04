@@ -21,6 +21,9 @@ import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
+import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
+import com.example.ubermobileapp.services.implementation.RideService;
+import com.example.ubermobileapp.services.utils.AuthService;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -85,9 +88,7 @@ public class CreateRide3Fragment extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PassengerMainActivity.order.setBabyTransport(baby.isChecked());
-                PassengerMainActivity.order.setPetTransport(pet.isChecked());
-                PassengerMainActivity.order.setFavoriteName(favoriteName);
+                setOrderData();
                 checkIfReservation();
                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 PassengerMainActivity.order.setScheduledTime(format.format(orderDate));
@@ -103,6 +104,12 @@ public class CreateRide3Fragment extends Fragment {
         });
 
         favoriteDialog(view);
+    }
+
+    private void setOrderData(){
+        PassengerMainActivity.order.setBabyTransport(baby.isChecked());
+        PassengerMainActivity.order.setPetTransport(pet.isChecked());
+        PassengerMainActivity.order.setFavoriteName(favoriteName);
     }
 
     private void checkIfReservation(){
@@ -141,8 +148,12 @@ public class CreateRide3Fragment extends Fragment {
                         favoriteName = input.getText().toString();
                         if (favoriteName.equals("")) Toast.makeText(view.getContext(),
                                 "Error: You must type a name!", Toast.LENGTH_SHORT).show();
-                        else
+                        else {
+                            setOrderData();
+                            FavoriteOrder favoriteOrder = new FavoriteOrder(PassengerMainActivity.order, AuthService.getCurrentUser());
+                            RideService.insertFavoriteLocation(favoriteOrder);
                             Toast.makeText(view.getContext(), "Successfully added!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 

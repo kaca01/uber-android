@@ -1,5 +1,6 @@
 package com.example.ubermobileapp.fragments.dialogs;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -13,6 +14,8 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
+import com.example.ubermobileapp.activities.home.PassengerCurrentRideActivity;
+import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.models.pojo.communication.Review;
 import com.example.ubermobileapp.services.implementation.ReviewService;
 
@@ -20,9 +23,11 @@ import com.example.ubermobileapp.services.implementation.ReviewService;
 public class LeavingReviewFragment extends DialogFragment {
 
     private Long rideId;
+    private boolean toMain;
 
-    public LeavingReviewFragment(String rideId) {
+    public LeavingReviewFragment(String rideId, boolean toMain) {
         this.rideId = Long.parseLong(rideId);
+        this.toMain = toMain;
     }
 
     @Override
@@ -40,7 +45,11 @@ public class LeavingReviewFragment extends DialogFragment {
 
             @Override
             public void onClick(View v) {
+
                 getDialog().dismiss();
+                if (toMain) {
+                    startActivity(new Intent(getActivity(), PassengerMainActivity.class));
+                }
             }
         });
 
@@ -75,9 +84,13 @@ public class LeavingReviewFragment extends DialogFragment {
 
                     getDialog().dismiss();
 
-                    // refresh page
-                    getActivity().finish();
-                    startActivity(getActivity().getIntent());
+                    if (toMain){
+                        startActivity(new Intent(getActivity(), PassengerMainActivity.class));
+                    } else {
+                        // refresh page
+                        getActivity().finish();
+                        startActivity(getActivity().getIntent());
+                    }
                 }
             }
         });

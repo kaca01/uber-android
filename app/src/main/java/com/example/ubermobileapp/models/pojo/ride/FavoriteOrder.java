@@ -1,11 +1,16 @@
 package com.example.ubermobileapp.models.pojo.ride;
 
 import com.example.ubermobileapp.enumerations.VehicleTypeName;
+import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
+import com.example.ubermobileapp.models.RideOrder;
+import com.example.ubermobileapp.models.enumeration.VehicleType;
 import com.example.ubermobileapp.models.pojo.user.User;
+import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.net.UnknownServiceException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -62,12 +67,27 @@ public class FavoriteOrder {
     // request
     public FavoriteOrder(String favoriteName, String vehicleType,
                          List<User> passengers, boolean babyTransport, boolean petTransport,
-                         List<Route> locations) {
+                         List<Route> locations, User user) {
         this.favoriteName = favoriteName;
         this.vehicleType = vehicleType;
         this.passengers = passengers;
+        this.passenger = user;
         this.babyTransport = babyTransport;
         this.petTransport = petTransport;
+        this.locations = locations;
+    }
+
+    public FavoriteOrder(RideOrder order, User passenger) {
+        this.favoriteName = order.getFavoriteName();
+        this.babyTransport = order.isBabyTransport();
+        this.petTransport = order.isPetTransport();
+        this.passengers = new ArrayList<>();
+        this.passenger = passenger;
+        this.vehicleType = VehicleType.fromInteger(order.getVehicleType()).toString();
+        Route route = new Route(new Location(order.getDeparture(), MapMainFragment.departureLatitude, MapMainFragment.departureLongitude),
+                new Location(order.getDestination(), MapMainFragment.departureLatitude, MapMainFragment.departureLongitude));
+        List<Route> locations = new ArrayList<>();
+        locations.add(route);
         this.locations = locations;
     }
 

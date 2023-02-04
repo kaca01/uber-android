@@ -68,10 +68,6 @@ public class PassengerMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_main);
 
-        checkForPendingRide();
-        checkForActiveRide();
-        checkForAcceptedRide();
-
         Locale locale = new Locale("sr", "RS");
         geocoder = new Geocoder(this, locale);
         order = new RideOrder();
@@ -79,6 +75,10 @@ public class PassengerMainActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancel_order);
         timer = findViewById(R.id.timer);
         timerCard = findViewById(R.id.timer_card);
+
+        checkForPendingRide();
+        checkForAcceptedRide();
+        checkForActiveRide();
 
         createNotificationChannel();
 
@@ -124,7 +124,7 @@ public class PassengerMainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast toast = Toast.makeText(view.getContext(), "Ride canceled!", Toast.LENGTH_LONG);
                 toast.show();
-                //todo update it in database
+                RideService.cancelRideByPassenger(order.getRideId());
                 refreshActivity();
             }
         });
@@ -176,6 +176,7 @@ public class PassengerMainActivity extends AppCompatActivity {
                 try {
                     if (RideService.getPassengerActiveRide(user.getId()) != null){
                         stop = true;
+                        refreshActivity();
                         startActivity(new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class));
                         overridePendingTransition(0,0);
                     }
@@ -199,8 +200,8 @@ public class PassengerMainActivity extends AppCompatActivity {
                 boolean stop = false;
                 try {
                     if (RideService.getAcceptedRide(user.getId()) != null){
-                        timerCard.setVisibility(View.VISIBLE);
                         stop = true;
+                        timerCard.setVisibility(View.VISIBLE);
                         setCancelButtonVisible();
                         findViewById(R.id.fragment_container).setVisibility(View.GONE);
                         createTimer();
@@ -225,6 +226,7 @@ public class PassengerMainActivity extends AppCompatActivity {
                 boolean stop = false;
                 try {
                     if (RideService.getPassengerPendingRide(user.getId()) != null){
+                        stop = true;
                         setCancelButtonVisible();
                         findViewById(R.id.fragment_container).setVisibility(View.GONE);
                         setBackButtonInvisible();
@@ -244,7 +246,9 @@ public class PassengerMainActivity extends AppCompatActivity {
         currentFragment = -1;
 
         Ride ride = new Ride(order);
-        return RideService.insertRide(ride);
+        ride = RideService.insertRide(ride);
+        order.setRideId(ride.getId());
+        return ride;
     }
 
     public void changeToFirstFragment()

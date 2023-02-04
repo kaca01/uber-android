@@ -131,14 +131,12 @@ public class PassengerRideAdapter extends BaseAdapter {
                         "Error: You must type a name!", Toast.LENGTH_SHORT).show();
                 else {
                     User currentUser = getCurrentUser();
-                    List<User> passenger = new ArrayList<>();
-                    passenger.add(currentUser);
                     FavoriteOrder order = new FavoriteOrder(favoriteName,
                             ride.getVehicleType(),
-                            passenger,
+                            new ArrayList<>(),
                             ride.isBabyTransport(),
                             ride.isPetTransport(),
-                            ride.getLocations());
+                            ride.getLocations(), currentUser);
 
                     FavoriteOrder fav = RideService.addFavorite(order);
 

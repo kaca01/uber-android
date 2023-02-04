@@ -1,6 +1,6 @@
 package com.example.ubermobileapp.services;
-import com.example.ubermobileapp.model.pojo.Message;
-import com.example.ubermobileapp.model.pojo.MessageList;
+import com.example.ubermobileapp.models.pojo.communication.Message;
+import com.example.ubermobileapp.models.pojo.communication.MessageList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -15,6 +15,11 @@ public interface IMessageService {
     @Headers("Content-Type: application/json")
     @GET("user/{id}/message")
     Call<MessageList> getUserMessages(@Path("id") Long id);
+
+    //get all support messages from that{id} user
+    @Headers("Content-Type: application/json")
+    @GET("user/{id}/message/support")
+    Call<MessageList> getSupportMessages(@Path("id") Long id);
 
     //send a message to the user, sender is taken from token
     @Headers({"Content-Type:application/json"})

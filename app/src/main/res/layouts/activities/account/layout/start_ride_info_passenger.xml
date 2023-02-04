@@ -8,11 +8,46 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ride"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="225sp"
-            android:gravity="center"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/placeholder"/>
+
+            <TextView
+                android:id="@+id/departure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/placeholder"/>
+
+            <TextView
+                android:id="@+id/destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -175,7 +210,7 @@
             <Button
                 android:id="@+id/order_ride"
                 android:layout_width="120sp"
-                android:layout_height="60sp"
+                android:layout_height="wrap_content"
                 android:backgroundTint="?attr/colorPrimary"
                 android:focusable="false"
                 android:text="@string/order_ride"/>
@@ -188,10 +223,10 @@
             <Button
                 android:id="@+id/add_to_favorite"
                 android:layout_width="120sp"
-                android:layout_height="60sp"
-                android:backgroundTint="@color/light_gray"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/favorites"
                 android:focusable="false"
-                android:text="@string/not_a_favorite"/>
+                android:text="ADD TO FAVORITE"/>
 
         </LinearLayout>
 

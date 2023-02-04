@@ -15,7 +15,6 @@ import com.example.ubermobileapp.activities.inbox.DriverInboxActivity;
 import com.example.ubermobileapp.activities.history.DriverRideHistoryActivity;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.inbox.PassengerInboxActivity;
-import com.example.ubermobileapp.adapters.DriverRideAdapter;
 
 public class RideInfoHeaderFragment extends Fragment {
 

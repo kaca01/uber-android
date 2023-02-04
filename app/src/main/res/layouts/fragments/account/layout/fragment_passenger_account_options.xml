@@ -6,222 +6,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.account.PassengerAccountOptionsFragment"
-    android:layout_marginTop="10sp"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true">
 
-
-    <View
-        android:id="@+id/line"
-        android:layout_width="250sp"
-        android:layout_height="1sp"
-        android:layout_centerHorizontal="true"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="15sp"/>
-
     <RelativeLayout
+        android:id="@+id/relative"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/secondCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20sp"
-            android:layout_marginTop="50sp"
-            android:layout_marginEnd="20sp"
-            android:layout_marginBottom="10sp"
-            android:layout_toRightOf="@+id/firstCard"
-            app:cardCornerRadius="10sp">
-
-            <LinearLayout
-                android:id="@+id/secondBtn"
-                android:layout_width="150sp"
-                android:layout_height="150sp"
-                android:foreground="?attr/selectableItemBackground"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/creditCardPic"
-                    android:layout_width="40sp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-20sp"
-                    android:layout_weight="1"
-                    android:src="@mipmap/credit_card_foreground" />
-
-                <TextView
-                    android:id="@+id/creditCardBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-30sp"
-                    android:text="@string/credit_card"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/currentAmountTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="0sp"
-                    android:text="@string/visa_card"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/firstCard"
-            android:layout_width="wrap_content"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50sp"
-            android:layout_marginStart="20sp"
-            app:cardCornerRadius="10sp"
-            >
-
-            <LinearLayout
-                android:id="@+id/firstBtn"
-                android:layout_width="150sp"
-                android:layout_height="150sp"
-                android:foreground="?attr/selectableItemBackground"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/starPic"
-                    android:layout_width="40sp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-20sp"
-                    android:layout_weight="1"
-                    android:src="@mipmap/star_foreground" />
-
-                <TextView
-                    android:id="@+id/favoriteBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-30sp"
-                    android:text="@string/favorite_routes"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/numOfFav"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="0sp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:text="@string/two_fav_rout"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/thirdCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="220sp"
-            android:layout_marginStart="20sp"
-            app:cardCornerRadius="10sp"
-            >
-
-            <LinearLayout
-                android:id="@+id/thirdBtn"
-                android:layout_width="150sp"
-                android:layout_height="150sp"
-                android:foreground="?attr/selectableItemBackground"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/reportsPic"
-                    android:layout_width="40sp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-20sp"
-                    android:layout_weight="1"
-                    android:src="@mipmap/report_foreground" />
-
-                <TextView
-                    android:id="@+id/reportsBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-30sp"
-                    android:text="@string/reports"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/chooseReport"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="0sp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:text="@string/three_types_of_reports"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/fourthCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20sp"
-            android:layout_marginTop="220sp"
-            android:layout_marginEnd="20sp"
-            android:layout_marginBottom="10sp"
-            android:layout_toRightOf="@+id/thirdCard"
+            android:layout_marginTop="25sp"
             app:cardCornerRadius="10sp">
 
             <LinearLayout
-                android:id="@+id/fourthBtn"
-                android:layout_width="150sp"
-                android:layout_height="150sp"
+                android:id="@+id/firstBtn"
+                android:layout_width="300sp"
+                android:layout_height="80sp"
                 android:foreground="?attr/selectableItemBackground"
-                android:orientation="vertical">
-
+                android:orientation="horizontal"
+                android:background="?attr/carousel_firstView">
                 <ImageView
-                    android:id="@+id/exitPic"
-                    android:layout_width="40sp"
+                    android:id="@+id/imageView3"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginTop="10sp"
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:src="@mipmap/favorite_locations" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-20sp"
                     android:layout_weight="1"
-                    android:src="@mipmap/exit_foreground" />
+                    android:textSize="17sp"
+                    android:layout_marginEnd="30px"
+                    android:layout_gravity="center"
+                    android:text="@string/check_favorite_locations" />
 
-                <TextView
-                    android:id="@+id/exitBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-30sp"
-                    android:text="@string/log_out"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/openLoginPage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="0sp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:text="@string/open_log_in_page"
-                    android:textSize="12sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
-
 
 </RelativeLayout>

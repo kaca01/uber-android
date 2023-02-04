@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.model.pojo.Message;
+import com.example.ubermobileapp.models.pojo.communication.Message;
 import com.example.ubermobileapp.services.utils.AuthService;
 
 import java.util.List;
@@ -21,8 +21,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     private Activity activity;
     private List<Message> messages;
 
-    public MessageAdapter(Activity activity, List<Message>messages) {
-        this.activity = activity;
+    public MessageAdapter(List<Message>messages) {
         this.messages = messages;
     }
 
@@ -67,7 +66,6 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         Message message = (Message) messages.get(position);
 
-        //TODO change with current user
         if (message.getSenderId() == AuthService.getCurrentUser().getId()) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;

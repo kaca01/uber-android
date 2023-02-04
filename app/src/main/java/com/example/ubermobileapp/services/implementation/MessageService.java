@@ -1,19 +1,11 @@
 package com.example.ubermobileapp.services.implementation;
 
-import android.content.Context;
-import android.os.Handler;
 import android.os.StrictMode;
-import android.widget.Toast;
 
-import com.example.ubermobileapp.model.pojo.Message;
-import com.example.ubermobileapp.model.pojo.MessageList;
-import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.models.pojo.communication.Message;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 
-import java.util.List;
-
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MessageService {

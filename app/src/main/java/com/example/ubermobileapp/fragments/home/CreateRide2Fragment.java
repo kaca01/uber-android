@@ -12,19 +12,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.PassengerMainActivity;
-import com.example.ubermobileapp.model.Message;
 import com.example.ubermobileapp.services.utils.AuthService;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CreateRide2Fragment extends Fragment {
     Spinner spin;

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,20 +13,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.activities.home.DriverMainActivity;
 import com.example.ubermobileapp.activities.home.PassengerCurrentRideActivity;
-import com.example.ubermobileapp.activities.home.PassengerMainActivity;
 import com.example.ubermobileapp.adapters.MessageAdapter;
-import com.example.ubermobileapp.model.Drive;
-import com.example.ubermobileapp.model.MessageType;
-import com.example.ubermobileapp.model.login.User;
-import com.example.ubermobileapp.model.pojo.Message;
-import com.example.ubermobileapp.model.pojo.MessageList;
-import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.models.pojo.communication.Message;
+import com.example.ubermobileapp.models.pojo.communication.MessageList;
+import com.example.ubermobileapp.models.pojo.ride.Ride;
+import com.example.ubermobileapp.models.enumeration.MessageType;
+import com.example.ubermobileapp.models.pojo.user.Passenger;
+import com.example.ubermobileapp.models.pojo.user.User;
 import com.example.ubermobileapp.services.implementation.MessageService;
+import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
@@ -37,15 +35,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChatActivity extends AppCompatActivity {
     private List<Message> messages = new ArrayList<>();
     private Ride ride;
     private User sender; //current user is sender
-    private User receiver = new User(3L, "pera@gmail.com", "Pera", "Petrovic"); //todo receiver depends from clicks from front
+    private User receiver = null;
     private String chat_type = "";
+    private MessageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,41 +51,28 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         sender = AuthService.getCurrentUser();
-        setTitle();
-        Drive drive = new Drive(); //initializing only to avoid warnings (delete this later)
-
         RecyclerView recycler = (RecyclerView) findViewById(R.id.recycler_chat);
+
         Serializable from_inbox = getIntent().getSerializableExtra("name");
-        if (from_inbox != null) chat_type = from_inbox.toString();
         // ako je iz inboxa usao u chat
-        if (chat_type.equals(MessageType.SUPPORT.toString())){
-
-            //messages = Mockup.getSupportMessages();
-            }
-        else if (chat_type.equals(MessageType.DRIVE.toString()) || chat_type.equals(MessageType.PANIC.toString())){
-
-            drive = (Drive)getIntent().getSerializableExtra("drive"); //dobaviti ride iz intenta
-            //messages = drive.getMessages();
-        }
-        //ukoliko nije iz inboxa usao u chat
-        else{
-            //dobavlja sve poruke izmedju dva korisnika, nebitno ko je receiver, a ko sender
-            setRide();
-            messages = FindByRideIdAndOtherUser(ride, receiver);
-        }
-
-        MessageAdapter adapter = new MessageAdapter(this, messages);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.scrollToPosition(messages.size() - 1);
-        recycler.setAdapter(adapter);
+        if (from_inbox != null) chat_type = from_inbox.toString();
+        
+        run();
 
         ImageView back = (ImageView) findViewById(R.id.back_arrow);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (from_inbox != null) {
-                    Intent i = new Intent(ChatActivity.this, PassengerInboxActivity.class);
-                    startActivity(i);
+                    if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER"))
+                    {
+                        Intent i = new Intent(ChatActivity.this, PassengerInboxActivity.class);
+                        startActivity(i);
+                    }
+                    else {
+                        Intent i = new Intent(ChatActivity.this, DriverInboxActivity.class);
+                        startActivity(i);
+                    }
                 }
                 else{
                     if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER"))
@@ -104,16 +89,16 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         Button send = (Button) findViewById(R.id.button_chat_send);
-        Drive finalDrive = drive;
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditText newChat = (EditText)findViewById(R.id.edit_chat_message);
-                String text = newChat.getText().toString();
+                String text = newChat.getText().toString().trim();
                 if (text.isEmpty()) return;
                 if (chat_type.equals(MessageType.SUPPORT.toString())) {
-                    /*Message message = Message.generateSupportMessage(text);
-                    messages.add(message);*/
+                    Message message = new Message(text, "SUPPORT", 0L);
+                    message = MessageService.addMessageToDatabase(sender.getId(), message);
+                    messages.add(message);
                 }
                 else {
                     Message message = new Message(text, "RIDE", ride.getId());
@@ -128,10 +113,63 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    private void run() {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (AuthService.getCurrentUser() != null) {
+                    if (chat_type.equals(MessageType.SUPPORT.toString())) {
+                        getSupportMessages();
+                    } else if (chat_type.equals(MessageType.RIDE.toString())) {
+                        Long rideId = (Long) getIntent().getSerializableExtra("rideId");
+                        ride = RideService.getRideDetails(rideId);
+                        setReceiver();
+                        messages = FindByRideIdAndOtherUser(ride, receiver);
+                    }
+                    //ukoliko nije iz inboxa usao u chat
+                    else {
+                        try {
+                            setRide();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        setReceiver();
+                        messages = FindByRideIdAndOtherUser(ride, receiver);
+                    }
+
+                    setTitle();
+                    RecyclerView recycler = (RecyclerView) findViewById(R.id.recycler_chat);
+                    adapter = new MessageAdapter(messages);
+                    recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    recycler.scrollToPosition(messages.size() - 1);
+                    recycler.setAdapter(adapter);
+                }
+
+                handler.postDelayed(this, 3000);
+            }
+        });
+
+    }
+
+    private void setReceiver(){
+        if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER")){
+            receiver = ride.getDriver();
+        }else{
+            User user = ride.getPassengers().get(ride.getPassengers().size()-1);
+            Passenger p = PassengerService.getPassenger(user.getId());
+            receiver = (User) p;
+        }
+    }
+
     private void setTitle()
     {
-        TextView action_bar_name = (TextView) findViewById(R.id.action_bar_name);
-        String title = receiver.getName() + " " + receiver.getSurname();
+        TextView action_bar_name = findViewById(R.id.action_bar_name);
+        String title;
+        if (chat_type.equals(MessageType.SUPPORT.toString()))
+            title = chat_type;
+        else
+            title = receiver.getName() + " " + receiver.getSurname();
         action_bar_name.setText(title);
     }
 
@@ -147,7 +185,7 @@ public class ChatActivity extends AppCompatActivity {
         return filteredMessages;
     }
 
-    private void setRide(){
+    private void setRide() throws InterruptedException {
         if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER")) {
             ride = RideService.getPassengerActiveRide(sender.getId());
         }
@@ -157,6 +195,7 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    //dobavlja sve poruke izmedju dva korisnika, nebitno ko je receiver, a ko sender
     public void setUserMessages(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -167,6 +206,47 @@ public class ChatActivity extends AppCompatActivity {
             messages = response.body().getResults();
         }catch(Exception ex){
             ex.printStackTrace();
+        }
+    }
+
+    public void getSupportMessages(){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        User currentUser = AuthService.getCurrentUser();
+
+        Call<MessageList> messageResponseCall = ApiUtils.getMessageService().getSupportMessages(currentUser.getId());
+        try {
+            Response<MessageList> response = messageResponseCall.execute();
+            messages = response.body().getResults();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onBackPressed(){
+        Serializable from_inbox = getIntent().getSerializableExtra("name");
+        if (from_inbox != null) {
+            if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER"))
+            {
+                Intent i = new Intent(ChatActivity.this, PassengerInboxActivity.class);
+                startActivity(i);
+            }
+            else {
+                Intent i = new Intent(ChatActivity.this, DriverInboxActivity.class);
+                startActivity(i);
+            }
+        }
+        else{
+            if(sender.getRoles().get(0).getName().equals("ROLE_PASSENGER"))
+            {
+                Intent i = new Intent(ChatActivity.this, PassengerCurrentRideActivity.class);
+                startActivity(i);
+            }
+            else {
+                Intent i = new Intent(ChatActivity.this, DriverMainActivity.class);
+                startActivity(i);
+            }
         }
     }
 }

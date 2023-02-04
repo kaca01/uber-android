@@ -1,11 +1,13 @@
 package com.example.ubermobileapp.services;
 
-import com.example.ubermobileapp.model.RideOrder;
-import com.example.ubermobileapp.model.pojo.Message;
-import com.example.ubermobileapp.model.pojo.Ride;
+import com.example.ubermobileapp.models.pojo.GenericList;
+import com.example.ubermobileapp.models.pojo.communication.Rejection;
+import com.example.ubermobileapp.models.pojo.ride.Ride;
+import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.PUT;
@@ -24,6 +26,10 @@ public interface IRideService {
     Call<Ride> getPassengerActiveRide(@Path("passengerId") Long id);
 
     @Headers({"Content-Type:application/json"})
+    @GET("ride/{id}")
+    Call<Ride> getRideDetails(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
     @PUT("ride/{id}/start")
     Call<Ride> startRide(@Path("id") Long id);
 
@@ -34,4 +40,46 @@ public interface IRideService {
     @POST("ride")
     Call<Ride> insertRide(@Body Ride ride);
 
+    @POST("ride/favorites")
+    Call<FavoriteOrder> insertFavoriteOrder(@Body FavoriteOrder order);
+
+    @Headers({"Content-Type:application/json"})
+    @GET("ride/favorites")
+    Call<GenericList<FavoriteOrder>> getFavorites();
+
+    @Headers({"Content-Type:application/json"})
+    @POST("ride/favorites")
+    Call<FavoriteOrder> addFavorite(@Body FavoriteOrder favoriteOrder);
+
+    @Headers({"Content-Type:application/json"})
+    @DELETE("ride/favorites/{id}")
+    Call<Boolean> deleteFavorite(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @GET("ride/pending/{id}")
+    Call<Ride> getPendingRide(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @GET("ride/pending/{id}/passenger")
+    Call<Ride> getPassengerPendingRide(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @GET("ride/driver/{id}/accepted")
+    Call<Ride> getDriverAcceptedRide(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @PUT("ride/{id}/accept")
+    Call<Ride> acceptRide(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @PUT("ride/{id}/cancel")
+    Call<Ride> cancelRide(@Path("id") Long id, @Body Rejection rejection);
+
+    @Headers({"Content-Type:application/json"})
+    @PUT("ride/{id}/withdraw")
+    Call<Ride> cancelRideByPassenger(@Path("id") Long id);
+
+    @Headers({"Content-Type:application/json"})
+    @GET("ride/accepted/{id}")
+    Call<Ride> getAcceptedRide(@Path("id") Long id);
 }

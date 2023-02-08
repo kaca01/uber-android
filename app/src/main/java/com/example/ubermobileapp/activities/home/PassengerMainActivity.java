@@ -155,6 +155,7 @@ public class PassengerMainActivity extends AppCompatActivity {
                     activeRide = RideService.getRideDetails(order.getRideId());
                     if ( activeRide != null && activeRide.getStatus().equals(RideStatus.REJECTED.toString())){
                         stop = true;
+                        Toast.makeText(getApplicationContext(), "Ride has been rejected!", Toast.LENGTH_LONG).show();
                         refreshActivity();
                     }
                 }

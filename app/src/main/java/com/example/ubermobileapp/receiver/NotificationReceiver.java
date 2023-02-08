@@ -67,8 +67,8 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         else if(intent.getAction().equals(PassengerCurrentRideActivity.VEHICLE_DATA))
             builder.setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setContentTitle("Started ride")
-                    .setContentText("Your ride has started!")
+                    .setContentTitle("Your ride")
+                    .setContentText("Your vehicle will arrive in 2 minutes!")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setAutoCancel(true);
 

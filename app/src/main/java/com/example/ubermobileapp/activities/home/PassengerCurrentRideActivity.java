@@ -92,8 +92,6 @@ public class PassengerCurrentRideActivity extends AppCompatActivity {
                             .getBoolean("wasRunning"));
         }
         timer.run();
-
-        setUpReceiver();
     }
 
     public void checkIfRideEnded(){

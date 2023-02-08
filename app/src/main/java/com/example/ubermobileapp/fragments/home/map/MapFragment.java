@@ -25,6 +25,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ubermobileapp.activities.inbox.ChatActivity;
+import com.example.ubermobileapp.models.pojo.communication.Rejection;
+import com.example.ubermobileapp.models.pojo.ride.Panic;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.Passenger;
 import com.example.ubermobileapp.models.pojo.user.User;
@@ -65,6 +68,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class MapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
@@ -84,6 +88,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private boolean play = false;
     private AlertDialog alertDialog;
     private Ride ride;
+    private String reason;
 
     @SuppressLint("SimpleDateFormat")
     @Override
@@ -102,7 +107,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         } else {
             ride = RideService.getDriverActiveRide(user.getId());
 
-            if (ride != null) {
+            if (ride != null){
                 setData();
             }
             else {
@@ -254,22 +259,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             e.printStackTrace();
         }
 
-        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                map.addMarker(new MarkerOptions()
-                        .title("Chosen location")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                        .position(latLng));
-                home.setFlat(true);
-
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(latLng).zoom(14).build();
-
-                map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            }
-        });
-
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -280,24 +269,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-            }
-        });
-
-        map.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
-            @Override
-            public void onMarkerDragStart(Marker marker) {
-                Toast.makeText(getActivity(), "Drag started", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onMarkerDrag(Marker marker) {
-                Toast.makeText(getActivity(), "Dragging", Toast.LENGTH_SHORT).show();
-                map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
-            }
-
-            @Override
-            public void onMarkerDragEnd(Marker marker) {
-                Toast.makeText(getActivity(), "Drag ended", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -431,38 +402,37 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 @Override
                 public void onClick(View view) {
                     if (!play) {
-                        ride = RideService.start(requireActivity().getApplicationContext(),
-                                                 ride.getId(), "Current ride not found");
-                        drawRoute();
-                        play = true;
-                        timer.onClickStart();
+                        ride = RideService.getDriverAcceptedRide(AuthService.getCurrentUser().getId());
+                        if (ride != null) {
+                            ride = RideService.start(requireActivity().getApplicationContext(),
+                                    ride.getId(), "Current ride not found");
+                            drawRoute();
+                            setUpTimer();
+                        } else {
+                            Toast.makeText(getActivity(), "No accepted rides.", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         play = false;
                         removeRoute();
-                        ride = RideService.end(requireActivity().getApplicationContext(),
-                                               ride.getId(), "Current ride not found");
+                        ride = RideService.end(ride.getId());
+                        ride = null;
                         timer.onClickReset();
                     }
                 }
             });
-        } else {
-            @SuppressLint("SimpleDateFormat")
-            Date startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                    .parse(ride.getStartTime());
-            assert startTime != null;
-            long seconds = (new Date().getTime()-startTime.getTime())/1000;
-            timer.setSeconds((int)seconds);
-            timer.onClickStart();
         }
 
         CardView panic = getActivity().findViewById(R.id.secondCard);
         panic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO : implement sending notification
-//                play = false;
-//                removeRoute();
-//                timer.onClickReset();
+                play = false;
+                removeRoute();
+                com.example.ubermobileapp.models.pojo.communication.Message message =
+                        new com.example.ubermobileapp.models.pojo.communication.Message();
+                message.setMessage(reason);
+                createPanicDialog();
+                timer.onClickReset();
             }
         });
 
@@ -482,6 +452,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         LayoutInflater inflater = this.getLayoutInflater();
         View newView = inflater.inflate(R.layout.fragment_ride_info, null);
         String number = getRide(newView);
+        if (Objects.equals(number, "")) return;
         ImageView call = newView.findViewById(R.id.call);
         call.setClickable(true);
         call.setOnClickListener(new View.OnClickListener() {
@@ -529,6 +500,10 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             number = ride.getDriver().getTelephoneNumber();
         } else {
             ride = RideService.getDriverActiveRide(user.getId());
+            if (ride == null) {
+                Toast.makeText(getActivity(), "No active rides.", Toast.LENGTH_SHORT).show();
+                return "";
+            }
 //            Optional<User> first = ride.getPassengers().stream().findFirst();
             Optional<User> last = Optional.of(ride.getPassengers().stream().reduce((one, two) -> two).get());
             Passenger passenger = PassengerService.getPassenger(last.get().getId());
@@ -562,19 +537,47 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     @SuppressLint("SimpleDateFormat")
     private void setData() {
         if (ride != null) {
-            @SuppressLint("SimpleDateFormat")
-            Date startTime = null;
-            try {
-                startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                        .parse(ride.getStartTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            assert startTime != null;
-            long seconds = (new Date().getTime()-startTime.getTime())/1000;
-            timer.setSeconds((int)seconds);
-            timer.setRunning(true);
-            play = true;
+            setUpTimer();
         }
+    }
+
+    private void setUpTimer() {
+        @SuppressLint("SimpleDateFormat")
+        Date startTime = null;
+        try {
+            startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                    .parse(ride.getStartTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assert startTime != null;
+        long seconds = (new Date().getTime()-startTime.getTime())/1000;
+        timer.setSeconds((int)seconds);
+        timer.setRunning(true);
+        play = true;
+    }
+
+    void createPanicDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_inbox_search, null);
+        builder.setTitle("Tell us what happened")
+                .setView(newView)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditText s = newView.findViewById(R.id.search);
+                        reason = s.getText().toString();
+                        Panic panic = new Panic(reason);
+                        ride = RideService.panic(ride.getId(), panic);
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.create();
+        builder.show();
     }
 }

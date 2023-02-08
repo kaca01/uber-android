@@ -124,6 +124,7 @@ public class ChatActivity extends AppCompatActivity {
                     } else if (chat_type.equals(MessageType.RIDE.toString())) {
                         Long rideId = (Long) getIntent().getSerializableExtra("rideId");
                         ride = RideService.getRideDetails(rideId);
+                        if (ride != null)
                         setReceiver();
                         messages = FindByRideIdAndOtherUser(ride, receiver);
                     }
@@ -134,8 +135,10 @@ public class ChatActivity extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        setReceiver();
-                        messages = FindByRideIdAndOtherUser(ride, receiver);
+                        if (ride!=null) {
+                            setReceiver();
+                            messages = FindByRideIdAndOtherUser(ride, receiver);
+                        }
                     }
 
                     setTitle();
@@ -177,9 +180,11 @@ public class ChatActivity extends AppCompatActivity {
         setUserMessages();
         List<Message> filteredMessages = new ArrayList<>();
         for (Message m: messages) {
-            if(m.getRideId() == ride.getId() && (m.getSenderId()==receiver.getId() ||
-                    m.getReceiverId()==receiver.getId())){
-                filteredMessages.add(m);
+            if (ride != null) {
+                if (m.getRideId() == ride.getId() && (m.getSenderId() == receiver.getId() ||
+                        m.getReceiverId() == receiver.getId())) {
+                    filteredMessages.add(m);
+                }
             }
         }
         return filteredMessages;

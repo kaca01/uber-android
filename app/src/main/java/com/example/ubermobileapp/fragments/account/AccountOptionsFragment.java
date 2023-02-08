@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.ubermobileapp.R;
 import com.example.ubermobileapp.models.pojo.user.Passenger;
 import com.example.ubermobileapp.models.pojo.user.User;
+import com.example.ubermobileapp.services.implementation.DriverService;
 import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.utils.AuthService;
 
@@ -125,7 +126,7 @@ public class AccountOptionsFragment extends Fragment {
     }
 
     public void updateAccountData(View newView) {
-        Passenger passenger = new Passenger();
+        User passenger = AuthService.getCurrentUser();
         TextView name = newView.findViewById(R.id.inputName);
         passenger.setName(name.getText().toString());
         TextView surname = newView.findViewById(R.id.inputSurname);
@@ -140,9 +141,19 @@ public class AccountOptionsFragment extends Fragment {
         TextView address = newView.findViewById(R.id.postalAdressInput);
         passenger.setAddress(address.getText().toString());
 
-        Long id = AuthService.getCurrentUser().getId();
-
-        Passenger updatedPassenger = PassengerService.updatePassenger(passenger, id);
-        if (updatedPassenger != null) setEditAccountData(newView);
+        if (AuthService.getCurrentUser().getRoles().get(0).getName().equals("ROLE_PASSENGER")){
+            Passenger updatedPassenger = PassengerService.updatePassenger(passenger, passenger.getId());
+            if (updatedPassenger != null) {
+                setEditAccountData(newView);
+                AccountInformationFragment.changeName(passenger.getName());
+            }
+        }
+        else{
+             User updateDriver = DriverService.updateDriver(passenger, passenger.getId());
+            if (updateDriver != null) {
+                setEditAccountData(newView);
+                AccountInformationFragment.changeName(passenger.getName());
+            }
+        }
     }
 }

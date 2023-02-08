@@ -45,4 +45,19 @@ public class DriverService {
         }
         return driver;
     }
+
+    public static User updateDriver(User passenger, Long id){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        User newPass = new Passenger();
+        Call<User> responseCall = ApiUtils.getDriverService().updateDriver(passenger, id);
+        try{
+            Response<User> response = responseCall.execute();
+            newPass = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return newPass;
+    }
 }

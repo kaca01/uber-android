@@ -127,7 +127,7 @@ public class PassengerMainActivity extends AppCompatActivity {
     }
 
     public void createTimer(){
-        new CountDownTimer(15000, 1000) {
+        new CountDownTimer(100000, 1000) {
             public void onTick(long millisUntilFinished) {
                 NumberFormat f = new DecimalFormat("00");
                 long hour = (millisUntilFinished / 3600000) % 24;
@@ -155,6 +155,7 @@ public class PassengerMainActivity extends AppCompatActivity {
                     activeRide = RideService.getRideDetails(order.getRideId());
                     if ( activeRide != null && activeRide.getStatus().equals(RideStatus.REJECTED.toString())){
                         stop = true;
+                        Toast.makeText(getApplicationContext(), "Ride has been rejected!", Toast.LENGTH_LONG).show();
                         refreshActivity();
                     }
                 }
@@ -179,9 +180,6 @@ public class PassengerMainActivity extends AppCompatActivity {
                         activeRide = RideService.getPassengerActiveRide(user.getId());
                         if ( activeRide != null){
                             stop = true;
-                            refreshActivity();
-                            startActivity(new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class));
-                            overridePendingTransition(0,0);
                         }
                     }
                 } catch (InterruptedException e) {
@@ -190,6 +188,10 @@ public class PassengerMainActivity extends AppCompatActivity {
 
                 if (!stop) {
                     handler.postDelayed(this, 3000);
+                }else{
+                    refreshActivity();
+                    startActivity(new Intent(PassengerMainActivity.this, PassengerCurrentRideActivity.class));
+                    overridePendingTransition(0,0);
                 }
             }
         }, 3000);

@@ -279,7 +279,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     }
 
     private void addMarker(Location location) {
-        LatLng loc = new LatLng(location.getLongitude(), location.getLatitude());
+        LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
 
         if (home != null) {
             home.remove();
@@ -309,12 +309,12 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 ride.getLocations().get(0).getDeparture();
         com.example.ubermobileapp.models.pojo.ride.Location locationDestination =
                 ride.getLocations().get(0).getDestination();
-        LatLng first_marker = new LatLng(locationDeparture.getLongitude(),
-                                         locationDeparture.getLatitude());
+        LatLng first_marker = new LatLng(locationDeparture.getLatitude(),
+                                         locationDeparture.getLongitude());
         departure = map.addMarker(new MarkerOptions().position(first_marker).title("Departure"));
 
-        LatLng second_marker = new LatLng(locationDestination.getLongitude(),
-                                          locationDestination.getLatitude());
+        LatLng second_marker = new LatLng(locationDestination.getLatitude(),
+                                          locationDestination.getLongitude());
         destination = map.addMarker(new MarkerOptions().position(second_marker).title("Destination"));
 
         LatLng zaragoza = first_marker;
@@ -327,9 +327,9 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey("AIzaSyCfc8_yjmToWtKOMhh5NExf-ht_TgR_Fys")
                 .build();
-        DirectionsApiRequest req = DirectionsApi.getDirections(context, first_marker.longitude
-                        + "," + first_marker.latitude,
-                second_marker.longitude + "," + second_marker.latitude);
+        DirectionsApiRequest req = DirectionsApi.getDirections(context, first_marker.latitude
+                        + "," + first_marker.longitude,
+                second_marker.latitude + "," + second_marker.longitude);
 
         try {
             DirectionsResult res = req.await();

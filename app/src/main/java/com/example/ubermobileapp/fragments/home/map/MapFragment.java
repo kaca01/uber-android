@@ -65,6 +65,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class MapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
@@ -308,7 +309,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     }
 
     private void addMarker(Location location) {
-        LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+        LatLng loc = new LatLng(location.getLongitude(), location.getLatitude());
 
         if (home != null) {
             home.remove();
@@ -338,12 +339,12 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 ride.getLocations().get(0).getDeparture();
         com.example.ubermobileapp.models.pojo.ride.Location locationDestination =
                 ride.getLocations().get(0).getDestination();
-        LatLng first_marker = new LatLng(locationDeparture.getLatitude(),
-                                         locationDeparture.getLongitude());
+        LatLng first_marker = new LatLng(locationDeparture.getLongitude(),
+                                         locationDeparture.getLatitude());
         departure = map.addMarker(new MarkerOptions().position(first_marker).title("Departure"));
 
-        LatLng second_marker = new LatLng(locationDestination.getLatitude(),
-                                          locationDestination.getLongitude());
+        LatLng second_marker = new LatLng(locationDestination.getLongitude(),
+                                          locationDestination.getLatitude());
         destination = map.addMarker(new MarkerOptions().position(second_marker).title("Destination"));
 
         LatLng zaragoza = first_marker;
@@ -356,9 +357,9 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey("AIzaSyCfc8_yjmToWtKOMhh5NExf-ht_TgR_Fys")
                 .build();
-        DirectionsApiRequest req = DirectionsApi.getDirections(context, first_marker.latitude
-                        + "," + first_marker.longitude,
-                second_marker.latitude + "," + second_marker.longitude);
+        DirectionsApiRequest req = DirectionsApi.getDirections(context, first_marker.longitude
+                        + "," + first_marker.latitude,
+                second_marker.longitude + "," + second_marker.latitude);
 
         try {
             DirectionsResult res = req.await();
@@ -431,28 +432,27 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 @Override
                 public void onClick(View view) {
                     if (!play) {
-                        ride = RideService.start(requireActivity().getApplicationContext(),
-                                                 ride.getId(), "Current ride not found");
-                        drawRoute();
-                        play = true;
-                        timer.onClickStart();
+                        ride = RideService.getDriverAcceptedRide(AuthService.getCurrentUser().getId());
+                        if (ride != null) {
+                            ride = RideService.start(requireActivity().getApplicationContext(),
+                                    ride.getId(), "Current ride not found");
+                            drawRoute();
+                            setUpTimer();
+                        } else {
+                            Toast.makeText(getActivity(), "No accepted rides.", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         play = false;
                         removeRoute();
                         ride = RideService.end(requireActivity().getApplicationContext(),
                                                ride.getId(), "Current ride not found");
+                        ride = null;
                         timer.onClickReset();
                     }
                 }
             });
         } else {
-            @SuppressLint("SimpleDateFormat")
-            Date startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                    .parse(ride.getStartTime());
-            assert startTime != null;
-            long seconds = (new Date().getTime()-startTime.getTime())/1000;
-            timer.setSeconds((int)seconds);
-            timer.onClickStart();
+            setUpTimer();
         }
 
         CardView panic = getActivity().findViewById(R.id.secondCard);
@@ -482,6 +482,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         LayoutInflater inflater = this.getLayoutInflater();
         View newView = inflater.inflate(R.layout.fragment_ride_info, null);
         String number = getRide(newView);
+        if (Objects.equals(number, "")) return;
         ImageView call = newView.findViewById(R.id.call);
         call.setClickable(true);
         call.setOnClickListener(new View.OnClickListener() {
@@ -529,6 +530,10 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             number = ride.getDriver().getTelephoneNumber();
         } else {
             ride = RideService.getDriverActiveRide(user.getId());
+            if (ride == null) {
+                Toast.makeText(getActivity(), "No active rides.", Toast.LENGTH_SHORT).show();
+                return "";
+            }
 //            Optional<User> first = ride.getPassengers().stream().findFirst();
             Optional<User> last = Optional.of(ride.getPassengers().stream().reduce((one, two) -> two).get());
             Passenger passenger = PassengerService.getPassenger(last.get().getId());
@@ -562,19 +567,23 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     @SuppressLint("SimpleDateFormat")
     private void setData() {
         if (ride != null) {
-            @SuppressLint("SimpleDateFormat")
-            Date startTime = null;
-            try {
-                startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                        .parse(ride.getStartTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            assert startTime != null;
-            long seconds = (new Date().getTime()-startTime.getTime())/1000;
-            timer.setSeconds((int)seconds);
-            timer.setRunning(true);
-            play = true;
+            setUpTimer();
         }
+    }
+
+    private void setUpTimer() {
+        @SuppressLint("SimpleDateFormat")
+        Date startTime = null;
+        try {
+            startTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                    .parse(ride.getStartTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assert startTime != null;
+        long seconds = (new Date().getTime()-startTime.getTime())/1000;
+        timer.setSeconds((int)seconds);
+        timer.setRunning(true);
+        play = true;
     }
 }

@@ -109,7 +109,7 @@ public class ReportsFragment extends Fragment {
 
         pie.data(dataEntries);
         pie.title("Number of rides in the last 30 days");
-//        anyChart.clear();
+        anyChart.clear();
         anyChart.setChart(pie);
     }
 

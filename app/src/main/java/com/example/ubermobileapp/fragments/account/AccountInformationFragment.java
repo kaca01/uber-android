@@ -24,6 +24,7 @@ import com.example.ubermobileapp.services.utils.AuthService;
  * create an instance of this fragment.
  */
 public class AccountInformationFragment extends Fragment {
+    static TextView hi;
 
 
     public AccountInformationFragment() {
@@ -54,7 +55,7 @@ public class AccountInformationFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_account_information, container,
                 false);
         User passenger = AuthService.getCurrentUser();
-        TextView hi = view.findViewById(R.id.hi);
+        hi = view.findViewById(R.id.hi);
         hi.setText("Hello,\n" + passenger.getName());
         getProfilePicture(view);
         return view;
@@ -69,5 +70,9 @@ public class AccountInformationFragment extends Fragment {
         ImageView profilePicture = view.findViewById(R.id.profilePicture);
         profilePicture.setImageBitmap(bitMap);
 
+    }
+
+    public static void changeName(String name){
+        hi.setText("Hello,\n" + name);
     }
 }

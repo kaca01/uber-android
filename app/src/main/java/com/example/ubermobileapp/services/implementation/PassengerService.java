@@ -75,7 +75,7 @@ public class PassengerService {
         return passenger;
     }
 
-    public static Passenger updatePassenger(Passenger passenger, Long id){
+    public static Passenger updatePassenger(User passenger, Long id){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

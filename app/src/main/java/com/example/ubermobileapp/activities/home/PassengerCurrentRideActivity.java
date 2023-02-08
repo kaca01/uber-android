@@ -104,17 +104,18 @@ public class PassengerCurrentRideActivity extends AppCompatActivity {
                 if(thisRide != null) {
                     if (thisRide.getStatus().equals(RideStatus.FINISHED.toString())) {
                         stop = true;
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment(String.valueOf(ride.getId()), true);
-                        try {
-                            leavingReviewFragment.show(fragmentManager, "leaving_review");
-                        }catch (IllegalStateException ignored) {
-                            // There's no way to avoid getting this if saveInstanceState has already been called.
-                        }
                     }
                 }
                 if (!stop) {
                     handler.postDelayed(this, 3000);
+                } else{
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    LeavingReviewFragment leavingReviewFragment = new LeavingReviewFragment(String.valueOf(thisRide.getId()), true);
+                    try {
+                        leavingReviewFragment.show(fragmentManager, "leaving_review");
+                    }catch (IllegalStateException ignored) {
+                        // There's no way to avoid getting this if saveInstanceState has already been called.
+                    }
                 }
             }
         }, 3000);

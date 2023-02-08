@@ -316,12 +316,12 @@ public class PassengerMainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        if (fragment1.isAdded())
-        getSupportFragmentManager().putFragment(outState, "fragment1", fragment1);
-        if (fragment2.isAdded())
-        getSupportFragmentManager().putFragment(outState, "fragment2", fragment2);
-        if (fragment3.isAdded())
-        getSupportFragmentManager().putFragment(outState, "fragment3", fragment3);
+            if (fragment1.isAdded())
+            getSupportFragmentManager().putFragment(outState, "fragment1", fragment1);
+            if (fragment2.isAdded())
+            getSupportFragmentManager().putFragment(outState, "fragment2", fragment2);
+            if (fragment3.isAdded())
+            getSupportFragmentManager().putFragment(outState, "fragment3", fragment3);
 
         outState.putInt("currentFragment", currentFragment);
     }

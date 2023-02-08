@@ -25,6 +25,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ubermobileapp.activities.inbox.ChatActivity;
+import com.example.ubermobileapp.models.pojo.communication.Rejection;
+import com.example.ubermobileapp.models.pojo.ride.Panic;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.Passenger;
 import com.example.ubermobileapp.models.pojo.user.User;
@@ -85,6 +88,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     private boolean play = false;
     private AlertDialog alertDialog;
     private Ride ride;
+    private String reason;
 
     @SuppressLint("SimpleDateFormat")
     @Override
@@ -103,7 +107,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         } else {
             ride = RideService.getDriverActiveRide(user.getId());
 
-            if (ride != null) {
+            if (ride != null){
                 setData();
             }
             else {
@@ -255,22 +259,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
             e.printStackTrace();
         }
 
-        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                map.addMarker(new MarkerOptions()
-                        .title("Chosen location")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                        .position(latLng));
-                home.setFlat(true);
-
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(latLng).zoom(14).build();
-
-                map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            }
-        });
-
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -281,24 +269,6 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-            }
-        });
-
-        map.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
-            @Override
-            public void onMarkerDragStart(Marker marker) {
-                Toast.makeText(getActivity(), "Drag started", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onMarkerDrag(Marker marker) {
-                Toast.makeText(getActivity(), "Dragging", Toast.LENGTH_SHORT).show();
-                map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
-            }
-
-            @Override
-            public void onMarkerDragEnd(Marker marker) {
-                Toast.makeText(getActivity(), "Drag ended", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -444,25 +414,25 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                     } else {
                         play = false;
                         removeRoute();
-                        ride = RideService.end(requireActivity().getApplicationContext(),
-                                               ride.getId(), "Current ride not found");
+                        ride = RideService.end(ride.getId());
                         ride = null;
                         timer.onClickReset();
                     }
                 }
             });
-        } else {
-            setUpTimer();
         }
 
         CardView panic = getActivity().findViewById(R.id.secondCard);
         panic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO : implement sending notification
-//                play = false;
-//                removeRoute();
-//                timer.onClickReset();
+                play = false;
+                removeRoute();
+                com.example.ubermobileapp.models.pojo.communication.Message message =
+                        new com.example.ubermobileapp.models.pojo.communication.Message();
+                message.setMessage(reason);
+                createPanicDialog();
+                timer.onClickReset();
             }
         });
 
@@ -585,5 +555,29 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         timer.setSeconds((int)seconds);
         timer.setRunning(true);
         play = true;
+    }
+
+    void createPanicDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View newView = inflater.inflate(R.layout.fragment_inbox_search, null);
+        builder.setTitle("Tell us what happened")
+                .setView(newView)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditText s = newView.findViewById(R.id.search);
+                        reason = s.getText().toString();
+                        Panic panic = new Panic(reason);
+                        ride = RideService.panic(ride.getId(), panic);
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.create();
+        builder.show();
     }
 }

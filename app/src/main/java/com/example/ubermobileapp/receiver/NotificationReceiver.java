@@ -49,7 +49,7 @@ public class NotificationReceiver extends BroadcastReceiver {
             if(resultCode == 1) {
                 builder.setSmallIcon(R.drawable.ic_launcher_foreground)
                         .setContentTitle("Notification")
-                        .setContentText("Your ride is accepted!")
+                        .setContentText("Your ride is accepted!\nThe vehicle will arrive in 2 minutes!")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
             }

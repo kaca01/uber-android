@@ -208,12 +208,13 @@ public class CreateRide3Fragment extends Fragment {
         // notifications
         NotificationReceiver notificationReceiver = new NotificationReceiver();
         Intent serviceIntent = new Intent((PassengerMainActivity)getActivity(), AcceptedRideService.class);
+        if(ride!=null){
         serviceIntent.putExtra("rideId", Long.toString(ride.getId()));
         getActivity().startService(serviceIntent);
 
         // send filter to receiver
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACCEPTED_DATA);
-        getActivity().registerReceiver(notificationReceiver, filter);
+        getActivity().registerReceiver(notificationReceiver, filter);}
     }
 }

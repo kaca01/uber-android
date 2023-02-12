@@ -4,8 +4,10 @@ import android.os.StrictMode;
 import android.content.Context;
 
 import com.example.ubermobileapp.models.pojo.GenericList;
+import com.example.ubermobileapp.models.pojo.communication.Message;
 import com.example.ubermobileapp.models.pojo.communication.Rejection;
 import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
+import com.example.ubermobileapp.models.pojo.ride.Panic;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 
@@ -83,7 +85,7 @@ public class RideService {
         return ride;
     }
 
-    public static Ride end(Context context, Long id, String toastText){
+    public static Ride end(Long id){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -276,5 +278,22 @@ public class RideService {
         thread.start();
         thread.join();
         return ride[0];
+    }
+
+    public static Ride panic(Long id, Panic message) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        System.out.println("USAOOOOOOOOOOOOO");
+        Ride ride = new Ride();
+        Call<Ride> rideResponseCall = ApiUtils.getRideService().panic(id, message);
+        try{
+            Response<Ride> response = rideResponseCall.execute();
+            ride = response.body();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        System.out.println("RIDEEEEEEEEEEEEE");
+        System.out.println(ride);
+        return ride;
     }
 }

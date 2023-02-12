@@ -24,6 +24,7 @@ import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.example.ubermobileapp.services.utils.AuthService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class AllRidesFragment extends ListFragment {
@@ -72,6 +73,7 @@ public class AllRidesFragment extends ListFragment {
     private void setDataForDriver(User currentUser, int position) {
         rides = DriverService.getRides(currentUser.getId());
         rides.removeIf(ride -> !ride.getStatus().equals("FINISHED"));
+        rides.sort(Comparator.comparing(Ride::getEndTime).reversed());
 
         Ride ride = rides.get(position);
 
@@ -100,6 +102,7 @@ public class AllRidesFragment extends ListFragment {
     private void setDataForPassenger(User currentUser, int position) {
         rides = PassengerService.getRides(currentUser.getId());
         rides.removeIf(ride -> !ride.getStatus().equals("FINISHED"));
+        rides.sort(Comparator.comparing(Ride::getEndTime).reversed());
 
         Ride ride = rides.get(position);
 

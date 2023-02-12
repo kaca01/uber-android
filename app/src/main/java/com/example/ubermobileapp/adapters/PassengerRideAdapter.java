@@ -110,7 +110,7 @@ public class PassengerRideAdapter extends BaseAdapter {
         User currentUser = getCurrentUser();
         List<Ride> rides = PassengerService.getRides(currentUser.getId());
         rides.removeIf(ride -> !ride.getStatus().equals("FINISHED"));
-        //rides.sort(Comparator.comparing(Ride::getEndTime).reversed());
+        rides.sort(Comparator.comparing(Ride::getEndTime).reversed());
         return rides;
     }
 

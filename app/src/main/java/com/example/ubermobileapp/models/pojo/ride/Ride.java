@@ -1,7 +1,6 @@
 package com.example.ubermobileapp.models.pojo.ride;
 
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
-import com.example.ubermobileapp.models.RideOrder;
 import com.example.ubermobileapp.models.enumeration.VehicleType;
 import com.example.ubermobileapp.models.pojo.communication.Rejection;
 import com.example.ubermobileapp.models.pojo.user.User;

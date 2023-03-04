@@ -25,7 +25,7 @@ import com.example.ubermobileapp.fragments.home.CreateRide1Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide2Fragment;
 import com.example.ubermobileapp.fragments.home.CreateRide3Fragment;
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
-import com.example.ubermobileapp.models.RideOrder;
+import com.example.ubermobileapp.models.pojo.ride.RideOrder;
 import com.example.ubermobileapp.models.enumeration.RideStatus;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.User;

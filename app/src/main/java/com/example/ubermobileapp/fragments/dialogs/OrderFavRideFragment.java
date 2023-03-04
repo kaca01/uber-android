@@ -19,7 +19,7 @@ import android.widget.Toast;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.models.RideOrder;
+import com.example.ubermobileapp.models.pojo.ride.RideOrder;
 import com.example.ubermobileapp.models.pojo.ride.FavoriteOrder;
 import com.example.ubermobileapp.models.pojo.ride.Ride;
 import com.example.ubermobileapp.models.pojo.user.User;

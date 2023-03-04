@@ -283,7 +283,6 @@ public class RideService {
     public static Ride panic(Long id, Panic message) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        System.out.println("USAOOOOOOOOOOOOO");
         Ride ride = new Ride();
         Call<Ride> rideResponseCall = ApiUtils.getRideService().panic(id, message);
         try{
@@ -292,7 +291,6 @@ public class RideService {
         }catch(Exception ex){
             ex.printStackTrace();
         }
-        System.out.println("RIDEEEEEEEEEEEEE");
         System.out.println(ride);
         return ride;
     }

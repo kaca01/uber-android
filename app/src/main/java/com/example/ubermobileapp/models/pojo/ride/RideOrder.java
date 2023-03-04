@@ -1,4 +1,4 @@
-package com.example.ubermobileapp.models;
+package com.example.ubermobileapp.models.pojo.ride;
 
 import java.util.ArrayList;
 

@@ -20,25 +20,22 @@ import com.example.ubermobileapp.services.implementation.RideService;
 import com.example.ubermobileapp.services.utils.ApiUtils;
 import com.example.ubermobileapp.services.utils.AuthService;
 
-import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class DriveAdapter extends BaseAdapter {
+public class InboxAdapter extends BaseAdapter {
 
     private Activity activity;
     private HashMap<Long, List<Message>> messagesMap = new HashMap<>();
 //    public String filter = "";
     public String search = "";
 
-    public DriveAdapter(Activity activity, String filter, String search) {
+    public InboxAdapter(Activity activity, String filter, String search) {
         this.activity = activity;
         getMessagesByRides(filter, search);
     }

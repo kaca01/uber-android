@@ -115,6 +115,22 @@ public class PassengerMainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast toast = Toast.makeText(view.getContext(), "Ride canceled!", Toast.LENGTH_LONG);
                 toast.show();
+                if (order.getRideId() == null){
+                    Ride ride = null;
+                    try {
+                        ride = RideService.getAcceptedRide(AuthService.getCurrentUser().getId());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (ride == null) {
+                        try {
+                            ride = RideService.getPassengerPendingRide(AuthService.getCurrentUser().getId());
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    order.setRideId(ride.getId());
+                }
                 RideService.cancelRideByPassenger(order.getRideId());
                 refreshActivity();
             }

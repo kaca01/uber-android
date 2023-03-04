@@ -1,18 +1,13 @@
 package com.example.ubermobileapp.models.pojo.ride;
 
-import com.example.ubermobileapp.enumerations.VehicleTypeName;
 import com.example.ubermobileapp.fragments.home.map.MapMainFragment;
-import com.example.ubermobileapp.models.RideOrder;
 import com.example.ubermobileapp.models.enumeration.VehicleType;
 import com.example.ubermobileapp.models.pojo.user.User;
-import com.example.ubermobileapp.services.implementation.PassengerService;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.net.UnknownServiceException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class FavoriteOrder {
     @SerializedName("id")

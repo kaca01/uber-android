@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.example.ubermobileapp.activities.inbox.ChatActivity;
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.adapters.DriveAdapter;
+import com.example.ubermobileapp.adapters.InboxAdapter;
 import com.example.ubermobileapp.models.enumeration.MessageType;
 import com.example.ubermobileapp.models.pojo.communication.Message;
 import com.example.ubermobileapp.models.pojo.communication.MessageList;
@@ -38,7 +38,7 @@ import retrofit2.Response;
 public class InboxFragment extends ListFragment {
 
     List<Message> supportMessage = new ArrayList<>();
-    DriveAdapter adapter;
+    InboxAdapter adapter;
     private String filterBy = "";
     private String search = "";
 
@@ -172,7 +172,7 @@ public class InboxFragment extends ListFragment {
             public void run() {
                 // TODO : search
                 // TODO : bind search to input in fragment
-                adapter = new DriveAdapter(getActivity(), filterBy, search);
+                adapter = new InboxAdapter(getActivity(), filterBy, search);
 //                adapter.filter = filterBy;
                 setListAdapter(adapter);
 

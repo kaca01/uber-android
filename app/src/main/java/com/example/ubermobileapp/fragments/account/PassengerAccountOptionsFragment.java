@@ -1,28 +1,17 @@
 package com.example.ubermobileapp.fragments.account;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.ubermobileapp.activities.account.DriverAccountActivity;
 import com.example.ubermobileapp.activities.favorite_ride.PassengerFavoriteRoutesActivity;
 import com.example.ubermobileapp.R;
-import com.example.ubermobileapp.activities.startup.UserLoginActivity;
-import com.example.ubermobileapp.androidService.AcceptingRideService;
-import com.example.ubermobileapp.models.passenger.CreditCard;
-import com.example.ubermobileapp.services.utils.AuthService;
-import com.example.ubermobileapp.tools.Mockup;
-import com.example.ubermobileapp.tools.Timer;
 
 public class PassengerAccountOptionsFragment extends Fragment {
 
